@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<form>
+    <fieldset name="fsMyFieldset" cssClass="test mytype etc" errorBuilder="default">
+        <components>
+            <field name="fldMyField">
+                <components>
+                    <input type="text" ignoreWhenEmpty="true">
+                        <options callback="">
+                            <optgroup>
+                                <option value="test"/>
+                            </optgroup>
+                        </options>
+                    </input>
+                </components>
+            </field>
+        </components>
+    </fieldset>
+</form>

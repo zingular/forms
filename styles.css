@@ -1,0 +1,63 @@
+form .container
+{
+    border:1px solid black;
+}
+
+input,
+label,
+textarea,
+select
+{
+    float:left;
+    margin-left:8px;
+    margin-bottom:8px;
+}
+label
+{
+    clear:left;
+    width:200px;
+    font-weight: bold;
+}
+
+label.error
+{
+    background-color: red;
+    color:white;
+    border:1px solid #900000;
+}
+
+input.error,
+label.error,
+textarea.error,
+select.error
+{
+    border:1px solid #900000;
+}
+
+
+fieldset
+{
+    clear:left;
+    background-color:#f0f0f0;
+}
+p
+{
+    background-color:#ddffdd;
+    padding:4px;
+}
+
+.type_field
+{
+    float:left;
+    clear:left;
+    background-color:#cccccc;
+    padding:4px;
+    margin-bottom:8px;
+    border: 1px solid #a0a0a0;
+
+}
+
+.errorContainer
+{
+    border:1px solid #900000;
+}
