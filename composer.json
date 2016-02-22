@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Zingular\\Form\\": "src"
+      "Zingular\\Forms\\": "src/Zingular/Forms"
     }
   }
 }

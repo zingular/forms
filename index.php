@@ -1,5 +1,5 @@
 <?php
-use Zingular\Form\TestScenario;
+use Zingular\Forms\TestScenario;
 
 
 /**
