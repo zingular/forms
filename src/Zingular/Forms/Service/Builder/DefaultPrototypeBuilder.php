@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\View;
 
 /**
  * Class DefaultPrototypeBuilder
@@ -22,12 +23,12 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
     public function buildPrototypes(Prototypes $prototypes)
     {
         // manipulate container base prototypes
-        $prototypes->getContainerPrototype()->setCssBaseTypeClass('type_container');
-        $prototypes->getFieldsetPrototype()->setCssBaseTypeClass('type_fieldset');
-        $prototypes->getFieldPrototype()->setCssBaseTypeClass('type_field');
-        $prototypes->getAggregatorPrototype()->setCssBaseTypeClass('type_aggregator');
+        $prototypes->getContainerPrototype()->setCssBaseTypeClass('type_container')->setViewName(View::CONTAINER);
+        $prototypes->getFieldsetPrototype()->setCssBaseTypeClass('type_fieldset')->setViewName(View::FIELDSET);
+        $prototypes->getFieldPrototype()->setCssBaseTypeClass('type_field')->setViewName(View::FIELD);
+        $prototypes->getAggregatorPrototype()->setCssBaseTypeClass('type_aggregator')->setViewName(View::TRANSPARENT);
 
-        // manipulate control base prototypes
+        // manipulate control base prototypess
         $prototypes->getInputPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getSelectPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getTextareaPrototype()->setCssBaseTypeClass('ctrl');
@@ -38,12 +39,13 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->getHtmlPrototype()->setCssBaseTypeClass('html');
         $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('tag');
 
+        /*
         $prototypes->defineSelect('selecter');
 
         $prototypes->defineFieldset('test1234')
             ->addInput('testInput')->nextSibling()
             ->useSelect('selecter','aapje');
-
+        */
 
 
 
@@ -58,12 +60,14 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         exit;
         */
         // add custom extended named prototypes
+        /*
         $prototypes
             ->defineFieldset('myContainer')
                 ->addField('myField')
                     ->addSelect('mySelect')->back()
                 ->addField('myField2')
                     ->addInput('test');
+        */
         //echo $prototypes->getComponent('myContainer')->getId();
 
 

@@ -30,26 +30,6 @@ interface ComponentInterface
     /**
      * @return string
      */
-    public function getBaseType();
-
-    /**
-     * @return string
-     */
-    public function getType();
-
-    /**
-     * @param string $type
-     */
-    public function setType($type);
-
-    /**
-     * @return string
-     */
-    public function getFullType();
-
-    /**
-     * @return string
-     */
     public function getId();
 
     /**

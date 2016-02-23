@@ -17,10 +17,5 @@ class Hidden extends Input
     /**
      * @var string
      */
-    protected $baseType = BaseTypes::HIDDEN;
-
-    /**
-     * @var string
-     */
     protected $inputType = InputType::HIDDEN;
 }

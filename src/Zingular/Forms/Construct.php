@@ -62,32 +62,35 @@ class Construct
         // add filters
         foreach($extension->getFilters() as $filter)
         {
-            $this->addFilter($filter);
+            $this->addFilterType($filter);
         }
 
         // add validators
         foreach($extension->getValidators() as $validator)
         {
-            $this->addValidator($validator);
+            $this->addValidatorType($validator);
         }
 
         // add builders
         foreach($extension->getBuilders() as $builder)
         {
-            $this->addBuilder($builder);
+            $this->addBuilderType($builder);
         }
 
         // add aggregators
         foreach($extension->getAggregators() as $aggregator)
         {
-            $this->addAggregator($aggregator);
+            $this->addAggregatorStrategy($aggregator);
         }
 
         // add conditions
         foreach($extension->getConditions() as $condition)
         {
-            $this->addCondition($condition);
+            $this->addConditionType($condition);
         }
+
+        // allow extension to add prototypes
+        $extension->buildPrototypes($this->getPrototypes());
     }
 
     /**********************************************************************
@@ -123,6 +126,10 @@ class Construct
         {
             $this->prototypes = new Prototypes($this->getServices()->getComponentFactory());
 
+            $defaultBuilder = new DefaultPrototypeBuilder();
+            $defaultBuilder->buildPrototypes($this->prototypes);
+
+            // todo: allow multiple prototype builders?
             $this->getPrototypeBuilder()->buildPrototypes($this->prototypes);
         }
 

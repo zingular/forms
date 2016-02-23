@@ -63,9 +63,6 @@ class Prototypes extends AbstractContainer implements PrototypeDefinerInterface
         // add a type css class
         $component->setCssTypeClass($name);
 
-        // add a type
-        $component->setType($name);
-
         // also set the css type class
         return $component;
     }

@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms\Component;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
-
 use Zingular\Forms\Service\Evaluation\EvaluatorConfigCollection;
 use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
@@ -20,11 +19,6 @@ use Zingular\Forms\Service\Evaluation\ValidatorConfig;
  */
 trait DataUnitTrait
 {
-    /**
-     * @var Context
-     */
-    protected $context;
-
     /**
      * @var mixed
      */
@@ -54,16 +48,6 @@ trait DataUnitTrait
      * @var bool
      */
     protected $persistent = false;
-
-    /**
-     * @var FormContext
-     */
-    protected $formContext;
-
-    /**
-     * @var array
-     */
-    protected $errors = array();
 
     /**
      * @var EvaluationHandler

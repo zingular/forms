@@ -16,13 +16,6 @@ use Zingular\Forms\OptionMode;
 
 class Select extends AbstractControl implements ComponentInterface
 {
-    use RequiredTrait;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::SELECT;
-
     /**
      * @var OptionsProvider
      */

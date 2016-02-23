@@ -58,21 +58,6 @@ class Container extends AbstractContainer implements DataInterface
     protected $errorBuilder = ErrorBuilder::STANDARD;
 
     /**
-     * @var string
-     */
-    protected $viewName = \Zingular\Forms\View::CONTAINER;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::CONTAINER;
-
-    /**
-     * @var FormContext
-     */
-    protected $formContext;
-
-    /**
      * @var array
      */
     protected $values = array();

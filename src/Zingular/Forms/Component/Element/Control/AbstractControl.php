@@ -21,7 +21,6 @@ use Zingular\Forms\Component\RequiredTrait;
  */
 abstract class AbstractControl extends AbstractElement implements DataUnitInterface
 {
-    use ComponentTrait;
     use RequiredTrait;
     use DataUnitTrait;
 

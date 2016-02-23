@@ -21,11 +21,6 @@ class Label extends Content
     /**
      * @var string
      */
-    protected $baseType = BaseTypes::LABEL;
-
-    /**
-     * @var string
-     */
     protected $for;
 
     /**

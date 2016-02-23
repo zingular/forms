@@ -35,16 +35,6 @@ class Aggregator extends Container implements DataUnitInterface
     protected $aggregationStrategyType = Aggregation::NONE;
 
     /**
-     * @var string
-     */
-    protected $viewName = View::TRANSPARENT;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::AGGREGATOR;
-
-    /**
      * @param FormContext $formContext
      * @param array $defaultValues
      * @return string

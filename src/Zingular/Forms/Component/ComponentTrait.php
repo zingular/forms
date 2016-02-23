@@ -8,6 +8,8 @@
 
 namespace Zingular\Forms\Component;
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Service\Services;
 
 /**
  * Class ComponentTrait
@@ -28,22 +30,12 @@ trait ComponentTrait
     /**
      * @var string
      */
-    protected $baseType;
+    protected $cssBaseTypeClass = '';
 
     /**
      * @var string
      */
-    protected $type;
-
-    /**
-     * @var string
-     */
-    protected $cssBaseTypeClass;
-
-    /**
-     * @var string
-     */
-    protected $cssTypeClass;
+    protected $cssTypeClass = '';
 
     /**
      * @var string
@@ -59,49 +51,6 @@ trait ComponentTrait
      * @var string
      */
     protected $translationKey;
-
-    /**
-     * @return string
-     */
-    public function getBaseType()
-    {
-        return $this->baseType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullType()
-    {
-        $parts = array($this->getBaseType());
-
-        if(!is_null($this->getType()))
-        {
-            $parts[] = $this->getType();
-        }
-
-        $parts[] = $this->getId();
-
-        return implode('.',$parts);
-    }
 
     /**********************************************************************
      * IDENTIFICATION
@@ -189,7 +138,7 @@ trait ComponentTrait
      */
     public function getTranslationKey()
     {
-        return $this->getFullType();
+        return '';
     }
 
     /**
@@ -283,5 +232,28 @@ trait ComponentTrait
             $classes[] = $this->cssTypeClass;
         }
         return implode(' ',array_merge($classes,array_keys($this->cssClasses)));
+    }
+
+    /**
+     * @return Services
+     */
+    protected function getServices()
+    {
+        return $this->formContext->getServices();
+    }
+
+    /**
+     * @throws FormException
+     */
+    public function __clone()
+    {
+        // cannot clone a container when it is already used in a form runtime
+        if(!is_null($this->formContext))
+        {
+            throw new FormException(sprintf("Cannot clone component during form processing: '%s'",$this->getId()));
+        }
+
+        // unset the current context
+        $this->context = null;
     }
 }

@@ -18,11 +18,6 @@ class View extends Content
     /**
      * @var string
      */
-    protected $baseType = BaseTypes::VIEW;
-
-    /**
-     * @var string
-     */
     protected $view = '';
 
     /**

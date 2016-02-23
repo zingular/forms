@@ -18,11 +18,6 @@ class Html extends Content
     /**
      * @var string
      */
-    protected $baseType = BaseTypes::HTML;
-
-    /**
-     * @var string
-     */
     protected $html = '';
 
     /**

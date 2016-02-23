@@ -8,9 +8,7 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\InputType;
 
 /**
@@ -19,13 +17,6 @@ use Zingular\Forms\InputType;
  */
 class Input extends AbstractControl implements ComponentInterface
 {
-    use RequiredTrait;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::INPUT;
-
     /**
      * @var string
      */

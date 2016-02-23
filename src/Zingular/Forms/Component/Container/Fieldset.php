@@ -21,15 +21,5 @@ class Fieldset extends Container
     /**
      * @var string
      */
-    protected $viewName = View::FIELDSET;
-
-    /**
-     * @var string
-     */
     protected $preBuilder = Builder::FIELDSET;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::FIELDSET;
 }

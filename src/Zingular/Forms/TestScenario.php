@@ -9,6 +9,7 @@
 namespace Zingular\Forms;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Extension\DefaultExtension;
+use Zingular\Forms\Extension\TestExtension;
 use Zingular\Forms\Service\Bridge\Orm\DefaultOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
@@ -47,6 +48,7 @@ class TestScenario
 
         // add extensions
         $construct->addExtension(new DefaultExtension());
+        $construct->addExtension(new TestExtension());
 
         // prepare translator
         $translator = new ArrayTranslator();
@@ -179,7 +181,6 @@ class TestScenario
         //print_rf($form->describe());
         echo $form->render();
 
-        echo $form->getFullType();
         //echo $form->getFieldset('fsPersonalia')->getFieldset('fsBirthday')->getField('fldBirthday')->getAggregator('dateSelect')->getSelect('d')->getFullName();
         //print_rf($form->describe(true));
 

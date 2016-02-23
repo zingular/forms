@@ -16,11 +16,6 @@ use Zingular\Forms\BaseTypes;
 class HtmlTag extends Content
 {
     /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::HTMLTAG;
-
-    /**
      * @var array
      */
     protected $attribues = array();

@@ -21,15 +21,5 @@ class Field extends Container
     /**
      * @var string
      */
-    protected $viewName = View::FIELD;
-
-    /**
-     * @var string
-     */
     protected $postBuilder = Builder::FIELD;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::FIELD;
 }

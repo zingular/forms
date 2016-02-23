@@ -18,10 +18,5 @@ use Zingular\Forms\Component\RequiredTrait;
  */
 class Textarea extends AbstractControl implements ComponentInterface
 {
-    use RequiredTrait;
 
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::TEXTAREA;
 }

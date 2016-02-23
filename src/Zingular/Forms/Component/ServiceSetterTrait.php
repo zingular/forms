@@ -10,6 +10,7 @@ namespace Zingular\Forms\Component;
 
 use Zingular\Forms\Service\Aggregation\PoolableAggregatorInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
+use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
 use Zingular\Forms\Service\Condition\ConditionInterface;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
@@ -41,7 +42,7 @@ trait ServiceSetterTrait
     /**
      * @param ValidatorInterface $validator
      */
-    public function addValidator(ValidatorInterface $validator)
+    public function addValidatorType(ValidatorInterface $validator)
     {
         $this->getServices()->addValidator($validator);
     }
@@ -49,7 +50,7 @@ trait ServiceSetterTrait
     /**
      * @param FilterInterface $filter
      */
-    public function addFilter(FilterInterface $filter)
+    public function addFilterType(FilterInterface $filter)
     {
         $this->getServices()->addFilter($filter);
     }
@@ -57,7 +58,7 @@ trait ServiceSetterTrait
     /**
      * @param RegisterableBuilderInterface $builder
      */
-    public function addBuilder(RegisterableBuilderInterface $builder)
+    public function addBuilderType(RegisterableBuilderInterface $builder)
     {
         $this->getServices()->addBuilder($builder);
     }
@@ -65,7 +66,7 @@ trait ServiceSetterTrait
     /**
      * @param PoolableAggregatorInterface $aggregator
      */
-    public function addAggregator(PoolableAggregatorInterface $aggregator)
+    public function addAggregatorStrategy(PoolableAggregatorInterface $aggregator)
     {
         $this->getServices()->addAggregator($aggregator);
     }
@@ -73,7 +74,7 @@ trait ServiceSetterTrait
     /**
      * @param ConditionInterface $condition
      */
-    public function addCondition(ConditionInterface $condition)
+    public function addConditionType(ConditionInterface $condition)
     {
         $this->getServices()->addCondition($condition);
     }
@@ -108,5 +109,13 @@ trait ServiceSetterTrait
     public function setOrmHandler(OrmHandlerInterface $handler)
     {
         $this->getServices()->setOrmHandler($handler);
+    }
+
+    /**
+     * @param ViewHandlerInterface $handler
+     */
+    public function setViewHandler(ViewHandlerInterface $handler)
+    {
+        $this->getServices()->setViewHandler($handler);
     }
 }

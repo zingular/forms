@@ -215,6 +215,14 @@ class Services
         $this->ormHandler = $handler;
     }
 
+    /**
+     * @param ViewHandlerInterface $handler
+     */
+    public function setViewHandler(ViewHandlerInterface $handler)
+    {
+        $this->viewHandler = $handler;
+    }
+
     /**********************************************************************
      * FACTORY SETTERS
      *********************************************************************/

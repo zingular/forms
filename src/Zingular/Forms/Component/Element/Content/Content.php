@@ -19,11 +19,6 @@ use Zingular\Forms\Component\FormContext;
 class Content extends AbstractElement implements ComponentInterface
 {
     /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::CONTENT;
-
-    /**
      *
      */
     public function describe()

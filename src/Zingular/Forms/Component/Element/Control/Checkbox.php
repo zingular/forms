@@ -17,11 +17,6 @@ class Checkbox extends Input
     /**
      * @var string
      */
-    protected $baseType = BaseTypes::CHECKBOX;
-
-    /**
-     * @var string
-     */
     protected $inputType = InputType::CHECKBOX;
 
     /**

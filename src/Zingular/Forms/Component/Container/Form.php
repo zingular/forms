@@ -61,21 +61,6 @@ class Form extends Container implements PrototypeDefinerInterface
     protected $compiled = false;
 
     /**
-     * @var string
-     */
-    protected $cssBaseTypeClass = 'form';
-
-    /**
-     * @var string
-     */
-    protected $viewName = ViewConstants::FORM;
-
-    /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::FORM;
-
-    /**
      * @var bool
      */
     protected $persistent = false;

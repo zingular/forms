@@ -18,11 +18,6 @@ use Zingular\Forms\Component\ComponentInterface;
 class Button extends AbstractControl implements ComponentInterface
 {
     /**
-     * @var string
-     */
-    protected $baseType = BaseTypes::BUTTON;
-
-    /**
      * @var array
      */
     protected $callbacks = array();
