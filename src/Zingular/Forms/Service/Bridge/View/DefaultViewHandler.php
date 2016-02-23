@@ -28,20 +28,20 @@ use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
  */
 class DefaultViewHandler extends AbstractViewHandler
 {
-    const FORMAT_FORM = '<form id="%s" class="%s" method="%s" action="%s">%s</form>';
-    const FORMAT_CONTAINER = '<div id="%s" class="%s">%s</div>';
-    const FORMAT_FIELDSET = '<fieldset id="%s" class="%s">%s</fieldset>';
-    const FORMAT_FIELD = '<div id="%s" class="%s">%s</div>';
-    const FORMAT_INPUT = '<input type="%s" id="%s" class="%s" name="%s" value="%s">';
-    const FORMAT_CHECKBOX = '<input type="%s" id="%s" class="%s" name="%s" %s>';
-    const FORMAT_SELECT = '<select id="%s" class="%s" name="%s">%s</select>';
-    const FORMAT_OPTION = '<option value="%s">%s</option>';
-    const FORMAT_OPTGROUP = '<optgroup label="%s">%s</optgroup>';
-    const FORMAT_TEXTAREA = '<textarea id="%s" class="%s" name="%s">%s</textarea>';
-    const FORMAT_BUTTON = '<button id="%s" class="%s" name="%s" value="%s">%s</button>';
-    const FORMAT_LABEL = '<label id="%s" class="%s" for="%s">%s</label>';
-    const FORMAT_HTML = '<div id="%s" class="%s">%s</div>';
-    const FORMAT_TAG = '<%s id="%s" class="%s">%s</%s>';
+    const FORMAT_FORM = '<form id="%s" class="%s" method="%s" action="%s" %s>%s</form>';
+    const FORMAT_CONTAINER = '<div id="%s" class="%s" %s>%s</div>';
+    const FORMAT_FIELDSET = '<fieldset id="%s" class="%s" %s>%s</fieldset>';
+    const FORMAT_FIELD = '<div id="%s" class="%s" %s>%s</div>';
+    const FORMAT_INPUT = '<input type="%s" id="%s" class="%s" name="%s" value="%s" %s/>';
+    const FORMAT_CHECKBOX = '<input type="%s" id="%s" class="%s" name="%s" %s %s/>';
+    const FORMAT_SELECT = '<select id="%s" class="%s" name="%s" %s>%s</select>';
+    const FORMAT_OPTION = '<option value="%s" %s>%s</option>';
+    const FORMAT_OPTGROUP = '<optgroup label="%s" %s>%s</optgroup>';
+    const FORMAT_TEXTAREA = '<textarea id="%s" class="%s" name="%s" %s>%s</textarea>';
+    const FORMAT_BUTTON = '<button id="%s" class="%s" name="%s" value="%s" %s>%s</button>';
+    const FORMAT_LABEL = '<label id="%s" class="%s" for="%s" %s>%s</label>';
+    const FORMAT_HTML = '<div id="%s" class="%s" %s>%s</div>';
+    const FORMAT_TAG = '<%s id="%s" class="%s" %s>%s</%s>';
 
     /******************************************************************
      * RENDER CONTAINERS
@@ -59,6 +59,7 @@ class DefaultViewHandler extends AbstractViewHandler
             self::FORMAT_CONTAINER,
             $container->getFullId(),
             $container->getCssClass(),
+            $container->getHtmlAttributesAsString(),
             $this->renderComponents($container->getComponents(),$translator));
     }
 
@@ -74,6 +75,7 @@ class DefaultViewHandler extends AbstractViewHandler
             self::FORMAT_FIELDSET,
             $container->getFullId(),
             $container->getCssClass(),
+            $container->getHtmlAttributesAsString(),
             $this->renderComponents($container->getComponents(),$translator));
     }
 
@@ -89,6 +91,7 @@ class DefaultViewHandler extends AbstractViewHandler
             self::FORMAT_FIELD,
             $container->getFullId(),
             $container->getCssClass(),
+            $container->getHtmlAttributesAsString(),
             $this->renderComponents($container->getComponents(),$translator));
     }
 
@@ -116,6 +119,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $container->getCssClass(),
             $container->getMethod(),
             $container->getAction(),
+            $container->getHtmlAttributesAsString(),
             $this->renderComponents($container->getComponents(),$translator)
         );
     }
@@ -138,7 +142,8 @@ class DefaultViewHandler extends AbstractViewHandler
             $input->getFullId(),
             $input->getCssClass(),
             $input->getFullName(),
-            $input->getValue()
+            $input->getValue(),
+            $input->getHtmlAttributesAsString()
         );
     }
 
@@ -156,7 +161,8 @@ class DefaultViewHandler extends AbstractViewHandler
             $input->getFullId(),
             $input->getCssClass(),
             $input->getFullName(),
-            $input->isChecked() ? 'checked="checked"' : ''
+            $input->isChecked() ? 'checked="checked"' : '',
+            $input->getHtmlAttributesAsString()
         );
     }
 
@@ -173,6 +179,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $select->getFullId(),
             $select->getCssClass(),
             $select->getFullName(),
+            $select->getHtmlAttributesAsString(),
             $this->renderSelectOptions($select->getOptions())
         );
     }
@@ -230,6 +237,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $button->getCssClass(),
             $button->getFullName(),
             $button->getValue(),
+            $button->getHtmlAttributesAsString(),
             $button->getId()
         );
     }
@@ -247,6 +255,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $textarea->getFullId(),
             $textarea->getCssClass(),
             $textarea->getFullName(),
+            $textarea->getHtmlAttributesAsString(),
             $textarea->getValue()
         );
     }
@@ -268,6 +277,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $label->getFullId(),
             $label->getCssClass(),
             $label->getFor(),
+            $label->getHtmlAttributesAsString(),
             $label->getText()
         );
     }
@@ -285,6 +295,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $html->getFullId(),
             $html->getCssClass(),
             'targetId',
+            $html->getHtmlAttributesAsString(),
             $html->getId()
         );
     }
@@ -302,6 +313,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $tag->getTagName(),
             $tag->getFullId(),
             $tag->getCssClass(),
+            $tag->getHtmlAttributesAsString(),
             $tag->getId(),
             $tag->getTagName()
         );
