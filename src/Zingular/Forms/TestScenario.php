@@ -9,6 +9,8 @@
 namespace Zingular\Forms;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Extension\DefaultExtension;
+use Zingular\Forms\Service\Bridge\Orm\DefaultOrmHandler;
+use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
 use Zingular\Forms\Service\Builder\BuilderAggregator;
 use Zingular\Forms\Service\Builder\DateTimeSelectBuilder;
@@ -55,8 +57,11 @@ class TestScenario
         $translator->setTranslation('error.maxLength','Value should not be longer than {max} characters!');
         $construct->setTranslator($translator);
 
-        //
-
+        // orm
+        $ormHandler = new OrmHandlerAggregator();
+        $defaultOrmHandler = new DefaultOrmHandler();
+        $ormHandler->addHandler($defaultOrmHandler,function($model){return is_object($model);});
+        $construct->setOrmHandler($ormHandler);
 
         // *****************************************************************
 

@@ -207,6 +207,14 @@ class Services
         $this->translator = $translator;
     }
 
+    /**
+     * @param OrmHandlerInterface $handler
+     */
+    public function setOrmHandler(OrmHandlerInterface $handler)
+    {
+        $this->ormHandler = $handler;
+    }
+
     /**********************************************************************
      * FACTORY SETTERS
      *********************************************************************/

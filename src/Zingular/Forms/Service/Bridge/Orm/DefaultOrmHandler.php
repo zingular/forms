@@ -18,7 +18,7 @@ class DefaultOrmHandler implements OrmHandlerInterface
      * @param object $model
      * @return array
      */
-    public function extractDefaultValues($model)
+    public function extractValues($model)
     {
         $values = get_object_vars($model);
 

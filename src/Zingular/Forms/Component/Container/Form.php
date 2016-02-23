@@ -104,7 +104,7 @@ class Form extends Container implements PrototypeDefinerInterface
         // TEST ORM
         if(is_object($model))
         {
-            $this->setDefaultValues($services->getOrmHandler()->extractDefaultValues($model));
+            $this->setDefaultValues($services->getOrmHandler()->extractValues($model));
             $this->model = $model;
         }
     }

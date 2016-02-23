@@ -32,7 +32,7 @@ class ComponentTester
         $this->componentNsPrefixes = $composerJson->autoload->{'psr-4'};
 
         // include the vendor auto loader
-        include_once(__DIR__.'/vendor/autoload.php');
+        include_once('vendor/autoload.php');
 
         // preload all classes, to make sure performance timers measure cleanly
         if($preload)

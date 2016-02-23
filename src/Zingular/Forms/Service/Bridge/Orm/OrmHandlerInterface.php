@@ -18,7 +18,7 @@ interface OrmHandlerInterface
      * @param object $model
      * @return array
      */
-    public function extractDefaultValues($model);
+    public function extractValues($model);
 
     /**
      * @param array $values

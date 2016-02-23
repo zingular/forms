@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Component;
 
 use Zingular\Forms\Service\Aggregation\PoolableAggregatorInterface;
+use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
 use Zingular\Forms\Service\Condition\ConditionInterface;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
@@ -99,5 +100,13 @@ trait ServiceSetterTrait
     public function setValidatorFactory(ValidatorFactoryInterface $factory)
     {
         $this->getServices()->setValidatorFactory($factory);
+    }
+
+    /**
+     * @param OrmHandlerInterface $handler
+     */
+    public function setOrmHandler(OrmHandlerInterface $handler)
+    {
+        $this->getServices()->setOrmHandler($handler);
     }
 }
