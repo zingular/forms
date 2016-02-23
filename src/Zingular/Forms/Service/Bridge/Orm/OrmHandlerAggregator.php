@@ -38,7 +38,7 @@ class OrmHandlerAggregator implements OrmHandlerInterface
     {
         foreach($this->handlers as $handlerData)
         {
-            if(call_user_func($handlerData['checker'],$model))
+            if(call_user_func($handlerData['checker'],$model) === true)
             {
                 return $handlerData['handler'];
             }
