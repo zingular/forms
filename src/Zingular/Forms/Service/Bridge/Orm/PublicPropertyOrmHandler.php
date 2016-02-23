@@ -9,10 +9,10 @@
 namespace Zingular\Forms\Service\Bridge\Orm;
 
 /**
- * Class DefaultOrmHandler
+ * Class PublicPropertyOrmHandler
  * @package Zingular\Form\Service\Bridge\Orm
  */
-class DefaultOrmHandler implements OrmHandlerInterface
+class PublicPropertyOrmHandler implements OrmHandlerInterface
 {
     /**
      * @param object $model

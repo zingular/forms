@@ -10,8 +10,9 @@ namespace Zingular\Forms;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\TestExtension;
-use Zingular\Forms\Service\Bridge\Orm\DefaultOrmHandler;
+use Zingular\Forms\Service\Bridge\Orm\GetterSetterOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
+use Zingular\Forms\Service\Bridge\Orm\PublicPropertyOrmHandler;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
 use Zingular\Forms\Service\Builder\BuilderAggregator;
 use Zingular\Forms\Service\Builder\DateTimeSelectBuilder;
@@ -61,8 +62,10 @@ class TestScenario
 
         // orm
         $ormHandler = new OrmHandlerAggregator();
-        $defaultOrmHandler = new DefaultOrmHandler();
-        $ormHandler->addHandler($defaultOrmHandler,function($model){return is_object($model);});
+        $ppOrmHandler = new PublicPropertyOrmHandler();
+        $gsOrmHandler = new GetterSetterOrmHandler();
+        $ormHandler->addHandler($ppOrmHandler,function($model){return is_object($model);});
+        $ormHandler->addHandler($gsOrmHandler,function($model){return is_object($model);});
         $construct->setOrmHandler($ormHandler);
 
         // *****************************************************************
@@ -89,9 +92,8 @@ class TestScenario
         $form->setDefaultValue('question','test');
 
 
-
+        // create a new form from a xml-builder
         $formXml = $construct->buildForm('xmlLoadedForm',new XmlBuilder('myForm.xml'));
-
         $formXml->addButton('submit')->ignoreValue();
         $formXml->addFieldset('xmlLoadedFormLegend');
 
@@ -106,6 +108,8 @@ class TestScenario
         $form->defineField(Types::FIELD_QUESTION);
         $form->defineTextarea(Types::TEXTAREA_QUESTION);
         $form->defineInput('address')->setInputType(InputType::PASSWORD);
+
+
 
         $form->useInput('address');
 

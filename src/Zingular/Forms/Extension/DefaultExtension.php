@@ -31,7 +31,6 @@ class DefaultExtension extends AbstractExtension
         return array
         (
             new CallableValidator('doValidate',array($this,'validate'))
-
         );
     }
 

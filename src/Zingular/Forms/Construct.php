@@ -12,7 +12,6 @@ use Zingular\Forms\Component\Container\Prototypes;
 use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 use Zingular\Forms\Service\Builder\DefaultPrototypeBuilder;
 use Zingular\Forms\Service\Builder\FormbuilderInterface;
 use Zingular\Forms\Service\Builder\PrototypeBuilderInterface;
@@ -37,16 +36,10 @@ class Construct
     protected $prototypeBuilder;
 
     /**
-     * @param PrototypeBuilderInterface $masterRepositoryBuilder
      * @param bool $loadDefaultExtension
      */
-    public function __construct(PrototypeBuilderInterface $masterRepositoryBuilder = null,$loadDefaultExtension = true)
+    public function __construct($loadDefaultExtension = true)
     {
-        if(!is_null($masterRepositoryBuilder))
-        {
-            $this->setPrototypeBuilder($masterRepositoryBuilder);
-        }
-
         // load the default extension
         if($loadDefaultExtension)
         {
@@ -90,27 +83,15 @@ class Construct
         }
 
         // allow extension to add prototypes
-        $extension->buildPrototypes($this->getPrototypes());
+        $this->addPrototypes($extension);
     }
-
-    /**********************************************************************
-     * SERVICE SETTERS
-     *********************************************************************/
 
     /**
      * @param PrototypeBuilderInterface $builder
      */
-    protected function setPrototypeBuilder(PrototypeBuilderInterface $builder)
+    protected function addPrototypes(PrototypeBuilderInterface $builder)
     {
-        $this->prototypeBuilder = $builder;
-    }
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function setTranslator(TranslatorInterface $translator)
-    {
-        $this->getServices()->setTranslator($translator);
+        $builder->buildPrototypes($this->getPrototypes());
     }
 
     /**********************************************************************
@@ -126,29 +107,13 @@ class Construct
         {
             $this->prototypes = new Prototypes($this->getServices()->getComponentFactory());
 
+            // make sure the default builder is always applied
             $defaultBuilder = new DefaultPrototypeBuilder();
             $defaultBuilder->buildPrototypes($this->prototypes);
-
-            // todo: allow multiple prototype builders?
-            $this->getPrototypeBuilder()->buildPrototypes($this->prototypes);
         }
 
         return $this->prototypes;
     }
-
-    /**
-     * @return PrototypeBuilderInterface
-     */
-    protected function getPrototypeBuilder()
-    {
-        if(is_null($this->prototypeBuilder))
-        {
-            $this->prototypeBuilder = new DefaultPrototypeBuilder();
-        }
-
-        return $this->prototypeBuilder;
-    }
-
 
     /**********************************************************************
      * CREATORS

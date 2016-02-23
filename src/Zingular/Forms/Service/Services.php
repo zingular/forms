@@ -30,7 +30,7 @@ use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;
 use Zingular\Forms\Service\Bridge\Csrf\DefaultCsrfHandler;
 use Zingular\Forms\Service\Bridge\Event\DefaultEventHandler;
 use Zingular\Forms\Service\Bridge\Event\EventHandlerInterface;
-use Zingular\Forms\Service\Bridge\Orm\DefaultOrmHandler;
+use Zingular\Forms\Service\Bridge\Orm\PublicPropertyOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\Persistence\SessionPersistenceHandler;
 use Zingular\Forms\Service\Bridge\Persistence\PersistenceHandlerInterface;
@@ -348,7 +348,7 @@ class Services
     {
         if(is_null($this->ormHandler))
         {
-            $this->ormHandler = new DefaultOrmHandler();
+            $this->ormHandler = new PublicPropertyOrmHandler();
         }
 
         return $this->ormHandler;

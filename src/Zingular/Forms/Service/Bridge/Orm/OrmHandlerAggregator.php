@@ -24,8 +24,13 @@ class OrmHandlerAggregator implements OrmHandlerInterface
      * @param OrmHandlerInterface $handler
      * @param $checkCallable
      */
-    public function addHandler(OrmHandlerInterface $handler,$checkCallable)
+    public function addHandler(OrmHandlerInterface $handler,$checkCallable = null)
     {
+        if(is_null($checkCallable))
+        {
+            $checkCallable = function(){return true;};
+        }
+
         $this->handlers[] = array('checker'=>$checkCallable,'handler'=>$handler);
     }
 
