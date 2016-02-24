@@ -13,6 +13,7 @@ use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
 use Zingular\Forms\Service\Condition\ConditionInterface;
+use Zingular\Forms\Service\Conversion\ConverterInterface;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
 use Zingular\Forms\Service\Evaluation\FilterInterface;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
@@ -78,6 +79,15 @@ trait ServiceSetterTrait
     {
         $this->getServices()->addCondition($condition);
     }
+
+    /**
+     * @param ConverterInterface $converter
+     */
+    public function addConverter(ConverterInterface $converter)
+    {
+        $this->getServices()->addConverter($converter);
+    }
+
 
     /**
      * @param TranslatorInterface $translator

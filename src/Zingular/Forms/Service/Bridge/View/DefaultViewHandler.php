@@ -142,7 +142,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $input->getFullId(),
             $input->getCssClass(),
             $input->getFullName(),
-            $input->getValue(),
+            $input->getInputValue(),
             $input->getHtmlAttributesAsString()
         );
     }
@@ -236,7 +236,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $button->getFullId(),
             $button->getCssClass(),
             $button->getFullName(),
-            $button->getValue(),
+            $button->getInputValue(),
             $button->getHtmlAttributesAsString(),
             $button->getId()
         );
@@ -256,7 +256,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $textarea->getCssClass(),
             $textarea->getFullName(),
             $textarea->getHtmlAttributesAsString(),
-            $textarea->getValue()
+            $textarea->getInputValue()
         );
     }
 

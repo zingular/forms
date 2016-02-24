@@ -16,6 +16,10 @@ use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
 use Zingular\Forms\Service\Condition\ConditionFactoryInterface;
 use Zingular\Forms\Service\Condition\ConditionInterface;
+use Zingular\Forms\Service\Conversion\ConverterFactory;
+use Zingular\Forms\Service\Conversion\ConverterFactoryInterface;
+use Zingular\Forms\Service\Conversion\ConverterInterface;
+use Zingular\Forms\Service\Conversion\ConverterPool;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
 use Zingular\Forms\Service\Evaluation\FilterFactory;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
@@ -127,6 +131,11 @@ class Services
     protected $conditionFactory;
 
     /**
+     * @var ConverterFactoryInterface
+     */
+    protected $converterFactory;
+
+    /**
      * @var FilterPool
      */
     protected $filters;
@@ -135,6 +144,11 @@ class Services
      * @var ValidatorPool
      */
     protected $validators;
+
+    /**
+     * @var ConverterPool
+     */
+    protected $converters;
 
     /**
      * @var BuilderPool
@@ -193,6 +207,14 @@ class Services
     public function addCondition(ConditionInterface $condition)
     {
         $this->getConditions()->add($condition);
+    }
+
+    /**
+     * @param ConverterInterface $converter
+     */
+    public function addConverter(ConverterInterface $converter)
+    {
+        $this->getConverters()->add($converter);
     }
 
     /**********************************************************************
@@ -257,6 +279,14 @@ class Services
     public function setAggregatorFactory(AggregatorFactoryInterface $factory)
     {
         $this->aggregatorFactory = $factory;
+    }
+
+    /**
+     * @param ConverterFactoryInterface $factory
+     */
+    public function setConverterFactory(ConverterFactoryInterface $factory)
+    {
+        $this->converterFactory = $factory;
     }
 
     /**********************************************************************
@@ -436,6 +466,19 @@ class Services
         return $this->conditions;
     }
 
+    /**
+     * @return ConverterPool
+     */
+    public function getConverters()
+    {
+        if(is_null($this->converters))
+        {
+            $this->converters = new ConverterPool($this->getConverterFactory());
+        }
+
+        return $this->converters;
+    }
+
     /**********************************************************************
      * FACTORY GETTERS
      *********************************************************************/
@@ -530,5 +573,18 @@ class Services
         }
 
         return $this->conditionFactory;
+    }
+
+    /**
+     * @return ConverterFactoryInterface
+     */
+    protected function getConverterFactory()
+    {
+        if(is_null($this->converterFactory))
+        {
+            $this->converterFactory = new ConverterFactory();
+        }
+
+        return $this->converterFactory;
     }
 }

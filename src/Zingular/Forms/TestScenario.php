@@ -104,7 +104,8 @@ class TestScenario
         $form->defineFieldset(Types::FIELDSET_PERSONALIA);
         $form->defineField(Types::FIELD_NAME);
         $form->defineInput(Types::INPUT_TEXT);
-        $form->defineInput(Types::INPUT_EMAIL);
+        $form->defineInput(Types::INPUT_EMAIL)
+            ->setConverter(Converter::SERIALIZE);
         $form->defineField(Types::FIELD_QUESTION);
         $form->defineTextarea(Types::TEXTAREA_QUESTION);
         $form->defineInput('address')->setInputType(InputType::PASSWORD);
@@ -152,7 +153,7 @@ class TestScenario
                         ->requiredIf('')
                         ->addInput('hobby1')
                             //->setValue('aa')
-                            ->emptyStringIsValue(false)
+                            ->setEmptyStringIsValue(false)
                             ->addValidator(array($this,'testValidator'))
                             ->addFilter(array($this,'testFilter'))
                             ->trimValue(true)

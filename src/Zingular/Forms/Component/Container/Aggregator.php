@@ -8,13 +8,12 @@
 
 namespace Zingular\Forms\Component\Container;
 use Zingular\Forms\Aggregation;
-use Zingular\Forms\BaseTypes;
+use Zingular\Forms\Component\AggregatorAbstractValueRetriever;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Service\Aggregation\AggregatorInterface;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\View;
 
 /**
  * Class Aggregator
@@ -70,18 +69,19 @@ class Aggregator extends Container implements DataUnitInterface
         // compile the parent using the de-aggregated value as default values for child components
         parent::compile($formContext,$defaultValues);
 
+
+        $retriever = new AggregatorAbstractValueRetriever($this,$formContext,$this->getEvaluatorCollection());
+        $retriever->setAggregator($this->getAggregationStrategy());
+
+
+        $this->value = $retriever->retrieveValue($defaultValue);
+
+
         // make sure the value is collected, with the collected default value
-        $this->retrieveValue($formContext,$defaultValue);
+        //$this->retrieveValue($formContext,$defaultValue);
     }
 
-    /**
-     * @param FormContext $formContext
-     * @return mixed
-     */
-    protected function readInput(FormContext $formContext)
-    {
-        return $this->getAggregationStrategy()->aggregate($this->getValues(),$this);
-    }
+
 
     /**
      * @param string $strategy
@@ -120,5 +120,15 @@ class Aggregator extends Container implements DataUnitInterface
     public function getDataPath()
     {
         return trim($this->context->getDataPath().'/'.$this->getName(),'/');
+    }
+
+    /**
+     * @param $converter
+     * @param $args
+     * @return $this
+     */
+    public function setConverter($converter,...$args)
+    {
+        // TODO
     }
 }

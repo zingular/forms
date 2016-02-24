@@ -12,7 +12,6 @@ use Zingular\Forms\Service\Evaluation\EvaluatorConfigCollection;
 use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
 
-
 /**
  * Class DataUnitTrait
  * @package Zingular\Form\Component
@@ -52,80 +51,11 @@ trait DataUnitTrait
     /**
      * @var EvaluationHandler
      */
-    protected $evaluator;
-
+    protected $evaluationHandler;
 
     /***************************************************************
      * COMPILING
      **************************************************************/
-
-
-
-
-
-    /***************************************************************
-     * VALUE HANDLING
-     **************************************************************/
-
-    /**
-     * @param FormContext $formContext
-     * @return mixed
-     */
-    protected function readInput(FormContext $formContext)
-    {
-        return null; // override in parent class
-    }
-
-    /**
-     * @param FormContext $formContext
-     * @param mixed $defaultValue
-     * @throws \Exception
-     */
-    protected function retrieveValue(FormContext $formContext,$defaultValue = null)
-    {
-        try
-        {
-            // start out with default value
-            if(!is_null($defaultValue))
-            {
-                $this->value = $defaultValue;
-            }
-
-            // if there was a submit
-            if($this->shouldReadInput($formContext))
-            {
-                // read the raw value
-                $this->value = $this->readInput($formContext);
-
-                // evaluate the value
-                $this->value = $formContext->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
-
-                // store the read input if it should be persisted
-                if($this->persistent || $formContext->isPersistent())
-                {
-                    $formContext->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$formContext->getFormId());
-                }
-            }
-            // if input should not be read, get value from other source
-            else
-            {
-                // if persistent and the persistence handler has a value for this data unit, load it
-                if(($this->persistent || $formContext->isPersistent()) && $formContext->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$formContext->getFormId()))
-                {
-                    $this->value = $formContext->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$formContext->getFormId());
-                }
-            }
-        }
-        // catch any exception
-        catch(\Exception $e)
-        {
-            // add an error css class
-            $this->addCssClass('error');
-
-            // rethrow the exception
-            throw $e;
-        }
-    }
 
     /**
      * @return mixed
@@ -203,10 +133,18 @@ trait DataUnitTrait
      * @param bool $set
      * @return $this
      */
-    public function emptyStringIsValue($set = true)
+    public function setEmptyStringIsValue($set = true)
     {
         $this->emptyStringIsValue = $set;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function emptyStringIsValue()
+    {
+        return $this->emptyStringIsValue;
     }
 
     /**
@@ -220,12 +158,11 @@ trait DataUnitTrait
     }
 
     /**
-     * @param FormContext $formContext
      * @return bool
      */
-    protected function shouldReadInput(FormContext $formContext)
+    public function isPersistent()
     {
-        return $formContext->hasSubmit() && !$this->hasFixedValue();
+        return $this->persistent;
     }
 
     /***************************************************************
@@ -260,13 +197,14 @@ trait DataUnitTrait
      */
     protected function getEvaluatorCollection()
     {
-        if(is_null($this->evaluator))
+        if(is_null($this->evaluationHandler))
         {
-            $this->evaluator = new EvaluatorConfigCollection();
+            $this->evaluationHandler = new EvaluatorConfigCollection();
         }
 
-        return $this->evaluator;
+        return $this->evaluationHandler;
     }
+
 
     /***************************************************************
      * NAME

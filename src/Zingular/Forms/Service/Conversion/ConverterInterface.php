@@ -9,20 +9,27 @@
 namespace Zingular\Forms\Service\Conversion;
 
 /**
- * Interface ConverterStrategyInterface
+ * Interface ConverterInterface
  * @package Zingular\Form
  */
-interface ConverterStrategyInterface
+interface ConverterInterface
 {
     /**
      * @param $value
+     * @param ...$params
      * @return mixed
      */
-    public function logicalToData($value);
+    public function encode($value,...$params);
 
     /**
      * @param $value
+     * @param $params
      * @return mixed
      */
-    public function dataToLogical($value);
+    public function decode($value,...$params);
+
+    /**
+     * @return string
+     */
+    public function getName();
 }

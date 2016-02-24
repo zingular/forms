@@ -7,13 +7,14 @@
  */
 
 namespace Zingular\Forms\Component\Element\Control;
-use Zingular\Forms\Component\ComponentTrait;
+use Zingular\Forms\Component\ControlValueRetriever;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Component\RequiredTrait;
-
+use Zingular\Forms\Service\Conversion\ConverterConfig;
+use Zingular\Forms\Service\Conversion\ConverterInterface;
 
 /**
  * Class AbstractControl
@@ -29,6 +30,12 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
      */
     protected $trimValue = true;
 
+
+    /**
+     * @var ConverterConfig
+     */
+    protected $converterConfig;
+
     /**
      * @param FormContext $formContext
      * @param array $defaultValues
@@ -43,7 +50,10 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         $defaultValue = array_key_exists($this->getName(),$defaultValues) ? $defaultValues[$this->getName()] : null;
 
         // make sure the value is collected
-        $this->retrieveValue($formContext,$defaultValue);
+        $retriever = new ControlValueRetriever($this,$formContext,$this->getEvaluatorCollection());
+        $retriever->setConverter($this->getConverter(),$this->converterConfig);
+
+        $this->value = $retriever->retrieveValue($defaultValue);
     }
 
     /**
@@ -107,5 +117,68 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     {
         $this->trimValue = $set;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldTrimValue()
+    {
+        return $this->trimValue;
+    }
+
+
+
+
+
+
+
+
+    /**
+     * @param $converter
+     * @param $params
+     * @return $this
+     */
+    public function setConverter($converter,...$params)
+    {
+        $this->converterConfig = new ConverterConfig($converter,$params);
+    }
+
+    /**
+     * @return ConverterInterface
+     */
+    protected function getConverter()
+    {
+        if(!is_null($this->converterConfig))
+        {
+            return $this->formContext->getServices()->getConverters()->get($this->converterConfig->getType());
+        }
+
+        return null;
+    }
+
+
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    protected function decodeValue($value)
+    {
+        if(!is_null($this->getConverter()))
+        {
+            return $this->getConverter()->decode($value,$this->converterConfig->getArgs());
+        }
+
+        return $value;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getInputValue()
+    {
+        return $this->decodeValue($this->getValue());
     }
 }

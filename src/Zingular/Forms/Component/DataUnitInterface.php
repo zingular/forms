@@ -78,12 +78,29 @@ interface DataUnitInterface extends DataInterface
      * @param bool $set
      * @return $this
      */
-    public function emptyStringIsValue($set = true);
+    public function setEmptyStringIsValue($set = true);
+
+    /**
+     * @return bool
+     */
+    public function emptyStringIsValue();
 
     /**
      * @param bool $set
      * @return $this
      */
     public function persistent($set = true);
+
+    /**
+     * @return bool
+     */
+    public function isPersistent();
+
+    /**
+     * @param $converter
+     * @param $params
+     * @return $this
+     */
+    public function setConverter($converter,...$params);
 
 }
