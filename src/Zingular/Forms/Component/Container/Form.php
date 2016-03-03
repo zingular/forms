@@ -7,7 +7,6 @@
  */
 
 namespace Zingular\Forms\Component\Container;
-use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\Element\Content\Html;
@@ -25,7 +24,6 @@ use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Method;
 use Zingular\Forms\Service\Services;
-use Zingular\Forms\View as ViewConstants;
 
 /**
  * Class Form
@@ -225,9 +223,9 @@ class Form extends Container implements PrototypeDefinerInterface
     }
 
     /**
-     *
+     * @param FormContext $formContext
      */
-    protected function preBuild()
+    protected function preBuild(FormContext $formContext)
     {
         // add form submitted hidden field
         $this->addHidden('FORM_SUBMITTED')
@@ -258,7 +256,7 @@ class Form extends Container implements PrototypeDefinerInterface
         $this->compile($this->getFormContext(),$this->defaultValues);
 
         // return the rendered view
-        return $this->getServices()->getViewHandler()->render($this,$this->getServices()->getTranslator());
+        return $this->getServices()->getViewHandler()->render($this);
     }
 
     /**

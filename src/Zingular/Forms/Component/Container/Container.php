@@ -554,7 +554,7 @@ class Container extends AbstractContainer implements DataInterface
         $this->formContext = $formContext;
 
         // perform hard-coded pre-buildPrototypes actions
-        $this->preBuild();
+        $this->preBuild($formContext);
 
         // apply prebuilder
         if(!is_null($this->preBuilder))
@@ -578,7 +578,7 @@ class Container extends AbstractContainer implements DataInterface
         }
 
         // perform hard-coded post-buildPrototypes actions
-        $this->postBuild();
+        $this->postBuild($formContext);
 
         // process any errors found during compilation
         $this->processErrors();
@@ -640,13 +640,14 @@ class Container extends AbstractContainer implements DataInterface
 
     /**
      * Optionally perform mandatory, container type-specific preBuild operations
+     * @param FormContext $context
      */
-    protected function preBuild() {}
+    protected function preBuild(FormContext $context) {}
 
     /**
-     *
+     * @param FormContext $context
      */
-    protected function postBuild() {}
+    protected function postBuild(FormContext $context) {}
 
     /**
      *
