@@ -10,18 +10,20 @@ namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Container;
 
+use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Component\OptionsProvider;
 
 /**
  * Class AbstractOptionsBuilder
  * @package Zingular\Form\Service\Builder
  */
-abstract class AbstractOptionsBuilder extends OptionsProvider implements BuilderInterface
+abstract class AbstractOptionsBuilder extends OptionsProvider implements RuntimeBuilderInterface
 {
     /**
      * @param Container $container
+     * @param FormContext $context
      */
-    public function build(Container $container)
+    public function build(Container $container,FormContext $context)
     {
         $this->buildGroup($this->getOptions(),$container);
     }

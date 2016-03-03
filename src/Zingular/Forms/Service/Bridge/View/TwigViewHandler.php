@@ -32,10 +32,9 @@ class TwigViewHandler implements ViewHandlerInterface
 
     /**
      * @param ComponentInterface $component
-     * @param TranslatorInterface $translator
      * @return string
      */
-    public function render(ComponentInterface $component, TranslatorInterface $translator)
+    public function render(ComponentInterface $component)
     {
         $params = array('component'=>$component);
         return $this->twig->render($this->getTemplateNameFromView($component),$params);

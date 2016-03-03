@@ -9,15 +9,16 @@
 namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
 interface ErrorBuilderInterface
 {
     /**
      * @param Container $container
+     * @param FormContext $context
      * @param array $errors
      * @param TranslatorInterface $translator
-     * @return mixed
      */
-    public function build(Container $container,array $errors,TranslatorInterface $translator);
+    public function build(Container $container,FormContext $context,array $errors,TranslatorInterface $translator);
 }

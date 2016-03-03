@@ -14,7 +14,7 @@ use Zingular\Forms\Component\Container\Container;
  * Class OptionsBuilder
  * @package Zingular\Form\Service\Builder
  */
-class OptionsBuilder extends AbstractOptionsBuilder implements BuilderInterface
+class OptionsBuilder extends AbstractOptionsBuilder implements RuntimeBuilderInterface
 {
     /**
      * @param $groupName

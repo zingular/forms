@@ -10,12 +10,13 @@ namespace Zingular\Forms\Service\Builder;
 
 
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\FormContext;
 
 /**
  * Class BuilderAggregator
  * @package Zingular\Form\Service\Builder
  */
-class BuilderAggregator implements BuilderInterface
+class BuilderAggregator implements RuntimeBuilderInterface
 {
     /**
      * @var array
@@ -23,10 +24,10 @@ class BuilderAggregator implements BuilderInterface
     protected $builders = array();
 
     /**
-     * @param BuilderInterface $builder
+     * @param RuntimeBuilderInterface $builder
      * @return $this
      */
-    public function addBuilder(BuilderInterface $builder)
+    public function addBuilder(RuntimeBuilderInterface $builder)
     {
         $this->builders[] = $builder;
         return $this;
@@ -34,13 +35,14 @@ class BuilderAggregator implements BuilderInterface
 
     /**
      * @param Container $container
+     * @param FormContext $context
      */
-    public function build(Container $container)
+    public function build(Container $container,FormContext $context)
     {
-        /** @var BuilderInterface $builder */
+        /** @var RuntimeBuilderInterface $builder */
         foreach($this->builders as $builder)
         {
-            $builder->build($container);
+            $builder->build($container,$context);
         }
     }
 }

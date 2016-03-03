@@ -12,7 +12,7 @@ namespace Zingular\Forms\Service\Builder;
  * Interface RegisterableBuilderInterface
  * @package Zingular\Form\Service\Builder
  */
-interface RegisterableBuilderInterface extends BuilderInterface
+interface RegisterableBuilderInterface extends RuntimeBuilderInterface
 {
     /**
      * @return string

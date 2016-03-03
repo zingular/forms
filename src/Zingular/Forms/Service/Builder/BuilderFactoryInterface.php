@@ -16,7 +16,7 @@ interface BuilderFactoryInterface
 {
     /**
      * @param string $type
-     * @return BuilderInterface
+     * @return RuntimeBuilderInterface
      */
     public function create($type);
 

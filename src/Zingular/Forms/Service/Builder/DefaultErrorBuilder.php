@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
@@ -16,11 +17,12 @@ class DefaultErrorBuilder implements  ErrorBuilderInterface
 {
     /**
      * @param Container $container
+     * @param FormContext $context
      * @param array $errors
      * @param TranslatorInterface $translator
      * @return mixed
      */
-    public function build(Container $container, array $errors, TranslatorInterface $translator)
+    public function build(Container $container, FormContext $context,array $errors, TranslatorInterface $translator)
     {
         /** @var \Exception $e */
         foreach($errors as $index=>$e)
@@ -31,7 +33,8 @@ class DefaultErrorBuilder implements  ErrorBuilderInterface
                 $container->addLabel('lblError'.$index)
                     ->setFor($e->getComponent())
                     ->addCssClass('error')
-                    ->setText($translator->translate('error.'.$e->getType(),$e->getParams()));
+                    ->setTranslationKey('error.'.$e->getType(),$e->getParams())
+                    ->compile($context);
             }
         }
     }

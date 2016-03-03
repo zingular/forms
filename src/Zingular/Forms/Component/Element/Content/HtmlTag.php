@@ -7,7 +7,6 @@
  */
 
 namespace Zingular\Forms\Component\Element\Content;
-use Zingular\Forms\BaseTypes;
 
 /**
  * Class HtmlTag

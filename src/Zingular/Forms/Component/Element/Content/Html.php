@@ -7,7 +7,6 @@
  */
 
 namespace Zingular\Forms\Component\Element\Content;
-use Zingular\Forms\BaseTypes;
 
 /**
  * Class Html
@@ -15,16 +14,5 @@ use Zingular\Forms\BaseTypes;
  */
 class Html extends Content
 {
-    /**
-     * @var string
-     */
-    protected $html = '';
 
-    /**
-     * @param $html
-     */
-    public function setContent($html)
-    {
-        $this->html = $html;
-    }
 }

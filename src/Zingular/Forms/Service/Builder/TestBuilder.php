@@ -9,18 +9,20 @@
 namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\FormContext;
 
 
 /**
  * Class TestBuilder
  * @package Zingular\Form\Service\Builder
  */
-class TestBuilder implements BuilderInterface
+class TestBuilder implements RuntimeBuilderInterface
 {
     /**
      * @param Container $container
+     * @param FormContext $context
      */
-    public function build(Container $container)
+    public function build(Container $container,FormContext $context)
     {
         $container->addInput('lalala');
         $container->addInput('lalala');

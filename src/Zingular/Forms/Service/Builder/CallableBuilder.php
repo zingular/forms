@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\FormContext;
 
 /**
  * Class CallableBuilder
@@ -33,8 +34,9 @@ class CallableBuilder extends AbstractRegisterableBuilder
 
     /**
      * @param Container $container
+     * @param FormContext $context
      */
-    public function build(Container $container)
+    public function build(Container $container,FormContext $context)
     {
         call_user_func($this->callable,$container);
     }

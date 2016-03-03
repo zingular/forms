@@ -48,17 +48,6 @@ interface ComponentInterface
     public function getViewName();
 
     /**
-     * @return string
-     */
-    public function getTranslationKey();
-
-    /**
-     * @param $key
-     * @return $this
-     */
-    public function setTranslationKey($key);
-
-    /**
      * @param $class
      * @return $this
      */

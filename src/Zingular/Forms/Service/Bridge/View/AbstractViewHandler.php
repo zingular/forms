@@ -22,42 +22,39 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\Element\ElementInterface;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 use Zingular\Forms\View;
 
 abstract class AbstractViewHandler implements ViewHandlerInterface
 {
     /**
      * @param ComponentInterface $component
-     * @param TranslatorInterface $translator
      * @return string
      */
-    public function render(ComponentInterface $component,TranslatorInterface $translator)
+    public function render(ComponentInterface $component)
     {
         if($component instanceof Container)
         {
-            return $this->renderContainerType($component,$translator);
+            return $this->renderContainerType($component);
         }
 
         /** @var ElementInterface $element */
         $element = $component;
 
-        return $this->renderElement($element,$translator);
+        return $this->renderElement($element);
     }
 
     /**
      * @param array $components
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderComponents(array $components,TranslatorInterface $translator)
+    protected function renderComponents(array $components)
     {
         $buffer = '';
 
         /** @var ComponentInterface $component */
         foreach ($components as $component)
         {
-            $buffer .= $this->render($component,$translator);
+            $buffer .= $this->render($component);
         }
 
         return $buffer;
@@ -65,67 +62,64 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderContainerType(Container $container,TranslatorInterface $translator)
+    protected function renderContainerType(Container $container)
     {
         if($container instanceof Form)
         {
-            return $this->renderForm($container,$translator);
+            return $this->renderForm($container);
         }
 
         $view = $container->getViewName();
 
         switch($view)
         {
-            case View::CONTAINER:return $this->renderContainer($container,$translator);
-            case View::FIELD:return $this->renderField($container,$translator);
-            case View::FIELDSET:return $this->renderFieldset($container,$translator);
+            case View::CONTAINER:return $this->renderContainer($container);
+            case View::FIELD:return $this->renderField($container);
+            case View::FIELDSET:return $this->renderFieldset($container);
             case View::TRANSPARENT:
             default:
             {
-                return $this->renderTransparent($container,$translator);
+                return $this->renderTransparent($container);
             }
         }
     }
 
     /**
      * @param ElementInterface $element
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderElement(ElementInterface $element,TranslatorInterface $translator)
+    protected function renderElement(ElementInterface $element)
     {
         if($element instanceof AbstractControl)
         {
-            return $this->renderControl($element,$translator);
+            return $this->renderControl($element);
         }
 
         /** @var Content $content */
         $content = $element;
 
-        return $this->renderContent($content,$translator);
+        return $this->renderContent($content);
     }
 
     /**
      * @param Content $content
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderContent(Content $content,TranslatorInterface $translator)
+    protected function renderContent(Content $content)
     {
         if($content instanceof Label)
         {
-            return $this->renderLabel($content,$translator);
+            return $this->renderLabel($content);
         }
         elseif($content instanceof Html)
         {
-            return $this->renderHtml($content,$translator);
+            return $this->renderHtml($content);
         }
         elseif($content instanceof HtmlTag)
         {
-            return $this->renderTag($content,$translator);
+            return $this->renderTag($content);
         }
         else
         {
@@ -135,30 +129,29 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
 
     /**
      * @param AbstractControl $control
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderControl(AbstractControl $control,TranslatorInterface $translator)
+    protected function renderControl(AbstractControl $control)
     {
         if($control instanceof Checkbox)
         {
-            return $this->renderCheckbox($control,$translator);
+            return $this->renderCheckbox($control);
         }
         if($control instanceof Input)
         {
-            return $this->renderInput($control,$translator);
+            return $this->renderInput($control);
         }
         elseif($control instanceof Select)
         {
-            return $this->renderSelect($control,$translator);
+            return $this->renderSelect($control);
         }
         elseif($control instanceof Button)
         {
-            return $this->renderButton($control,$translator);
+            return $this->renderButton($control);
         }
         elseif($control instanceof Textarea)
         {
-            return $this->renderTextarea($control,$translator);
+            return $this->renderTextarea($control);
         }
 
         return '';
@@ -170,38 +163,33 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderContainer(Container $container,TranslatorInterface $translator);
+    abstract protected function renderContainer(Container $container);
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderFieldset(Container $container,TranslatorInterface $translator);
+    abstract protected function renderFieldset(Container $container);
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderField(Container $container,TranslatorInterface $translator);
+    abstract protected function renderField(Container $container);
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderTransparent(Container $container,TranslatorInterface $translator);
+    abstract protected function renderTransparent(Container $container);
 
     /**
      * @param Form $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderForm(Form $container,TranslatorInterface $translator);
+    abstract protected function renderForm(Form $container);
 
     /******************************************************************
      * RENDER CONTROLS
@@ -209,38 +197,33 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
 
     /**
      * @param Input $input
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderInput(Input $input,TranslatorInterface $translator);
+    abstract protected function renderInput(Input $input);
 
     /**
      * @param Checkbox $input
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderCheckbox(Checkbox $input,TranslatorInterface $translator);
+    abstract protected function renderCheckbox(Checkbox $input);
 
     /**
      * @param Select $select
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderSelect(Select $select,TranslatorInterface $translator);
+    abstract protected function renderSelect(Select $select);
 
     /**
      * @param Button $button
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderButton(Button $button,TranslatorInterface $translator);
+    abstract protected function renderButton(Button $button);
 
     /**
      * @param Textarea $textarea
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderTextarea(Textarea $textarea,TranslatorInterface $translator);
+    abstract protected function renderTextarea(Textarea $textarea);
 
     /******************************************************************
      * RENDER CONTENT
@@ -248,22 +231,19 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
 
     /**
      * @param Label $label
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderLabel(Label $label,TranslatorInterface $translator);
+    abstract protected function renderLabel(Label $label);
 
     /**
      * @param Html $html
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderHtml(Html $html,TranslatorInterface $translator);
+    abstract protected function renderHtml(Html $html);
 
     /**
      * @param HtmlTag $tag
-     * @param TranslatorInterface $translator
      * @return string
      */
-    abstract protected function renderTag(HtmlTag $tag,TranslatorInterface $translator);
+    abstract protected function renderTag(HtmlTag $tag);
 }

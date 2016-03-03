@@ -18,8 +18,7 @@ interface ViewHandlerInterface
 {
     /**
      * @param ComponentInterface $component
-     * @param TranslatorInterface $translator
      * @return string
      */
-    public function render(ComponentInterface $component,TranslatorInterface $translator);
+    public function render(ComponentInterface $component);
 }

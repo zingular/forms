@@ -31,7 +31,7 @@ class BuilderFactory implements BuilderFactoryInterface
 
     /**
      * @param $type
-     * @return BuilderInterface
+     * @return RuntimeBuilderInterface
      * @throws FormException
      */
     public function create($type)

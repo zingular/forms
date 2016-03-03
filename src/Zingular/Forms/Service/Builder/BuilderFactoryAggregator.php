@@ -22,7 +22,7 @@ class BuilderFactoryAggregator implements BuilderFactoryInterface
 
     /**
      * @param string $type
-     * @return BuilderInterface
+     * @return RuntimeBuilderInterface
      * @throws FormException
      */
     public function create($type)

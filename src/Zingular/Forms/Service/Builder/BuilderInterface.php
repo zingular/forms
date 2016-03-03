@@ -2,17 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: Giel
- * Date: 6-2-2016
- * Time: 12:13
+ * Date: 3-3-2016
+ * Time: 20:47
  */
 
 namespace Zingular\Forms\Service\Builder;
+
 
 use Zingular\Forms\Component\Container\Container;
 
 /**
  * Interface BuilderInterface
- * @package Service\Builder
+ * @package Zingular\Forms\Service\Builder
  */
 interface BuilderInterface
 {

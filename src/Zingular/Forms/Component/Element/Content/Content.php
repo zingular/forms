@@ -10,6 +10,7 @@ namespace Zingular\Forms\Component\Element\Content;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Service\ContentProvider\ContentProviderInterface;
 
 /**
  * Class Content
@@ -17,6 +18,98 @@ use Zingular\Forms\Component\FormContext;
  */
 class Content extends AbstractElement implements ComponentInterface
 {
+    /**
+     * @var ContentProviderInterface
+     */
+    protected $contentProvider;
+
+    /**
+     * @var string
+     */
+    protected $content;
+
+    /**
+     * @var string
+     */
+    protected $translationKey;
+
+    /**
+     * @var array
+     */
+    protected $translationParams;
+
+    /**
+     * @var callable
+     */
+    protected $callback;
+
+    /**
+     * @param $key
+     * @param array $params
+     * @return $this
+     */
+    public function setTranslationKey($key,array $params = array())
+    {
+        $this->translationKey = $key;
+        $this->translationParams = $params;
+        return $this;
+    }
+
+    /**
+     * @param $content
+     * @return $this
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @param callable $callable
+     */
+    public function setContentCallback($callable)
+    {
+        $this->callback = $callable;
+    }
+
+    /**
+     * @param ContentProviderInterface $provider
+     */
+    public function setContentProvider(ContentProviderInterface $provider)
+    {
+        $this->contentProvider = $provider;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        if(!is_null($this->content))
+        {
+            return $this->content;
+        }
+        elseif(!is_null($this->translationKey))
+        {
+            if(is_null($this->formContext))
+            {
+                throw new \Exception();
+            }
+            return $this->formContext->getServices()->getTranslator()->translate($this->translationKey,$this->translationParams);
+        }
+        elseif(!is_null($this->callback))
+        {
+            return call_user_func($this->callback);
+        }
+        elseif(!is_null($this->contentProvider))
+        {
+            return $this->contentProvider->getContent();
+        }
+
+        return '';
+    }
+
     /**
      *
      */

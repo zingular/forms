@@ -9,8 +9,6 @@
 namespace Zingular\Forms\Service\Builder;
 
 
-use Zingular\Forms\Component\Container\Container;
-
 /**
  * Class AbstractRegisterableBuilder
  * @package Zingular\Form\Service\Builder
@@ -29,12 +27,6 @@ abstract class AbstractRegisterableBuilder implements RegisterableBuilderInterfa
     {
         $this->name = $name;
     }
-
-    /**
-     * @param Container $container
-     */
-    abstract public function build(Container $container);
-
 
     /**
      * @return string

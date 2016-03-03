@@ -20,7 +20,6 @@ use Zingular\Forms\Component\Element\Control\Option;
 use Zingular\Forms\Component\Element\Control\OptionGroup;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
 /**
  * Class DefaultViewHandler
@@ -49,10 +48,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderContainer(Container $container,TranslatorInterface $translator)
+    protected function renderContainer(Container $container)
     {
         return sprintf
         (
@@ -60,15 +58,14 @@ class DefaultViewHandler extends AbstractViewHandler
             $container->getFullId(),
             $container->getCssClass(),
             $container->getHtmlAttributesAsString(),
-            $this->renderComponents($container->getComponents(),$translator));
+            $this->renderComponents($container->getComponents()));
     }
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderFieldset(Container $container,TranslatorInterface $translator)
+    protected function renderFieldset(Container $container)
     {
         return sprintf
         (
@@ -76,15 +73,14 @@ class DefaultViewHandler extends AbstractViewHandler
             $container->getFullId(),
             $container->getCssClass(),
             $container->getHtmlAttributesAsString(),
-            $this->renderComponents($container->getComponents(),$translator));
+            $this->renderComponents($container->getComponents()));
     }
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderField(Container $container,TranslatorInterface $translator)
+    protected function renderField(Container $container)
     {
         return sprintf
         (
@@ -92,25 +88,23 @@ class DefaultViewHandler extends AbstractViewHandler
             $container->getFullId(),
             $container->getCssClass(),
             $container->getHtmlAttributesAsString(),
-            $this->renderComponents($container->getComponents(),$translator));
+            $this->renderComponents($container->getComponents()));
     }
 
     /**
      * @param Container $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderTransparent(Container $container,TranslatorInterface $translator)
+    protected function renderTransparent(Container $container)
     {
-        return $this->renderComponents($container->getComponents(),$translator);
+        return $this->renderComponents($container->getComponents());
     }
 
     /**
      * @param Form $container
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderForm(Form $container,TranslatorInterface $translator)
+    protected function renderForm(Form $container)
     {
         return sprintf
         (
@@ -120,7 +114,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $container->getMethod(),
             $container->getAction(),
             $container->getHtmlAttributesAsString(),
-            $this->renderComponents($container->getComponents(),$translator)
+            $this->renderComponents($container->getComponents())
         );
     }
 
@@ -130,10 +124,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Input $input
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderInput(Input $input,TranslatorInterface $translator)
+    protected function renderInput(Input $input)
     {
         return sprintf
         (
@@ -149,10 +142,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Checkbox $input
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderCheckbox(Checkbox $input,TranslatorInterface $translator)
+    protected function renderCheckbox(Checkbox $input)
     {
         return sprintf
         (
@@ -168,10 +160,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Select $select
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderSelect(Select $select,TranslatorInterface $translator)
+    protected function renderSelect(Select $select)
     {
         return sprintf
         (
@@ -225,10 +216,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Button $button
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderButton(Button $button,TranslatorInterface $translator)
+    protected function renderButton(Button $button)
     {
         return sprintf
         (
@@ -244,10 +234,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Textarea $textarea
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderTextarea(Textarea $textarea,TranslatorInterface $translator)
+    protected function renderTextarea(Textarea $textarea)
     {
         return sprintf
         (
@@ -266,10 +255,9 @@ class DefaultViewHandler extends AbstractViewHandler
 
     /**
      * @param Label $label
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderLabel(Label $label,TranslatorInterface $translator)
+    protected function renderLabel(Label $label)
     {
         return sprintf
         (
@@ -278,16 +266,15 @@ class DefaultViewHandler extends AbstractViewHandler
             $label->getCssClass(),
             $label->getFor(),
             $label->getHtmlAttributesAsString(),
-            $label->getText()
+            $label->getContent()
         );
     }
 
     /**
      * @param Html $html
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderHtml(Html $html,TranslatorInterface $translator)
+    protected function renderHtml(Html $html)
     {
         return sprintf
         (
@@ -296,16 +283,15 @@ class DefaultViewHandler extends AbstractViewHandler
             $html->getCssClass(),
             'targetId',
             $html->getHtmlAttributesAsString(),
-            $html->getId()
+            $html->getContent()
         );
     }
 
     /**
      * @param HtmlTag $tag
-     * @param TranslatorInterface $translator
      * @return string
      */
-    protected function renderTag(HtmlTag $tag,TranslatorInterface $translator)
+    protected function renderTag(HtmlTag $tag)
     {
         return sprintf
         (
@@ -314,7 +300,7 @@ class DefaultViewHandler extends AbstractViewHandler
             $tag->getFullId(),
             $tag->getCssClass(),
             $tag->getHtmlAttributesAsString(),
-            $tag->getId(),
+            $tag->getContent(),
             $tag->getTagName()
         );
     }

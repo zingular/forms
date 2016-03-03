@@ -47,11 +47,6 @@ trait ComponentTrait
      */
     protected $viewName;
 
-    /**
-     * @var string
-     */
-    protected $translationKey;
-
     /**********************************************************************
      * IDENTIFICATION
      *********************************************************************/
@@ -132,25 +127,6 @@ trait ComponentTrait
     /**********************************************************************
      * CSS / VIEW
      *********************************************************************/
-
-    /**
-     * @return string
-     */
-    public function getTranslationKey()
-    {
-        return '';
-    }
-
-    /**
-     * @param $key
-     * @return $this
-     */
-    public function setTranslationKey($key)
-    {
-        $this->translationKey = $key;
-        return $this;
-    }
-
 
     /**
      * @return string

@@ -58,6 +58,9 @@ class TestScenario
         $translator->setTranslation('error.regex','Value {value} not valid!');
         $translator->setTranslation('error.invalidRegex','Invalid regex: {regex}!');
         $translator->setTranslation('error.maxLength','Value should not be longer than {max} characters!');
+
+        $translator->setTranslation('fldTestSelect.label','My test selectfield');
+
         $construct->setTranslator($translator);
 
         // orm
@@ -93,11 +96,13 @@ class TestScenario
 
 
         // create a new form from a xml-builder
+        /*
         $formXml = $construct->buildForm('xmlLoadedForm',new XmlBuilder('myForm.xml'));
         $formXml->addButton('submit')->ignoreValue();
         $formXml->addFieldset('xmlLoadedFormLegend');
 
         echo $formXml->render();
+        */
 
 
         // define fields
@@ -145,6 +150,7 @@ class TestScenario
                             ->setOptions(array($this,'getOptions'))
                         ->back()
                     ->addLabel('description')
+                        ->setContent('bladibla')
                         ->nextSibling()
                     ->addField('fldHobby1')
                         ->showIf(Condition::STARTS_WITH,4)

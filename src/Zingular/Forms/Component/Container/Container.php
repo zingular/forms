@@ -23,7 +23,7 @@ use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\Builder\BuilderInterface;
+use Zingular\Forms\Service\Builder\RuntimeBuilderInterface;
 use Zingular\Forms\Service\Builder\ErrorBuilderInterface;
 use Zingular\Forms\Service\Builder\OptionsBuilder;
 use Zingular\Forms\Service\Services;
@@ -38,12 +38,12 @@ class Container extends AbstractContainer implements DataInterface
     use ConditionTrait;
 
     /**
-     * @var
+     * @var RuntimeBuilderInterface
      */
     protected $preBuilder;
 
     /**
-     * @var
+     * @var RuntimeBuilderInterface
      */
     protected $postBuilder;
 
@@ -495,7 +495,7 @@ class Container extends AbstractContainer implements DataInterface
     }
 
     /**
-     * @param string|BuilderInterface $builder
+     * @param string|RuntimeBuilderInterface $builder
      * @return $this
      */
     public function addBuilder($builder)
@@ -505,7 +505,7 @@ class Container extends AbstractContainer implements DataInterface
     }
 
     /**
-     * @param string|BuilderInterface|callable $builder
+     * @param string|RuntimeBuilderInterface|callable $builder
      * @throws FormException
      */
     protected function applyBuilder($builder)
@@ -513,11 +513,11 @@ class Container extends AbstractContainer implements DataInterface
         // builder is a type string, create a builder from it using the factory
         if(is_string($builder))
         {
-            $this->getServices()->getBuilders()->get($builder)->build($this);
+            $this->getServices()->getBuilders()->get($builder)->build($this,$this->formContext);
         }
-        elseif($builder instanceof BuilderInterface)
+        elseif($builder instanceof RuntimeBuilderInterface)
         {
-            $builder->build($this);
+            $builder->build($this,$this->formContext);
         }
         elseif(is_callable($builder))
         {
@@ -525,12 +525,12 @@ class Container extends AbstractContainer implements DataInterface
         }
         else
         {
-            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, BuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
+            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, RuntimeBuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
         }
     }
 
     /**
-     * @param array|BuilderInterface|callable $options
+     * @param array|RuntimeBuilderInterface|callable $options
      * @return $this
      */
     public function setOptions($options)
@@ -662,7 +662,7 @@ class Container extends AbstractContainer implements DataInterface
             $builder = $this->getServices()->getErrorBuilderFactory()->create($this->errorBuilder);
 
             // buildPrototypes errors
-            $builder->build($this,$this->errors,$this->getServices()->getTranslator());
+            $builder->build($this,$this->formContext,$this->errors,$this->getServices()->getTranslator());
         }
     }
 

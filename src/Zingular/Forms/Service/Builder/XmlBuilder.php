@@ -10,6 +10,7 @@ namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Container\Form;
+use Zingular\Forms\Component\FormContext;
 
 class XmlBuilder implements FormbuilderInterface
 {

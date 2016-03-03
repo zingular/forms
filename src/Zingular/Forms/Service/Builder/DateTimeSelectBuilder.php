@@ -8,17 +8,19 @@
 
 namespace Zingular\Forms\Service\Builder;
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\FormContext;
 
 /**
  * Class DateTimeContainerStrategy
  * @package Zingular\Form
  */
-class DateTimeSelectBuilder implements BuilderInterface
+class DateTimeSelectBuilder implements RuntimeBuilderInterface
 {
     /**
      * @param Container $container
+     * @param FormContext $context
      */
-    public function build(Container $container)
+    public function build(Container $container,FormContext $context)
     {
         $container->addInput('n');
         $container->addInput('j');

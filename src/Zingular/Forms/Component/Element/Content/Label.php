@@ -24,11 +24,6 @@ class Label extends Content
     protected $for;
 
     /**
-     * @var string
-     */
-    protected $text;
-
-    /**
      * @param string|ComponentInterface $for
      * @return $this
      */
@@ -60,26 +55,5 @@ class Label extends Content
     public function getFor()
     {
         return $this->for;
-    }
-
-    /**
-     * @return string
-     */
-    public function getText()
-    {
-        if(is_null($this->text))
-        {
-            return $this->getId();
-        }
-
-        return $this->text;
-    }
-
-    /**
-     * @param string $text
-     */
-    public function setText($text)
-    {
-        $this->text = $text;
     }
 }

@@ -51,7 +51,7 @@ class BuilderPool
 
     /**
      * @param string $name
-     * @return BuilderInterface
+     * @return RuntimeBuilderInterface
      */
     public function get($name)
     {
