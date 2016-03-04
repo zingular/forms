@@ -214,9 +214,18 @@ trait ComponentTrait
             $classes[] = $this->cssTypeClass;
         }
 
+        $classes = array_merge($classes,array_keys($this->cssClasses),$this->getRuntimeClasses());
         array_walk($classes,'trim');
         $classes = array_filter($classes,'strlen');
-        return implode(' ',array_merge($classes,array_keys($this->cssClasses)));
+        return implode(' ',$classes);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRuntimeClasses()
+    {
+        return array();
     }
 
     /**

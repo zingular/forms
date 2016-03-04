@@ -88,13 +88,14 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
                 // required check
                 if($this->isRequired())
                 {
-                    throw new EvaluationException($this,'required');
+                    throw new EvaluationException($this,'required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
                 }
             }
+            // if there was a value from the input
             else
             {
                 // evaluate the value
-                $this->value = $this->formContext->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
+                $this->value = $this->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
 
                 // encode the value (if converter set)
                 $this->value = $this->encodeValue($this->value);
@@ -102,7 +103,7 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
                 // store the read input if it should be persisted
                 if($this->isPersistent() || $this->formContext->isPersistent())
                 {
-                    $this->formContext->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->formContext->getFormId());
+                    $this->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->formContext->getFormId());
                 }
             }
         }
@@ -110,9 +111,9 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         else
         {
             // if persistent and the persistence handler has a value for this data unit, load it
-            if(($this->isPersistent() || $this->formContext->isPersistent()) && $this->formContext->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->formContext->getFormId()))
+            if(($this->isPersistent() || $this->formContext->isPersistent()) && $this->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->formContext->getFormId()))
             {
-                $this->value = $this->formContext->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->formContext->getFormId());
+                $this->value = $this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->formContext->getFormId());
             }
         }
     }
@@ -166,38 +167,23 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         return null;
     }
 
+
+
+
     /**
-     * @param $value
-     * @return bool
+     * @return array
      */
-    protected function processInputValue($value)
+    protected function getRuntimeClasses()
     {
-        // if the value is null, return that
-        if(is_null($value))
-        {
-            return null;
-        }
-        elseif(is_string($value))
-        {
-            // trim the raw value
-            if($this->trimValue && is_string($value))
-            {
-                $value = trim($value);
-            }
+        $classes = array();
 
-            // if the value is an empty string, and that is considered empty, return null
-            if($this->emptyStringIsValue === false && strlen($value) === 0)
-            {
-                return null;
-            }
+        if($this->isRequired())
+        {
+            $classes[] = 'required';
         }
 
-        return $value;
+        return $classes;
     }
-
-
-
-
 
 
 
@@ -280,7 +266,7 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     {
         if(!is_null($this->converterConfig))
         {
-            return $this->formContext->getServices()->getConverters()->get($this->converterConfig->getType());
+            return $this->getServices()->getConverters()->get($this->converterConfig->getType());
         }
 
         return null;

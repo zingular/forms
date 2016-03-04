@@ -56,6 +56,7 @@ class TestScenario
 
         // error translations
         $translator->setTranslation('error.test','Test');
+        $translator->setTranslation('error.required',"Field '{control}' is required!");
         $translator->setTranslation('error.valueIsTest','Value cannot be test!');
         $translator->setTranslation('error.regex','Value {value} not valid!');
         $translator->setTranslation('error.invalidRegex','Invalid regex: {regex}!');
@@ -74,6 +75,9 @@ class TestScenario
         // field label translations
         $translator->setTranslation('fldTestSelect.label','My test selectfield');
         $translator->setTranslation('fldBirthday.label','Date of birth');
+
+        // set control names
+        $translator->setTranslation('control.question','Question');
 
         // set the default translator
         $construct->setTranslator($translator);

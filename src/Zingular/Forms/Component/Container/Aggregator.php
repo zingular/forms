@@ -11,6 +11,7 @@ use Zingular\Forms\Aggregation;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Service\Aggregation\AggregatorInterface;
 use Zingular\Forms\Exception\FormException;
@@ -22,6 +23,7 @@ use Zingular\Forms\Exception\FormException;
 class Aggregator extends Container implements DataUnitInterface
 {
     use DataUnitTrait;
+    use RequiredTrait;
 
     /**
      * @var AggregatorInterface
@@ -96,25 +98,39 @@ class Aggregator extends Container implements DataUnitInterface
             // read the raw value
             $this->value = $this->readInput();
 
-            // evaluate the value
-            $this->value = $this->formContext->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
-
-            // encode the value (if converter set)
-            //$this->value = $this->encodeValue($this->value);
-
-            // store the read input if it should be persisted
-            if($this->isPersistent() || $this->formContext->isPersistent())
+            // if there was no value from the input
+            if($this->hasValue() === false)
             {
-                $this->formContext->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->formContext->getFormId());
+                // check required
+                if($this->isRequired())
+                {
+                    throw new EvaluationException($this,'required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
+                }
+            }
+            // if there was a value from the input
+            else
+            {
+                // evaluate the value
+                $this->value = $this->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
+
+                // encode the value (if converter set)
+                // TODO
+                //$this->value = $this->encodeValue($this->value);
+
+                // store the read input if it should be persisted
+                if($this->isPersistent() || $this->formContext->isPersistent())
+                {
+                    $this->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->formContext->getFormId());
+                }
             }
         }
         // if input should not be read, get value from other source
         else
         {
             // if persistent and the persistence handler has a value for this data unit, load it
-            if(($this->isPersistent() || $this->formContext->isPersistent()) && $this->formContext->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->formContext->getFormId()))
+            if(($this->isPersistent() || $this->formContext->isPersistent()) && $this->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->formContext->getFormId()))
             {
-                $this->value = $this->formContext->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->formContext->getFormId());
+                $this->value = $this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->formContext->getFormId());
             }
         }
     }
@@ -133,7 +149,7 @@ class Aggregator extends Container implements DataUnitInterface
      */
     protected function readInput()
     {
-        return $this->getAggregationStrategy()->aggregate($this->getValues(),$this);
+        return $this->preprocessInputValue($this->getAggregationStrategy()->aggregate($this->getValues(),$this));
     }
 
     /**
@@ -142,6 +158,8 @@ class Aggregator extends Container implements DataUnitInterface
      */
     protected function preprocessInputValue($value)
     {
+        // TODO: check required mode and make sure a null value is returned if not all of the conditions are met
+
         return $value;
     }
 
@@ -155,7 +173,20 @@ class Aggregator extends Container implements DataUnitInterface
 
 
 
+    /**
+     * @return array
+     */
+    protected function getRuntimeClasses()
+    {
+        $classes = array();
 
+        if($this->isRequired())
+        {
+            $classes[] = 'required';
+        }
+
+        return $classes;
+    }
 
 
 
