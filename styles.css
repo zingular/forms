@@ -1,3 +1,9 @@
+*
+{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size:12px;
+}
+
 input,
 label,
 textarea,
@@ -16,9 +22,13 @@ label
 
 label.error
 {
-    background-color: red;
+    background-color: #900000;
     color:white;
     border:1px solid #900000;
+    clear:none;
+    border-radius: 2px;
+    font-weight:normal;
+    padding:2px;
 }
 
 input.error,
@@ -55,13 +65,17 @@ p
 
 .type_field
 {
-    float:left;
     clear:left;
     background-color:#cccccc;
-    padding: 8px 8px 0;
     margin-bottom:16px;
     border: 1px solid #a0a0a0;
     border-radius: 4px;
+    overflow:hidden;
+}
+
+.type_field > .inner
+{
+    padding: 8px 8px 0;
 }
 
 .errorContainer
