@@ -8,9 +8,7 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\RequiredTrait;
 
 /**
  * Class Textarea
@@ -18,5 +16,23 @@ use Zingular\Forms\Component\RequiredTrait;
  */
 class Textarea extends AbstractControl implements ComponentInterface
 {
+    /**
+     * @param int $numberOfCols
+     * @return $this
+     */
+    public function cols($numberOfCols = 50)
+    {
+        $this->setHtmlAttribute('cols',$numberOfCols);
+        return $this;
+    }
 
+    /**
+     * @param int $numberOfRows
+     * @return $this
+     */
+    public function rows($numberOfRows = 8)
+    {
+        $this->setHtmlAttribute('rows',$numberOfRows);
+        return $this;
+    }
 }

@@ -43,7 +43,6 @@ class TestScenario
 
         $start = microtime(true);
 
-
         // create form construct
         $construct = new Construct();
 
@@ -131,7 +130,9 @@ class TestScenario
         $form->defineInput(Types::INPUT_EMAIL)
             ->setConverter(Converter::SERIALIZE);
         $form->defineField(Types::FIELD_QUESTION);
-        $form->defineTextarea(Types::TEXTAREA_QUESTION);
+        $form->defineTextarea(Types::TEXTAREA_QUESTION)
+            ->cols()
+            ->rows();
         $form->defineInput('address')->setInputType(InputType::PASSWORD);
 
 

@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\InputType;
 
