@@ -145,6 +145,7 @@ class TestScenario
                 ->useField(Types::FIELD_NAME)
                     ->useInput(Types::INPUT_TEXT)
                         ->setRequired(false)
+                        ->addCssClass(CssClass::MEDIUM)
                         ->nextSibling()
                     ->useInput(Types::INPUT_EMAIL)
                         ->addValidator('doValidate')
