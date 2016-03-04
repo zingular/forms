@@ -133,6 +133,7 @@ class TestScenario
 
 
         $form->useInput('address');
+            //->setRequired();
 
         // BUILD THE FORM
         $form
@@ -144,7 +145,7 @@ class TestScenario
             ->useFieldset(Types::FIELDSET_PERSONALIA)
                 ->useField(Types::FIELD_NAME)
                     ->useInput(Types::INPUT_TEXT)
-                        ->setRequired(false)
+                        ->setRequired()
                         ->addCssClass(CssClass::MEDIUM)
                         ->nextSibling()
                     ->useInput(Types::INPUT_EMAIL)
@@ -159,6 +160,7 @@ class TestScenario
                 ->useField(Types::FIELD_QUESTION)
                     ->showErrors(true)
                     ->useTextarea(Types::TEXTAREA_QUESTION)
+                        ->setRequired()
                         ->back()
                 ->addFieldset('fsHobbies')
                     ->addField('fldTestSelect')

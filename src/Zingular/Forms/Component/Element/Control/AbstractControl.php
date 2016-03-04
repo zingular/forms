@@ -13,6 +13,7 @@ use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
+use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Service\Conversion\ConverterConfig;
 use Zingular\Forms\Service\Conversion\ConverterInterface;
 
@@ -37,6 +38,12 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     protected $converterConfig;
 
     /**
+     * @var bool
+     */
+    protected $emptyStringIsValue = false;
+
+
+    /**
      * @param FormContext $formContext
      * @param array $defaultValues
      * @return string
@@ -50,15 +57,13 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         $defaultValue = array_key_exists($this->getName(),$defaultValues) ? $defaultValues[$this->getName()] : null;
 
         // make sure the value is collected
-        //$retriever = new ControlValueRetriever($this,$formContext,$this->getEvaluatorCollection());
-        //$retriever->setConverter($this->getConverter(),$this->converterConfig);
-
         $this->retrieveValue($defaultValue);
     }
 
     /**
      * @param null $defaultValue
      * @throws EvaluationException
+     * @throws ValidationException
      */
     public function retrieveValue($defaultValue = null)
     {
@@ -75,18 +80,30 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         if($this->shouldReadInput($this->formContext))
         {
             // read the raw value
-            $value = $this->readInput($this->formContext);
+            $this->value = $this->readInput($this->formContext);
 
-            // evaluate the value
-            $value = $this->formContext->getServices()->getEvaluationHandler()->evaluate($value,$this->getEvaluatorCollection(),$this);
-
-            // encode the value (if converter set)
-            $this->value = $this->encodeValue($value);
-
-            // store the read input if it should be persisted
-            if($this->isPersistent() || $this->formContext->isPersistent())
+            // if there was no value from the input
+            if($this->hasValue() === false)
             {
-                $this->formContext->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$value,$this->formContext->getFormId());
+                // required check
+                if($this->isRequired())
+                {
+                    throw new EvaluationException($this,'required');
+                }
+            }
+            else
+            {
+                // evaluate the value
+                $this->value = $this->formContext->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
+
+                // encode the value (if converter set)
+                $this->value = $this->encodeValue($this->value);
+
+                // store the read input if it should be persisted
+                if($this->isPersistent() || $this->formContext->isPersistent())
+                {
+                    $this->formContext->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->formContext->getFormId());
+                }
             }
         }
         // if input should not be read, get value from other source
@@ -129,24 +146,24 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
      */
     protected function preprocessInputValue($value)
     {
-        // if the value is null, return that
-        if(is_null($value))
+        if(is_string($value))
         {
-            return null;
-        }
-        // if the value is an empty string, and that is considered empty, return null
-        elseif($this->emptyStringIsValue() && (is_string($value) && strlen($value) === 0))
-        {
-            return null;
+            // trim the raw value
+            if($this->shouldTrimValue())
+            {
+                $value = trim($value);
+            }
+
+            // if the value is an empty string, and that is considered empty, return null
+            if($this->emptyStringIsValue() === false && strlen($value) === 0)
+            {
+                return null;
+            }
+
+            return $value;
         }
 
-        // trim the raw value
-        if($this->shouldTrimValue() && is_string($value))
-        {
-            $value = trim($value);
-        }
-
-        return $value;
+        return null;
     }
 
     /**
@@ -160,16 +177,19 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         {
             return null;
         }
-        // if the value is an empty string, and that is considered empty, return null
-        elseif(!$this->emptyStringIsValue && (is_string($value) && strlen($value) === 0))
+        elseif(is_string($value))
         {
-            return null;
-        }
+            // trim the raw value
+            if($this->trimValue && is_string($value))
+            {
+                $value = trim($value);
+            }
 
-        // trim the raw value
-        if($this->trimValue && is_string($value))
-        {
-            $value = trim($value);
+            // if the value is an empty string, and that is considered empty, return null
+            if($this->emptyStringIsValue === false && strlen($value) === 0)
+            {
+                return null;
+            }
         }
 
         return $value;
@@ -220,6 +240,23 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     }
 
 
+    /**
+     * @param bool $set
+     * @return $this
+     */
+    public function setEmptyStringIsValue($set = true)
+    {
+        $this->emptyStringIsValue = $set;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function emptyStringIsValue()
+    {
+        return $this->emptyStringIsValue;
+    }
 
 
 

@@ -38,10 +38,7 @@ trait DataUnitTrait
      */
     protected $ignoreWhenEmpty = false;
 
-    /**
-     * @var bool
-     */
-    protected $emptyStringIsValue = true;
+
 
     /**
      * @var bool
@@ -129,23 +126,6 @@ trait DataUnitTrait
         return $this;
     }
 
-    /**
-     * @param bool $set
-     * @return $this
-     */
-    public function setEmptyStringIsValue($set = true)
-    {
-        $this->emptyStringIsValue = $set;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function emptyStringIsValue()
-    {
-        return $this->emptyStringIsValue;
-    }
 
     /**
      * @param bool $set
