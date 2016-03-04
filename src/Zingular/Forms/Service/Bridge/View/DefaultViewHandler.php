@@ -30,7 +30,7 @@ class DefaultViewHandler extends AbstractViewHandler
     const FORMAT_FORM = '<form id="%s" class="%s" method="%s" action="%s" %s>%s</form>';
     const FORMAT_CONTAINER = '<div id="%s" class="%s" %s>%s</div>';
     const FORMAT_FIELDSET = '<fieldset id="%s" class="%s" %s>%s</fieldset>';
-    const FORMAT_FIELD = '<div id="%s" class="%s" %s>%s</div>';
+    const FORMAT_FIELD = '<div id="%s" class="%s" %s><div class="inner">%s</div></div>';
     const FORMAT_INPUT = '<input type="%s" id="%s" class="%s" name="%s" value="%s" %s/>';
     const FORMAT_CHECKBOX = '<input type="%s" id="%s" class="%s" name="%s" %s %s/>';
     const FORMAT_SELECT = '<select id="%s" class="%s" name="%s" %s>%s</select>';

@@ -16,7 +16,7 @@ interface ConverterInterface
 {
     /**
      * @param $value
-     * @param ...$params
+     * @param array ...$params
      * @return mixed
      */
     public function encode($value,...$params);

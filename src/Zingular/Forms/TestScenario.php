@@ -53,14 +53,29 @@ class TestScenario
 
         // prepare translator
         $translator = new ArrayTranslator();
+
+        // error translations
         $translator->setTranslation('error.test','Test');
         $translator->setTranslation('error.valueIsTest','Value cannot be test!');
         $translator->setTranslation('error.regex','Value {value} not valid!');
         $translator->setTranslation('error.invalidRegex','Invalid regex: {regex}!');
         $translator->setTranslation('error.maxLength','Value should not be longer than {max} characters!');
 
-        $translator->setTranslation('fldTestSelect.label','My test selectfield');
+        // fieldset legends
+        $translator->setTranslation('fsPersonalia.legend','Personalia');
+        $translator->setTranslation('fsHobbies.legend','Hobbies');
+        $translator->setTranslation('fsBirthday.legend','Date of birth');
+        $translator->setTranslation('fsNew.legend','New test');
+        $translator->setTranslation('test1234.legend','Test 1234');
 
+        // fieldset descriptions
+        $translator->setTranslation('fsBirthday.description','Please enter your date of birth.');
+
+        // field label translations
+        $translator->setTranslation('fldTestSelect.label','My test selectfield');
+        $translator->setTranslation('fldBirthday.label','Date of birth');
+
+        // set the default translator
         $construct->setTranslator($translator);
 
         // orm
@@ -176,8 +191,10 @@ class TestScenario
                         ->back()
                 ->addFieldset('fsNew')
                     ->setOptions(array($this,'getOptions'))->nextSibling()
-                    ->useFieldset('test1234')
+                ->useFieldset('test1234')
+                    ->nextSibling()
                     //->addContainer('myContainer','myContainer')->nextSibling()
+
                 ->addButton('submit')
                     ->onClick(array($this,'test'))
                     ->ignoreValue();
@@ -214,6 +231,7 @@ class TestScenario
         </html>
         ';
     }
+
 
     public function test()
     {

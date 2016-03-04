@@ -10,7 +10,6 @@ namespace Zingular\Forms\Component\Element\Content;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\FormContext;
-use Zingular\Forms\Service\ContentProvider\ContentProviderInterface;
 
 /**
  * Class Content
@@ -18,11 +17,6 @@ use Zingular\Forms\Service\ContentProvider\ContentProviderInterface;
  */
 class Content extends AbstractElement implements ComponentInterface
 {
-    /**
-     * @var ContentProviderInterface
-     */
-    protected $contentProvider;
-
     /**
      * @var string
      */
@@ -74,15 +68,8 @@ class Content extends AbstractElement implements ComponentInterface
     }
 
     /**
-     * @param ContentProviderInterface $provider
-     */
-    public function setContentProvider(ContentProviderInterface $provider)
-    {
-        $this->contentProvider = $provider;
-    }
-
-    /**
-     * @return string
+     * @return mixed|string
+     * @throws \Exception
      */
     public function getContent()
     {
@@ -101,10 +88,6 @@ class Content extends AbstractElement implements ComponentInterface
         elseif(!is_null($this->callback))
         {
             return call_user_func($this->callback);
-        }
-        elseif(!is_null($this->contentProvider))
-        {
-            return $this->contentProvider->getContent();
         }
 
         return '';

@@ -188,7 +188,13 @@ trait ComponentTrait
      */
     public function addCssClass($class)
     {
-        $this->cssClasses[trim($class)] = true;
+        $class = trim($class);
+
+        if(strlen($class))
+        {
+            $this->cssClasses[trim($class)] = true;
+        }
+
         return $this;
     }
 
@@ -207,6 +213,9 @@ trait ComponentTrait
         {
             $classes[] = $this->cssTypeClass;
         }
+
+        array_walk($classes,'trim');
+        $classes = array_filter($classes,'strlen');
         return implode(' ',array_merge($classes,array_keys($this->cssClasses)));
     }
 

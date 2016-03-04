@@ -55,7 +55,6 @@ abstract class AbstractValueRetriever
     /**
      * @param ConverterInterface $converter
      * @param ConverterConfig $config
-     * @internal param ConverterConfig $config
      */
     public function setConverter(ConverterInterface $converter = null,ConverterConfig $config = null)
     {

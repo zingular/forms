@@ -74,6 +74,7 @@ interface ComponentInterface
      * @return $this
      */
     public function addCssClass($class);
+
     /**
      * @return string
      */

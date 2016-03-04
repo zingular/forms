@@ -606,8 +606,11 @@ class Container extends AbstractContainer implements DataInterface
             // catch any errors during child compilation
             catch(\Exception $e)
             {
+                $component->addCssClass('error');
                 $this->errors[] = $e;
             }
+
+            $this->getCssClass();
 
             // collect the values of the child component
             $this->collectValues($component);
@@ -697,25 +700,6 @@ class Container extends AbstractContainer implements DataInterface
     /***************************************************************
      * VIEW
      **************************************************************/
-
-    /**
-     * @return string
-     */
-    public function getCssClass()
-    {
-        $classes = array();
-        if(!is_null($this->cssBaseTypeClass))
-        {
-            $classes[] = $this->cssBaseTypeClass;
-        }
-        if(!is_null($this->cssTypeClass))
-        {
-            $classes[] = $this->cssTypeClass;
-        }
-        $classes[] = $this->viewName;
-
-        return implode(' ',array_merge($classes,array_keys($this->cssClasses)));
-    }
 
     /**
      * @return array

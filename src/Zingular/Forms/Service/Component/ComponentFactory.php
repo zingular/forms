@@ -12,7 +12,6 @@ use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Container\Aggregator;
 use Zingular\Forms\Component\Container\Field;
 use Zingular\Forms\Component\Container\Fieldset;
-use Zingular\Forms\Component\Container\Prototypes;
 use Zingular\Forms\Component\Element\Control\Button;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Element\Content\Content;
