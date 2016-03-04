@@ -67,10 +67,7 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
      */
     public function retrieveValue($defaultValue = null)
     {
-        // start out with the current value of the component
-        $this->value = $this->getValue();
-
-        // start out with default value
+        // if there was a form scope default value provided, set that
         if(!is_null($defaultValue))
         {
             $this->value = $defaultValue;
