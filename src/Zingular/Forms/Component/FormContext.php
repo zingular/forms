@@ -30,7 +30,7 @@ class FormContext
     /**
      * @var array
      */
-    protected $defaultValues;
+    protected $values = array();
 
     /**
      * @param Form $form
@@ -43,11 +43,29 @@ class FormContext
     }
 
     /**
-     * @param $controlName
+     * @param $componentName
+     * @return mixed
      */
-    public function getValue($controlName)
+    public function getValue($componentName)
     {
+        return $this->hasValue($componentName) ? $this->values[$componentName] : null;
+    }
 
+    /**
+     * @param $componentName
+     * @return bool
+     */
+    public function hasValue($componentName)
+    {
+        return isset($this->values[$componentName]);
+    }
+
+    /**
+     * @param DataUnitInterface $component
+     */
+    public function registerValue(DataUnitInterface $component)
+    {
+        $this->values[$component->getFullName()] = $component->getValue();
     }
 
     /**

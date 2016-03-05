@@ -32,15 +32,22 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
      */
     public function render(ComponentInterface $component)
     {
+        // render container
         if($component instanceof Container)
         {
             return $this->renderContainerType($component);
         }
-
-        /** @var ElementInterface $element */
-        $element = $component;
-
-        return $this->renderElement($element);
+        // render element
+        elseif($component instanceof ElementInterface)
+        {
+            return $this->renderElement($component);
+        }
+        // render generic component
+        else
+        {
+            // TODO: find a way to render view of custom components that only implement the base interfaces
+            return '';
+        }
     }
 
     /**

@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms;
+use Zingular\Forms\Component\TestCompoment;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\TestExtension;
@@ -210,7 +211,7 @@ class TestScenario
 
             //print_rf($form->describe(true));
 
-
+        $form->import(new TestCompoment(),'testComponent');
 
         //var_dump($form->getFieldset('hobbies')->getField('fldHobby1')->getInput('hobby1')->getFullId());
 

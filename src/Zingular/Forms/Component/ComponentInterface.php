@@ -7,7 +7,6 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Component\Container\Container;
 
 /**
  * Interface ComponentInterface
@@ -23,9 +22,14 @@ interface ComponentInterface
     /**
      * @param FormContext $formContext
      * @param array $defaultValues
-     * @return
      */
     public function compile(FormContext $formContext,array $defaultValues = array());
+
+    /**
+     * @param $class
+     * @return $this
+     */
+    public function addCssClass($class);
 
     /**
      * @return string
