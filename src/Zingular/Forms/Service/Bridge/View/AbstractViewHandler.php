@@ -11,6 +11,7 @@ namespace Zingular\Forms\Service\Bridge\View;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Container\Form;
+use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\Element\Content\Html;
 use Zingular\Forms\Component\Element\Content\HtmlTag;
@@ -38,7 +39,7 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
             return $this->renderContainerType($component);
         }
         // render element
-        elseif($component instanceof ElementInterface)
+        elseif($component instanceof AbstractElement)
         {
             return $this->renderElement($component);
         }
