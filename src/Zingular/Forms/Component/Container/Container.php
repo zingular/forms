@@ -464,6 +464,20 @@ class Container extends AbstractContainer implements DataInterface
     }
 
     /***************************************************************
+     * IMPORT
+     **************************************************************/
+
+    /**
+     * @param ComponentInterface $component
+     * @param string $name
+     * @return ComponentInterface
+     */
+    public function import(ComponentInterface $component,$name)
+    {
+        return $this->adopt($name,$component);
+    }
+
+    /***************************************************************
      * BUILDING
      **************************************************************/
 
