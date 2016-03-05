@@ -20,12 +20,6 @@ interface DataUnitInterface extends DataInterface
     public function getValue();
 
     /**
-     * @param mixed $value
-     * @return $this
-     */
-    public function setValue($value);
-
-    /**
      * @return bool
      */
     public function hasValue();
@@ -41,27 +35,9 @@ interface DataUnitInterface extends DataInterface
     public function getFullName();
 
     /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName($name);
-
-    /**
      * @return bool
      */
     public function hasFixedValue();
-
-    /**
-     * @param bool $set
-     * @return $this
-     */
-    public function fixedValue($set = true);
-
-    /**
-     * @param bool $set
-     * @return $this
-     */
-    public function ignoreValue($set = true);
 
     /**
      * @return bool
@@ -69,26 +45,7 @@ interface DataUnitInterface extends DataInterface
     public function shouldIgnoreValue();
 
     /**
-     * @param bool $set
-     * @return $this
-     */
-    public function ignoreWhenEmpty($set = true);
-
-    /**
-     * @param bool $set
-     * @return $this
-     */
-    public function persistent($set = true);
-
-    /**
      * @return bool
      */
     public function isPersistent();
-
-    /**
-     * @param $converter
-     * @param $params
-     * @return $this
-     */
-    public function setConverter($converter,...$params);
 }
