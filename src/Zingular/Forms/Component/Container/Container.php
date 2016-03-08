@@ -26,7 +26,7 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Builder\RuntimeBuilderInterface;
 use Zingular\Forms\Service\Builder\ErrorBuilderInterface;
 use Zingular\Forms\Service\Builder\OptionsBuilder;
-use Zingular\Forms\Service\Builder\StaticBuilderInterface;
+use Zingular\Forms\Service\Builder\BuilderInterface;
 use Zingular\Forms\Service\Services;
 
 /**
@@ -531,9 +531,9 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param StaticBuilderInterface $builder
+     * @param BuilderInterface $builder
      */
-    public function applyBuilder(StaticBuilderInterface $builder)
+    public function applyBuilder(BuilderInterface $builder)
     {
         $builder->build($this);
     }

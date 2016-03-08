@@ -8,14 +8,13 @@
 
 namespace Zingular\Forms\Service\Builder;
 
-
 use Zingular\Forms\Component\Container\BuildableInterface;
 
 /**
- * Interface StaticBuilderInterface
+ * Interface BuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface StaticBuilderInterface
+interface BuilderInterface
 {
     /**
      * @param BuildableInterface $container
