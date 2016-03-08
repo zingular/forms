@@ -23,10 +23,10 @@ use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\Builder\RuntimeBuilderInterface;
-use Zingular\Forms\Service\Builder\ErrorBuilderInterface;
-use Zingular\Forms\Service\Builder\OptionsBuilder;
-use Zingular\Forms\Service\Builder\BuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Error\ErrorBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
+use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 use Zingular\Forms\Service\Services;
 
 /**
@@ -521,7 +521,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param string|RuntimeBuilderInterface $builder
+     * @param string|\Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface $builder
      * @return $this
      */
     public function addBuilder($builder)
@@ -531,7 +531,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param BuilderInterface $builder
+     * @param \Zingular\Forms\Plugins\Builders\Container\BuilderInterface $builder
      */
     public function applyBuilder(BuilderInterface $builder)
     {
@@ -539,7 +539,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param string|RuntimeBuilderInterface|callable $builder
+     * @param string|\Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface|callable $builder
      * @throws FormException
      */
     protected function applyBuilderType($builder)
@@ -564,7 +564,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param array|RuntimeBuilderInterface|callable $options
+     * @param array|\Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface|callable $options
      * @return $this
      */
     public function setOptions($options)

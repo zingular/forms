@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Builder;
+use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
 /**
  * Interface BuilderFactoryInterface

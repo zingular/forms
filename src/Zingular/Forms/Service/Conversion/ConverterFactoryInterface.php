@@ -1,6 +1,7 @@
 <?php
 
 namespace Zingular\Forms\Service\Conversion;
+use Zingular\Forms\Plugins\Converters\ConverterInterface;
 
 /**
  * Created by PhpStorm.

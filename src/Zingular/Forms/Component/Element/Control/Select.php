@@ -8,10 +8,10 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\BaseTypes;
+
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\OptionsProvider;
-use Zingular\Forms\Component\RequiredTrait;
+
 use Zingular\Forms\OptionMode;
 
 class Select extends AbstractControl implements ComponentInterface

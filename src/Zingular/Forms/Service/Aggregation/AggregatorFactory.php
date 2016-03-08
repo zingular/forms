@@ -10,6 +10,9 @@ namespace Zingular\Forms\Service\Aggregation;
 
 use Zingular\Forms\Aggregation;
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\DateTimeAggregator;
+use Zingular\Forms\Plugins\Aggregators\DummyAggregator;
 
 /**
  * Class AggregatorFactory

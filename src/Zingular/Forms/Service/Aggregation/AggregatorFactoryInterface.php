@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Aggregation;
+use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
 
 /**
  * Interface AggregatorFactoryInterface

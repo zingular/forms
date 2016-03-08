@@ -10,6 +10,7 @@ namespace Zingular\Forms\Service\Condition;
 
 
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 
 /**
  * Class ConditionPool

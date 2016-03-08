@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Bridge\View;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
+
 
 /**
  * Interface ViewHandlerInterface

@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Element\Content;
-use Zingular\Forms\BaseTypes;
+
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Element\Control\AbstractControl;

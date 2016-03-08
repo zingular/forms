@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Service\Builder;
 use Zingular\Forms\Exception\FormException;
 
+use Zingular\Forms\Plugins\Builders\Container\FieldBuilder;
+use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
+use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+
 /**
  * Class BuilderFactory
  * @package Zingular\Form\Service\Builder

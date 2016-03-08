@@ -9,26 +9,26 @@
 namespace Zingular\Forms\Service;
 use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
-use Zingular\Forms\Service\Aggregation\PoolableAggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Builder\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\BuilderPool;
-use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
 use Zingular\Forms\Service\Condition\ConditionFactoryInterface;
-use Zingular\Forms\Service\Condition\ConditionInterface;
+use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Service\Conversion\ConverterFactory;
 use Zingular\Forms\Service\Conversion\ConverterFactoryInterface;
-use Zingular\Forms\Service\Conversion\ConverterInterface;
+use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Service\Conversion\ConverterPool;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
 use Zingular\Forms\Service\Evaluation\FilterFactory;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
-use Zingular\Forms\Service\Evaluation\FilterInterface;
+use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 use Zingular\Forms\Service\Evaluation\FilterPool;
 use Zingular\Forms\Service\Evaluation\ValidatorFactory;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
-use Zingular\Forms\Service\Evaluation\ValidatorInterface;
+use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 use Zingular\Forms\Service\Evaluation\ValidatorPool;
 use Zingular\Forms\Service\Aggregation\AggregatorFactory;
 use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;
@@ -44,7 +44,7 @@ use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;
 use Zingular\Forms\Service\Bridge\Translation\DummyTranslator;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 use Zingular\Forms\Service\Builder\BuilderFactory;
-use Zingular\Forms\Service\Builder\ErrorBuilderFactory;
+use Zingular\Forms\Service\Builder\Error\ErrorBuilderFactory;
 use Zingular\Forms\Service\Component\ComponentFactory;
 use Zingular\Forms\Service\Bridge\View\DefaultViewHandler;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
@@ -176,7 +176,7 @@ class Services
      *********************************************************************/
 
     /**
-     * @param ValidatorInterface $validator
+     * @param \Zingular\Forms\Plugins\Evaluators\ValidatorInterface $validator
      */
     public function addValidator(ValidatorInterface $validator)
     {
@@ -184,7 +184,7 @@ class Services
     }
 
     /**
-     * @param FilterInterface $filter
+     * @param \Zingular\Forms\Plugins\Evaluators\FilterInterface $filter
      */
     public function addFilter(FilterInterface $filter)
     {
@@ -192,7 +192,7 @@ class Services
     }
 
     /**
-     * @param RegisterableBuilderInterface $builder
+     * @param \Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface $builder
      */
     public function addBuilder(RegisterableBuilderInterface $builder)
     {
@@ -200,7 +200,7 @@ class Services
     }
 
     /**
-     * @param PoolableAggregatorInterface $aggregator
+     * @param \Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface $aggregator
      */
     public function addAggregator(PoolableAggregatorInterface $aggregator)
     {
@@ -216,7 +216,7 @@ class Services
     }
 
     /**
-     * @param ConverterInterface $converter
+     * @param \Zingular\Forms\Plugins\Converters\ConverterInterface $converter
      */
     public function addConverter(ConverterInterface $converter)
     {

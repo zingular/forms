@@ -7,6 +7,8 @@
  */
 
 namespace Zingular\Forms\Service\Builder;
+use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
 /**
  * Class BuilderPool

@@ -13,7 +13,7 @@ use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
-use Zingular\Forms\Service\Aggregation\AggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
 use Zingular\Forms\Exception\FormException;
 
 /**
@@ -207,7 +207,7 @@ class Aggregator extends Container implements DataUnitInterface
     }
 
     /**
-     * @return AggregatorInterface
+     * @return \Zingular\Forms\Plugins\Aggregators\AggregatorInterface
      * @throws FormException
      */
     protected function getAggregationStrategy()

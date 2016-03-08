@@ -8,9 +8,9 @@
 
 namespace Zingular\Forms\Component\Container;
 
-use Zingular\Forms\BaseTypes;
+
 use Zingular\Forms\Builder;
-use Zingular\Forms\View;
+
 
 /**
  * Class Field

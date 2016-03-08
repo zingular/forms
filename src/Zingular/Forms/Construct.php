@@ -12,9 +12,9 @@ use Zingular\Forms\Component\Container\Prototypes;
 use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
-use Zingular\Forms\Service\Builder\DefaultPrototypeBuilder;
-use Zingular\Forms\Service\Builder\FormbuilderInterface;
-use Zingular\Forms\Service\Builder\PrototypeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Prototypes\DefaultPrototypeBuilder;
+use Zingular\Forms\Plugins\Builders\Form\FormbuilderInterface;
+use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\Service\Services;
 
 /**
@@ -137,7 +137,7 @@ class Construct
 
     /**
      * @param string $formId
-     * @param FormbuilderInterface $builder
+     * @param \Zingular\Forms\Plugins\Builders\Form\FormbuilderInterface $builder
      * @param null $model
      * @return Form
      */

@@ -7,6 +7,8 @@
  */
 
 namespace Zingular\Forms\Service\Aggregation;
+use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 
 /**
  * Class AggregatorPool

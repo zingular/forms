@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Component\Element\Control;
 
 
-use Zingular\Forms\BaseTypes;
+
 use Zingular\Forms\InputType;
 
 class Hidden extends Input

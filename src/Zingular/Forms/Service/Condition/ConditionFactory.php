@@ -8,6 +8,8 @@
 
 namespace Zingular\Forms\Service\Condition;
 use Zingular\Forms\Condition;
+use Zingular\Forms\Plugins\Conditions\ConditionInterface;
+use Zingular\Forms\Plugins\Conditions\ValueCondition;
 
 /**
  * Class ConditionFactory

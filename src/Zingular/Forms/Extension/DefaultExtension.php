@@ -8,9 +8,9 @@
 
 namespace Zingular\Forms\Extension;
 use Zingular\Forms\Component\Container\PrototypesInterface;
-use Zingular\Forms\Service\Builder\FieldsetBuilder;
-use Zingular\Forms\Service\Builder\RegisterableBuilderWrapper;
-use Zingular\Forms\Service\Evaluation\CallableValidator;
+use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
+use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderWrapper;
+use Zingular\Forms\Plugins\Evaluators\CallableValidator;
 
 /**
  * Class DefaultExtension

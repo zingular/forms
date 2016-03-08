@@ -10,6 +10,8 @@ namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Filter;
+use Zingular\Forms\Plugins\Evaluators\CallableFilter;
+use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 
 /**
  * Class FilterFactory

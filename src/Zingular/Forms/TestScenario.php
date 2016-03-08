@@ -15,9 +15,9 @@ use Zingular\Forms\Service\Bridge\Orm\GetterSetterOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
 use Zingular\Forms\Service\Bridge\Orm\PublicPropertyOrmHandler;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
-use Zingular\Forms\Service\Builder\BuilderAggregator;
+use Zingular\Forms\Plugins\Builders\Container\BuilderAggregator;
 use Zingular\Forms\Service\Builder\DateTimeSelectBuilder;
-use Zingular\Forms\Service\Builder\XmlBuilder;
+
 
 /**
  * Class FormTester

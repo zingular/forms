@@ -10,6 +10,8 @@ namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\ValidationException;
+use Zingular\Forms\Plugins\Evaluators\CallableValidator;
+use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 use Zingular\Forms\Validator;
 
 /**

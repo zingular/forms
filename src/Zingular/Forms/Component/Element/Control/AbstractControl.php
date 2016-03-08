@@ -15,7 +15,7 @@ use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Service\Conversion\ConverterConfig;
-use Zingular\Forms\Service\Conversion\ConverterInterface;
+use Zingular\Forms\Plugins\Converters\ConverterInterface;
 
 /**
  * Class AbstractControl

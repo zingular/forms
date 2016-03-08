@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Evaluation;
+use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 
 /**
  * Interface ValidatorFactoryInterface

@@ -8,16 +8,16 @@
 
 namespace Zingular\Forms\Component;
 
-use Zingular\Forms\Service\Aggregation\PoolableAggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
-use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
-use Zingular\Forms\Service\Condition\ConditionInterface;
-use Zingular\Forms\Service\Conversion\ConverterInterface;
+use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
+use Zingular\Forms\Plugins\Conditions\ConditionInterface;
+use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
-use Zingular\Forms\Service\Evaluation\FilterInterface;
+use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
-use Zingular\Forms\Service\Evaluation\ValidatorInterface;
+use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 use Zingular\Forms\Service\Services;
 
@@ -41,7 +41,7 @@ trait ServiceSetterTrait
     }
 
     /**
-     * @param ValidatorInterface $validator
+     * @param \Zingular\Forms\Plugins\Evaluators\ValidatorInterface $validator
      */
     public function addValidatorType(ValidatorInterface $validator)
     {
@@ -57,7 +57,7 @@ trait ServiceSetterTrait
     }
 
     /**
-     * @param RegisterableBuilderInterface $builder
+     * @param \Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface $builder
      */
     public function addBuilderType(RegisterableBuilderInterface $builder)
     {
@@ -81,7 +81,7 @@ trait ServiceSetterTrait
     }
 
     /**
-     * @param ConverterInterface $converter
+     * @param \Zingular\Forms\Plugins\Converters\ConverterInterface $converter
      */
     public function addConverter(ConverterInterface $converter)
     {
