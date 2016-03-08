@@ -10,7 +10,6 @@ namespace Zingular\Forms\Plugins\Builders\Error;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\FormContext;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
 /**
  * Interface ErrorBuilderInterface
@@ -22,7 +21,6 @@ interface ErrorBuilderInterface
      * @param BuildableInterface $container
      * @param FormContext $context
      * @param array $errors
-     * @param TranslatorInterface $translator
      */
-    public function build(BuildableInterface $container,FormContext $context,array $errors,TranslatorInterface $translator);
+    public function build(BuildableInterface $container,FormContext $context,array $errors);
 }

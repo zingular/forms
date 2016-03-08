@@ -11,19 +11,20 @@ namespace Zingular\Forms\Plugins\Builders\Error;
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Exception\EvaluationException;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
-
+/**
+ * Class DefaultErrorBuilder
+ * @package Zingular\Forms\Plugins\Builders\Error
+ */
 class DefaultErrorBuilder implements  ErrorBuilderInterface
 {
     /**
      * @param BuildableInterface $container
      * @param FormContext $context
      * @param array $errors
-     * @param TranslatorInterface $translator
      * @return mixed
      */
-    public function build(BuildableInterface $container, FormContext $context,array $errors, TranslatorInterface $translator)
+    public function build(BuildableInterface $container, FormContext $context,array $errors)
     {
         /** @var \Exception $e */
         foreach($errors as $index=>$e)
