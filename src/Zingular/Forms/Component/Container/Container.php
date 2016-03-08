@@ -73,6 +73,11 @@ class Container extends AbstractContainer implements DataInterface
     protected $showErrors = true;
 
     /**
+     * @var array
+     */
+    protected $adoptionHistory = array();
+
+    /**
      * @return array
      */
     public function getComponents()
@@ -119,8 +124,20 @@ class Container extends AbstractContainer implements DataInterface
         // also add a css class for the instance name
         $component->addCssClass($name);
 
+        // add component to adoption history
+        $this->adoptionHistory[] = $component;
+
         // return component
         return $component;
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetAdoptionHistory()
+    {
+        $this->adoptionHistory = array();
+        return $this;
     }
 
     /***************************************************************
@@ -128,7 +145,7 @@ class Container extends AbstractContainer implements DataInterface
      **************************************************************/
 
     /**
-     *
+     * @return array
      */
     public function getValues()
     {
@@ -583,7 +600,10 @@ class Container extends AbstractContainer implements DataInterface
         }
 
         // compile children
-        $this->compileChildren($formContext,$defaultValues);
+        $this->compileChildren($this->components,$formContext,$defaultValues);
+
+        // reset the adoption history
+        $this->resetAdoptionHistory();
 
         // apply postbuilder (after all nested, recursive children are built, and values are collected, cannot add data components anymore!)
         if(!is_null($this->postBuilder))
@@ -594,18 +614,22 @@ class Container extends AbstractContainer implements DataInterface
         // perform hard-coded post-buildPrototypes actions
         $this->postBuild($formContext);
 
+        // compile any newly adopted children during post-build
+        $this->compileChildren($this->adoptionHistory,$formContext,$defaultValues);
+
         // process any errors found during compilation
         $this->processErrors();
     }
 
     /**
+     * @param array $children
      * @param FormContext $formContext
      * @param array $defaultValues
      */
-    protected function compileChildren(FormContext $formContext,array $defaultValues = array())
+    protected function compileChildren(array $children,FormContext $formContext,array $defaultValues = array())
     {
         /** @var ComponentInterface $component */
-        foreach($this->components as $component)
+        foreach($children as $component)
         {
             // check display conditions, and if fails, remove child, and continue
             // TODO

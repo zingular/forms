@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Component;
 
+use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Service\Services;
 
@@ -44,18 +45,20 @@ class FormContext
 
     /**
      * @param $componentName
+     * @param Container $parent
      * @return mixed
      */
-    public function getValue($componentName)
+    public function getValue($componentName,Container $parent = null)
     {
-        return $this->hasValue($componentName) ? $this->values[$componentName] : null;
+        return $this->hasValue($componentName,$parent) ? $this->values[$componentName] : null;
     }
 
     /**
      * @param $componentName
+     * @param Container $parent
      * @return bool
      */
-    public function hasValue($componentName)
+    public function hasValue($componentName,Container $parent = null)
     {
         return isset($this->values[$componentName]);
     }

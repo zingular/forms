@@ -12,10 +12,10 @@ namespace Zingular\Forms\Service\Builder;
 use Zingular\Forms\Component\Container\Container;
 
 /**
- * Interface BuilderInterface
+ * Interface StaticBuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface BuilderInterface
+interface StaticBuilderInterface
 {
     /**
      * @param Container $container

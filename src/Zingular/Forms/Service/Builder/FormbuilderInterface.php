@@ -11,7 +11,11 @@ namespace Zingular\Forms\Service\Builder;
 
 use Zingular\Forms\Component\Container\Form;
 
-interface FormbuilderInterface extends BuilderInterface
+/**
+ * Interface FormbuilderInterface
+ * @package Zingular\Forms\Service\Builder
+ */
+interface FormbuilderInterface extends StaticBuilderInterface
 {
     /**
      * @param Form $form
