@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Service\Evaluation;
 
 
+/**
+ * Class FilterConfig
+ * @package Zingular\Forms\Service\Evaluation
+ */
 class FilterConfig extends EvaluatorConfig
 {
 

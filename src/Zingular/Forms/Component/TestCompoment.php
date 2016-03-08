@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Component;
 
 
+/**
+ * Class TestCompoment
+ * @package Zingular\Forms\Component
+ */
 class TestCompoment implements ComponentInterface
 {
     // TODO: find a way to render view of custom components that only implement the base interfaces

@@ -8,6 +8,10 @@
 
 namespace Zingular\Forms\Exception;
 
+/**
+ * Class ValidationException
+ * @package Zingular\Forms\Exception
+ */
 class ValidationException extends FormException
 {
     /**

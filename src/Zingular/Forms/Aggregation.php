@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class Aggregation
+ * @package Zingular\Forms
+ */
 class Aggregation
 {
     const NONE = 'none';

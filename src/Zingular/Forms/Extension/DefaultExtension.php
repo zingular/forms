@@ -70,6 +70,9 @@ class DefaultExtension extends AbstractExtension
     }
 
 
+    /**
+     * @return bool
+     */
     public function validate()
     {
         return true;

@@ -14,6 +14,10 @@ use Zingular\Forms\Component\OptionsProvider;
 
 use Zingular\Forms\OptionMode;
 
+/**
+ * Class Select
+ * @package Zingular\Forms\Component\Element\Control
+ */
 class Select extends AbstractControl implements ComponentInterface
 {
     /**

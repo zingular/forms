@@ -9,7 +9,6 @@
 namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
-
 use Zingular\Forms\Component\Container\AbstractContainer;
 use Zingular\Forms\Component\FormContext;
 

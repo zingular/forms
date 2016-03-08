@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Service\Evaluation;
 
 
+/**
+ * Class ValidatorConfig
+ * @package Zingular\Forms\Service\Evaluation
+ */
 class ValidatorConfig extends EvaluatorConfig
 {
 

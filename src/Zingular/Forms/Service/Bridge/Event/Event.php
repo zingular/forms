@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Service\Bridge\Event;
 
 
+/**
+ * Class Event
+ * @package Zingular\Forms\Service\Bridge\Event
+ */
 class Event
 {
     /**

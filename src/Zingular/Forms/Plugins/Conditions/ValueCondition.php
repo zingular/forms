@@ -13,6 +13,10 @@ use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\FormContext;
 
 
+/**
+ * Class ValueCondition
+ * @package Zingular\Forms\Plugins\Conditions
+ */
 class ValueCondition implements ConditionInterface
 {
 

@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Component;
 
 
+/**
+ * Interface DataInterface
+ * @package Zingular\Forms\Component
+ */
 interface DataInterface extends ComponentInterface
 {
 

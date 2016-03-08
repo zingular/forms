@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class ErrorBuilder
+ * @package Zingular\Forms
+ */
 class ErrorBuilder
 {
     const STANDARD = 'standard';

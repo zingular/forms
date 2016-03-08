@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class Types
+ * @package Zingular\Forms
+ */
 class Types
 {
     const INPUT_TEXT = 'text';

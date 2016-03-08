@@ -8,6 +8,10 @@
 
 namespace Zingular\Forms\Service\Bridge\Translation;
 
+/**
+ * Class DummyTranslator
+ * @package Zingular\Forms\Service\Bridge\Translation
+ */
 class DummyTranslator implements TranslatorInterface
 {
     /**

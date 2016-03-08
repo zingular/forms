@@ -710,7 +710,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
             $builder = $this->getServices()->getErrorBuilderFactory()->create($this->errorBuilder);
 
             // buildPrototypes errors
-            $builder->build($this,$this->formContext,$this->errors,$this->getServices()->getTranslator());
+            $builder->build($this,$this->formContext,$this->errors);
         }
     }
 

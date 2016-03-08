@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Component\Container;
 
 
+/**
+ * Interface ContainerInterface
+ * @package Zingular\Forms\Component\Container
+ */
 interface ContainerInterface
 {
     const END = 'end';

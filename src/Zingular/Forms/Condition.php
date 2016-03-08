@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class Condition
+ * @package Zingular\Forms
+ */
 class Condition
 {
     const VALUE = 'value';

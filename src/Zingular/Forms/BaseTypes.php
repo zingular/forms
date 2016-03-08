@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class BaseTypes
+ * @package Zingular\Forms
+ */
 class BaseTypes
 {
     const AGGREGATOR = 'aggregator';

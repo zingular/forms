@@ -11,6 +11,10 @@ namespace Zingular\Forms\Component\Element\Control;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\InputType;
 
+/**
+ * Class Checkbox
+ * @package Zingular\Forms\Component\Element\Control
+ */
 class Checkbox extends Input
 {
     /**

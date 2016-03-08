@@ -9,6 +9,10 @@
 namespace Zingular\Forms\Component\Element\Control;
 
 
+/**
+ * Class Option
+ * @package Zingular\Forms\Component\Element\Control
+ */
 class Option
 {
     /**

@@ -34,5 +34,9 @@ abstract class AbstractTranslator implements TranslatorInterface
         return $translation;
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     abstract protected function tagify($key);
 }

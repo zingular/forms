@@ -9,7 +9,15 @@
 namespace Zingular\Forms\Service\Bridge\Js;
 
 
+/**
+ * Interface JsHandlerInterface
+ * @package Zingular\Forms\Service\Bridge\Js
+ */
 interface JsHandlerInterface
 {
+    /**
+     * @param $script
+     * @return mixed
+     */
     public function requireScript($script);
 }

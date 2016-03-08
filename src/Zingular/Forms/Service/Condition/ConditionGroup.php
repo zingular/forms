@@ -43,6 +43,10 @@ class ConditionGroup
         $this->conditions[] = array($conditionType,$args);
     }
 
+    /**
+     * @param ComponentInterface $source
+     * @param FormContext $context
+     */
     public function isValid(ComponentInterface $source, FormContext $context)
     {
         // TODO: Implement isValid() method.

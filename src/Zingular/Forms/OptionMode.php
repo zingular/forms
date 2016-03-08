@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class OptionMode
+ * @package Zingular\Forms
+ */
 class OptionMode
 {
     const MODE_KEYS = 'keys';

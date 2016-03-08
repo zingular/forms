@@ -9,9 +9,16 @@
 namespace Zingular\Forms\Service\Builder\Options;
 
 
+/**
+ * Class OptionsBuilderFactory
+ * @package Zingular\Forms\Service\Builder\Options
+ */
 class OptionsBuilderFactory
 {
 
+    /**
+     * @param $type
+     */
     public function create($type)
     {
 

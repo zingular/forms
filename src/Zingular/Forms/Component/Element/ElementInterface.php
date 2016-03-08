@@ -11,6 +11,10 @@ namespace Zingular\Forms\Component\Element;
 
 use Zingular\Forms\Component\ComponentInterface;
 
+/**
+ * Interface ElementInterface
+ * @package Zingular\Forms\Component\Element
+ */
 interface ElementInterface extends ComponentInterface
 {
 

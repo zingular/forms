@@ -9,6 +9,10 @@
 namespace Zingular\Forms;
 
 
+/**
+ * Class View
+ * @package Zingular\Forms
+ */
 class View
 {
     const CONTAINER = 'containerView';

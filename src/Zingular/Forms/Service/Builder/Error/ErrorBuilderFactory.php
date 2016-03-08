@@ -12,19 +12,29 @@ namespace Zingular\Forms\Service\Builder\Error;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Error\DefaultErrorBuilder;
+use Zingular\Forms\Plugins\Builders\Error\ErrorBuilderInterface;
 
+/**
+ * Class ErrorBuilderFactory
+ * @package Zingular\Forms\Service\Builder\Error
+ */
+
+/**
+ * Class ErrorBuilderFactory
+ * @package Zingular\Forms\Service\Builder\Error
+ */
 class ErrorBuilderFactory
 {
     /**
      * @param $type
-     * @return DefaultErrorBuilder
+     * @return ErrorBuilderInterface
      * @throws FormException
      */
     public function create($type)
     {
         switch($type)
         {
-            case ErrorBuilder::STANDARD: return new \Zingular\Forms\Plugins\Builders\Error\DefaultErrorBuilder();
+            case ErrorBuilder::STANDARD: return new DefaultErrorBuilder();
         }
 
         throw new FormException(sprintf("Unknown error builder type: '%s'",$type));

@@ -25,6 +25,10 @@ use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\Element\ElementInterface;
 use Zingular\Forms\View;
 
+/**
+ * Class AbstractViewHandler
+ * @package Zingular\Forms\Service\Bridge\View
+ */
 abstract class AbstractViewHandler implements ViewHandlerInterface
 {
     /**
