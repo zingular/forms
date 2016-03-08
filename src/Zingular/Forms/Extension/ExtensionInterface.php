@@ -40,4 +40,9 @@ interface ExtensionInterface extends PrototypeBuilderInterface
      * @return array
      */
     public function getConditions();
+
+    /**
+     * @return array
+     */
+    public function getConverters();
 }

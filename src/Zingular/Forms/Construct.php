@@ -82,6 +82,12 @@ class Construct
             $this->addConditionType($condition);
         }
 
+        // add converters
+        foreach($extension->getConverters() as $converter)
+        {
+            $this->addConverter($converter);
+        }
+
         // allow extension to add prototypes
         $this->addPrototypes($extension);
     }

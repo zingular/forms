@@ -59,4 +59,12 @@ class AbstractExtension implements ExtensionInterface
     {
         return array();
     }
+
+    /**
+     * @return array
+     */
+    public function getConverters()
+    {
+        return array();
+    }
 }
