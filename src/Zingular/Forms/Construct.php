@@ -145,7 +145,13 @@ class Construct
     {
         $form = $this->createForm($formId,$model);
 
+        // first, build form-specific prototypes
+        $builder->buildPrototypes($form);
+
+        // next, build components
         $builder->build($form);
+
+        // finally, configure the form
         $builder->configureForm($form);
 
         return $form;

@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\FormContext;
 
@@ -19,19 +20,17 @@ use Zingular\Forms\Component\FormContext;
 class FieldsetBuilder implements RuntimeBuilderInterface
 {
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      * @param FormContext $context
      */
-    public function build(Container $container,FormContext $context)
+    public function build(BuildableInterface $container,FormContext $context)
     {
         // create a legend first
         $container->addHtmlTag('p'.ucfirst($container->getId()),Container::START)
             ->setTagName('p')
-            ->setTranslationKey($container->getId().'.description')
-            ->compile($context);
+            ->setTranslationKey($container->getId().'.description');
         $container->addHtmlTag('lgnd'.ucfirst($container->getId()),Container::START)
             ->setTagName('legend')
-            ->setTranslationKey($container->getId().'.legend')
-            ->compile($context);
+            ->setTranslationKey($container->getId().'.legend');
     }
 }

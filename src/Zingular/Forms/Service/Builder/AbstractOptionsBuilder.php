@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 
-use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Component\OptionsProvider;
 
@@ -19,19 +19,19 @@ use Zingular\Forms\Component\OptionsProvider;
 abstract class AbstractOptionsBuilder extends OptionsProvider implements RuntimeBuilderInterface
 {
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      * @param FormContext $context
      */
-    public function build(Container $container,FormContext $context)
+    public function build(BuildableInterface $container,FormContext $context)
     {
         $this->buildGroup($this->getOptions(),$container);
     }
 
     /**
      * @param array $options
-     * @param Container $container
+     * @param BuildableInterface $container
      */
-    protected function buildGroup(array $options,Container $container)
+    protected function buildGroup(array $options,BuildableInterface $container)
     {
         foreach($options as $key=>$value)
         {
@@ -50,16 +50,16 @@ abstract class AbstractOptionsBuilder extends OptionsProvider implements Runtime
 
     /**
      * @param $groupName
-     * @param Container $container
-     * @return Container
+     * @param BuildableInterface $container
+     * @return BuildableInterface
      */
-    abstract protected function addGroup($groupName,Container $container);
+    abstract protected function addGroup($groupName,BuildableInterface $container);
 
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      * @param $key
      * @param $value
      */
-    abstract protected function addOption(Container $container,$key,$value);
+    abstract protected function addOption(BuildableInterface $container,$key,$value);
 
 }

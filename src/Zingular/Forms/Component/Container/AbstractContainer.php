@@ -15,12 +15,9 @@ use Zingular\Forms\Exception\FormException;
  * Class AbstractContainer
  * @package Zingular\Form\Component
  */
-abstract class AbstractContainer
+abstract class AbstractContainer implements ContainerInterface
 {
     use HtmlAttributesTrait;
-
-    const END = 'end';
-    const START = 'start';
 
     /**
      * @var array

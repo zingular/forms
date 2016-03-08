@@ -8,8 +8,7 @@
 
 namespace Zingular\Forms\Extension;
 
-
-use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 
 /**
  * Class TestExtension
@@ -18,9 +17,9 @@ use Zingular\Forms\Component\Container\Prototypes;
 class TestExtension extends AbstractExtension
 {
     /**
-     * @param Prototypes $prototypes
+     * @param PrototypesInterface $prototypes
      */
-    public function buildPrototypes(Prototypes $prototypes)
+    public function buildPrototypes(PrototypesInterface $prototypes)
     {
         $prototypes->defineSelect('selecter');
 

@@ -8,10 +8,14 @@
 
 namespace Zingular\Forms\Service\Builder;
 
-use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 
+/**
+ * Class XmlBuilder
+ * @package Zingular\Forms\Service\Builder
+ */
 class XmlBuilder implements FormbuilderInterface
 {
     /**
@@ -28,9 +32,9 @@ class XmlBuilder implements FormbuilderInterface
     }
 
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      */
-    public function build(Container $container)
+    public function build(BuildableInterface $container)
     {
         // TODO: parse xml file and extract form structure components and configurations and apply them
     }
@@ -42,5 +46,13 @@ class XmlBuilder implements FormbuilderInterface
     public function configureForm(Form $form)
     {
         // TODO: Implement configureForm() method.
+    }
+
+    /**
+     * @param PrototypesInterface $prototypes
+     */
+    public function buildPrototypes(PrototypesInterface $prototypes)
+    {
+        // TODO: Implement buildPrototypes() method.
     }
 }

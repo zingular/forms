@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Extension;
-use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Service\Builder\FieldsetBuilder;
 use Zingular\Forms\Service\Builder\RegisterableBuilderWrapper;
 use Zingular\Forms\Service\Evaluation\CallableValidator;
@@ -19,9 +19,9 @@ use Zingular\Forms\Service\Evaluation\CallableValidator;
 class DefaultExtension extends AbstractExtension
 {
     /**
-     * @param Prototypes $prototypes
+     * @param PrototypesInterface $prototypes
      */
-    public function buildPrototypes(Prototypes $prototypes) {}
+    public function buildPrototypes(PrototypesInterface $prototypes) {}
 
     /**
      * @return array

@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Container;
 
 /**
@@ -18,20 +19,20 @@ class OptionsBuilder extends AbstractOptionsBuilder implements RuntimeBuilderInt
 {
     /**
      * @param $groupName
-     * @param Container $container
+     * @param BuildableInterface $container
      * @return Container
      */
-    protected function addGroup($groupName,Container $container)
+    protected function addGroup($groupName,BuildableInterface $container)
     {
         return $container->addContainer($groupName);
     }
 
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      * @param $key
      * @param $value
      */
-    protected function addOption(Container $container,$key,$value)
+    protected function addOption(BuildableInterface $container,$key,$value)
     {
         $label = $container->addLabel('lbl'.ucfirst($key));
         $checkbox = $container->addCheckbox($key);

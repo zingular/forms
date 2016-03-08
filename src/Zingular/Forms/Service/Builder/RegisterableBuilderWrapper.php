@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\FormContext;
 
@@ -34,10 +35,10 @@ class RegisterableBuilderWrapper extends AbstractRegisterableBuilder
 
 
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      * @param FormContext $context
      */
-    public function build(Container $container,FormContext $context)
+    public function build(BuildableInterface $container,FormContext $context)
     {
         $this->builder->build($container,$context);
     }

@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Extension;
-use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 
 /**
  * Class AbstractExtension
@@ -16,9 +16,9 @@ use Zingular\Forms\Component\Container\Prototypes;
 class AbstractExtension implements ExtensionInterface
 {
     /**
-     * @param Prototypes $prototypes
+     * @param PrototypesInterface $prototypes
      */
-    public function buildPrototypes(Prototypes $prototypes) {}
+    public function buildPrototypes(PrototypesInterface $prototypes) {}
 
     /**
      * @return array

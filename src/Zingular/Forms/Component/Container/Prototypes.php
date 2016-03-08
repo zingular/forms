@@ -28,7 +28,7 @@ use Zingular\Forms\Service\Component\ComponentFactory;
  * Class Prototypes
  * @package Zingular\Form\Component\Container
  */
-class Prototypes extends AbstractContainer implements PrototypeDefinerInterface
+class Prototypes extends AbstractContainer implements PrototypesInterface
 {
     /**
      * @var array

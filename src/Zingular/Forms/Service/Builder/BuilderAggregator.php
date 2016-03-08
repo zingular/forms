@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Builder;
 
 
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\FormContext;
 
@@ -34,10 +35,10 @@ class BuilderAggregator implements RuntimeBuilderInterface
     }
 
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      * @param FormContext $context
      */
-    public function build(Container $container,FormContext $context)
+    public function build(BuildableInterface $container,FormContext $context)
     {
         /** @var RuntimeBuilderInterface $builder */
         foreach($this->builders as $builder)

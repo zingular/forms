@@ -26,13 +26,14 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Builder\RuntimeBuilderInterface;
 use Zingular\Forms\Service\Builder\ErrorBuilderInterface;
 use Zingular\Forms\Service\Builder\OptionsBuilder;
+use Zingular\Forms\Service\Builder\StaticBuilderInterface;
 use Zingular\Forms\Service\Services;
 
 /**
  * Class Container
  * @package Zingular\Form
  */
-class Container extends AbstractContainer implements DataInterface
+class Container extends AbstractContainer implements DataInterface,BuildableInterface
 {
     use ComponentTrait;
     use ConditionTrait;
@@ -75,7 +76,7 @@ class Container extends AbstractContainer implements DataInterface
     /**
      * @var array
      */
-    protected $adoptionHistory = array();
+    protected $adoptionHistory;
 
     /**
      * @return array
@@ -125,19 +126,13 @@ class Container extends AbstractContainer implements DataInterface
         $component->addCssClass($name);
 
         // add component to adoption history
-        $this->adoptionHistory[] = $component;
+        if(is_array($this->adoptionHistory))
+        {
+            $this->adoptionHistory[] = $component;
+        }
 
         // return component
         return $component;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function resetAdoptionHistory()
-    {
-        $this->adoptionHistory = array();
-        return $this;
     }
 
     /***************************************************************
@@ -536,10 +531,18 @@ class Container extends AbstractContainer implements DataInterface
     }
 
     /**
+     * @param StaticBuilderInterface $builder
+     */
+    public function applyBuilder(StaticBuilderInterface $builder)
+    {
+        $builder->build($this);
+    }
+
+    /**
      * @param string|RuntimeBuilderInterface|callable $builder
      * @throws FormException
      */
-    protected function applyBuilder($builder)
+    protected function applyBuilderType($builder)
     {
         // builder is a type string, create a builder from it using the factory
         if(is_string($builder))
@@ -590,25 +593,25 @@ class Container extends AbstractContainer implements DataInterface
         // apply prebuilder
         if(!is_null($this->preBuilder))
         {
-            $this->applyBuilder($this->preBuilder);
+            $this->applyBuilderType($this->preBuilder);
         }
 
         // preBuild using the set builder
         foreach($this->builderTypes as $builder)
         {
-            $this->applyBuilder($builder);
+            $this->applyBuilderType($builder);
         }
 
         // compile children
         $this->compileChildren($this->components,$formContext,$defaultValues);
 
-        // reset the adoption history
-        $this->resetAdoptionHistory();
+        // init the adoption history
+        $this->adoptionHistory = array();
 
         // apply postbuilder (after all nested, recursive children are built, and values are collected, cannot add data components anymore!)
         if(!is_null($this->postBuilder))
         {
-            $this->applyBuilder($this->postBuilder);
+            $this->applyBuilderType($this->postBuilder);
         }
 
         // perform hard-coded post-buildPrototypes actions
@@ -616,6 +619,9 @@ class Container extends AbstractContainer implements DataInterface
 
         // compile any newly adopted children during post-build
         $this->compileChildren($this->adoptionHistory,$formContext,$defaultValues);
+
+        // reset the adoption history
+        $this->adoptionHistory = null;
 
         // process any errors found during compilation
         $this->processErrors();

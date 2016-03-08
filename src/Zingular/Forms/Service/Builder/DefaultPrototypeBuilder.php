@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 
-use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\View;
 
 /**
@@ -18,9 +18,9 @@ use Zingular\Forms\View;
 class DefaultPrototypeBuilder implements PrototypeBuilderInterface
 {
     /**
-     * @param Prototypes $prototypes
+     * @param PrototypesInterface $prototypes
      */
-    public function buildPrototypes(Prototypes $prototypes)
+    public function buildPrototypes(PrototypesInterface $prototypes)
     {
         // manipulate container base prototypes
         $prototypes->getContainerPrototype()->setCssBaseTypeClass('type_container')->setViewName(View::CONTAINER);

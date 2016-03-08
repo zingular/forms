@@ -15,7 +15,7 @@ use Zingular\Forms\Component\Container\Form;
  * Interface FormbuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface FormbuilderInterface extends StaticBuilderInterface
+interface FormbuilderInterface extends StaticBuilderInterface,PrototypeBuilderInterface
 {
     /**
      * @param Form $form

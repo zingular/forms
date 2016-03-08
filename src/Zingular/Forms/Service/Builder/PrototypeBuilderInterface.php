@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 
-use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 
 /**
  * Interface PrototypeBuilderInterface
@@ -17,7 +17,7 @@ use Zingular\Forms\Component\Container\Prototypes;
 interface PrototypeBuilderInterface
 {
     /**
-     * @param Prototypes $prototypes
+     * @param PrototypesInterface $prototypes
      */
-    public function buildPrototypes(Prototypes $prototypes);
+    public function buildPrototypes(PrototypesInterface $prototypes);
 }

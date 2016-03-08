@@ -29,7 +29,7 @@ use Zingular\Forms\Service\Services;
  * Class Form
  * @package Zingular\Form
  */
-class Form extends Container implements PrototypeDefinerInterface
+class Form extends Container implements PrototypesInterface
 {
     use ServiceSetterTrait;
 
@@ -430,5 +430,220 @@ class Form extends Container implements PrototypeDefinerInterface
     public function defineAggregator($name)
     {
         return $this->context->getPrototypes()->defineAggregator($name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Input
+     */
+    public function extendInput($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendInput($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Checkbox
+     */
+    public function extendCheckbox($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendCheckbox($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Select
+     */
+    public function extendSelect($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendSelect($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Textarea
+     */
+    public function extendTextarea($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendTextarea($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Button
+     * @throws FormException
+     */
+    public function extendButton($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendButton($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function extendContainer($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendContainer($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Aggregator
+     * @throws FormException
+     */
+    public function extendAggregator($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendAggregator($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function extendFieldset($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendFieldset($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function extendField($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendField($parentName,$name);
+    }
+
+    /**
+     * @return Label
+     */
+    public function getLabelPrototype()
+    {
+        return $this->context->getPrototypes()->getLabelPrototype();
+    }
+
+    /**
+     * @return Content
+     */
+    public function getContentPrototype()
+    {
+        return $this->context->getPrototypes()->getContentPrototype();
+    }
+
+    /**
+     * @return Html
+     */
+    public function getHtmlPrototype()
+    {
+        return $this->context->getPrototypes()->getHtmlPrototype();
+    }
+
+    /**
+     * @return HtmlTag
+     */
+    public function getHtmlTagPrototype()
+    {
+        return $this->context->getPrototypes()->getHtmlTagPrototype();
+    }
+
+    /**
+     * @return View
+     */
+    public function getViewPrototype()
+    {
+        return $this->context->getPrototypes()->getViewPrototype();
+    }
+
+    /**
+     * @return Input
+     */
+    public function getInputPrototype()
+    {
+        return $this->context->getPrototypes()->getInputPrototype();
+    }
+
+    /**
+     * @return Hidden
+     */
+    public function getHiddenPrototype()
+    {
+        return $this->context->getPrototypes()->getHiddenPrototype();
+    }
+
+    /**
+     * @return Select
+     */
+    public function getSelectPrototype()
+    {
+        return $this->context->getPrototypes()->getSelectPrototype();
+    }
+
+    /**
+     * @return Button
+     */
+    public function getButtonPrototype()
+    {
+        return $this->context->getPrototypes()->getButtonPrototype();
+    }
+
+    /**
+     * @return Checkbox
+     */
+    public function getCheckboxPrototype()
+    {
+        return $this->context->getPrototypes()->getCheckboxPrototype();
+    }
+
+    /**
+     * @return Textarea
+     */
+    public function getTextareaPrototype()
+    {
+        return $this->context->getPrototypes()->getTextareaPrototype();
+    }
+
+    /**
+     * @return Container
+     */
+    public function getContainerPrototype()
+    {
+        return $this->context->getPrototypes()->getContainerPrototype();
+    }
+
+    /**
+     * @return Field
+     */
+    public function getFieldPrototype()
+    {
+        return $this->context->getPrototypes()->getFieldPrototype();
+    }
+
+    /**
+     * @return Fieldset
+     */
+    public function getFieldsetPrototype()
+    {
+        return $this->context->getPrototypes()->getFieldsetPrototype();
+    }
+
+    /**
+     * @return Aggregator
+     */
+    public function getAggregatorPrototype()
+    {
+        return $this->context->getPrototypes()->getAggregatorPrototype();
     }
 }

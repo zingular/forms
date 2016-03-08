@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service\Builder;
 
 
-use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Container\BuildableInterface;
 
 /**
  * Interface StaticBuilderInterface
@@ -18,7 +18,7 @@ use Zingular\Forms\Component\Container\Container;
 interface StaticBuilderInterface
 {
     /**
-     * @param Container $container
+     * @param BuildableInterface $container
      */
-    public function build(Container $container);
+    public function build(BuildableInterface $container);
 }
