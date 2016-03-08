@@ -89,7 +89,7 @@ class Construct
     /**
      * @param PrototypeBuilderInterface $builder
      */
-    protected function addPrototypes(PrototypeBuilderInterface $builder)
+    public function addPrototypes(PrototypeBuilderInterface $builder)
     {
         $builder->buildPrototypes($this->getPrototypes());
     }

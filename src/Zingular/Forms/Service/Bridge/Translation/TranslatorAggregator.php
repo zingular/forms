@@ -30,7 +30,7 @@ class TranslatorAggregator implements TranslatorInterface
     /**
      * @param $key
      * @param array $params
-     * @return string
+     * @return string|null
      */
     public function translate($key,array $params = array())
     {
@@ -39,12 +39,12 @@ class TranslatorAggregator implements TranslatorInterface
         {
             $translation = $translator->translate($key,$params);
 
-            if($translation !== $key)
+            if(!is_null($translation))
             {
                 return $translation;
             }
         }
 
-        return $key;
+        return null;
     }
 }

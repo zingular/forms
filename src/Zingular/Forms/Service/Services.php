@@ -10,6 +10,7 @@ namespace Zingular\Forms\Service;
 use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Service\Aggregation\PoolableAggregatorInterface;
+use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Builder\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\BuilderPool;
 use Zingular\Forms\Service\Builder\RegisterableBuilderInterface;
@@ -89,6 +90,11 @@ class Services
      * @var TranslatorInterface
      */
     protected $translator;
+
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translationHandler;
 
     /**
      * @var CsrfHandlerInterface
@@ -218,7 +224,7 @@ class Services
     }
 
     /**********************************************************************
-     * SERVICE ADDERS
+     * SERVICE SETTERS
      *********************************************************************/
 
     /**
@@ -226,7 +232,7 @@ class Services
      */
     public function setTranslator(TranslatorInterface $translator)
     {
-        $this->translator = $translator;
+        $this->getTranslator()->setTranslator($translator);
     }
 
     /**
@@ -320,9 +326,23 @@ class Services
     }
 
     /**
-     * @return TranslatorInterface
+     * @return TranslationHandler
      */
     public function getTranslator()
+    {
+        if(is_null($this->translationHandler))
+        {
+            $this->translationHandler = new TranslationHandler();
+            $this->translationHandler->setTranslator($this->getDefaultTranslator());
+        }
+
+        return $this->translationHandler;
+    }
+
+    /**
+     * @return TranslatorInterface
+     */
+    protected function getDefaultTranslator()
     {
         if(is_null($this->translator))
         {
@@ -586,5 +606,21 @@ class Services
         }
 
         return $this->converterFactory;
+    }
+
+    /**********************************************************************
+     * INTERNAL
+     *********************************************************************/
+
+    /**
+     *
+     */
+    public function __clone()
+    {
+        // make sure to clone the translation handler, so forms have their own instance that can use a different translator
+        if(!is_null($this->translationHandler))
+        {
+            $this->translationHandler = clone $this->translationHandler;
+        }
     }
 }

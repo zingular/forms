@@ -47,11 +47,11 @@ class ArrayTranslator extends AbstractTranslator
     /**
      * @param $key
      * @param array $params
-     * @return string
+     * @return string|null
      */
     public function translate($key,array $params = array())
     {
-        return isset($this->translations[$key]) ? $this->replaceWildcards($this->translations[$key],$params) : $key;
+        return isset($this->translations[$key]) ? $this->replaceWildcards($this->translations[$key],$params) : null;
     }
 
     /**

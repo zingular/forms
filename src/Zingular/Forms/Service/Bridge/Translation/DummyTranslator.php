@@ -13,11 +13,10 @@ class DummyTranslator implements TranslatorInterface
     /**
      * @param $key
      * @param array $params
-     * @return string
+     * @return string|null
      */
     public function translate($key,array $params = array())
     {
-        // TODO
         return $key;
     }
 }
