@@ -134,7 +134,7 @@ class Container extends AbstractContainer implements DataInterface
     /**
      * @return $this
      */
-    public function resetAdoptionHistory()
+    protected function resetAdoptionHistory()
     {
         $this->adoptionHistory = array();
         return $this;
