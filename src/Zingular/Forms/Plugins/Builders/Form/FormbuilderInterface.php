@@ -13,10 +13,10 @@ use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
 
 /**
- * Interface FormbuilderInterface
+ * Interface FormBuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface FormbuilderInterface
+interface FormBuilderInterface
 {
     /**
      * @param PrototypesInterface $form

@@ -28,7 +28,7 @@ use Zingular\Forms\Validator;
  * Class TestFormbuilder
  * @package Zingular\Forms\Plugins\Builders\Form
  */
-class TestFormbuilder implements  FormbuilderInterface
+class TestFormbuilder implements  FormBuilderInterface
 {
     /**
      * @param PrototypesInterface $form

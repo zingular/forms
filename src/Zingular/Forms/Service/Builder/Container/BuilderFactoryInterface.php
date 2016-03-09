@@ -6,7 +6,7 @@
  * Time: 19:53
  */
 
-namespace Zingular\Forms\Service\Builder;
+namespace Zingular\Forms\Service\Builder\Container;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
 /**

@@ -13,7 +13,7 @@ use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
-use Zingular\Forms\Plugins\Builders\Form\FormbuilderInterface;
+use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\Service\Services;
 
@@ -143,11 +143,11 @@ class Construct
 
     /**
      * @param string $formId
-     * @param FormbuilderInterface $builder
+     * @param FormBuilderInterface $builder
      * @param null $model
      * @return Form
      */
-    public function buildForm($formId,FormbuilderInterface $builder,$model = null)
+    public function buildForm($formId,FormBuilderInterface $builder,$model = null)
     {
         $form = $this->createForm($formId,$model);
 

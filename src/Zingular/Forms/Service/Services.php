@@ -11,8 +11,8 @@ use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
-use Zingular\Forms\Service\Builder\BuilderFactoryInterface;
-use Zingular\Forms\Service\Builder\BuilderPool;
+use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
+use Zingular\Forms\Service\Builder\Container\BuilderPool;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
 use Zingular\Forms\Service\Condition\ConditionFactoryInterface;
@@ -43,7 +43,7 @@ use Zingular\Forms\Service\Bridge\Request\DefaultRequestHandler;
 use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;
 use Zingular\Forms\Service\Bridge\Translation\DummyTranslator;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
-use Zingular\Forms\Service\Builder\BuilderFactory;
+use Zingular\Forms\Service\Builder\Container\BuilderFactory;
 use Zingular\Forms\Service\Builder\Error\ErrorBuilderFactory;
 use Zingular\Forms\Service\Component\ComponentFactory;
 use Zingular\Forms\Service\Bridge\View\DefaultViewHandler;
@@ -72,7 +72,7 @@ class Services
     protected $aggregatorFactory;
 
     /**
-     * @var BuilderFactoryInterface
+     * @var \Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface
      */
     protected $builderFactory;
 
@@ -272,7 +272,7 @@ class Services
     }
 
     /**
-     * @param BuilderFactoryInterface $factory
+     * @param \Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface $factory
      */
     public function setBuilderFactory(BuilderFactoryInterface $factory)
     {
@@ -557,7 +557,7 @@ class Services
     }
 
     /**
-     * @return BuilderFactoryInterface
+     * @return \Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface
      */
     protected function getBuilderFactory()
     {

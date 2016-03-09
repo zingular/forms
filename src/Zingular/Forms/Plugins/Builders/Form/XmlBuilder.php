@@ -17,7 +17,7 @@ use Zingular\Forms\Component\Container\PrototypesInterface;
  * Class XmlBuilder
  * @package Zingular\Forms\Service\Builder
  */
-class XmlBuilder implements FormbuilderInterface
+class XmlBuilder implements FormBuilderInterface
 {
     /**
      * @var string
