@@ -781,6 +781,16 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         );
     }
 
+
+    /**
+     * @param int $level
+     * @return Container
+     */
+    public function close($level = 1)
+    {
+        return $this->getParent($level);
+    }
+
     /***************************************************************
      * CONTEXT
      **************************************************************/

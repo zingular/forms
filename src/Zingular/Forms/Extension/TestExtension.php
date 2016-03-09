@@ -24,7 +24,7 @@ class TestExtension extends AbstractExtension
         $prototypes->defineSelect('selecter');
 
         $prototypes->defineFieldset('test1234')
-            ->addInput('testInput')->nextSibling()
+            ->addInput('testInput')->next()
             ->useSelect('selecter','aapje');
     }
 }

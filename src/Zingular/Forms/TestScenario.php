@@ -128,12 +128,9 @@ class TestScenario
         $form->defineFieldset(Types::FIELDSET_PERSONALIA);
         $form->defineField(Types::FIELD_NAME);
         $form->defineInput(Types::INPUT_TEXT);
-        $form->defineInput(Types::INPUT_EMAIL)
-            ->setConverter(Converter::SERIALIZE);
+        $form->defineInput(Types::INPUT_EMAIL)->setConverter(Converter::SERIALIZE);
         $form->defineField(Types::FIELD_QUESTION);
-        $form->defineTextarea(Types::TEXTAREA_QUESTION)
-            ->cols()
-            ->rows();
+        $form->defineTextarea(Types::TEXTAREA_QUESTION)->cols()->rows();
         $form->defineInput('address')->setInputType(InputType::PASSWORD);
 
 
@@ -144,16 +141,11 @@ class TestScenario
         // BUILD THE FORM
         $form
             // ADD TOP SUBMIT BUTTON
-            ->addButton('submit')
-                ->ignoreValue()
-                ->nextSibling()
+            ->addButton('submit')->ignoreValue()->next()
             // FIELDSET PERSONALIA
             ->useFieldset(Types::FIELDSET_PERSONALIA)
                 ->useField(Types::FIELD_NAME)
-                    ->useInput(Types::INPUT_TEXT)
-                        ->setRequired()
-                        ->addCssClass(CssClass::MEDIUM)
-                        ->nextSibling()
+                    ->useInput(Types::INPUT_TEXT)->setRequired()->addCssClass(CssClass::MEDIUM)->next()
                     ->useInput(Types::INPUT_EMAIL)
                         ->addValidator('doValidate')
                         ->addValidator(Validator::REGEX,'/.+/')
@@ -162,59 +154,48 @@ class TestScenario
                         ->addFilter(Filter::TRIM_RIGHT,'m')
                         ->addFilter(Filter::FORCE_TRAILING,'/')
                         ->addFilter(Filter::FORCE_LEADING,'/')
-                        ->nextParentSibling()
-                ->useField(Types::FIELD_QUESTION)
-                    ->showErrors(true)
-                    ->useTextarea(Types::TEXTAREA_QUESTION)
-                        ->setRequired()
-                        ->nextParentSibling()
+                        ->nextParent()
+                ->useField(Types::FIELD_QUESTION)->showErrors(true)
+                    ->useTextarea(Types::TEXTAREA_QUESTION)->setRequired()->nextParent()
                 ->addFieldset('fsHobbies')
                     ->addField('fldTestSelect')
-                        ->addSelect('testSelect')
-                            ->setOptions(array($this,'getOptions'))
-                        ->nextParentSibling()
-                    ->addLabel('description')
-                        ->setContent('bladibla')
-                        ->nextSibling()
-                    ->addField('fldHobby1')
-                        ->showIf(Condition::STARTS_WITH,4)
-                        ->orIf(Condition::STARTS_WITH)
-                        ->showIf('endsWith')
-                        ->requiredIf('')
-                        ->addInput('hobby1')
-                            //->setValue('aa')
-                            ->setEmptyStringIsValue(false)
-                            ->addValidator(array($this,'testValidator'))
-                            ->addFilter(array($this,'testFilter'))
-                            ->trimValue(true)
-                            ->persistent(true)
-                            ->nextParentSibling()
-                        ->addField('myField')
-                            ->nextParentSibling()
-                    ->addFieldset('fsBirthday')
-                        ->addField('fldBirthday')
-                            ->addAggregator('dateSelect')
-                                ->setBuilder((new BuilderAggregator())->addBuilder(new DateTimeSelectBuilder()))
-                                ->setAggregationType(Aggregation::DATE_TIME_SELECT)
-                                ->nextParentSibling()
-                        ->nextParentSibling()
-                ->addFieldset('fsNew')
-                    ->setOptions(array($this,'getOptions'))->nextSibling()
-                ->useFieldset('test1234')
-                    ->nextSibling()
-                    //->addContainer('myContainer','myContainer')->nextSibling()
-                ->addFieldset('fsTestRow')
-                    ->addRow('testRow')
-                        ->addInput('testRowInput1')->nextSibling()
-                        ->addInput('testRowInput2')->nextParentSibling()
-                    ->nextSibling()
-                //->addView('testView')->nextSibling()
-                ->addButton('submit')
-                    ->onClick(array($this,'test'))
-                    ->ignoreValue();
-            //print_rf($form->getFieldset('fsTest')->getField('name')->getInput('text'));
+                        ->addSelect('testSelect')->setOptions(array($this,'getOptions'))->nextParent()
+                    ->addLabel('description')->setContent('bladibla')->nextParent()
+                ->addField('fldHobby1')->showIf(Condition::STARTS_WITH,4)->orIf(Condition::STARTS_WITH)->showIf('endsWith')->requiredIf('')
+                    ->addInput('hobby1')
+                        ->setValue('aa')
+                        ->setEmptyStringIsValue(false)
+                        ->addValidator(array($this,'testValidator'))
+                        ->addFilter(array($this,'testFilter'))
+                        ->trimValue(true)
+                        ->persistent(true)
+                    ->nextParent()
+                ->addField('myField')
+                    ->addSelect('lalala')->nextParent()
+                ->addFieldset('fsBirthday')
+                    ->addField('fldBirthday')
+                        ->addAggregator('dateSelect')
+                            ->setBuilder((new BuilderAggregator())
+                            ->addBuilder(new DateTimeSelectBuilder()))
+                            ->setAggregationType(Aggregation::DATE_TIME_SELECT)
+                            ->close(4)
+            ->addFieldset('fsNew')->setOptions(array($this,'getOptions'))->next()
+            ->useFieldset('test1234')->next()
+            ->addContainer('myContainer')->next()
+            ->addFieldset('fsTestRow')
+                ->addRow('testRow')
+                    ->addInput('testRowInput1')->next()
+                    ->addInput('testRowInput2')->nextParent()
+                ->addRow('testRow2')
+                    ->addInput('testRowInput3')->next()
+                    ->addInput('tesstRowInput4')->nextParent(2)
+            //->addView('testView')->next()
+            ->addButton('submit')
+                ->onClick(array($this,'test'))
+                ->ignoreValue();
+        //print_rf($form->getFieldset('fsTest')->getField('name')->getInput('text'));
 
-            //print_rf($form->describe(true));
+        //print_rf($form->describe(true));
 
 
 

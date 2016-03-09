@@ -100,29 +100,53 @@ trait ComponentTrait
      *********************************************************************/
 
     /**
+     * @param int $level
      * @return Container
      */
-    public function getParent()
+    public function getParent($level = 1)
     {
-        return $this->context->getParent();
+        $parent = $this->context->getParent();
+
+        if(is_null($parent))
+        {
+            return null;
+        }
+
+        $currentLevel = 1;
+
+        while($currentLevel < $level)
+        {
+            $parent = $parent->getParent();
+
+            if(is_null($parent))
+            {
+                return null;
+            }
+
+            $currentLevel++;
+        }
+        return $parent;
     }
 
     /**
      * @return Container
      */
-    public function nextSibling()
+    public function next()
     {
         return $this->getParent();
     }
 
+
     /**
+     * @param int $level
      * @return Container
      */
-    public function nextParentSibling()
+    public function nextParent($level = 1)
     {
-        $parent = $this->getParent();
-        return !is_null($parent) ? $parent->getParent() : null;
+        return $this->getParent($level + 1);
     }
+
+
 
     /**********************************************************************
      * CSS / VIEW

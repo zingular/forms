@@ -45,7 +45,7 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->defineSelect('selecter');
 
         $prototypes->defineFieldset('test1234')
-            ->addInput('testInput')->nextSibling()
+            ->addInput('testInput')->next()
             ->useSelect('selecter','aapje');
         */
 
@@ -66,7 +66,7 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes
             ->defineFieldset('myContainer')
                 ->addField('myField')
-                    ->addSelect('mySelect')->back()
+                    ->addSelect('mySelect')->nextParent()
                 ->addField('myField2')
                     ->addInput('test');
         */

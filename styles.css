@@ -10,7 +10,7 @@ textarea,
 select
 {
     float:left;
-    margin-left:8px;
+    margin-right:8px;
     margin-bottom:8px;
 }
 label
@@ -73,9 +73,14 @@ p
     overflow:hidden;
 }
 
-.type_field > .inner
+.type_field .inner
 {
     padding: 8px 8px 0;
+}
+
+.type_row
+{
+    clear:left;
 }
 
 .errorContainer
