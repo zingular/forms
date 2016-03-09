@@ -11,6 +11,7 @@ use Zingular\Forms\Aggregation;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
@@ -20,7 +21,7 @@ use Zingular\Forms\Exception\FormException;
  * Class Aggregator
  * @package Zingular\Form
  */
-class Aggregator extends Container implements DataUnitInterface
+class Aggregator extends Container implements DataUnitInterface,RequiredInterface
 {
     use DataUnitTrait;
     use RequiredTrait;

@@ -11,6 +11,8 @@ use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\HtmlComponentInterface;
+use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Exception\ValidationException;
@@ -21,7 +23,7 @@ use Zingular\Forms\Plugins\Converters\ConverterInterface;
  * Class AbstractControl
  * @package Zingular\Form
  */
-abstract class AbstractControl extends AbstractElement implements DataUnitInterface
+abstract class AbstractControl extends AbstractElement implements DataUnitInterface,RequiredInterface,HtmlComponentInterface
 {
     use RequiredTrait;
     use DataUnitTrait;

@@ -7,15 +7,15 @@
  */
 
 namespace Zingular\Forms\Component\Element\Content;
-use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Element\AbstractElement;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\HtmlComponentInterface;
 
 /**
  * Class Content
  * @package Zingular\Form
  */
-class Content extends AbstractElement implements ComponentInterface
+class Content extends AbstractElement implements HtmlComponentInterface
 {
     /**
      * @var string
