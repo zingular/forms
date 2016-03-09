@@ -12,7 +12,7 @@ use Zingular\Forms\Component\Container\Prototypes;
 use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
-use Zingular\Forms\Plugins\Builders\Prototypes\DefaultPrototypeBuilder;
+use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormbuilderInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\Service\Services;

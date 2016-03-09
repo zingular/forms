@@ -101,6 +101,11 @@ interface PrototypesInterface
     public function getFieldsetPrototype();
 
     /**
+     * @return Row
+     */
+    public function getRowPrototype();
+
+    /**
      * @return Aggregator
      */
     public function getAggregatorPrototype();
@@ -195,6 +200,12 @@ interface PrototypesInterface
 
     /**
      * @param $name
+     * @return Row
+     */
+    public function defineRow($name);
+
+    /**
+     * @param $name
      * @return Aggregator
      */
     public function defineAggregator($name);
@@ -270,4 +281,12 @@ interface PrototypesInterface
      * @throws FormException
      */
     public function extendField($parentName,$name);
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function extendRow($parentName,$name);
 }

@@ -312,6 +312,16 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         return $this->add($name,$position,BaseTypes::FIELD);
     }
 
+    /**
+     * @param $name
+     * @param string $position
+     * @return Row
+     */
+    public function addRow($name, $position = self::END)
+    {
+        return $this->add($name,$position,BaseTypes::ROW);
+    }
+
     /***************************************************************
      * USE (import prototypes)
      **************************************************************/
@@ -473,6 +483,17 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     public function useField($prototype,$as = null,$position = self::END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::FIELD,Field::class,$position);
+    }
+
+    /**
+     * @param $prototype
+     * @param null $as
+     * @param string $position
+     * @return Row
+     */
+    public function useRow($prototype, $as = null, $position = self::END)
+    {
+        return $this->useComponent($prototype,$as,BaseTypes::ROW,Row::class,$position);
     }
 
     /***************************************************************

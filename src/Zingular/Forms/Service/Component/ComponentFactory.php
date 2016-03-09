@@ -12,6 +12,7 @@ use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Container\Aggregator;
 use Zingular\Forms\Component\Container\Field;
 use Zingular\Forms\Component\Container\Fieldset;
+use Zingular\Forms\Component\Container\Row;
 use Zingular\Forms\Component\Element\Control\Button;
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Element\Content\Content;
@@ -44,6 +45,7 @@ class ComponentFactory
             case BaseTypes::AGGREGATOR: return $this->createAggregator();
             case BaseTypes::FIELD: return $this->createField();
             case BaseTypes::FIELDSET: return $this->createFieldset();
+            case BaseTypes::ROW: return $this->createRow();
             case BaseTypes::BUTTON: return $this->createButton();
             case BaseTypes::CONTAINER: return $this->createContainer();
             case BaseTypes::CONTENT: return $this->createContent();
@@ -171,6 +173,14 @@ class ComponentFactory
     protected function createFieldset()
     {
         return new Fieldset();
+    }
+
+    /**
+     * @return Row
+     */
+    protected function createRow()
+    {
+       return new Row();
     }
 
     /**

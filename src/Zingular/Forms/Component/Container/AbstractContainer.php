@@ -118,6 +118,16 @@ abstract class AbstractContainer implements ContainerInterface
         return $this->getComponent($name,Field::class);
     }
 
+    /**
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function getRow($name)
+    {
+        return $this->getComponent($name,Row::class);
+    }
+
     /***************************************************************
      * CLONING
      **************************************************************/

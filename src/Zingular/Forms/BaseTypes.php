@@ -16,6 +16,7 @@ namespace Zingular\Forms;
 class BaseTypes
 {
     const AGGREGATOR = 'aggregator';
+    const ROW = 'row';
     const FIELD = 'field';
     const FIELDSET = 'fieldset';
     const PROTOTYPES = 'prototypes';

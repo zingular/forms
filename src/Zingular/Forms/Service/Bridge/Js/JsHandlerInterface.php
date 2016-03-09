@@ -17,7 +17,6 @@ interface JsHandlerInterface
 {
     /**
      * @param $script
-     * @return mixed
      */
     public function requireScript($script);
 }

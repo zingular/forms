@@ -203,13 +203,20 @@ class TestScenario
                 ->useFieldset('test1234')
                     ->nextSibling()
                     //->addContainer('myContainer','myContainer')->nextSibling()
-
+                ->addFieldset('fsTestRow')
+                    ->addRow('testRow')
+                        ->addInput('testRowInput1')->nextSibling()
+                        ->addInput('testRowInput2')->back()
+                    ->nextSibling()
                 ->addButton('submit')
                     ->onClick(array($this,'test'))
                     ->ignoreValue();
             //print_rf($form->getFieldset('fsTest')->getField('name')->getInput('text'));
 
             //print_rf($form->describe(true));
+
+
+
 
         $form->import(new TestCompoment(),'testComponent');
 

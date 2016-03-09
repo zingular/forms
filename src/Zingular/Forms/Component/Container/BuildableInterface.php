@@ -136,6 +136,13 @@ interface BuildableInterface extends ContainerInterface
      */
     public function addField($name,$position = self::END);
 
+    /**
+     * @param $name
+     * @param string $position
+     * @return Row
+     */
+    public function addRow($name,$position = self::END);
+
     /***************************************************************
      * USE (import prototypes)
      **************************************************************/
@@ -243,6 +250,14 @@ interface BuildableInterface extends ContainerInterface
      * @return Field
      */
     public function useField($prototype,$as = null,$position = self::END);
+
+    /**
+     * @param $prototype
+     * @param null $as
+     * @param string $position
+     * @return Row
+     */
+    public function useRow($prototype,$as = null,$position = self::END);
 
     /***************************************************************
      * IMPORT

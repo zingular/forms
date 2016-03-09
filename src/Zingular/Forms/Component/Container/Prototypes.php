@@ -241,6 +241,14 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     }
 
     /**
+     * @return Row
+     */
+    public function getRowPrototype()
+    {
+        return $this->getPrototype(BaseTypes::ROW);
+    }
+
+    /**
      * @return Aggregator
      */
     public function getAggregatorPrototype()
@@ -380,6 +388,15 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
 
     /**
      * @param $name
+     * @return Row
+     */
+    public function defineRow($name)
+    {
+        return $this->adopt($name,clone $this->getRowPrototype());
+    }
+
+    /**
+     * @param $name
      * @return Aggregator
      */
     public function defineAggregator($name)
@@ -472,18 +489,29 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     public function extendFieldset($parentName,$name)
     {
-        return $this->extendComponent($parentName,$name,Container::class);
+        return $this->extendComponent($parentName,$name,Fieldset::class);
     }
 
     /**
      * @param $parentName
      * @param $name
-     * @return Container
+     * @return Field
      * @throws FormException
      */
     public function extendField($parentName,$name)
     {
-        return $this->extendComponent($parentName,$name,Container::class);
+        return $this->extendComponent($parentName,$name,Field::class);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function extendRow($parentName,$name)
+    {
+        return $this->extendComponent($parentName,$name,Row::class);
     }
 
     /**

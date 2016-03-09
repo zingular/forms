@@ -432,6 +432,16 @@ class Form extends Container implements PrototypesInterface
         return $this->context->getPrototypes()->defineAggregator($name);
     }
 
+
+    /**
+     * @param $name
+     * @return Row
+     */
+    public function defineRow($name)
+    {
+        return $this->context->getPrototypes()->defineRow($name);
+    }
+
     /**
      * @param $parentName
      * @param $name
@@ -525,6 +535,17 @@ class Form extends Container implements PrototypesInterface
     public function extendField($parentName, $name)
     {
         return $this->context->getPrototypes()->extendField($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function extendRow($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendRow($parentName,$name);
     }
 
     /**
@@ -646,4 +667,13 @@ class Form extends Container implements PrototypesInterface
     {
         return $this->context->getPrototypes()->getAggregatorPrototype();
     }
+
+    /**
+     * @return Row
+     */
+    public function getRowPrototype()
+    {
+        return $this->context->getPrototypes()->getRowPrototype();
+    }
+
 }

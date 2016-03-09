@@ -6,7 +6,7 @@
  * Time: 19:13
  */
 
-namespace Zingular\Forms\Plugins\Builders\Prototypes;
+namespace Zingular\Forms\Plugins\Builders\Prototype;
 
 use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
@@ -27,6 +27,7 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->getContainerPrototype()->setCssBaseTypeClass('type_container')->setViewName(View::CONTAINER);
         $prototypes->getFieldsetPrototype()->setCssBaseTypeClass('type_fieldset')->setViewName(View::FIELDSET);
         $prototypes->getFieldPrototype()->setCssBaseTypeClass('type_field')->setViewName(View::FIELD);
+        $prototypes->getRowPrototype()->setCssBaseTypeClass('type_row')->setViewName(View::ROW);
         $prototypes->getAggregatorPrototype()->setCssBaseTypeClass('type_aggregator')->setViewName(View::TRANSPARENT);
 
         // manipulate control base prototypess
