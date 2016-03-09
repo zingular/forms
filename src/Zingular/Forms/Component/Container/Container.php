@@ -7,6 +7,7 @@ use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionTrait;
 use Zingular\Forms\Component\Context;
+use Zingular\Forms\Component\CssTrait;
 use Zingular\Forms\Component\DataInterface;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\Element\Content\Html;
@@ -21,8 +22,9 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
-use Zingular\Forms\Component\HtmlComponentInterface;
+use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\ServiceGetterInterface;
+use Zingular\Forms\Component\ViewSetterTrait;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
@@ -35,9 +37,11 @@ use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
  * Class Container
  * @package Zingular\Form
  */
-class Container extends AbstractContainer implements DataInterface,BuildableInterface,HtmlComponentInterface
+class Container extends AbstractContainer implements DataInterface,BuildableInterface,CssComponentInterface
 {
     use ComponentTrait;
+    use ViewSetterTrait;
+    use CssTrait;
     use ConditionTrait;
 
     /**
@@ -125,7 +129,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         $component = parent::adopt($name,$component,$position);
 
         // also add a css class for the instance name
-        if($component instanceof HtmlComponentInterface)
+        if($component instanceof CssComponentInterface)
         {
             $component->addCssClass($name);
         }
@@ -676,8 +680,8 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
             // catch any errors during child compilation
             catch(\Exception $e)
             {
-                /** @var HtmlComponentInterface $component */
-                if($component instanceof HtmlComponentInterface)
+                /** @var CssComponentInterface $component */
+                if($component instanceof CssComponentInterface)
                 {
                     $component->addCssClass('error');
                 }

@@ -21,7 +21,7 @@ use Zingular\Forms\Component\Element\Control\Hidden;
 use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
-use Zingular\Forms\Component\HtmlComponentInterface;
+use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Component\ComponentFactory;
 
@@ -62,7 +62,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
         $component = parent::adopt($name,$component,$position);
 
         // add a type css class
-        if($component instanceof HtmlComponentInterface)
+        if($component instanceof CssComponentInterface)
         {
             $component->setCssTypeClass($name);
         }

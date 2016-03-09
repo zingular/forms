@@ -8,28 +8,16 @@
 
 namespace Zingular\Forms\Component;
 
-
 /**
  * Class TestCompoment
  * @package Zingular\Forms\Component
  */
-class TestCompoment implements ComponentInterface
+class TestCompoment implements CssComponentInterface
 {
+    use ComponentTrait;
+    use ViewSetterTrait;
+    use CssTrait;
     // TODO: find a way to render view of custom components that only implement the base interfaces
-
-    /**
-     * @var Context
-     */
-    protected $context;
-
-
-    /**
-     * @param Context $context
-     */
-    public function setContext(Context $context)
-    {
-        $this->context = $context;
-    }
 
     /**
      * @param FormContext $formContext
@@ -41,34 +29,10 @@ class TestCompoment implements ComponentInterface
     }
 
     /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->context->getId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullId()
-    {
-        return $this->context->getFullId();
-    }
-
-    /**
      * @return array
      */
     public function describe()
     {
         // TODO: Implement describe() method.
-    }
-
-    /**
-     * @return string
-     */
-    public function getViewName()
-    {
-        return 'test';
     }
 }

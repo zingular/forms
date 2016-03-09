@@ -12,7 +12,7 @@ namespace Zingular\Forms\Component;
  * Interface ComponentInterface
  * @package Zingular\Form
  */
-interface ComponentInterface
+interface ComponentInterface extends NavigationInterface
 {
     /**
      * @param Context $context
