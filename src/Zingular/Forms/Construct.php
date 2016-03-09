@@ -10,6 +10,8 @@ namespace Zingular\Forms;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\Prototypes;
 use Zingular\Forms\Component\ServiceSetterTrait;
+use Zingular\Forms\Component\ServicesInterface;
+use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
@@ -143,12 +145,22 @@ class Construct
 
     /**
      * @param string $formId
-     * @param FormBuilderInterface $builder
-     * @param null $model
+     * @param FormBuilderInterface|string $builder
+     * @param object $model
      * @return Form
+     * @throws FormException
      */
-    public function buildForm($formId,FormBuilderInterface $builder,$model = null)
+    public function buildForm($formId,$builder,$model = null)
     {
+        if(is_string($builder))
+        {
+            $builder = $this->getServices()->getFormBuilderFactory()->create($builder);
+        }
+        elseif(!($builder instanceof FormBuilderInterface))
+        {
+            throw new FormException(sprintf("Cannot build form with id '%': invalid builder type '%s'!",$formId,gettype($builder)));
+        }
+
         $form = $this->createForm($formId,$model);
 
         // first, build form-specific prototypes
@@ -168,7 +180,7 @@ class Construct
      *********************************************************************/
 
     /**
-     * @return Services
+     * @return ServicesInterface
      */
     protected function getServices()
     {

@@ -24,7 +24,7 @@ class FormContext
     protected $form;
 
     /**
-     * @var Services
+     * @var ServicesInterface
      */
     protected $services;
 
@@ -35,9 +35,9 @@ class FormContext
 
     /**
      * @param Form $form
-     * @param Services $services
+     * @param ServicesInterface $services
      */
-    public function __construct(Form $form,Services $services)
+    public function __construct(Form $form,ServicesInterface $services)
     {
         $this->form = $form;
         $this->services = $services;
@@ -112,7 +112,7 @@ class FormContext
     }
 
     /**
-     * @return Services
+     * @return ServiceGetterInterface
      */
     public function getServices()
     {

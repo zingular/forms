@@ -20,16 +20,17 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\ServiceSetterInterface;
 use Zingular\Forms\Component\ServiceSetterTrait;
+use Zingular\Forms\Component\ServicesInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Method;
-use Zingular\Forms\Service\Services;
 
 /**
  * Class Form
  * @package Zingular\Form
  */
-class Form extends Container implements PrototypesInterface
+class Form extends Container implements PrototypesInterface,ServiceSetterInterface
 {
     use ServiceSetterTrait;
 
@@ -75,14 +76,17 @@ class Form extends Container implements PrototypesInterface
 
     /**
      * @param Prototypes $id
-     * @param Services $services
+     * @param ServicesInterface $services
      * @param Prototypes $prototypes
      * @param object $model
      */
-    public function __construct($id,Services $services,Prototypes $prototypes,$model = null)
+    public function __construct($id,ServicesInterface $services,Prototypes $prototypes,$model = null)
     {
+        // store the services
         $this->services = $services;
-        $this->setContext(new Context($id,null,$prototypes)); // manually set context (without parent)
+
+        // manually set context (without parent)
+        $this->setContext(new Context($id,null,$prototypes));
 
         // TEST ORM
         if(is_object($model))
@@ -286,7 +290,7 @@ class Form extends Container implements PrototypesInterface
     }
 
     /**
-     * @return Services
+     * @return ServicesInterface
      */
     protected function getServices()
     {

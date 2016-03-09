@@ -253,7 +253,7 @@ trait ComponentTrait
     }
 
     /**
-     * @return Services
+     * @return ServiceGetterInterface
      */
     protected function getServices()
     {

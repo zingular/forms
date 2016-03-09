@@ -14,12 +14,12 @@ use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
+use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
 use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
 use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
-use Zingular\Forms\Service\Services;
 
 /**
  * Class ServiceSetterTrait
@@ -28,12 +28,12 @@ use Zingular\Forms\Service\Services;
 trait ServiceSetterTrait
 {
     /**
-     * @var Services
+     * @var ServiceSetterInterface
      */
     protected $services;
 
     /**
-     * @return Services
+     * @return ServiceSetterInterface
      */
     protected function getServices()
     {
@@ -41,11 +41,11 @@ trait ServiceSetterTrait
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Evaluators\ValidatorInterface $validator
+     * @param ValidatorInterface $validator
      */
     public function addValidatorType(ValidatorInterface $validator)
     {
-        $this->getServices()->addValidator($validator);
+        $this->getServices()->addValidatorType($validator);
     }
 
     /**
@@ -53,23 +53,23 @@ trait ServiceSetterTrait
      */
     public function addFilterType(FilterInterface $filter)
     {
-        $this->getServices()->addFilter($filter);
+        $this->getServices()->addFilterType($filter);
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface $builder
+     * @param RegisterableBuilderInterface $builder
      */
     public function addBuilderType(RegisterableBuilderInterface $builder)
     {
-        $this->getServices()->addBuilder($builder);
+        $this->getServices()->addBuilderType($builder);
     }
 
     /**
      * @param PoolableAggregatorInterface $aggregator
      */
-    public function addAggregatorStrategy(PoolableAggregatorInterface $aggregator)
+    public function addAggregatorType(PoolableAggregatorInterface $aggregator)
     {
-        $this->getServices()->addAggregator($aggregator);
+        $this->getServices()->addAggregatorType($aggregator);
     }
 
     /**
@@ -77,17 +77,16 @@ trait ServiceSetterTrait
      */
     public function addConditionType(ConditionInterface $condition)
     {
-        $this->getServices()->addCondition($condition);
+        $this->getServices()->addConditionType($condition);
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Converters\ConverterInterface $converter
+     * @param ConverterInterface $converter
      */
-    public function addConverter(ConverterInterface $converter)
+    public function addConverterType(ConverterInterface $converter)
     {
-        $this->getServices()->addConverter($converter);
+        $this->getServices()->addConverterType($converter);
     }
-
 
     /**
      * @param TranslatorInterface $translator
@@ -111,6 +110,14 @@ trait ServiceSetterTrait
     public function setValidatorFactory(ValidatorFactoryInterface $factory)
     {
         $this->getServices()->setValidatorFactory($factory);
+    }
+
+    /**
+     * @param FormBuilderFactoryInterface $factory
+     */
+    public function setFormBuilderFactory(FormBuilderFactoryInterface $factory)
+    {
+        $this->getServices()->setFormBuilderFactory($factory);
     }
 
     /**

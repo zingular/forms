@@ -21,6 +21,7 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\ServiceGetterInterface;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
@@ -835,7 +836,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @return Services
+     * @return ServiceGetterInterface
      */
     protected function getServices()
     {

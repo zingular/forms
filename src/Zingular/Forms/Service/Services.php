@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Service;
+use Zingular\Forms\Component\ServicesInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
@@ -14,6 +15,8 @@ use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
+use Zingular\Forms\Service\Builder\Form\FormBuilderFactory;
+use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
 use Zingular\Forms\Service\Condition\ConditionFactoryInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
@@ -54,7 +57,7 @@ use Zingular\Forms\Service\Condition\ConditionPool;
  * Class Service
  * @package Zingular\Form
  */
-class Services
+class Services implements ServicesInterface
 {
     /**
      * @var ComponentFactory
@@ -72,9 +75,14 @@ class Services
     protected $aggregatorFactory;
 
     /**
-     * @var \Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface
+     * @var BuilderFactoryInterface
      */
     protected $builderFactory;
+
+    /**
+     * @var FormBuilderFactoryInterface
+     */
+    protected $formBuilderFactory;
 
     /**
      * @var ConditionPool
@@ -176,33 +184,33 @@ class Services
      *********************************************************************/
 
     /**
-     * @param \Zingular\Forms\Plugins\Evaluators\ValidatorInterface $validator
+     * @param ValidatorInterface $validator
      */
-    public function addValidator(ValidatorInterface $validator)
+    public function addValidatorType(ValidatorInterface $validator)
     {
         $this->getValidators()->add($validator);
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Evaluators\FilterInterface $filter
+     * @param FilterInterface $filter
      */
-    public function addFilter(FilterInterface $filter)
+    public function addFilterType(FilterInterface $filter)
     {
         $this->getFilters()->add($filter);
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface $builder
+     * @param RegisterableBuilderInterface $builder
      */
-    public function addBuilder(RegisterableBuilderInterface $builder)
+    public function addBuilderType(RegisterableBuilderInterface $builder)
     {
         $this->getBuilders()->add($builder);
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface $aggregator
+     * @param PoolableAggregatorInterface $aggregator
      */
-    public function addAggregator(PoolableAggregatorInterface $aggregator)
+    public function addAggregatorType(PoolableAggregatorInterface $aggregator)
     {
         $this->getAggregators()->add($aggregator);
     }
@@ -210,15 +218,15 @@ class Services
     /**
      * @param ConditionInterface $condition
      */
-    public function addCondition(ConditionInterface $condition)
+    public function addConditionType(ConditionInterface $condition)
     {
         $this->getConditions()->add($condition);
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Converters\ConverterInterface $converter
+     * @param ConverterInterface $converter
      */
-    public function addConverter(ConverterInterface $converter)
+    public function addConverterType(ConverterInterface $converter)
     {
         $this->getConverters()->add($converter);
     }
@@ -272,7 +280,7 @@ class Services
     }
 
     /**
-     * @param \Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface $factory
+     * @param BuilderFactoryInterface $factory
      */
     public function setBuilderFactory(BuilderFactoryInterface $factory)
     {
@@ -293,6 +301,15 @@ class Services
     public function setConverterFactory(ConverterFactoryInterface $factory)
     {
         $this->converterFactory = $factory;
+    }
+
+
+    /**
+     * @param FormBuilderFactoryInterface $factory
+     */
+    public function setFormBuilderFactory(FormBuilderFactoryInterface $factory)
+    {
+        $this->formBuilderFactory = $factory;
     }
 
     /**********************************************************************
@@ -557,7 +574,7 @@ class Services
     }
 
     /**
-     * @return \Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface
+     * @return BuilderFactoryInterface
      */
     protected function getBuilderFactory()
     {
@@ -567,6 +584,19 @@ class Services
         }
 
         return $this->builderFactory;
+    }
+
+    /**
+     * @return FormBuilderFactoryInterface
+     */
+    public function getFormBuilderFactory()
+    {
+        if(is_null($this->formBuilderFactory))
+        {
+            $this->formBuilderFactory = new FormBuilderFactory();
+        }
+
+        return $this->formBuilderFactory;
     }
 
     /**
@@ -623,4 +653,5 @@ class Services
             $this->translationHandler = clone $this->translationHandler;
         }
     }
+
 }
