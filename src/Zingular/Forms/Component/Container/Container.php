@@ -10,6 +10,7 @@ use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssTrait;
 use Zingular\Forms\Component\DataInterface;
 use Zingular\Forms\Component\DataUnitInterface;
+use Zingular\Forms\Component\Element\Content\ContentInterface;
 use Zingular\Forms\Component\Element\Content\Html;
 use Zingular\Forms\Component\Element\Content\HtmlTag;
 use Zingular\Forms\Component\Element\Content\Label;
@@ -23,7 +24,9 @@ use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
 use Zingular\Forms\Component\CssComponentInterface;
+use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ServiceGetterInterface;
+use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
@@ -37,12 +40,13 @@ use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
  * Class Container
  * @package Zingular\Form
  */
-class Container extends AbstractContainer implements DataInterface,BuildableInterface,CssComponentInterface
+class Container extends AbstractContainer implements DataInterface,BuildableInterface,CssComponentInterface,ViewableComponentInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
     use CssTrait;
     use ConditionTrait;
+    use HtmlAttributesTrait;
 
     /**
      * @var RuntimeBuilderInterface
@@ -594,7 +598,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param array|\Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface|callable $options
+     * @param array|RuntimeBuilderInterface|callable $options
      * @return $this
      */
     public function setOptions($options)
@@ -664,40 +668,49 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
      */
     protected function compileChildren(array $children,FormContext $formContext,array $defaultValues = array())
     {
-        /** @var ComponentInterface $component */
         foreach($children as $component)
         {
-            // check display conditions, and if fails, remove child, and continue
-            // TODO
-
-
-
-            // compile the child component
-            try
+            if($component instanceof ComponentInterface)
             {
-                $component->compile($formContext,$defaultValues);
-            }
-            // catch any errors during child compilation
-            catch(\Exception $e)
-            {
-                /** @var CssComponentInterface $component */
-                if($component instanceof CssComponentInterface)
+                // check display conditions, and if fails, remove child, and continue
+                // TODO
+
+                // compile the child component
+                try
                 {
-                    $component->addCssClass('error');
+                    if($component instanceof DataInterface)
+                    {
+                        $component->compile($formContext,$defaultValues);
+                    }
+                    elseif($component instanceof ContentInterface)
+                    {
+                        $component->compile($formContext);
+                    }
+                }
+                // catch any errors during child compilation
+                catch(\Exception $e)
+                {
+                    if($component instanceof CssComponentInterface)
+                    {
+                        $component->addCssClass('error');
+                    }
+
+                    $this->errors[] = $e;
                 }
 
-                $this->errors[] = $e;
+                // collect the values of the child component
+                if($component instanceof DataInterface)
+                {
+                    $this->collectValues($component);
+                }
             }
-
-            // collect the values of the child component
-            $this->collectValues($component);
         }
     }
 
     /**
-     * @param ComponentInterface $child
+     * @param DataInterface $child
      */
-    protected function collectValues(ComponentInterface $child)
+    protected function collectValues(DataInterface $child)
     {
         // if the component is a data unit
         if($child instanceof DataUnitInterface)

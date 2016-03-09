@@ -20,12 +20,6 @@ interface ComponentInterface extends NavigationInterface
     public function setContext(Context $context);
 
     /**
-     * @param FormContext $formContext
-     * @param array $defaultValues
-     */
-    public function compile(FormContext $formContext,array $defaultValues = array());
-
-    /**
      * @return string
      */
     public function getId();

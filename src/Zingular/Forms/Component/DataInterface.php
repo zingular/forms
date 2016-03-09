@@ -8,12 +8,15 @@
 
 namespace Zingular\Forms\Component;
 
-
 /**
  * Interface DataInterface
  * @package Zingular\Forms\Component
  */
 interface DataInterface extends ComponentInterface
 {
-
+    /**
+     * @param FormContext $formContext
+     * @param array $defaultValues
+     */
+    public function compile(FormContext $formContext,array $defaultValues = array());
 }

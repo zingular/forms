@@ -15,7 +15,7 @@ use Zingular\Forms\Component\CssComponentInterface;
  * Class Content
  * @package Zingular\Form
  */
-class Content extends AbstractElement implements CssComponentInterface
+class Content extends AbstractElement implements CssComponentInterface,ContentInterface
 {
     /**
      * @var string

@@ -7,8 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Bridge\View;
-use Zingular\Forms\Component\ComponentInterface;
-
+use Zingular\Forms\Component\ViewableComponentInterface;
 
 /**
  * Interface ViewHandlerInterface
@@ -17,8 +16,8 @@ use Zingular\Forms\Component\ComponentInterface;
 interface ViewHandlerInterface
 {
     /**
-     * @param ComponentInterface $component
+     * @param ViewableComponentInterface $component
      * @return string
      */
-    public function render(ComponentInterface $component);
+    public function render(ViewableComponentInterface $component);
 }

@@ -8,9 +8,9 @@
 
 namespace Zingular\Forms\Service\Bridge\View;
 
-use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Container\ContainerInterface;
 use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Component\Element\Content\Content;
+use Zingular\Forms\Component\Element\Content\ContentInterface;
 use Zingular\Forms\Component\Element\Content\Html;
 use Zingular\Forms\Component\Element\Content\HtmlTag;
 use Zingular\Forms\Component\Element\Content\Label;
@@ -53,10 +53,10 @@ class DefaultViewHandler extends AbstractViewHandler
      *****************************************************************/
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    protected function renderContainer(Container $container)
+    protected function renderContainer(ContainerInterface $container)
     {
         return sprintf
         (
@@ -68,10 +68,10 @@ class DefaultViewHandler extends AbstractViewHandler
     }
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    protected function renderFieldset(Container $container)
+    protected function renderFieldset(ContainerInterface $container)
     {
         return sprintf
         (
@@ -83,10 +83,10 @@ class DefaultViewHandler extends AbstractViewHandler
     }
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    protected function renderField(Container $container)
+    protected function renderField(ContainerInterface $container)
     {
         return sprintf
         (
@@ -98,10 +98,10 @@ class DefaultViewHandler extends AbstractViewHandler
     }
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    protected function renderRow(Container $container)
+    protected function renderRow(ContainerInterface $container)
     {
         return sprintf
         (
@@ -113,10 +113,10 @@ class DefaultViewHandler extends AbstractViewHandler
     }
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    protected function renderTransparent(Container $container)
+    protected function renderTransparent(ContainerInterface $container)
     {
         return $this->renderComponents($container->getComponents());
     }
@@ -342,10 +342,10 @@ class DefaultViewHandler extends AbstractViewHandler
     }
 
     /**
-     * @param Content $label
+     * @param ContentInterface $label
      * @return string
      */
-    protected function renderContent(Content $label)
+    protected function renderContent(ContentInterface $label)
     {
         return sprintf
         (

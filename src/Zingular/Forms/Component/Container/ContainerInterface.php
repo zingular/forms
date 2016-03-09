@@ -8,13 +8,14 @@
 
 namespace Zingular\Forms\Component\Container;
 
-
 /**
  * Interface ContainerInterface
  * @package Zingular\Forms\Component\Container
  */
 interface ContainerInterface
 {
-    const END = 'end';
-    const START = 'start';
+    /**
+     * @return array
+     */
+    public function getComponents();
 }

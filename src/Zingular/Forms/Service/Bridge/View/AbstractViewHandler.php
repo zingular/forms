@@ -8,11 +8,12 @@
 
 namespace Zingular\Forms\Service\Bridge\View;
 
-use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\Container\Container;
+
+use Zingular\Forms\Component\Container\ContainerInterface;
 use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Component\Element\AbstractElement;
+
 use Zingular\Forms\Component\Element\Content\Content;
+use Zingular\Forms\Component\Element\Content\ContentInterface;
 use Zingular\Forms\Component\Element\Content\Html;
 use Zingular\Forms\Component\Element\Content\HtmlTag;
 use Zingular\Forms\Component\Element\Content\Label;
@@ -23,6 +24,7 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\Element\ElementInterface;
+use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\View as ViewNames;
 use Zingular\Forms\Component\Element\Content\View;
 
@@ -33,18 +35,18 @@ use Zingular\Forms\Component\Element\Content\View;
 abstract class AbstractViewHandler implements ViewHandlerInterface
 {
     /**
-     * @param ComponentInterface $component
+     * @param ViewableComponentInterface $component
      * @return string
      */
-    public function render(ComponentInterface $component)
+    public function render(ViewableComponentInterface $component)
     {
         // render container
-        if($component instanceof Container)
+        if($component instanceof ContainerInterface)
         {
             return $this->renderContainerType($component);
         }
         // render element
-        elseif($component instanceof AbstractElement)
+        elseif($component instanceof ElementInterface)
         {
             return $this->renderElement($component);
         }
@@ -64,7 +66,7 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
     {
         $buffer = '';
 
-        /** @var ComponentInterface $component */
+        /** @var ViewableComponentInterface $component */
         foreach ($components as $component)
         {
             $buffer .= $this->render($component);
@@ -74,30 +76,33 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
     }
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    protected function renderContainerType(Container $container)
+    protected function renderContainerType(ContainerInterface $container)
     {
         if($container instanceof Form)
         {
             return $this->renderForm($container);
         }
 
-        $view = $container->getViewName();
-
-        switch($view)
+        if($container instanceof ViewableComponentInterface)
         {
-            case ViewNames::CONTAINER:return $this->renderContainer($container);
-            case ViewNames::FIELD:return $this->renderField($container);
-            case ViewNames::FIELDSET:return $this->renderFieldset($container);
-            case ViewNames::ROW:return $this->renderRow($container);
-            case ViewNames::TRANSPARENT:
-            default:
+            $view = $container->getViewName();
+
+            /** @var ContainerInterface $cont */
+            $cont = $container;
+
+            switch($view)
             {
-                return $this->renderTransparent($container);
+                case ViewNames::CONTAINER:return $this->renderContainer($cont);
+                case ViewNames::FIELD:return $this->renderField($cont);
+                case ViewNames::FIELDSET:return $this->renderFieldset($cont);
+                case ViewNames::ROW:return $this->renderRow($cont);
             }
         }
+
+        return $this->renderTransparent($container);
     }
 
     /**
@@ -118,10 +123,10 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
     }
 
     /**
-     * @param Content $content
+     * @param ContentInterface $content
      * @return string
      */
-    protected function renderContentType(Content $content)
+    protected function renderContentType(ContentInterface $content)
     {
         if($content instanceof Label)
         {
@@ -180,34 +185,34 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
      *****************************************************************/
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    abstract protected function renderContainer(Container $container);
+    abstract protected function renderContainer(ContainerInterface $container);
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    abstract protected function renderFieldset(Container $container);
+    abstract protected function renderFieldset(ContainerInterface $container);
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    abstract protected function renderField(Container $container);
+    abstract protected function renderField(ContainerInterface $container);
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    abstract protected function renderRow(Container $container);
+    abstract protected function renderRow(ContainerInterface $container);
 
     /**
-     * @param Container $container
+     * @param ContainerInterface $container
      * @return string
      */
-    abstract protected function renderTransparent(Container $container);
+    abstract protected function renderTransparent(ContainerInterface $container);
 
     /**
      * @param Form $container
@@ -272,10 +277,10 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
     abstract protected function renderTag(HtmlTag $tag);
 
     /**
-     * @param Content $label
+     * @param ContentInterface $label
      * @return string
      */
-    abstract protected function renderContent(Content $label);
+    abstract protected function renderContent(ContentInterface $label);
 
     /**
      * @param View $view

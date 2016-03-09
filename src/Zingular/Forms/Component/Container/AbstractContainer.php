@@ -8,17 +8,18 @@ use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\Element\Control\Input;
-use Zingular\Forms\Component\HtmlAttributesInterface;
-use Zingular\Forms\Component\HtmlAttributesTrait;
+
+
 use Zingular\Forms\Exception\FormException;
 
 /**
  * Class AbstractContainer
  * @package Zingular\Form\Component
  */
-abstract class AbstractContainer implements ContainerInterface,HtmlAttributesInterface
+abstract class AbstractContainer
 {
-    use HtmlAttributesTrait;
+    const END = 'end';
+    const START = 'start';
 
     /**
      * @var array

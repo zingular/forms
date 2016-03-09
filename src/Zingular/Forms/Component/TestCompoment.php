@@ -7,12 +7,13 @@
  */
 
 namespace Zingular\Forms\Component;
+use Zingular\Forms\Component\Element\Content\ContentInterface;
 
 /**
  * Class TestCompoment
  * @package Zingular\Forms\Component
  */
-class TestCompoment implements CssComponentInterface
+class TestCompoment implements CssComponentInterface,ContentInterface,ViewableComponentInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
@@ -21,9 +22,8 @@ class TestCompoment implements CssComponentInterface
 
     /**
      * @param FormContext $formContext
-     * @param array $defaultValues
      */
-    public function compile(FormContext $formContext, array $defaultValues = array())
+    public function compile(FormContext $formContext)
     {
         // TODO: Implement compile() method.
     }

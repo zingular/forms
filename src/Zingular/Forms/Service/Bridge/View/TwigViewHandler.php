@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service\Bridge\View;
 
 use Zingular\Forms\Component\ComponentInterface;
-
+use Zingular\Forms\Component\ViewableComponentInterface;
 
 /**
  * Class TwigViewHandler
@@ -31,10 +31,10 @@ class TwigViewHandler implements ViewHandlerInterface
     }
 
     /**
-     * @param ComponentInterface $component
+     * @param ViewableComponentInterface $component
      * @return string
      */
-    public function render(ComponentInterface $component)
+    public function render(ViewableComponentInterface $component)
     {
         $params = array('component'=>$component);
         return $this->twig->render($this->getTemplateNameFromView($component),$params);
