@@ -8,6 +8,7 @@ use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\Element\Control\Input;
+use Zingular\Forms\Component\HtmlAttributesInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Exception\FormException;
 
@@ -15,7 +16,7 @@ use Zingular\Forms\Exception\FormException;
  * Class AbstractContainer
  * @package Zingular\Form\Component
  */
-abstract class AbstractContainer implements ContainerInterface
+abstract class AbstractContainer implements ContainerInterface,HtmlAttributesInterface
 {
     use HtmlAttributesTrait;
 
