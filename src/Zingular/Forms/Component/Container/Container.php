@@ -21,6 +21,7 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\HtmlComponentInterface;
 use Zingular\Forms\Component\ServiceGetterInterface;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
@@ -28,13 +29,13 @@ use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Error\ErrorBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
-use Zingular\Forms\Service\Services;
+
 
 /**
  * Class Container
  * @package Zingular\Form
  */
-class Container extends AbstractContainer implements DataInterface,BuildableInterface
+class Container extends AbstractContainer implements DataInterface,BuildableInterface,HtmlComponentInterface
 {
     use ComponentTrait;
     use ConditionTrait;
@@ -124,7 +125,10 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         $component = parent::adopt($name,$component,$position);
 
         // also add a css class for the instance name
-        $component->addCssClass($name);
+        if($component instanceof HtmlComponentInterface)
+        {
+            $component->addCssClass($name);
+        }
 
         // add component to adoption history
         if(is_array($this->adoptionHistory))
@@ -672,11 +676,14 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
             // catch any errors during child compilation
             catch(\Exception $e)
             {
-                $component->addCssClass('error');
+                /** @var HtmlComponentInterface $component */
+                if($component instanceof HtmlComponentInterface)
+                {
+                    $component->addCssClass('error');
+                }
+
                 $this->errors[] = $e;
             }
-
-            $this->getCssClass();
 
             // collect the values of the child component
             $this->collectValues($component);

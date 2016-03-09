@@ -71,13 +71,4 @@ class TestCompoment implements ComponentInterface
     {
         return 'test';
     }
-
-    /**
-     * @param $class
-     * @return $this
-     */
-    public function addCssClass($class)
-    {
-        // TODO: Implement addCssClass() method.
-    }
 }

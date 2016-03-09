@@ -26,12 +26,6 @@ interface ComponentInterface
     public function compile(FormContext $formContext,array $defaultValues = array());
 
     /**
-     * @param $class
-     * @return $this
-     */
-    public function addCssClass($class);
-
-    /**
      * @return string
      */
     public function getId();

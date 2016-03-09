@@ -3,7 +3,7 @@
 namespace Zingular\Forms\Component\Element;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionTrait;
-use Zingular\Forms\Component\Container\Container;
+
 use Zingular\Forms\Component\HtmlAttributesTrait;
 
 /**
