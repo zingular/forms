@@ -118,7 +118,7 @@ trait ComponentTrait
     /**
      * @return Container
      */
-    public function back()
+    public function nextParentSibling()
     {
         $parent = $this->getParent();
         return !is_null($parent) ? $parent->getParent() : null;

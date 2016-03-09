@@ -10,9 +10,11 @@ namespace Zingular\Forms\Service\Bridge\View;
 
 use Zingular\Forms\Component\Container\Container;
 use Zingular\Forms\Component\Container\Form;
+use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\Element\Content\Html;
 use Zingular\Forms\Component\Element\Content\HtmlTag;
 use Zingular\Forms\Component\Element\Content\Label;
+use Zingular\Forms\Component\Element\Content\View;
 use Zingular\Forms\Component\Element\Control\Button;
 use Zingular\Forms\Component\Element\Control\Checkbox;
 use Zingular\Forms\Component\Element\Control\Input;
@@ -20,6 +22,7 @@ use Zingular\Forms\Component\Element\Control\Option;
 use Zingular\Forms\Component\Element\Control\OptionGroup;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
+use Zingular\Forms\Exception\FormException;
 
 /**
  * Class DefaultViewHandler
@@ -31,6 +34,7 @@ class DefaultViewHandler extends AbstractViewHandler
     const FORMAT_CONTAINER = '<div id="%s" class="%s" %s>%s</div>';
     const FORMAT_FIELDSET = '<fieldset id="%s" class="%s" %s>%s</fieldset>';
     const FORMAT_FIELD = '<div id="%s" class="%s" %s><div class="inner">%s</div></div>';
+    const FORMAT_ROW = '<div id="%s" class="%s" %s><div class="inner">%s</div></div>';
     const FORMAT_INPUT = '<input type="%s" id="%s" class="%s" name="%s" value="%s" %s/>';
     const FORMAT_CHECKBOX = '<input type="%s" id="%s" class="%s" name="%s" %s %s/>';
     const FORMAT_SELECT = '<select id="%s" class="%s" name="%s" %s>%s</select>';
@@ -41,6 +45,8 @@ class DefaultViewHandler extends AbstractViewHandler
     const FORMAT_LABEL = '<label id="%s" class="%s" for="%s" %s>%s</label>';
     const FORMAT_HTML = '<div id="%s" class="%s" %s>%s</div>';
     const FORMAT_TAG = '<%s id="%s" class="%s" %s>%s</%s>';
+    const FORMAT_CONTENT = '<div id="%s" class="%s" %s>%s</div>';
+    const FORMAT_VIEW = '%s';
 
     /******************************************************************
      * RENDER CONTAINERS
@@ -85,6 +91,21 @@ class DefaultViewHandler extends AbstractViewHandler
         return sprintf
         (
             self::FORMAT_FIELD,
+            $container->getFullId(),
+            $container->getCssClass(),
+            $container->getHtmlAttributesAsString(),
+            $this->renderComponents($container->getComponents()));
+    }
+
+    /**
+     * @param Container $container
+     * @return string
+     */
+    protected function renderRow(Container $container)
+    {
+        return sprintf
+        (
+            self::FORMAT_ROW,
             $container->getFullId(),
             $container->getCssClass(),
             $container->getHtmlAttributesAsString(),
@@ -176,6 +197,45 @@ class DefaultViewHandler extends AbstractViewHandler
     }
 
     /**
+     * @param Button $button
+     * @return string
+     */
+    protected function renderButton(Button $button)
+    {
+        return sprintf
+        (
+            self::FORMAT_BUTTON,
+            $button->getFullId(),
+            $button->getCssClass(),
+            $button->getFullName(),
+            $button->getInputValue(),
+            $button->getHtmlAttributesAsString(),
+            $button->getId()
+        );
+    }
+
+    /**
+     * @param Textarea $textarea
+     * @return string
+     */
+    protected function renderTextarea(Textarea $textarea)
+    {
+        return sprintf
+        (
+            self::FORMAT_TEXTAREA,
+            $textarea->getFullId(),
+            $textarea->getCssClass(),
+            $textarea->getFullName(),
+            $textarea->getHtmlAttributesAsString(),
+            $textarea->getInputValue()
+        );
+    }
+
+    /******************************************************************
+     * RENDER OPTIONS
+     *****************************************************************/
+
+    /**
      * @param array $options
      * @return string
      */
@@ -214,40 +274,6 @@ class DefaultViewHandler extends AbstractViewHandler
         return sprintf(self::FORMAT_OPTION,$option->getValue(),$option->getLabel());
     }
 
-    /**
-     * @param Button $button
-     * @return string
-     */
-    protected function renderButton(Button $button)
-    {
-        return sprintf
-        (
-            self::FORMAT_BUTTON,
-            $button->getFullId(),
-            $button->getCssClass(),
-            $button->getFullName(),
-            $button->getInputValue(),
-            $button->getHtmlAttributesAsString(),
-            $button->getId()
-        );
-    }
-
-    /**
-     * @param Textarea $textarea
-     * @return string
-     */
-    protected function renderTextarea(Textarea $textarea)
-    {
-        return sprintf
-        (
-            self::FORMAT_TEXTAREA,
-            $textarea->getFullId(),
-            $textarea->getCssClass(),
-            $textarea->getFullName(),
-            $textarea->getHtmlAttributesAsString(),
-            $textarea->getInputValue()
-        );
-    }
 
     /******************************************************************
      * RENDER CONTENT
@@ -302,6 +328,32 @@ class DefaultViewHandler extends AbstractViewHandler
             $tag->getHtmlAttributesAsString(),
             $tag->getContent(),
             $tag->getTagName()
+        );
+    }
+
+    /**
+     * @param View $view
+     * @return string
+     * @throws \Exception
+     */
+    protected function renderView(View $view)
+    {
+        throw new FormException(sprintf("Cannot render component '%s': rendering view-based content components is not supported in the default view handler!",$view->getFullId()));
+    }
+
+    /**
+     * @param Content $label
+     * @return string
+     */
+    protected function renderContent(Content $label)
+    {
+        return sprintf
+        (
+            self::FORMAT_CONTENT,
+            $label->getFullId(),
+            $label->getCssClass(),
+            $label->getHtmlAttributesAsString(),
+            $label->getContent()
         );
     }
 }

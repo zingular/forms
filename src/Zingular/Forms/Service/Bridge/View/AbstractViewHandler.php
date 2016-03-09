@@ -23,7 +23,8 @@ use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
 use Zingular\Forms\Component\Element\ElementInterface;
-use Zingular\Forms\View;
+use Zingular\Forms\View as ViewNames;
+use Zingular\Forms\Component\Element\Content\View;
 
 /**
  * Class AbstractViewHandler
@@ -87,10 +88,11 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
 
         switch($view)
         {
-            case View::CONTAINER:return $this->renderContainer($container);
-            case View::FIELD:return $this->renderField($container);
-            case View::FIELDSET:return $this->renderFieldset($container);
-            case View::TRANSPARENT:
+            case ViewNames::CONTAINER:return $this->renderContainer($container);
+            case ViewNames::FIELD:return $this->renderField($container);
+            case ViewNames::FIELDSET:return $this->renderFieldset($container);
+            case ViewNames::ROW:return $this->renderRow($container);
+            case ViewNames::TRANSPARENT:
             default:
             {
                 return $this->renderTransparent($container);
@@ -112,14 +114,14 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
         /** @var Content $content */
         $content = $element;
 
-        return $this->renderContent($content);
+        return $this->renderContentType($content);
     }
 
     /**
      * @param Content $content
      * @return string
      */
-    protected function renderContent(Content $content)
+    protected function renderContentType(Content $content)
     {
         if($content instanceof Label)
         {
@@ -133,9 +135,13 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
         {
             return $this->renderTag($content);
         }
+        elseif($content instanceof View)
+        {
+            return $this->renderView($content);
+        }
         else
         {
-            return '';
+            return $this->renderContent($content);
         }
     }
 
@@ -190,6 +196,12 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
      * @return string
      */
     abstract protected function renderField(Container $container);
+
+    /**
+     * @param Container $container
+     * @return string
+     */
+    abstract protected function renderRow(Container $container);
 
     /**
      * @param Container $container
@@ -258,4 +270,16 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
      * @return string
      */
     abstract protected function renderTag(HtmlTag $tag);
+
+    /**
+     * @param Content $label
+     * @return string
+     */
+    abstract protected function renderContent(Content $label);
+
+    /**
+     * @param View $view
+     * @return mixed
+     */
+    abstract protected function renderView(View $view);
 }
