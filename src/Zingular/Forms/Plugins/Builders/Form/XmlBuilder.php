@@ -35,7 +35,7 @@ class XmlBuilder implements FormbuilderInterface
     /**
      * @param BuildableInterface $container
      */
-    public function build(BuildableInterface $container)
+    public function buildForm(BuildableInterface $container)
     {
         // TODO: parse xml file and extract form structure components and configurations and apply them
     }

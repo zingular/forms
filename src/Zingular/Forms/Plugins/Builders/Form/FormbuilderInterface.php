@@ -8,17 +8,26 @@
 
 namespace Zingular\Forms\Plugins\Builders\Form;
 
-
+use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
-use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
+use Zingular\Forms\Component\Container\PrototypesInterface;
 
 /**
  * Interface FormbuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface FormbuilderInterface extends BuilderInterface,PrototypeBuilderInterface
+interface FormbuilderInterface
 {
+    /**
+     * @param PrototypesInterface $form
+     */
+    public function buildPrototypes(PrototypesInterface $form);
+
+    /**
+     * @param BuildableInterface $form
+     */
+    public function buildForm(BuildableInterface $form);
+
     /**
      * @param Form $form
      * @return mixed

@@ -143,7 +143,7 @@ class Construct
 
     /**
      * @param string $formId
-     * @param \Zingular\Forms\Plugins\Builders\Form\FormbuilderInterface $builder
+     * @param FormbuilderInterface $builder
      * @param null $model
      * @return Form
      */
@@ -155,7 +155,7 @@ class Construct
         $builder->buildPrototypes($form);
 
         // next, build components
-        $builder->build($form);
+        $builder->buildForm($form);
 
         // finally, configure the form
         $builder->configureForm($form);
