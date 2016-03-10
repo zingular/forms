@@ -18,8 +18,8 @@ use Zingular\Forms\Exception\FormException;
  */
 abstract class AbstractContainer
 {
-    const END = 'end';
-    const START = 'start';
+    const END = -1;
+    const START = 0;
 
     /**
      * @var array
@@ -160,7 +160,7 @@ abstract class AbstractContainer
     /**
      * @param $name
      * @param ComponentInterface $component
-     * @param string $position
+     * @param string|int $position
      * @return ComponentInterface
      * @throws FormException
      */
@@ -176,7 +176,7 @@ abstract class AbstractContainer
         {
             array_unshift($this->components,$component);
         }
-        // any position
+        // any indexed position
         elseif(is_int($position) && $position > -1)
         {
             $count = count($this->components);
@@ -188,10 +188,25 @@ abstract class AbstractContainer
 
             array_splice($this->components,$position,0,array($component));
         }
+        // append after component with specified name
+        elseif(is_string($position))
+        {
+            // try to lookup component
+            $index = $this->getComponentIndex($position);
+
+            // if target component not found, throw exception
+            if(is_null($index))
+            {
+                throw new FormException(sprintf("Cannot insert component after component '%s': no such component!",$position));
+            }
+
+            // recursive call with new index as target position
+            return $this->adopt($name,$component,$index + 1);
+        }
         // throw exception if incorrect position argument
         else
         {
-            throw new FormException(sprintf("Cannot add form component: incorrect position argument value: '%s' (should be positive or zero integer or 'end' or 'start')",is_scalar($position) ? $position : gettype($position)));
+            throw new FormException(sprintf("Cannot add form component: incorrect position argument value: '%s' (should be -1 for append, any positive or zero int for exact position, or string for insert after compomnent by name)",is_scalar($position) ? $position : gettype($position)));
         }
 
         // set the context to the component

@@ -32,7 +32,7 @@ class DefaultErrorBuilder implements  ErrorBuilderInterface
             /** @var EvaluationException $e */
             if($e instanceof EvaluationException)
             {
-                $container->addLabel('lblError'.$index)
+                $container->addLabel('lblError'.$index,$e->getComponent()->getId())
                     ->setFor($e->getComponent())
                     ->addCssClass('error')
                     ->setTranslationKey('error.'.$e->getType(),$e->getParams())

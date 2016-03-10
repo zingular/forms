@@ -8,13 +8,11 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\Component\ComponentInterface;
-
 /**
  * Class Textarea
  * @package Zingular\Form\Component\Element\Control
  */
-class Textarea extends AbstractControl implements ComponentInterface
+class Textarea extends AbstractControl
 {
     /**
      * @param int $numberOfCols

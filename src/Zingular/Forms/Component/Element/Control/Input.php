@@ -15,7 +15,7 @@ use Zingular\Forms\InputType;
  * Class Input
  * @package Zingular\Form\Component\Element\Control
  */
-class Input extends AbstractControl implements ComponentInterface
+class Input extends AbstractControl
 {
     /**
      * @var string

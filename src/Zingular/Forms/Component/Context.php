@@ -103,6 +103,8 @@ class Context
      */
     public function getParent()
     {
+        // TODO: move number of descendents int to over here, instead of in the child component class
+
         return $this->parent;
     }
 

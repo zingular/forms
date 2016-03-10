@@ -30,6 +30,11 @@ interface ComponentInterface extends NavigationInterface
     public function getFullId();
 
     /**
+     * @return int
+     */
+    public function getIndex();
+
+    /**
      * @return array
      */
     public function describe();

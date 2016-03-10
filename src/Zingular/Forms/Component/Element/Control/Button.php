@@ -8,14 +8,11 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-
-use Zingular\Forms\Component\ComponentInterface;
-
 /**
  * Class Button
  * @package Zingular\Form\Component\Element\Control
  */
-class Button extends AbstractControl implements ComponentInterface
+class Button extends AbstractControl
 {
     /**
      * @var array

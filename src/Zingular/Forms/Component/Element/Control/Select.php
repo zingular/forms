@@ -18,7 +18,7 @@ use Zingular\Forms\OptionMode;
  * Class Select
  * @package Zingular\Forms\Component\Element\Control
  */
-class Select extends AbstractControl implements ComponentInterface
+class Select extends AbstractControl
 {
     /**
      * @var OptionsProvider
