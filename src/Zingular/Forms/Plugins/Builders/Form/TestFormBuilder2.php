@@ -30,9 +30,9 @@ class TestFormBuilder2 implements FormBuilderInterface
         // define email inpu
         $form->defineInput('email')
             ->setRequired()
-            ->addFilter(Filter::TRIM)
-            ->addFilter(Filter::FORCE_TRAILING,'.nl')
-            ->setConverter(Converter::SERIALIZE);
+                ->addFilter(Filter::TRIM)
+                ->addFilter(Filter::FORCE_TRAILING,'.nl')
+                ->setConverter(Converter::SERIALIZE);
 
         // define email field
         $form->defineField('fldEmail')
@@ -42,9 +42,10 @@ class TestFormBuilder2 implements FormBuilderInterface
 
         $form->defineField('fldHobbies')
             ->addAggregator('hobbies')
-            ->addInput('hobby1')->next()
-            ->addInput('hobby2')->next()
-            ->addInput('hobby3');
+                ->setConverter(Converter::SERIALIZE)
+                ->addInput('hobby1')->next()
+                ->addInput('hobby2')->next()
+                ->addInput('hobby3');
 
         $form->defineContent('testCallbackContent')
             ->setContentCallback(array($this,'getTestContent'));

@@ -17,7 +17,7 @@ class TestCompoment implements CssComponentInterface,ContentInterface,ViewableCo
 {
     use ComponentTrait;
     use ViewSetterTrait;
-    use CssTrait;
+    use CssComponentTrait;
     // TODO: find a way to render view of custom components that only implement the base interfaces
 
     /**

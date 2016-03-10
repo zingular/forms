@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Component\Container;
 use Zingular\Forms\Aggregation;
+use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormContext;
@@ -25,6 +26,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
 {
     use DataUnitTrait;
     use RequiredTrait;
+    use ConvertableTrait;
 
     /**
      * @var AggregatorInterface
@@ -56,7 +58,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
             $defaultValue = $defaultValues[$this->getName()];
 
             // overwrite the default values by de-aggregating the default value
-            $defaultValues = $this->getAggregationStrategy()->deaggegate($defaultValue,$this);
+            $defaultValues = $this->getAggregationStrategy()->deaggegate($this->decodeValue($defaultValue),$this);
 
             if(!is_array($defaultValues))
             {
@@ -112,8 +114,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
                 $this->value = $this->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
 
                 // encode the value (if converter set)
-                // TODO
-                //$this->value = $this->encodeValue($this->value);
+                $this->value = $this->encodeValue($this->value);
 
                 // store the read input if it should be persisted
                 if($this->isPersistent() || $this->formContext->isPersistent())
@@ -208,7 +209,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
     }
 
     /**
-     * @return \Zingular\Forms\Plugins\Aggregators\AggregatorInterface
+     * @return AggregatorInterface
      * @throws FormException
      */
     protected function getAggregationStrategy()
@@ -234,15 +235,5 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
     public function getDataPath()
     {
         return trim($this->context->getDataPath().'/'.$this->getName(),'/');
-    }
-
-    /**
-     * @param $converter
-     * @param $args
-     * @return $this
-     */
-    public function setConverter($converter,...$args)
-    {
-        // TODO
     }
 }

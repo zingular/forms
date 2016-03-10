@@ -9,10 +9,10 @@
 namespace Zingular\Forms\Component;
 
 /**
- * Class CssTrait
+ * Class CssComponentTrait
  * @package Zingular\Forms\Component
  */
-trait CssTrait
+trait CssComponentTrait
 {
     /**
      * @var string

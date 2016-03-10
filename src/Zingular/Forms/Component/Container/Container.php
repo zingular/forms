@@ -7,7 +7,7 @@ use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionTrait;
 use Zingular\Forms\Component\Context;
-use Zingular\Forms\Component\CssTrait;
+use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\DataInterface;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\Element\Content\Content;
@@ -45,7 +45,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
 {
     use ComponentTrait;
     use ViewSetterTrait;
-    use CssTrait;
+    use CssComponentTrait;
     use ConditionTrait;
     use HtmlAttributesTrait;
 

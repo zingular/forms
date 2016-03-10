@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Element\Control;
+use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\Element\AbstractElement;
@@ -16,8 +17,6 @@ use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Exception\ValidationException;
-use Zingular\Forms\Service\Conversion\ConverterConfig;
-use Zingular\Forms\Plugins\Converters\ConverterInterface;
 
 /**
  * Class AbstractControl
@@ -27,17 +26,13 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
 {
     use RequiredTrait;
     use DataUnitTrait;
+    use ConvertableTrait;
 
     /**
      * @var bool
      */
     protected $trimValue = true;
 
-
-    /**
-     * @var ConverterConfig
-     */
-    protected $converterConfig;
 
     /**
      * @var bool
@@ -166,9 +161,6 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         return null;
     }
 
-
-
-
     /**
      * @return array
      */
@@ -183,15 +175,6 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
 
         return $classes;
     }
-
-
-
-
-
-
-
-
-
 
     /**
      * @return array
@@ -224,7 +207,6 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
         return $this->trimValue;
     }
 
-
     /**
      * @param bool $set
      * @return $this
@@ -241,66 +223,6 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     public function emptyStringIsValue()
     {
         return $this->emptyStringIsValue;
-    }
-
-
-
-
-
-
-    /**
-     * @param $converter
-     * @param $params
-     * @return $this
-     */
-    public function setConverter($converter,...$params)
-    {
-        $this->converterConfig = new ConverterConfig($converter,$params);
-        return $this;
-    }
-
-    /**
-     * @return ConverterInterface
-     */
-    protected function getConverter()
-    {
-        if(!is_null($this->converterConfig))
-        {
-            return $this->getServices()->getConverters()->get($this->converterConfig->getType());
-        }
-
-        return null;
-    }
-
-
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    protected function decodeValue($value)
-    {
-        if(!is_null($this->getConverter()))
-        {
-            return $this->getConverter()->decode($value,$this->converterConfig->getArgs());
-        }
-
-        return $value;
-    }
-
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    protected function encodeValue($value)
-    {
-        if(!is_null($this->getConverter()))
-        {
-            return $this->getConverter()->encode($value,$this->converterConfig->getArgs());
-        }
-
-        return $value;
     }
 
     /**
