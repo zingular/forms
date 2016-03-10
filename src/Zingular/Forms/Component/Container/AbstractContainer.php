@@ -281,11 +281,11 @@ abstract class AbstractContainer
 
         if(is_null($candidate))
         {
-            throw new FormException(sprintf("Cannot retrieve component from container: unknown prototype '%s'",$name));
+            throw new FormException(sprintf("Cannot retrieve component from container: unknown component '%s'",$name));
         }
         elseif(!is_null($type) && !($candidate instanceof $type))
         {
-            throw new FormException(sprintf("Cannot retrieve component from container: prototype '%s' not of specified type '%s'",$name,$type));
+            throw new FormException(sprintf("Cannot retrieve component from container: component '%s' not of specified type '%s'",$name,$type));
         }
 
         return $candidate;

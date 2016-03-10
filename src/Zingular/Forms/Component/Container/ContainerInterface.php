@@ -7,15 +7,21 @@
  */
 
 namespace Zingular\Forms\Component\Container;
+use Zingular\Forms\Component\ComponentInterface;
 
 /**
  * Interface ContainerInterface
  * @package Zingular\Forms\Component\Container
  */
-interface ContainerInterface
+interface ContainerInterface extends ComponentInterface
 {
     /**
      * @return array
      */
     public function getComponents();
+
+    /**
+     * @return string
+     */
+    public function getDataPath();
 }

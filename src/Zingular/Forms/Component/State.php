@@ -44,36 +44,60 @@ class State
     }
 
     /**
-     * @param $componentName
+     * @param $name
      * @param ContainerInterface $parent
      * @return mixed
      */
-    public function getValue($componentName,ContainerInterface $parent = null)
+    public function getValue($name,ContainerInterface $parent = null)
     {
-        // TODO: process parent with relative values
-        return $this->hasValue($componentName,$parent) ? $this->values[$componentName] : null;
+        // first, make sure the path is absolute
+        $name = $this->makeAbsolute($name,$parent);
+
+        // return the value if it exists
+        return array_key_exists($name,$this->values) ? $this->values[$name] : null;
     }
 
     /**
-     * @param bool|true $primaryOnly
      * @return array
      */
-    public function getValues($primaryOnly = true)
+    public function getValues()
     {
-        // TODO: only primary
-        return $this->values;
+        return array_filter($this->values,function($key){return strpos($key,'/') === false;},ARRAY_FILTER_USE_KEY);
     }
 
     /**
-     * @param $componentName
+     * @param $name
      * @param Container $parent
      * @return bool
      */
-    public function hasValue($componentName,Container $parent = null)
+    public function hasValue($name,Container $parent = null)
     {
-        // TODO: process relative and absolute value paths
+        return array_key_exists($this->makeAbsolute($name,$parent),$this->values);
+    }
 
-        return isset($this->values[$componentName]);
+    /**
+     * @param $name
+     * @return bool
+     */
+    protected function isAbsolute($name)
+    {
+        return strpos($name,'/') === 0;
+    }
+
+    /**
+     * @param $name
+     * @param ContainerInterface $parent
+     * @return mixed
+     */
+    protected function makeAbsolute($name,ContainerInterface $parent = null)
+    {
+        // if it already is absolute, or no parent provided
+        if($this->isAbsolute($name) || is_null($parent))
+        {
+            return trim($name,'/');
+        }
+
+        return trim($parent->getDataPath().'/'.$name,'/');
     }
 
     /**

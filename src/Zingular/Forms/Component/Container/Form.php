@@ -191,11 +191,20 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
     }
 
     /**
+     * @param $name
+     * @return mixed
+     */
+    public function getValue($name)
+    {
+        return $this->state->getValue($name);
+    }
+
+    /**
      * @return array
      */
     public function getValues()
     {
-        return $this->state->getValues($primary = true);
+        return $this->state->getValues();
     }
 
     /**********************************************************************

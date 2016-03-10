@@ -11,6 +11,7 @@ namespace Zingular\Forms\Plugins\Builders\Form;
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
+use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\State;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
@@ -64,6 +65,16 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->useField('fldHobbies')->next()
             ->addButton('submit')
                 ->ignoreValue();
+
+        $form->addContent('testCallback')->setContentCallback(function(State $state,Content $content)
+        {
+            $hobbies = $content->getParent()
+                ->getContainer('fsPersonalia')
+                ->getContainer('fldHobbies')
+                ->getContainer('hobbies');
+
+            return $state->getValue('/hobbies',$hobbies);
+        });
 
         $form->useContent('testCallbackContent');
     }

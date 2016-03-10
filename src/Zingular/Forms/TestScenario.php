@@ -99,6 +99,9 @@ class TestScenario
 
         echo $form->render();
         print_rf($form->getValues());
+
+        print_rf($form->getValue('/hobbies/hobby1'));
+
         print_rf($model);
 
         echo microtime(true) - $start;
