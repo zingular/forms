@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\Component\ComponentInterface;
+
 use Zingular\Forms\InputType;
 
 /**

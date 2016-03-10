@@ -9,9 +9,7 @@
 namespace Zingular\Forms\Component\Element\Control;
 
 
-use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\OptionsProvider;
-
 use Zingular\Forms\OptionMode;
 
 /**
