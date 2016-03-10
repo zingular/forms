@@ -256,6 +256,7 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     public function setConverter($converter,...$params)
     {
         $this->converterConfig = new ConverterConfig($converter,$params);
+        return $this;
     }
 
     /**
@@ -294,9 +295,9 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
      */
     protected function encodeValue($value)
     {
-        if(isset($this->converter))
+        if(!is_null($this->getConverter()))
         {
-            return $this->converter->encode($value,$this->converterConfig->getArgs());
+            return $this->getConverter()->encode($value,$this->converterConfig->getArgs());
         }
 
         return $value;

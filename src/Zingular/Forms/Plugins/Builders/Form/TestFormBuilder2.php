@@ -12,6 +12,9 @@ use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Converter;
+use Zingular\Forms\Filter;
+use Zingular\Forms\View;
 
 /**
  * Class TestFormBuilder2
@@ -24,6 +27,25 @@ class TestFormBuilder2 implements FormBuilderInterface
      */
     public function buildPrototypes(PrototypesInterface $form)
     {
+        // define email inpu
+        $form->defineInput('email')
+            ->setRequired()
+            ->addFilter(Filter::TRIM)
+            ->addFilter(Filter::FORCE_TRAILING,'.nl')
+            ->setConverter(Converter::SERIALIZE);
+
+        // define email field
+        $form->defineField('fldEmail')
+            ->useInput('email');
+
+        // define test aggregator
+
+        $form->defineField('fldHobbies')
+            ->addAggregator('hobbies')
+            ->addInput('hobby1')->next()
+            ->addInput('hobby2')->next()
+            ->addInput('hobby3');
+
         $form->defineContent('testCallbackContent')
             ->setContentCallback(array($this,'getTestContent'));
     }
@@ -33,6 +55,15 @@ class TestFormBuilder2 implements FormBuilderInterface
      */
     public function buildForm(BuildableInterface $form)
     {
+        $form->addFieldset('fsPersonalia')
+            ->addField('fldName')
+                ->addInput('firstname')->next()
+                ->addInput('lastname')->nextParent()
+            ->useField('fldEmail')->next()
+            ->useField('fldHobbies')->next()
+            ->addButton('submit')
+                ->ignoreValue();
+
         $form->useContent('testCallbackContent');
     }
 
@@ -55,6 +86,6 @@ class TestFormBuilder2 implements FormBuilderInterface
      */
     public function getTestContent(FormContext $context)
     {
-        return 'test';
+        return $context->getFormId();
     }
 }
