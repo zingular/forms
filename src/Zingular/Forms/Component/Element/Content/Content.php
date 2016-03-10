@@ -87,7 +87,7 @@ class Content extends AbstractElement implements CssComponentInterface,ContentIn
         }
         elseif(!is_null($this->callback))
         {
-            return call_user_func($this->callback);
+            return call_user_func($this->callback,$this->formContext);
         }
 
         return '';
