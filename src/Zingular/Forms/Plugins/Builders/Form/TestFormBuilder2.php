@@ -13,8 +13,11 @@ use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Condition;
 use Zingular\Forms\Converter;
+use Zingular\Forms\CssClass;
 use Zingular\Forms\Filter;
+use Zingular\Forms\Validator;
 
 
 /**
@@ -66,6 +69,19 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->addButton('submit')
                 ->ignoreValue();
 
+        $form->addContainer('testCondition')
+            ->addCondition(true,false)
+                ->addInput('yow')->setValue('1')->next()
+                ->addInput('yow2')->setValue(2)->nextParent()
+            ->endCondition()
+            ->addInput('yow3')->setValue(3);
+
+
+        //$form->addCheckbox('checkit');
+
+            //->applyConditions();
+
+
         $form->addContent('testCallback')->setContentCallback(function(FormState $state,Content $content)
         {
             $hobbies = $content->getParent()
@@ -76,9 +92,11 @@ class TestFormBuilder2 implements FormBuilderInterface
             return $state->getValue('/hobbies',$hobbies);
         });
 
+
+
         //$form->getFieldset('fsPersonalia')->removeComponent('submit');
 
-        $form->useContent('testCallbackContent');
+        //$form->useContent('testCallbackContent');
     }
 
     /**

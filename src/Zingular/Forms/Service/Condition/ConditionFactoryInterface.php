@@ -11,7 +11,7 @@ namespace Zingular\Forms\Service\Condition;
 
 /**
  * Interface ConditionFactoryInterface
- * @package Zingular\Forms\Service\Condition
+ * @package Zingular\Forms\Service\ConditionGroup
  */
 interface ConditionFactoryInterface
 {

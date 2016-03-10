@@ -11,7 +11,7 @@ use Zingular\Forms\Component\ComponentInterface;
 
 /**
  * Class ConditionalConfig
- * @package Zingular\Forms\Service\Condition
+ * @package Zingular\Forms\Service\ConditionGroup
  */
 class ConditionalConfig
 {

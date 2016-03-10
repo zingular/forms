@@ -13,7 +13,7 @@ use Zingular\Forms\Plugins\Conditions\ValueCondition;
 
 /**
  * Class ConditionFactory
- * @package Zingular\Form\Service\Condition
+ * @package Zingular\Form\Service\ConditionGroup
  */
 class ConditionFactory implements ConditionFactoryInterface
 {

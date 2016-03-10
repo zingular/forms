@@ -10,7 +10,7 @@ namespace Zingular\Forms;
 
 
 /**
- * Class Condition
+ * Class ConditionGroup
  * @package Zingular\Forms
  */
 class Condition

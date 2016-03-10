@@ -22,7 +22,10 @@ use Zingular\Forms\Exception\ValidationException;
  * Class AbstractControl
  * @package Zingular\Form
  */
-abstract class AbstractControl extends AbstractElement implements DataUnitInterface,RequiredInterface,CssComponentInterface
+abstract class AbstractControl extends AbstractElement implements
+    DataUnitInterface,
+    RequiredInterface,
+    CssComponentInterface
 {
     use RequiredTrait;
     use DataUnitTrait;
@@ -33,12 +36,10 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
      */
     protected $trimValue = true;
 
-
     /**
      * @var bool
      */
     protected $emptyStringIsValue = false;
-
 
     /**
      * @param FormState $state

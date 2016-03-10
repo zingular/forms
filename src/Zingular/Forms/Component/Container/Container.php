@@ -5,7 +5,7 @@ namespace Zingular\Forms\Component\Container;
 use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
-use Zingular\Forms\Component\ConditionTrait;
+use Zingular\Forms\Component\ConditionableInterface;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\DataInterface;
@@ -29,6 +29,7 @@ use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
+use Zingular\Forms\ConditionableTrait;
 use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
@@ -41,13 +42,18 @@ use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
  * Class Container
  * @package Zingular\Form
  */
-class Container extends AbstractContainer implements DataInterface,BuildableInterface,CssComponentInterface,ViewableComponentInterface
+class Container extends AbstractContainer implements
+    DataInterface,
+    BuildableInterface,
+    CssComponentInterface,
+    ViewableComponentInterface,
+    ConditionableInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
     use CssComponentTrait;
-    use ConditionTrait;
     use HtmlAttributesTrait;
+    use ConditionableTrait;
 
     /**
      * @var RuntimeBuilderInterface
@@ -683,6 +689,11 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
             {
                 // check display conditions, and if fails, remove child, and continue
                 // TODO
+
+                if($component instanceof ConditionableInterface)
+                {
+                    $component->applyConditions($state);
+                }
 
                 // compile the child component
                 try

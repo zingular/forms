@@ -14,7 +14,7 @@ use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 
 /**
  * Class ConditionPool
- * @package Zingular\Form\Service\Condition
+ * @package Zingular\Form\Service\ConditionGroup
  */
 class ConditionPool
 {

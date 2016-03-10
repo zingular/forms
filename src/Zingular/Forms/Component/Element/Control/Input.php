@@ -9,13 +9,15 @@
 namespace Zingular\Forms\Component\Element\Control;
 
 
+use Zingular\Forms\Component\ConditionableInterface;
+use Zingular\Forms\ConditionableTrait;
 use Zingular\Forms\InputType;
 
 /**
  * Class Input
  * @package Zingular\Form\Component\Element\Control
  */
-class Input extends AbstractControl
+class Input extends AbstractControl implements ConditionableInterface
 {
     /**
      * @var string
@@ -39,4 +41,7 @@ class Input extends AbstractControl
         $this->inputType = $type;
         return $this;
     }
+
+
+
 }

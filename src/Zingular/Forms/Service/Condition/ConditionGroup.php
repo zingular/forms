@@ -12,7 +12,7 @@ use Zingular\Forms\Component\FormState;
 
 /**
  * Class ConditionGroup
- * @package Service\Condition
+ * @package Service\ConditionGroup
  */
 class ConditionGroup
 {

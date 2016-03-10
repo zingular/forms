@@ -14,7 +14,7 @@ use Zingular\Forms\Component\FormState;
 
 /**
  * Class CallableCondition
- * @package Zingular\Form\Service\Condition
+ * @package Zingular\Form\Service\ConditionGroup
  */
 class CallableCondition implements ConditionInterface
 {
