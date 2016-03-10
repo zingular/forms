@@ -10,6 +10,7 @@ use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssTrait;
 use Zingular\Forms\Component\DataInterface;
 use Zingular\Forms\Component\DataUnitInterface;
+use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\Element\Content\ContentInterface;
 use Zingular\Forms\Component\Element\Content\Html;
 use Zingular\Forms\Component\Element\Content\HtmlTag;
@@ -189,6 +190,16 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
      * @param string $position
      * @return Label
      */
+    public function addContent($name,$position = self::END)
+    {
+        return $this->add($name,$position,BaseTypes::CONTENT);
+    }
+
+    /**
+     * @param $name
+     * @param string $position
+     * @return Label
+     */
     public function addLabel($name,$position = self::END)
     {
         return $this->add($name,$position,BaseTypes::LABEL);
@@ -352,6 +363,17 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     {
         $as = is_null($as) ? $prototype : $as;
         return $this->adopt($as,$this->context->getPrototypes()->export($baseType,$baseClass,$prototype),$position);
+    }
+
+    /**
+     * @param $prototype
+     * @param null $as
+     * @param string $position
+     * @return Label
+     */
+    public function useContent($prototype,$as = null,$position = self::END)
+    {
+        return $this->useComponent($prototype,$as,BaseTypes::CONTENT,Content::class,$position);
     }
 
     /**

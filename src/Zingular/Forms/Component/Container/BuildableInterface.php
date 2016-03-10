@@ -39,6 +39,14 @@ interface BuildableInterface extends ContainerInterface
      * DEFINE
      **************************************************************/
 
+
+    /**
+     * @param $name
+     * @param string $position
+     * @return Label
+     */
+    public function addContent($name,$position = self::END);
+
     /**
      * @param $name
      * @param string $position
@@ -146,6 +154,14 @@ interface BuildableInterface extends ContainerInterface
     /***************************************************************
      * USE (import prototypes)
      **************************************************************/
+
+    /**
+     * @param $prototype
+     * @param null $as
+     * @param string $position
+     * @return Label
+     */
+    public function useContent($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
