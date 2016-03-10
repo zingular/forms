@@ -95,7 +95,7 @@ class TestScenario
         // create a form
         $form = $construct->buildForm('testForm',new TestFormBuilder2(),$model);
 
-        //$form->setDefaultValue('hobbies','a:3:{s:6:"hobby1";s:1:"1";s:6:"hobby2";s:1:"2";s:6:"hobby3";s:1:"4";}');
+        $form->setDefaultValue('hobbies','a:3:{s:6:"hobby1";s:1:"1";s:6:"hobby2";s:1:"2";s:6:"hobby3";s:1:"6";}');
 
         echo $form->render();
         print_rf($form->getValues());

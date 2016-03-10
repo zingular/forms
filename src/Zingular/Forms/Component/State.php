@@ -54,6 +54,16 @@ class State
     }
 
     /**
+     * @param bool|true $primaryOnly
+     * @return array
+     */
+    public function getValues($primaryOnly = true)
+    {
+        // TODO: only primary
+        return $this->values;
+    }
+
+    /**
      * @param $componentName
      * @param Container $parent
      * @return bool

@@ -72,11 +72,6 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     /**
      * @var array
      */
-    protected $values = array();
-
-    /**
-     * @var array
-     */
     protected $errors = array();
 
     /**
@@ -152,14 +147,6 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     /***************************************************************
      * DATA
      **************************************************************/
-
-    /**
-     * @return array
-     */
-    public function getValues()
-    {
-        return $this->values;
-    }
 
     /**
      * @return string
@@ -577,7 +564,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param string|\Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface $builder
+     * @param string|RuntimeBuilderInterface $builder
      * @return $this
      */
     public function addBuilder($builder)
@@ -587,7 +574,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param \Zingular\Forms\Plugins\Builders\Container\BuilderInterface $builder
+     * @param BuilderInterface $builder
      */
     public function applyBuilder(BuilderInterface $builder)
     {
@@ -595,7 +582,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     }
 
     /**
-     * @param string|\Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface|callable $builder
+     * @param string|RuntimeBuilderInterface|callable $builder
      * @throws FormException
      */
     protected function applyBuilderType($builder)
@@ -743,14 +730,25 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
                 return;
             }
 
-            // add the value of the component to the values of this container
-            $this->values[$child->getName()] = $child->getValue();
+            // store the value
+            $this->storeValue($child);
         }
+        /*
         // if the component itself is a container, merge its values with the current values
         elseif($child instanceof Container)
         {
             $this->values = array_merge($this->values,$child->getValues());
         }
+        */
+    }
+
+    /**
+     * @param DataUnitInterface $child
+     */
+    protected function storeValue(DataUnitInterface $child)
+    {
+        // add the child to the form state
+        $this->state->registerValue($child);
     }
 
     /**

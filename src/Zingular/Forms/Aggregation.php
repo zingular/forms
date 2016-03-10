@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms;
 
-
 /**
  * Class Aggregation
  * @package Zingular\Forms

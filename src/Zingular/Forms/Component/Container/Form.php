@@ -190,6 +190,14 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
         $this->defaultValues = $values;
     }
 
+    /**
+     * @return array
+     */
+    public function getValues()
+    {
+        return $this->state->getValues($primary = true);
+    }
+
     /**********************************************************************
      * COMPILING
      *********************************************************************/
