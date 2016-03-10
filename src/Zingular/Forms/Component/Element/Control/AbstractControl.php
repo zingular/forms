@@ -11,7 +11,7 @@ use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\Element\AbstractElement;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
@@ -41,11 +41,11 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
 
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @param array $defaultValues
      * @return string
      */
-    public function compile(State $state,array $defaultValues = array())
+    public function compile(FormState $state,array $defaultValues = array())
     {
         // set the form context locally
         $this->state = $state;
@@ -113,19 +113,19 @@ abstract class AbstractControl extends AbstractElement implements DataUnitInterf
     }
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @return bool
      */
-    protected function shouldReadInput(State $state)
+    protected function shouldReadInput(FormState $state)
     {
         return $state->hasSubmit() && !$this->hasFixedValue();
     }
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @return null|string
      */
-    protected function readInput(State $state)
+    protected function readInput(FormState $state)
     {
         // only load input value if it actually was set
         if($state->hasInput($this->getFullName()))

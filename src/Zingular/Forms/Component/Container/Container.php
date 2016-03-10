@@ -23,7 +23,7 @@ use Zingular\Forms\Component\Element\Control\Hidden;
 use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ServiceGetterInterface;
@@ -621,11 +621,11 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
      **************************************************************/
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @param array $defaultValues
      * @throws FormException
      */
-    public function compile(State $state,array $defaultValues = array())
+    public function compile(FormState $state,array $defaultValues = array())
     {
         // set the form context locally
         $this->state = $state;
@@ -672,10 +672,10 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
 
     /**
      * @param array $children
-     * @param State $state
+     * @param FormState $state
      * @param array $defaultValues
      */
-    protected function compileChildren(array $children,State $state,array $defaultValues = array())
+    protected function compileChildren(array $children,FormState $state,array $defaultValues = array())
     {
         foreach($children as $component)
         {
@@ -746,14 +746,14 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
 
     /**
      * Optionally perform mandatory, container type-specific preBuild operations
-     * @param State $context
+     * @param FormState $context
      */
-    protected function preBuild(State $context) {}
+    protected function preBuild(FormState $context) {}
 
     /**
-     * @param State $context
+     * @param FormState $context
      */
-    protected function postBuild(State $context) {}
+    protected function postBuild(FormState $context) {}
 
     /**
      *

@@ -12,7 +12,7 @@ use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Component\Element\Content\Content;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
 use Zingular\Forms\View;
@@ -66,7 +66,7 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->addButton('submit')
                 ->ignoreValue();
 
-        $form->addContent('testCallback')->setContentCallback(function(State $state,Content $content)
+        $form->addContent('testCallback')->setContentCallback(function(FormState $state,Content $content)
         {
             $hobbies = $content->getParent()
                 ->getContainer('fsPersonalia')
@@ -93,10 +93,10 @@ class TestFormBuilder2 implements FormBuilderInterface
      *********************************************************/
 
     /**
-     * @param State $context
+     * @param FormState $context
      * @return string
      */
-    public function getTestContent(State $context)
+    public function getTestContent(FormState $context)
     {
         return $context->getFormId();
     }

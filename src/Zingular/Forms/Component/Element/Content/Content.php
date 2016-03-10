@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component\Element\Content;
 use Zingular\Forms\Component\Element\AbstractElement;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 
 /**
@@ -107,11 +107,11 @@ class Content extends AbstractElement implements CssComponentInterface,ContentIn
     }
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @param array $defaultValues
      * @return string
      */
-    public function compile(State $state,array $defaultValues = array())
+    public function compile(FormState $state,array $defaultValues = array())
     {
         $this->state = $state;
     }

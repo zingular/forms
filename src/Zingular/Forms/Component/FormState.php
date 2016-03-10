@@ -13,10 +13,10 @@ use Zingular\Forms\Component\Container\ContainerInterface;
 use Zingular\Forms\Component\Container\Form;
 
 /**
- * Class State
+ * Class FormState
  * @package Zingular\Form
  */
-class State
+class FormState
 {
     /**
      * @var Form

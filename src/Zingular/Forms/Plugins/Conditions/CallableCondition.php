@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Plugins\Conditions;
 
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 
 
 /**
@@ -48,10 +48,10 @@ class CallableCondition implements ConditionInterface
     /**
      * @param ComponentInterface $source
      * @param array $params
-     * @param State $context
+     * @param FormState $context
      * @return mixed
      */
-    public function isValid(ComponentInterface $source, array $params = array(),State $context)
+    public function isValid(ComponentInterface $source, array $params = array(),FormState $context)
     {
         return $this->contextAware ? call_user_func($this->callable,$source,$params,$context) : call_user_func($this->callable,$source,$params);
     }

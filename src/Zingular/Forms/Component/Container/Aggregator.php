@@ -12,7 +12,7 @@ use Zingular\Forms\AggregationMode;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
@@ -67,11 +67,11 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
     protected $incompletionMode = IncompletionMode::IGNORE;
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @param array $defaultValues
      * @return string
      */
-    public function compile(State $state,array $defaultValues = array())
+    public function compile(FormState $state,array $defaultValues = array())
     {
         // store the form context locally
         $this->state = $state;
@@ -168,10 +168,10 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
     }
 
     /**
-     * @param State $state
+     * @param FormState $state
      * @return bool
      */
-    protected function shouldReadInput(State $state)
+    protected function shouldReadInput(FormState $state)
     {
         return $state->hasSubmit() && !$this->hasFixedValue();
     }

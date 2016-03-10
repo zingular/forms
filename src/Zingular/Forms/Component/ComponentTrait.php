@@ -22,7 +22,7 @@ trait ComponentTrait
     protected $context;
 
     /**
-     * @var State
+     * @var FormState
      */
     protected $state;
 

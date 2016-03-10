@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Element\Content;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 
 /**
  * Interface ContentInterface
@@ -16,7 +16,7 @@ use Zingular\Forms\Component\State;
 interface ContentInterface
 {
     /**
-     * @param State $state
+     * @param FormState $state
      */
-    public function compile(State $state);
+    public function compile(FormState $state);
 }

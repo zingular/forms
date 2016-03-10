@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder;
 use Zingular\Forms\Component\Container\BuildableInterface;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
 /**
@@ -19,9 +19,9 @@ class DateTimeSelectBuilder implements RuntimeBuilderInterface
 {
     /**
      * @param BuildableInterface $container
-     * @param State $context
+     * @param FormState $context
      */
-    public function build(BuildableInterface $container,State $context)
+    public function build(BuildableInterface $container,FormState $context)
     {
         $container->addInput('n');
         $container->addInput('j');

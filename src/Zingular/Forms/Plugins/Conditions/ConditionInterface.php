@@ -10,7 +10,7 @@ namespace Zingular\Forms\Plugins\Conditions;
 
 
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 
 /**
  * Interface ConditionInterface
@@ -26,8 +26,8 @@ interface ConditionInterface
     /**
      * @param ComponentInterface $source
      * @param array $params
-     * @param State $context
+     * @param FormState $context
      * @return mixed
      */
-    public function isValid(ComponentInterface $source, array $params = array(),State $context);
+    public function isValid(ComponentInterface $source, array $params = array(),FormState $context);
 }

@@ -11,7 +11,7 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
 
-use Zingular\Forms\Component\State;
+use Zingular\Forms\Component\FormState;
 
 
 /**
@@ -37,9 +37,9 @@ class BuilderAggregator implements RuntimeBuilderInterface
 
     /**
      * @param BuildableInterface $container
-     * @param State $context
+     * @param FormState $context
      */
-    public function build(BuildableInterface $container,State $context)
+    public function build(BuildableInterface $container,FormState $context)
     {
         /** @var RuntimeBuilderInterface $builder */
         foreach($this->builders as $builder)
