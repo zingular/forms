@@ -76,6 +76,8 @@ class TestFormBuilder2 implements FormBuilderInterface
             return $state->getValue('/hobbies',$hobbies);
         });
 
+        //$form->getFieldset('fsPersonalia')->removeComponent('submit');
+
         $form->useContent('testCallbackContent');
     }
 

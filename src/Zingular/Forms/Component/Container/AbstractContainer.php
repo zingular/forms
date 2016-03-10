@@ -174,7 +174,7 @@ abstract class AbstractContainer
         // prepend
         elseif($position === self::START)
         {
-            $this->components = array_values(array_merge(array($name=>$component),$this->components));
+            array_unshift($this->components,$component);
         }
         // any position
         elseif(is_int($position) && $position > -1)
@@ -200,7 +200,6 @@ abstract class AbstractContainer
         return $component;
     }
 
-
     /**
      * @param string $name
      * @param string $type
@@ -208,16 +207,14 @@ abstract class AbstractContainer
      */
     public function hasComponent($name,$type = null)
     {
-        try
-        {
-            $this->getComponent($name,$type);
-        }
-        catch(FormException $e)
+        $index = $this->getComponentIndex($name);
+
+        if(is_null($index))
         {
             return false;
         }
 
-        return true;
+        return is_null($type) || get_class($this->components[$index]) === $type;
     }
 
     /**
@@ -227,16 +224,7 @@ abstract class AbstractContainer
      */
     public function getComponentIndex($name)
     {
-        /** @var ComponentInterface $component */
-        foreach($this->components as $index=>$component)
-        {
-            if($component->getId() === $name)
-            {
-                return $index;
-            }
-        }
-
-        return null;
+        return key(array_filter($this->components,function(ComponentInterface $component) use ($name) {return $component->getId() === $name;}));
     }
 
     /**
@@ -245,11 +233,11 @@ abstract class AbstractContainer
      */
     public function removeComponent($name)
     {
-        $component = $this->getComponent($name);
+        $index = $this->getComponentIndex($name);
 
-        if(!is_null($component))
+        if(!is_null($index))
         {
-            unset($this->components[$this->getComponentIndex($name)]);
+            unset($this->components[$index]);
             $this->components = array_values($this->components);
         }
 
@@ -289,15 +277,6 @@ abstract class AbstractContainer
         }
 
         return $candidate;
-    }
-
-
-    /**
-     * @param $path
-     */
-    protected function getComponentFromPath($path)
-    {
-        // TODO: or merge with getComponent (to support paths, very useful!)
     }
 
     /**

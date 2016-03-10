@@ -18,6 +18,7 @@ use Zingular\Forms\Component\Element\Control\Hidden;
 use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
+use Zingular\Forms\Exception\FormException;
 
 /**
  * Interface BuildableInterface
@@ -34,6 +35,90 @@ interface BuildableInterface extends ContainerInterface
      * @return string
      */
     public function getFullId();
+
+    /***************************************************************
+     * GENERIC
+     **************************************************************/
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function removeComponent($name);
+
+    /***************************************************************
+     * GET
+     **************************************************************/
+
+    /**
+     * @param $name
+     * @return Input
+     * @throws FormException
+     */
+    public function getInput($name);
+
+    /**
+     * @param $name
+     * @return Checkbox
+     * @throws FormException
+     */
+    public function getCheckbox($name);
+
+    /**
+     * @param $name
+     * @return Select
+     * @throws FormException
+     */
+    public function getSelect($name);
+
+    /**
+     * @param $name
+     * @return Textarea
+     * @throws FormException
+     */
+    public function getTextarea($name);
+
+    /**
+     * @param $name
+     * @return Button
+     * @throws FormException
+     */
+    public function getButton($name);
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getContainer($name);
+
+    /**
+     * @param $name
+     * @return Aggregator
+     * @throws FormException
+     */
+    public function getAggregator($name);
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldset($name);
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getField($name);
+
+    /**
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function getRow($name);
 
     /***************************************************************
      * DEFINE
