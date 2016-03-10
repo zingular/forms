@@ -39,7 +39,6 @@ select.error
     border:1px solid #900000;
 }
 
-
 fieldset
 {
     clear:left;
@@ -63,14 +62,19 @@ p
     border-radius: 4px;
 }
 
-.type_field
+.type_field,
+.type_row
 {
     clear:left;
+    overflow:hidden;
+}
+
+.type_field
+{
     background-color:#cccccc;
-    margin-bottom:16px;
     border: 1px solid #a0a0a0;
     border-radius: 4px;
-    overflow:hidden;
+    margin-bottom:16px;
 }
 
 .type_field .inner
@@ -86,6 +90,7 @@ p
 .errorContainer
 {
     border:1px solid #900000;
+    border-radius: 4px;
 }
 
 .required
