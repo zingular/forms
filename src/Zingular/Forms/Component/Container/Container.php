@@ -733,13 +733,6 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
             // store the value
             $this->storeValue($child);
         }
-        /*
-        // if the component itself is a container, merge its values with the current values
-        elseif($child instanceof Container)
-        {
-            $this->values = array_merge($this->values,$child->getValues());
-        }
-        */
     }
 
     /**
@@ -748,7 +741,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     protected function storeValue(DataUnitInterface $child)
     {
         // add the child to the form state
-        $this->state->registerValue($child);
+        $this->state->registerComponent($child);
     }
 
     /**

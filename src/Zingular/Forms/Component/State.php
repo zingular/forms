@@ -9,8 +9,8 @@
 namespace Zingular\Forms\Component;
 
 use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Container\ContainerInterface;
 use Zingular\Forms\Component\Container\Form;
-
 
 /**
  * Class State
@@ -24,7 +24,7 @@ class State
     protected $form;
 
     /**
-     * @var ServicesInterface
+     * @var ServiceGetterInterface
      */
     protected $services;
 
@@ -35,9 +35,9 @@ class State
 
     /**
      * @param Form $form
-     * @param ServicesInterface $services
+     * @param ServiceGetterInterface $services
      */
-    public function __construct(Form $form,ServicesInterface $services)
+    public function __construct(Form $form,ServiceGetterInterface $services)
     {
         $this->form = $form;
         $this->services = $services;
@@ -45,11 +45,12 @@ class State
 
     /**
      * @param $componentName
-     * @param Container $parent
+     * @param ContainerInterface $parent
      * @return mixed
      */
-    public function getValue($componentName,Container $parent = null)
+    public function getValue($componentName,ContainerInterface $parent = null)
     {
+        // TODO: process parent with relative values
         return $this->hasValue($componentName,$parent) ? $this->values[$componentName] : null;
     }
 
@@ -70,13 +71,15 @@ class State
      */
     public function hasValue($componentName,Container $parent = null)
     {
+        // TODO: process relative and absolute value paths
+
         return isset($this->values[$componentName]);
     }
 
     /**
      * @param DataUnitInterface $component
      */
-    public function registerValue(DataUnitInterface $component)
+    public function registerComponent(DataUnitInterface $component)
     {
         $this->values[$component->getFullName()] = $component->getValue();
     }
