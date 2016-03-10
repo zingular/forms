@@ -11,7 +11,7 @@ namespace Zingular\Forms\Plugins\Builders\Form;
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
 use Zingular\Forms\View;
@@ -82,10 +82,10 @@ class TestFormBuilder2 implements FormBuilderInterface
      *********************************************************/
 
     /**
-     * @param FormContext $context
+     * @param State $context
      * @return string
      */
-    public function getTestContent(FormContext $context)
+    public function getTestContent(State $context)
     {
         return $context->getFormId();
     }

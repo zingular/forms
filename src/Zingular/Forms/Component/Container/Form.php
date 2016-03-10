@@ -19,7 +19,7 @@ use Zingular\Forms\Component\Element\Control\Hidden;
 use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Component\ServiceSetterInterface;
 use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Component\ServicesInterface;
@@ -48,11 +48,6 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @var string
      */
     protected $action;
-
-    /**
-     * @var FormContext
-     */
-    protected $formContext;
 
     /**
      * @var bool
@@ -200,16 +195,16 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      *********************************************************************/
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @param array $defaultValues
      */
-    public function compile(FormContext $formContext,array $defaultValues = array())
+    public function compile(State $state,array $defaultValues = array())
     {
         // prevent multiple compiles
         if($this->compiled === false)
         {
             $this->compiled = true;
-            parent::compile($formContext,$defaultValues);
+            parent::compile($state,$defaultValues);
 
             // if form was successful
             if($this->valid())
@@ -227,9 +222,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
     }
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      */
-    protected function preBuild(FormContext $formContext)
+    protected function preBuild(State $state)
     {
         // add form submitted hidden field
         $this->addHidden('FORM_SUBMITTED')
@@ -277,16 +272,16 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      *********************************************************************/
 
     /**
-     * @return FormContext
+     * @return State
      */
     protected function getFormContext()
     {
-        if(is_null($this->formContext))
+        if(is_null($this->state))
         {
-            $this->formContext = new FormContext($this,$this->getServices());
+            $this->state = new State($this,$this->getServices());
         }
 
-        return $this->formContext;
+        return $this->state;
     }
 
     /**

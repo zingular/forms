@@ -15,8 +15,8 @@ namespace Zingular\Forms\Component;
 interface DataInterface extends ComponentInterface
 {
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @param array $defaultValues
      */
-    public function compile(FormContext $formContext,array $defaultValues = array());
+    public function compile(State $state,array $defaultValues = array());
 }

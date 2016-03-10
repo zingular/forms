@@ -10,7 +10,7 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
 
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 
 
 /**
@@ -36,9 +36,9 @@ class CallableBuilder extends AbstractRegisterableBuilder
 
     /**
      * @param BuildableInterface $container
-     * @param FormContext $context
+     * @param State $context
      */
-    public function build(BuildableInterface $container,FormContext $context)
+    public function build(BuildableInterface $container,State $context)
     {
         call_user_func($this->callable,$container);
     }

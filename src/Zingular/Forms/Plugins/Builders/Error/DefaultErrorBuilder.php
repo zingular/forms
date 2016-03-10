@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Plugins\Builders\Error;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Exception\EvaluationException;
 
 /**
@@ -20,11 +20,11 @@ class DefaultErrorBuilder implements  ErrorBuilderInterface
 {
     /**
      * @param BuildableInterface $container
-     * @param FormContext $context
+     * @param State $context
      * @param array $errors
      * @return mixed
      */
-    public function build(BuildableInterface $container, FormContext $context,array $errors)
+    public function build(BuildableInterface $container, State $context,array $errors)
     {
         /** @var \Exception $e */
         foreach($errors as $index=>$e)

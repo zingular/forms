@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Plugins\Builders\Options;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Component\OptionsProvider;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
@@ -21,9 +21,9 @@ abstract class AbstractOptionsBuilder extends OptionsProvider implements Runtime
 {
     /**
      * @param BuildableInterface $container
-     * @param FormContext $context
+     * @param State $context
      */
-    public function build(BuildableInterface $container,FormContext $context)
+    public function build(BuildableInterface $container,State $context)
     {
         $this->buildGroup($this->getOptions(),$container);
     }

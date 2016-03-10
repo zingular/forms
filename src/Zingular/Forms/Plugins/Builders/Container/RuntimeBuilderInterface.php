@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 
 /**
  * Interface RuntimeBuilderInterface
@@ -19,7 +19,7 @@ interface RuntimeBuilderInterface
 {
     /**
      * @param BuildableInterface $container
-     * @param FormContext $context
+     * @param State $context
      */
-    public function build(BuildableInterface $container,FormContext $context);
+    public function build(BuildableInterface $container,State $context);
 }

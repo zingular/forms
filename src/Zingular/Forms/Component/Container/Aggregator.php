@@ -11,7 +11,7 @@ use Zingular\Forms\Aggregation;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 use Zingular\Forms\Exception\EvaluationException;
@@ -31,22 +31,22 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
     /**
      * @var AggregatorInterface
      */
-    protected $aggregationStrategy;
+    protected $aggregator;
 
     /**
      * @var string
      */
-    protected $aggregationStrategyType = Aggregation::NONE;
+    protected $aggregatorType = Aggregation::NONE;
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @param array $defaultValues
      * @return string
      */
-    public function compile(FormContext $formContext,array $defaultValues = array())
+    public function compile(State $state,array $defaultValues = array())
     {
         // store the form context locally
-        $this->formContext = $formContext;
+        $this->state = $state;
 
         // default value
         $defaultValue = null;
@@ -72,7 +72,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
         }
 
         // compile the parent using the de-aggregated value as default values for child components
-        parent::compile($formContext,$defaultValues);
+        parent::compile($state,$defaultValues);
 
         // make sure the value is collected, with the collected default value
         $this->retrieveValue($defaultValue);
@@ -93,7 +93,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
         }
 
         // if there was a submit
-        if($this->shouldReadInput($this->formContext))
+        if($this->shouldReadInput($this->state))
         {
             // read the raw value
             $this->value = $this->readInput();
@@ -117,9 +117,9 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
                 $this->value = $this->encodeValue($this->value);
 
                 // store the read input if it should be persisted
-                if($this->isPersistent() || $this->formContext->isPersistent())
+                if($this->isPersistent() || $this->state->isPersistent())
                 {
-                    $this->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->formContext->getFormId());
+                    $this->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->state->getFormId());
                 }
             }
         }
@@ -127,20 +127,20 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
         else
         {
             // if persistent and the persistence handler has a value for this data unit, load it
-            if(($this->isPersistent() || $this->formContext->isPersistent()) && $this->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->formContext->getFormId()))
+            if(($this->isPersistent() || $this->state->isPersistent()) && $this->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->state->getFormId()))
             {
-                $this->value = $this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->formContext->getFormId());
+                $this->value = $this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId());
             }
         }
     }
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @return bool
      */
-    protected function shouldReadInput(FormContext $formContext)
+    protected function shouldReadInput(State $state)
     {
-        return $formContext->hasSubmit() && !$this->hasFixedValue();
+        return $state->hasSubmit() && !$this->hasFixedValue();
     }
 
     /**
@@ -204,7 +204,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
      */
     public function setAggregationType($strategy)
     {
-        $this->aggregationStrategyType = $strategy;
+        $this->aggregatorType = $strategy;
         return $this;
     }
 
@@ -214,11 +214,11 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
      */
     protected function getAggregationStrategy()
     {
-        if(is_null($this->aggregationStrategy))
+        if(is_null($this->aggregator))
         {
-            $this->aggregationStrategy = $this->getServices()->getAggregators()->get($this->aggregationStrategyType);
+            $this->aggregator = $this->getServices()->getAggregators()->get($this->aggregatorType);
         }
-        return $this->aggregationStrategy;
+        return $this->aggregator;
     }
 
         /**
@@ -226,7 +226,7 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
      */
     protected function describeSelf()
     {
-        return array_merge(parent::describeSelf(),array('aggregationStrategyType'=>$this->aggregationStrategyType));
+        return array_merge(parent::describeSelf(),array('aggregationStrategyType'=>$this->aggregatorType));
     }
 
     /**

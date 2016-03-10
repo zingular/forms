@@ -23,7 +23,7 @@ use Zingular\Forms\Component\Element\Control\Hidden;
 use Zingular\Forms\Component\Element\Control\Input;
 use Zingular\Forms\Component\Element\Control\Select;
 use Zingular\Forms\Component\Element\Control\Textarea;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ServiceGetterInterface;
@@ -603,11 +603,11 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         // builder is a type string, create a builder from it using the factory
         if(is_string($builder))
         {
-            $this->getServices()->getBuilders()->get($builder)->build($this,$this->formContext);
+            $this->getServices()->getBuilders()->get($builder)->build($this,$this->state);
         }
         elseif($builder instanceof RuntimeBuilderInterface)
         {
-            $builder->build($this,$this->formContext);
+            $builder->build($this,$this->state);
         }
         elseif(is_callable($builder))
         {
@@ -634,17 +634,17 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
      **************************************************************/
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @param array $defaultValues
      * @throws FormException
      */
-    public function compile(FormContext $formContext,array $defaultValues = array())
+    public function compile(State $state,array $defaultValues = array())
     {
         // set the form context locally
-        $this->formContext = $formContext;
+        $this->state = $state;
 
         // perform hard-coded pre-buildPrototypes actions
-        $this->preBuild($formContext);
+        $this->preBuild($state);
 
         // apply prebuilder
         if(!is_null($this->preBuilder))
@@ -659,7 +659,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         }
 
         // compile children
-        $this->compileChildren($this->components,$formContext,$defaultValues);
+        $this->compileChildren($this->components,$state,$defaultValues);
 
         // init the adoption history
         $this->adoptionHistory = array();
@@ -671,10 +671,10 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
         }
 
         // perform hard-coded post-buildPrototypes actions
-        $this->postBuild($formContext);
+        $this->postBuild($state);
 
         // compile any newly adopted children during post-build
-        $this->compileChildren($this->adoptionHistory,$formContext,$defaultValues);
+        $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
 
         // reset the adoption history
         $this->adoptionHistory = null;
@@ -685,10 +685,10 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
 
     /**
      * @param array $children
-     * @param FormContext $formContext
+     * @param State $state
      * @param array $defaultValues
      */
-    protected function compileChildren(array $children,FormContext $formContext,array $defaultValues = array())
+    protected function compileChildren(array $children,State $state,array $defaultValues = array())
     {
         foreach($children as $component)
         {
@@ -702,11 +702,11 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
                 {
                     if($component instanceof DataInterface)
                     {
-                        $component->compile($formContext,$defaultValues);
+                        $component->compile($state,$defaultValues);
                     }
                     elseif($component instanceof ContentInterface)
                     {
-                        $component->compile($formContext);
+                        $component->compile($state);
                     }
                 }
                 // catch any errors during child compilation
@@ -755,14 +755,14 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
 
     /**
      * Optionally perform mandatory, container type-specific preBuild operations
-     * @param FormContext $context
+     * @param State $context
      */
-    protected function preBuild(FormContext $context) {}
+    protected function preBuild(State $context) {}
 
     /**
-     * @param FormContext $context
+     * @param State $context
      */
-    protected function postBuild(FormContext $context) {}
+    protected function postBuild(State $context) {}
 
     /**
      *
@@ -778,7 +778,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
             $builder = $this->getServices()->getErrorBuilderFactory()->create($this->errorBuilder);
 
             // buildPrototypes errors
-            $builder->build($this,$this->formContext,$this->errors);
+            $builder->build($this,$this->state,$this->errors);
         }
     }
 
@@ -869,7 +869,7 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
     public function __clone()
     {
         // cannot clone a container when it is already used in a form runtime
-        if(!is_null($this->formContext))
+        if(!is_null($this->state))
         {
             throw new FormException(sprintf("Cannot clone component during form processing: '%s'",$this->getId()));
         }
@@ -886,6 +886,6 @@ class Container extends AbstractContainer implements DataInterface,BuildableInte
      */
     protected function getServices()
     {
-        return $this->formContext->getServices();
+        return $this->state->getServices();
     }
 }

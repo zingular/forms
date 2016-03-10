@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Condition;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 
 /**
  * Class ConditionGroup
@@ -45,9 +45,9 @@ class ConditionGroup
 
     /**
      * @param ComponentInterface $source
-     * @param FormContext $context
+     * @param State $context
      */
-    public function isValid(ComponentInterface $source, FormContext $context)
+    public function isValid(ComponentInterface $source, State $context)
     {
         // TODO: Implement isValid() method.
     }

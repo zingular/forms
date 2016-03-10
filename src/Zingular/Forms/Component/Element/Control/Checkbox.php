@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component\Element\Control;
 
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\InputType;
 
 /**
@@ -23,12 +23,12 @@ class Checkbox extends Input
     protected $inputType = InputType::CHECKBOX;
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @return null|string
      */
-    protected function readInput(FormContext $formContext)
+    protected function readInput(State $state)
     {
-        return $formContext->hasInput($this->getName());
+        return $state->hasInput($this->getName());
     }
 
     /**

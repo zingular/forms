@@ -10,7 +10,7 @@ namespace Zingular\Forms\Plugins\Conditions;
 
 
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 
 
 /**
@@ -24,10 +24,10 @@ class ValueCondition implements ConditionInterface
     /**
      * @param ComponentInterface $source
      * @param array $params
-     * @param FormContext $context
+     * @param State $context
      * @return mixed
      */
-    public function isValid(ComponentInterface $source, array $params = array(),FormContext $context)
+    public function isValid(ComponentInterface $source, array $params = array(),State $context)
     {
 
     }

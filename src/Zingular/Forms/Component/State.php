@@ -13,10 +13,10 @@ use Zingular\Forms\Component\Container\Form;
 
 
 /**
- * Class FormContext
+ * Class State
  * @package Zingular\Form
  */
-class FormContext
+class State
 {
     /**
      * @var Form

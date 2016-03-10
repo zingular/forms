@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component\Element\Content;
 use Zingular\Forms\Component\Element\AbstractElement;
-use Zingular\Forms\Component\FormContext;
+use Zingular\Forms\Component\State;
 use Zingular\Forms\Component\CssComponentInterface;
 
 /**
@@ -79,15 +79,15 @@ class Content extends AbstractElement implements CssComponentInterface,ContentIn
         }
         elseif(!is_null($this->translationKey))
         {
-            if(is_null($this->formContext))
+            if(is_null($this->state))
             {
                 throw new \Exception();
             }
-            return $this->formContext->getServices()->getTranslator()->translate($this->translationKey,$this->translationParams);
+            return $this->state->getServices()->getTranslator()->translate($this->translationKey,$this->translationParams);
         }
         elseif(!is_null($this->callback))
         {
-            return call_user_func($this->callback,$this->formContext);
+            return call_user_func($this->callback,$this->state);
         }
 
         return '';
@@ -107,12 +107,12 @@ class Content extends AbstractElement implements CssComponentInterface,ContentIn
     }
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      * @param array $defaultValues
      * @return string
      */
-    public function compile(FormContext $formContext,array $defaultValues = array())
+    public function compile(State $state,array $defaultValues = array())
     {
-        $this->formContext = $formContext;
+        $this->state = $state;
     }
 }

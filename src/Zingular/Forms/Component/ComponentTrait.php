@@ -22,9 +22,9 @@ trait ComponentTrait
     protected $context;
 
     /**
-     * @var FormContext
+     * @var State
      */
-    protected $formContext;
+    protected $state;
 
 
     /**
@@ -143,7 +143,7 @@ trait ComponentTrait
      */
     protected function getServices()
     {
-        return $this->formContext->getServices();
+        return $this->state->getServices();
     }
 
     /**
@@ -152,7 +152,7 @@ trait ComponentTrait
     public function __clone()
     {
         // cannot clone a container when it is already used in a form runtime
-        if(!is_null($this->formContext))
+        if(!is_null($this->state))
         {
             throw new FormException(sprintf("Cannot clone component during form processing: '%s'",$this->getId()));
         }

@@ -21,9 +21,9 @@ class TestCompoment implements CssComponentInterface,ContentInterface,ViewableCo
     // TODO: find a way to render view of custom components that only implement the base interfaces
 
     /**
-     * @param FormContext $formContext
+     * @param State $state
      */
-    public function compile(FormContext $formContext)
+    public function compile(State $state)
     {
         // TODO: Implement compile() method.
     }
