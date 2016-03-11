@@ -66,10 +66,12 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
     {
         $buffer = '';
 
-        /** @var ViewableComponentInterface $component */
         foreach ($components as $component)
         {
-            $buffer .= $this->render($component);
+            if($component instanceof ViewableComponentInterface)
+            {
+                $buffer .= $this->render($component);
+            }
         }
 
         return $buffer;
