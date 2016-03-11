@@ -160,19 +160,19 @@ abstract class AbstractContainer
     /**
      * @param $name
      * @param ComponentInterface $component
-     * @param string|int $position
+     * @param int|string $position
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = self::END)
+    protected function adopt($name,ComponentInterface $component,$position = -1)
     {
         // append
-        if($position === self::END)
+        if($position === -1)
         {
             $this->components[] = $component;
         }
         // prepend
-        elseif($position === self::START)
+        elseif($position === 0)
         {
             array_unshift($this->components,$component);
         }

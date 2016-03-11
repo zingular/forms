@@ -52,11 +52,11 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     /**
      * @param $name
      * @param ComponentInterface $component
-     * @param string $position
+     * @param int|string $position
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = self::END)
+    protected function adopt($name,ComponentInterface $component,$position = -1)
     {
         // add using parent method
         $component = parent::adopt($name,$component,$position);
