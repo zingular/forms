@@ -26,8 +26,8 @@ interface ConditionInterface
     /**
      * @param ComponentInterface $source
      * @param array $params
-     * @param FormState $context
+     * @param FormState $state
      * @return mixed
      */
-    public function isValid(ComponentInterface $source, array $params = array(),FormState $context);
+    public function isValid(ComponentInterface $source, array $params = array(),FormState $state);
 }

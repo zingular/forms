@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Component\DataUnitInterface;
+use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\EvaluationException;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\ValidationException;
@@ -46,6 +47,7 @@ class EvaluationHandler
      * @param EvaluatorConfigCollection $collection
      * @param DataUnitInterface $subject
      * @return mixed
+     * @throws ComponentException
      * @throws EvaluationException
      */
     public function evaluate($value,EvaluatorConfigCollection $collection,DataUnitInterface $subject)
@@ -72,12 +74,19 @@ class EvaluationHandler
             {
                 throw new EvaluationException($subject,$e->getType(),$e->getParams());
             }
+            // catch any component-specific exception, and return that
+            catch(\Exception $e)
+            {
+                throw new ComponentException($subject,$e->getMessage());
+            }
         }
 
+        /*
         if($value === 'test')
         {
             throw new EvaluationException($subject,'valueIsTest');
         }
+        */
 
         return $value;
     }

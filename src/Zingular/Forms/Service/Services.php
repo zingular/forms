@@ -487,7 +487,7 @@ class Services implements ServicesInterface
     /**
      * @return ConditionPool
      */
-    protected function getConditions()
+    public function getConditions()
     {
         if(is_null($this->conditions))
         {

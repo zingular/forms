@@ -10,7 +10,7 @@ namespace Zingular\Forms\Component\Element\Control;
 
 
 use Zingular\Forms\Component\ConditionableInterface;
-use Zingular\Forms\ConditionableTrait;
+
 use Zingular\Forms\InputType;
 
 /**

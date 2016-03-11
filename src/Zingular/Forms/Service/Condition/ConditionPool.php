@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service\Condition;
 
 
-use Zingular\Forms\Exception\FormException;
+
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 
 /**
@@ -22,6 +22,19 @@ class ConditionPool
      * @var array
      */
     protected $pool = array();
+
+    /**
+     * @var ConditionFactoryInterface
+     */
+    protected $factory;
+
+    /**
+     * @param ConditionFactoryInterface $factory
+     */
+    public function __construct(ConditionFactoryInterface $factory)
+    {
+        $this->factory = $factory;
+    }
 
     /**
      * @param ConditionInterface $condition
@@ -41,12 +54,20 @@ class ConditionPool
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return ConditionInterface
-     * @throws FormException
      */
     public function get($name)
     {
-        return $this->has($name) ? $this->pool[$name] : null;
+        if($this->has($name))
+        {
+            return $this->pool[$name];
+        }
+
+        $condition = $this->factory->create($name);
+
+        $this->pool[$name] = $condition;
+
+        return $condition;
     }
 }

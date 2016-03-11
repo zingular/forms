@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Condition;
+use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 
 
 /**
@@ -15,5 +16,9 @@ namespace Zingular\Forms\Service\Condition;
  */
 interface ConditionFactoryInterface
 {
-
+    /**
+     * @param string $type
+     * @return ConditionInterface
+     */
+    public function create($type);
 }

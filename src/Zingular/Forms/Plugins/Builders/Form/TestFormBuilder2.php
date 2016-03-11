@@ -59,8 +59,9 @@ class TestFormBuilder2 implements FormBuilderInterface
         $form->addFieldset('fsPersonalia')
             ->addField('fldName')
                 ->addInput('firstname')
-                    ->addCondition(true,true)
+                    ->addCondition('value',1,2,3)
                         ->setRequired()
+                        ->setHtmlAttribute('style','background-color:black;color:white;')
                     ->endCondition()
                 ->next()
                 ->addInput('lastname')->nextParent()
@@ -70,7 +71,7 @@ class TestFormBuilder2 implements FormBuilderInterface
                 ->ignoreValue();
 
         $form->addContainer('testCondition')
-            ->addCondition(true,true)
+            ->addCondition('myCondition',2,3,4)
                 ->addInput('yow')->setValue('1')->next()
                 ->addInput('yow2')->setValue(2)->nextParent()
             ->endCondition()

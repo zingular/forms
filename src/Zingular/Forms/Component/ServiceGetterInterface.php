@@ -19,6 +19,7 @@ use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Component\ComponentFactory;
+use Zingular\Forms\Service\Condition\ConditionPool;
 use Zingular\Forms\Service\Conversion\ConverterPool;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
 
@@ -86,6 +87,11 @@ interface ServiceGetterInterface
      * @return ConverterPool
      */
     public function getConverters();
+
+    /**
+     * @return ConditionPool
+     */
+    public function getConditions();
 
     /**********************************************************************
      * FACTORY GETTERS

@@ -7,6 +7,7 @@ use Zingular\Forms\Builder;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
+use Zingular\Forms\Component\ConditionableTrait;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\DataInterface;
@@ -30,7 +31,6 @@ use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
-use Zingular\Forms\ConditionableTrait;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
@@ -703,10 +703,13 @@ class Container extends AbstractContainer implements
         $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
 
         // reset the adoption history
-        $this->adoptionHistory = null;
+        $this->adoptionHistory = array();
 
         // process any errors found during compilation
         $this->processErrors();
+
+        // compile the errors
+        $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
     }
 
     /**

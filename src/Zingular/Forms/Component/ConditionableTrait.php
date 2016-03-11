@@ -6,8 +6,7 @@
  * Time: 22:52
  */
 
-namespace Zingular\Forms;
-use Zingular\Forms\Component\FormState;
+namespace Zingular\Forms\Component;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 
 /**

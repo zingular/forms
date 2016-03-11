@@ -44,6 +44,7 @@ class ConditionGroup
     public function __construct(ComponentInterface $component,$condition,array $params)
     {
         $this->component = $component;
+        $this->condition = $condition;
         $this->params = $params;
     }
 
@@ -63,20 +64,22 @@ class ConditionGroup
      */
     public function execute(FormState $state)
     {
-        // TODO: check condition, and if it succeeds, call callbacks
+        $pool = $state->getServices()->getConditions();
 
-        $component = $this->component;
+        $condition = $pool->get($this->condition);
 
 
-        if($this->params[0] === true)
+        $valid = $condition->isValid($this->component,$this->params,$state);
+
+        if($valid)
         {
+            $component = $this->component;
+
             foreach($this->callbacks as $callback)
             {
                 $component = call_user_func($callback,$component);
             }
-
         }
-
     }
 
     /**

@@ -8,10 +8,8 @@
 
 namespace Zingular\Forms\Plugins\Conditions;
 
-
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\FormState;
-
 
 /**
  * Class ValueCondition
@@ -19,17 +17,15 @@ use Zingular\Forms\Component\FormState;
  */
 class ValueCondition implements ConditionInterface
 {
-
-
     /**
      * @param ComponentInterface $source
      * @param array $params
-     * @param FormState $context
+     * @param FormState $state
      * @return mixed
      */
-    public function isValid(ComponentInterface $source, array $params = array(),FormState $context)
+    public function isValid(ComponentInterface $source, array $params = array(),FormState $state)
     {
-
+        return true;
     }
 
     /**
@@ -37,6 +33,6 @@ class ValueCondition implements ConditionInterface
      */
     public function getName()
     {
-        // TODO: Implement getName() method.
+        return 'value';
     }
 }

@@ -24,17 +24,22 @@ class DefaultErrorBuilder implements RuntimeBuilderInterface
      */
     public function build(BuildableInterface $container, FormState $context)
     {
-        /** @var \Exception $e */
         foreach($container->getErrors() as $index=>$e)
         {
-            /** @var EvaluationException $e */
             if($e instanceof EvaluationException)
             {
                 $container->addLabel('lblError'.$index,$e->getComponent()->getId())
                     ->setFor($e->getComponent())
                     ->addCssClass('error')
-                    ->setTranslationKey('error.'.$e->getType(),$e->getParams())
-                    ->compile($context);
+                    ->setTranslationKey('error.'.$e->getType(),$e->getParams());
+            }
+            elseif($e instanceof \Exception)
+            {
+                $container->addLabel('lblError'.$index)
+                ->addCssClass('error')
+                ->setContent($e->getMessage());
+                //->setTranslationKey('error.generic')
+                // TODO: check debug mode: if debug, show full exception text, else show generic error
             }
         }
     }
