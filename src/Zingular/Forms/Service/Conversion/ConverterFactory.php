@@ -6,6 +6,7 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Plugins\Converters\SerializeConverter;
 use Zingular\Forms\Plugins\Converters\StringToTimestampConverter;
+use Zingular\Forms\Plugins\TimestampToStringConverter;
 
 /**
  * Class ConverterFactory
@@ -19,6 +20,7 @@ class ConverterFactory implements ConverterFactoryInterface
     protected $types = array
     (
         Converter::STRING_TO_TIMESTAMP,
+        Converter::TIMESTAMP_TO_STRING,
         Converter::SERIALIZE
     );
 
@@ -32,6 +34,7 @@ class ConverterFactory implements ConverterFactoryInterface
         switch($type)
         {
             case Converter::STRING_TO_TIMESTAMP: return new StringToTimestampConverter();
+            case Converter::TIMESTAMP_TO_STRING: return new TimestampToStringConverter();
             case Converter::SERIALIZE: return new SerializeConverter();
             default: throw new FormException(sprintf("Cannot create converter: unknown converter type '%s'",$type));
         }

@@ -15,5 +15,6 @@ namespace Zingular\Forms;
 class Converter
 {
     const STRING_TO_TIMESTAMP = 'stringToTimestamp';
+    const TIMESTAMP_TO_STRING = 'timestampToString';
     const SERIALIZE = 'serialize';
 }

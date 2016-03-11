@@ -8,6 +8,9 @@
 
 namespace Zingular\Forms\Plugins\Builders\Form;
 
+use Zingular\Forms\Aggregation;
+use Zingular\Forms\Builder;
+use Zingular\Forms\Component\Container\Aggregator;
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
@@ -84,6 +87,16 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->addInput('yow3')->setValue(3);
 
 
+        $form->addFieldset('fsDates')
+            ->addRow('dates')
+                ->addAggregator('birthday')
+                    ->setBuilder(Builder::DATE_TIME_SELECT)
+                    ->setAggregationType(Aggregation::DATE_TIME_SELECT)
+                    ->setConverter(Converter::TIMESTAMP_TO_STRING)
+                ->close()
+            ->addRow('newRow')
+                ->addInput('date')
+                    ->setConverter(Converter::TIMESTAMP_TO_STRING);
 
 
 

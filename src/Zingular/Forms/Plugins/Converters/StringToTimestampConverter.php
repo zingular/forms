@@ -19,7 +19,7 @@ class StringToTimestampConverter implements ConverterInterface
     /**
      * @param $value
      * @param ...$params
-     * @return mixed
+     * @return int
      */
     public function encode($value, ...$params)
     {
@@ -29,7 +29,7 @@ class StringToTimestampConverter implements ConverterInterface
     /**
      * @param $value
      * @param $params
-     * @return mixed
+     * @return string
      */
     public function decode($value, ...$params)
     {
