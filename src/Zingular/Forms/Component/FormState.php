@@ -122,7 +122,7 @@ class FormState
      */
     public function hasInput($name)
     {
-        if($this->form->getMethod() === 'get')
+        if($this->form->getHttpMethod() === 'get')
         {
             return $this->services->getRequestHandler()->hasGet($name);
         }
@@ -138,7 +138,7 @@ class FormState
      */
     public function getInput($name)
     {
-        if($this->form->getMethod() === 'get')
+        if($this->form->getHttpMethod() === 'get')
         {
             return $this->services->getRequestHandler()->get($name);
         }

@@ -132,7 +132,7 @@ class DefaultViewHandler extends AbstractViewHandler
             self::FORMAT_FORM,
             $container->getFullId(),
             $container->getCssClass(),
-            $container->getMethod(),
+            $container->getHttpMethod(),
             $container->getAction(),
             $container->getHtmlAttributesAsString(),
             $this->renderComponents($container->getComponents())

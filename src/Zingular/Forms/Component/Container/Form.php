@@ -25,6 +25,7 @@ use Zingular\Forms\Component\ServiceSetterTrait;
 use Zingular\Forms\Component\ServicesInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Method;
+use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 
 /**
  * Class Form
@@ -107,7 +108,7 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @param string $method
      * @throws FormException
      */
-    public function setMethod($method = Method::GET)
+    public function setHttpMethod($method = Method::GET)
     {
         // normalize the method
         $method = strtolower($method);
@@ -124,7 +125,7 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
     /**
      * @return string
      */
-    public function getMethod()
+    public function getHttpMethod()
     {
         return $this->method;
     }
@@ -312,6 +313,14 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
     /**********************************************************************
      * PROTOTYPE DEFINERS
      *********************************************************************/
+
+    /**
+     * @param PrototypeBuilderInterface $builder
+     */
+    public function addPrototypes(PrototypeBuilderInterface $builder)
+    {
+        $builder->buildPrototypes($this->context->getPrototypes());
+    }
 
     /**
      * @param $name

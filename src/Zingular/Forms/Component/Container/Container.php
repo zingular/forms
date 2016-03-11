@@ -542,7 +542,7 @@ class Container extends AbstractContainer implements
      **************************************************************/
 
     /**
-     * @param $builder
+     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
      * @param bool $post
      * @return $this
      */
@@ -561,7 +561,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param string|BuilderInterface $builder
+     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
      */
     public function setErrorBuilder($builder)
     {
@@ -569,7 +569,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param string|RuntimeBuilderInterface $builder
+     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
      * @return $this
      */
     public function addBuilder($builder)
@@ -579,40 +579,74 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param BuilderInterface $builder
-     */
-    public function applyBuilder(BuilderInterface $builder)
-    {
-        $builder->build($this);
-    }
-
-    /**
-     * @param string|RuntimeBuilderInterface|callable $builder
+     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @return $this
      * @throws FormException
      */
     protected function applyBuilderType($builder)
     {
+        // callable
+        if(is_callable($builder))
+        {
+            if(is_null($this->state))
+            {
+                call_user_func($builder,$this);
+            }
+            else
+            {
+                call_user_func($builder,$this,$this->state);
+            }
+
+            return $this;
+        }
+
         // builder is a type string, create a builder from it using the factory
         if(is_string($builder))
         {
-            $this->getServices()->getBuilders()->get($builder)->build($this,$this->state);
+            $builder = $this->getServices()->getBuilders()->get($builder);
         }
+
+        // if it is a simple builder
+        if($builder instanceof BuilderInterface)
+        {
+            $builder->build($this);
+        }
+        // if it is a runtime builder, also provide the state
         elseif($builder instanceof RuntimeBuilderInterface)
         {
+            // check if there actually is a form state
+            if(is_null($this->state))
+            {
+                throw new FormException(sprintf("Cannot apply builder of type RuntimeBuilderInterface: runtime builders can only be applied run-time, not definition-time (%s). Use instance of BuilderInterface instead!",get_class($builder)));
+            }
+
+            // apply the runtime builder
             $builder->build($this,$this->state);
         }
-        elseif(is_callable($builder))
-        {
-            call_user_func($builder,$this);
-        }
+        // if anyting else: throw exception
         else
         {
-            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, RuntimeBuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
+            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, (Runtime)BuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
         }
+
+        return $this;
     }
 
+
     /**
-     * @param array|RuntimeBuilderInterface|callable $options
+     * @param BuilderInterface $builder
+     * @return $this
+     * @throws FormException
+     */
+    public function applyBuilder(BuilderInterface $builder)
+    {
+        $this->applyBuilderType($builder);
+        return $this;
+    }
+
+
+
+    /**
      * @return $this
      */
     public function setOptions($options)
@@ -754,22 +788,15 @@ class Container extends AbstractContainer implements
     protected function postBuild(FormState $context) {}
 
     /**
-     *
+     * @throws FormException
      */
     protected function processErrors()
     {
+        // if there are errors and they should be shown
         if($this->showErrors && count($this->errors))
         {
-            $builder = $this->errorBuilder;
-
-            // create the builder
-            if(is_string($this->errorBuilder))
-            {
-                $builder = $this->getServices()->getBuilders()->get($builder);
-            }
-
-            // buildPrototypes errors
-            $builder->build($this,$this->state);
+            // apply the error builder
+            $this->applyBuilderType($this->errorBuilder);
 
             // add error css class
             if($this instanceof CssComponentInterface)

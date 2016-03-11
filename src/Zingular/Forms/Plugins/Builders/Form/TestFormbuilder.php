@@ -111,7 +111,7 @@ class TestFormbuilder implements  FormBuilderInterface
      */
     public function configureForm(Form $form)
     {
-        //$form->setMethod('get');
+        //$form->setHttpMethod('get');
 
         // configure the form
         $form->persistent(false);

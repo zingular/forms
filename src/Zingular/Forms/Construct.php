@@ -75,7 +75,7 @@ class Construct
         // add aggregators
         foreach($extension->getAggregators() as $aggregator)
         {
-            $this->addAggregatorStrategy($aggregator);
+            $this->addAggregatorType($aggregator);
         }
 
         // add conditions
@@ -87,7 +87,7 @@ class Construct
         // add converters
         foreach($extension->getConverters() as $converter)
         {
-            $this->addConverter($converter);
+            $this->addConverterType($converter);
         }
 
         // allow extension to add prototypes
