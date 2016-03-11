@@ -51,6 +51,9 @@ abstract class AbstractControl extends AbstractElement implements
         // set the form context locally
         $this->state = $state;
 
+        // apply any conditions for this control
+        $this->applyConditions($state);
+
         // manipulate default values
         $defaultValue = array_key_exists($this->getName(),$defaultValues) ? $defaultValues[$this->getName()] : null;
 

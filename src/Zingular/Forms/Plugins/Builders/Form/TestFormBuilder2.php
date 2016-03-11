@@ -8,18 +8,13 @@
 
 namespace Zingular\Forms\Plugins\Builders\Form;
 
-use Zingular\Forms\Builder;
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\FormState;
-use Zingular\Forms\Condition;
 use Zingular\Forms\Converter;
-use Zingular\Forms\CssClass;
 use Zingular\Forms\Filter;
-use Zingular\Forms\Plugins\Builders\Container\DefaultErrorBuilder;
-use Zingular\Forms\Validator;
 
 /**
  * Class TestFormBuilder2
@@ -63,7 +58,11 @@ class TestFormBuilder2 implements FormBuilderInterface
     {
         $form->addFieldset('fsPersonalia')
             ->addField('fldName')
-                ->addInput('firstname')->next()
+                ->addInput('firstname')
+                    ->addCondition(true,true)
+                        ->setRequired()
+                    ->endCondition()
+                ->next()
                 ->addInput('lastname')->nextParent()
             ->useField('fldEmail')->next()
             ->useField('fldHobbies')->next()
@@ -71,7 +70,7 @@ class TestFormBuilder2 implements FormBuilderInterface
                 ->ignoreValue();
 
         $form->addContainer('testCondition')
-            ->addCondition(true,false)
+            ->addCondition(true,true)
                 ->addInput('yow')->setValue('1')->next()
                 ->addInput('yow2')->setValue(2)->nextParent()
             ->endCondition()
