@@ -435,7 +435,7 @@ class Services implements ServicesInterface
     /**
      * @return ValidatorPool
      */
-    protected function getValidators()
+    public function getValidators()
     {
         if(is_null($this->validators))
         {
@@ -448,7 +448,7 @@ class Services implements ServicesInterface
     /**
      * @return FilterPool
      */
-    protected function getFilters()
+    public function getFilters()
     {
         if(is_null($this->filters))
         {

@@ -41,7 +41,7 @@ class ConditionGroup
      * @param $condition
      * @param array $params
      */
-    public function __construct(ComponentInterface $component,$condition,array $params)
+    public function __construct(ComponentInterface $component,$condition,array $params = array())
     {
         $this->component = $component;
         $this->condition = $condition;
@@ -67,7 +67,6 @@ class ConditionGroup
         $pool = $state->getServices()->getConditions();
 
         $condition = $pool->get($this->condition);
-
 
         $valid = $condition->isValid($this->component,$this->params,$state);
 

@@ -7,7 +7,9 @@
  */
 
 namespace Zingular\Forms\Component;
+use Zingular\Forms\Condition;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
+use Zingular\Forms\Validator;
 
 /**
  * Class ConditionableTrait
@@ -28,6 +30,21 @@ trait ConditionableTrait
     public function addCondition($condition, ...$params)
     {
         $condition = new ConditionGroup($this,$condition,$params);
+
+        $this->conditions[] = $condition;
+
+        return $condition;
+    }
+
+    /**
+     * @param $field
+     * @param string $validator
+     * @param ...$params
+     * @return static
+     */
+    public function addConditionOn($field,$validator = Validator::HAS_VALUE,...$params)
+    {
+        $condition = new ConditionGroup($this,Condition::VALUE,func_get_args());
 
         $this->conditions[] = $condition;
 

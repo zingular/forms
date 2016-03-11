@@ -18,7 +18,7 @@ interface ValidatorInterface extends EvaluatorInterface
     /**
      * @param mixed $value
      * @param array $args
-     * @return mixed
+     * @return bool
      */
     public function validate($value,array $args = array());
 }

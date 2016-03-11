@@ -19,4 +19,6 @@ class Validator
     const MAX_LENGTH = 'maxLength';
     const MIN_VALUE = 'minValue';
     const MAX_VALUE = 'maxValue';
+    const EQUALS = 'equals';
+    const HAS_VALUE = 'hasValue';
 }

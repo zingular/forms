@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Condition;
 use Zingular\Forms\Condition;
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Plugins\Conditions\CallableCondition;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Conditions\StartsWithCondition;
 use Zingular\Forms\Plugins\Conditions\ValueCondition;
@@ -40,6 +41,7 @@ class ConditionFactory implements ConditionFactoryInterface
         {
             case Condition::VALUE: return new ValueCondition();
             case Condition::STARTS_WITH: return new StartsWithCondition();
+            case Condition::CALLBACK: return new CallbackCondition();
         }
 
         throw new FormException(sprintf("Cannot create condition: unknown condition type '%s'",$type));

@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Exception;
+use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
 /**
  * Class FormException
@@ -27,10 +28,11 @@ class FormException extends \Exception
     /**
      * @param string $type
      * @param array $params
+     * @param string $message
      */
-    public function __construct($type,array $params = array())
+    public function __construct($type,array $params = array(),$message = '')
     {
-        parent::__construct();
+        parent::__construct($message);
         $this->type = $type;
         $this->params = $params;
     }
@@ -50,4 +52,5 @@ class FormException extends \Exception
     {
         return $this->params;
     }
+
 }

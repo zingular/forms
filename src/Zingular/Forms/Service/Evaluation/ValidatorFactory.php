@@ -50,13 +50,35 @@ class ValidatorFactory implements ValidatorFactoryInterface
     {
         switch($name)
         {
+            case Validator::EQUALS: return new CallableValidator($name,array($this,$name),array('value2','strict'));
             case Validator::REGEX: return new CallableValidator($name,array($this,$name),array('regex'));
             case Validator::MIN_LENGTH: return new CallableValidator($name,array($this,$name),array('min'));
             case Validator::MAX_LENGTH:return new CallableValidator($name,array($this,$name),array('max'));
             case Validator::MIN_VALUE: return new CallableValidator($name,array($this,$name),array('min'));
             case Validator::MAX_VALUE: return new CallableValidator($name,array($this,$name),array('max'));
-            default: throw new FormException(sprintf("Cannot create validator: unknown validator type '%s'",$name));
+            case Validator::HAS_VALUE: return new CallableValidator($name,array($this,$name));
+            default: throw new FormException('validatorFactory',array(),sprintf("Cannot create validator: unknown validator type '%s'",$name));
         }
+    }
+
+    /**
+     * @param $value1
+     * @param $value2
+     * @param bool|false $strict
+     * @return bool
+     */
+    public function equals($value1,$value2,$strict = false)
+    {
+        return (string) $value1 === (string) $value2;
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    public function hasValue($value)
+    {
+        return !is_null($value);
     }
 
     /**

@@ -17,4 +17,5 @@ class Condition
 {
     const VALUE = 'value';
     const STARTS_WITH = 'startsWith';
+    const CALLBACK = 'callback';
 }

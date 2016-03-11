@@ -22,6 +22,8 @@ use Zingular\Forms\Service\Component\ComponentFactory;
 use Zingular\Forms\Service\Condition\ConditionPool;
 use Zingular\Forms\Service\Conversion\ConverterPool;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
+use Zingular\Forms\Service\Evaluation\FilterPool;
+use Zingular\Forms\Service\Evaluation\ValidatorPool;
 
 /**
  * Class ServiceGetterInterface
@@ -92,6 +94,16 @@ interface ServiceGetterInterface
      * @return ConditionPool
      */
     public function getConditions();
+
+    /**
+     * @return ValidatorPool
+     */
+    public function getValidators();
+
+    /**
+     * @return FilterPool
+     */
+    public function getFilters();
 
     /**********************************************************************
      * FACTORY GETTERS

@@ -53,7 +53,12 @@ class CallableCondition implements ConditionInterface
      */
     public function isValid(ComponentInterface $source, array $params = array(),FormState $state)
     {
-        return $this->contextAware ? call_user_func($this->callable,$source,$params,$state) : call_user_func($this->callable,$source,$params);
+        if($this->contextAware)
+        {
+            return call_user_func_array($this->callable,array_merge(array($source,$state),$params));
+        }
+
+        return call_user_func_array($this->callable,array_merge(array($source),$params));
     }
 
     /**

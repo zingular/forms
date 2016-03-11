@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component;
+use Zingular\Forms\Validator;
 
 /**
  * Interface ConditionableInterface
@@ -20,6 +21,14 @@ interface ConditionableInterface
      * @return static
      */
     public function addCondition($condition,...$params);
+
+    /**
+     * @param string $field
+     * @param $validator
+     * @param ...$params
+     * @return static
+     */
+    public function addConditionOn($field,$validator = Validator::HAS_VALUE,...$params);
 
     /**
      * @return static

@@ -10,29 +10,42 @@ namespace Zingular\Forms\Plugins\Conditions;
 
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Validator;
 
 /**
  * Class ValueCondition
  * @package Zingular\Forms\Plugins\Conditions
  */
-class ValueCondition implements ConditionInterface
+class ValueCondition extends CallableCondition
 {
     /**
-     * @param ComponentInterface $source
-     * @param array $params
-     * @param FormState $state
-     * @return mixed
+     *
      */
-    public function isValid(ComponentInterface $source, array $params = array(),FormState $state)
+    public function __construct()
     {
-        return true;
+        parent::__construct('value',array($this,'validate'),true);
     }
 
     /**
-     * @return string
+     * @param ComponentInterface $source
+     * @param FormState $state
+     * @param $inputName
+     * @param string $validator
+     * @param ...$params
+     * @return bool
      */
-    public function getName()
+    public function validate(ComponentInterface $source,FormState $state,$inputName,$validator = Validator::HAS_VALUE,...$params)
     {
-        return 'value';
+        if($state->hasValue($inputName,$source->getParent()) === false)
+        {
+            return false;
+        }
+
+        $validator = $state->getServices()->getValidators()->get($validator);
+
+        $sourceValue = $state->getValue($inputName,$source->getParent());
+
+        return $validator->validate($sourceValue,$params);
     }
+
 }

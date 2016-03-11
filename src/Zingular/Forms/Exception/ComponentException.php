@@ -26,10 +26,11 @@ class ComponentException extends FormException
      * @param ComponentInterface $component
      * @param array $type
      * @param array $params
+     * @param string $message
      */
-    public function __construct(ComponentInterface $component,$type,array $params = array())
+    public function __construct(ComponentInterface $component,$type,array $params = array(),$message = '')
     {
-        parent::__construct($type,$params);
+        parent::__construct($type,$params,$message);
         $this->component = $component;
     }
 

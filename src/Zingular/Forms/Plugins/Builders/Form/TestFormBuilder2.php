@@ -13,8 +13,10 @@ use Zingular\Forms\Component\Container\Form;
 use Zingular\Forms\Component\Container\PrototypesInterface;
 use Zingular\Forms\Component\Element\Content\Content;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Condition;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
+use Zingular\Forms\Validator;
 
 /**
  * Class TestFormBuilder2
@@ -59,19 +61,23 @@ class TestFormBuilder2 implements FormBuilderInterface
         $form->addFieldset('fsPersonalia')
             ->addField('fldName')
                 ->addInput('firstname')
-                    ->addCondition('value',1,2,3)
+                    ->setValue('tap')->next()
+                ->addInput('lastname')
+                    ->addConditionOn('firstname',Validator::MAX_LENGTH,3)
                         ->setRequired()
                         ->setHtmlAttribute('style','background-color:black;color:white;')
                     ->endCondition()
-                ->next()
-                ->addInput('lastname')->nextParent()
+                    ->addCondition(Condition::CALLBACK,function(FormState $state){return true;})
+                        ->setValue('lalala')
+                    ->endCondition()
+                ->nextParent()
             ->useField('fldEmail')->next()
             ->useField('fldHobbies')->next()
             ->addButton('submit')
                 ->ignoreValue();
 
         $form->addContainer('testCondition')
-            ->addCondition('myCondition',2,3,4)
+            ->addCondition(Condition::VALUE,'lastname','leideman')
                 ->addInput('yow')->setValue('1')->next()
                 ->addInput('yow2')->setValue(2)->nextParent()
             ->endCondition()
