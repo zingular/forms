@@ -113,10 +113,10 @@ class Content extends AbstractElement implements CssComponentInterface,ContentIn
      */
     public function compile(FormState $state,array $defaultValues = array())
     {
-        // store the state locally
-        $this->state = $state;
-
         // apply any conditions for this content element
         $this->applyConditions($state);
+
+        // store the state locally
+        $this->state = $state;
     }
 }

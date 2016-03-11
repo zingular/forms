@@ -28,7 +28,7 @@ trait ConditionableTrait
      */
     public function addCondition($condition, ...$params)
     {
-        $condition = new ConditionGroup($this,$params);
+        $condition = new ConditionGroup($this,$condition,$params);
 
         $this->conditions[] = $condition;
 
@@ -43,7 +43,7 @@ trait ConditionableTrait
         /** @var ConditionGroup $condition */
         foreach($this->conditions as $condition)
         {
-            $condition->execute();
+            $condition->execute($state);
         }
     }
 

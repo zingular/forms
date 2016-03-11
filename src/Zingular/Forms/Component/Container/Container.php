@@ -720,15 +720,6 @@ class Container extends AbstractContainer implements
         {
             if($component instanceof ComponentInterface)
             {
-                // apply conditions
-
-                // TODO: remove here and make condition group simply a child component of the parent container, and in the compile() method
-                // of the condition group, apply the conditions, and process any newly created conditional children
-                if($component instanceof ConditionableInterface)
-                {
-                    $component->applyConditions($state);
-                }
-
                 // compile the child component
                 try
                 {

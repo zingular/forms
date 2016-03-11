@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Conditions;
 use Zingular\Forms\Component\ComponentInterface;
+use Zingular\Forms\Component\FormState;
 
 /**
  * Class ConditionGroup
@@ -21,6 +22,11 @@ class ConditionGroup
     protected $component;
 
     /**
+     * @var string
+     */
+    protected $condition;
+
+    /**
      * @var array
      */
     protected $params;
@@ -32,9 +38,10 @@ class ConditionGroup
 
     /**
      * @param ComponentInterface $component
+     * @param $condition
      * @param array $params
      */
-    public function __construct(ComponentInterface $component,array $params)
+    public function __construct(ComponentInterface $component,$condition,array $params)
     {
         $this->component = $component;
         $this->params = $params;
@@ -52,9 +59,9 @@ class ConditionGroup
     }
 
     /**
-     *
+     * @param FormState $state
      */
-    public function execute()
+    public function execute(FormState $state)
     {
         // TODO: check condition, and if it succeeds, call callbacks
 
