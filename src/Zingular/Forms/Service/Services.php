@@ -47,7 +47,6 @@ use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;
 use Zingular\Forms\Service\Bridge\Translation\DummyTranslator;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderFactory;
-use Zingular\Forms\Service\Builder\Error\ErrorBuilderFactory;
 use Zingular\Forms\Service\Component\ComponentFactory;
 use Zingular\Forms\Service\Bridge\View\DefaultViewHandler;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
@@ -118,11 +117,6 @@ class Services implements ServicesInterface
      * @var PersistenceHandlerInterface
      */
     protected $persistenceHandler;
-
-    /**
-     * @var ErrorBuilderFactory
-     */
-    protected $errorBuilderFactory;
 
     /**
      * @var OrmHandlerInterface
@@ -597,19 +591,6 @@ class Services implements ServicesInterface
         }
 
         return $this->formBuilderFactory;
-    }
-
-    /**
-     * @return ErrorBuilderFactory
-     */
-    public function getErrorBuilderFactory()
-    {
-        if(is_null($this->errorBuilderFactory))
-        {
-            $this->errorBuilderFactory = new ErrorBuilderFactory();
-        }
-
-        return $this->errorBuilderFactory;
     }
 
     /**

@@ -20,7 +20,7 @@ use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Filter;
 use Zingular\Forms\InputType;
 use Zingular\Forms\Plugins\Builders\Container\BuilderAggregator;
-use Zingular\Forms\Service\Builder\DateTimeSelectBuilder;
+use Zingular\Forms\Plugins\Builders\Container\DateTimeSelectBuilder;
 use Zingular\Forms\Types;
 use Zingular\Forms\Validator;
 

@@ -3,6 +3,7 @@
 namespace Zingular\Forms\Component\Container;
 
 use Zingular\Forms\BaseTypes;
+use Zingular\Forms\Builder;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
@@ -30,10 +31,8 @@ use Zingular\Forms\Component\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
 use Zingular\Forms\ConditionableTrait;
-use Zingular\Forms\ErrorBuilder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
-use Zingular\Forms\Plugins\Builders\Error\ErrorBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 
@@ -73,7 +72,7 @@ class Container extends AbstractContainer implements
     /**
      * @var string
      */
-    protected $errorBuilder = ErrorBuilder::STANDARD;
+    protected $errorBuilder = Builder::ERROR;
 
     /**
      * @var array
@@ -562,7 +561,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param string|ErrorBuilderInterface $builder
+     * @param string|BuilderInterface $builder
      */
     public function setErrorBuilder($builder)
     {
@@ -719,30 +718,18 @@ class Container extends AbstractContainer implements
                 }
 
                 // collect the values of the child component
-                if($component instanceof DataInterface)
+                if($component instanceof DataUnitInterface)
                 {
-                    $this->collectValues($component);
+                    // if its value should be ignored, return
+                    if($component->shouldIgnoreValue())
+                    {
+                        return;
+                    }
+
+                    // store the value
+                    $this->storeValue($component);
                 }
             }
-        }
-    }
-
-    /**
-     * @param DataInterface $child
-     */
-    protected function collectValues(DataInterface $child)
-    {
-        // if the component is a data unit
-        if($child instanceof DataUnitInterface)
-        {
-            // if its value should be ignored, return
-            if($child->shouldIgnoreValue())
-            {
-                return;
-            }
-
-            // store the value
-            $this->storeValue($child);
         }
     }
 
@@ -773,14 +760,23 @@ class Container extends AbstractContainer implements
     {
         if($this->showErrors && count($this->errors))
         {
-            // mark this container to have errors
-            $this->addCssClass('errorContainer');
+            $builder = $this->errorBuilder;
 
             // create the builder
-            $builder = $this->getServices()->getErrorBuilderFactory()->create($this->errorBuilder);
+            if(is_string($this->errorBuilder))
+            {
+                $builder = $this->getServices()->getBuilders()->get($builder);
+            }
 
             // buildPrototypes errors
-            $builder->build($this,$this->state,$this->errors);
+            $builder->build($this,$this->state);
+
+            // add error css class
+            if($this instanceof CssComponentInterface)
+            {
+                // mark this container to have errors
+                $this->addCssClass('errorContainer');
+            }
         }
     }
 

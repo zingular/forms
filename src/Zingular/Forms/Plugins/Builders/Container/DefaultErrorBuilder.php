@@ -6,7 +6,7 @@
  * Time: 15:45
  */
 
-namespace Zingular\Forms\Plugins\Builders\Error;
+namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Container\BuildableInterface;
 use Zingular\Forms\Component\FormState;
@@ -16,18 +16,16 @@ use Zingular\Forms\Exception\EvaluationException;
  * Class DefaultErrorBuilder
  * @package Zingular\Forms\Plugins\Builders\Error
  */
-class DefaultErrorBuilder implements  ErrorBuilderInterface
+class DefaultErrorBuilder implements RuntimeBuilderInterface
 {
     /**
      * @param BuildableInterface $container
      * @param FormState $context
-     * @param array $errors
-     * @return mixed
      */
-    public function build(BuildableInterface $container, FormState $context,array $errors)
+    public function build(BuildableInterface $container, FormState $context)
     {
         /** @var \Exception $e */
-        foreach($errors as $index=>$e)
+        foreach($container->getErrors() as $index=>$e)
         {
             /** @var EvaluationException $e */
             if($e instanceof EvaluationException)

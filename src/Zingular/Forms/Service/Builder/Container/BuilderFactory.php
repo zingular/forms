@@ -7,13 +7,13 @@
  */
 
 namespace Zingular\Forms\Service\Builder\Container;
-use Zingular\Forms\Exception\FormException;
 
+use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\FieldBuilder;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
-
-use Zingular\Forms\Service\Builder\DateTimeSelectBuilder;
+use Zingular\Forms\Plugins\Builders\Container\DefaultErrorBuilder;
+use Zingular\Forms\Plugins\Builders\Container\DateTimeSelectBuilder;
 
 /**
  * Class BuilderFactory
@@ -24,15 +24,17 @@ class BuilderFactory implements BuilderFactoryInterface
     const FIELD = 'field';
     const FIELDSET = 'fieldset';
     const DATE_TIME_SELECT = 'dateTimeSelect';
+    const ERROR = 'error';
 
     /**
      * @var array
      */
     protected $types = array
     (
-        'field' => FieldBuilder::class,
-        'fieldset'=> FieldsetBuilder::class,
-        'dateTimeSelect' => DateTimeSelectBuilder::class,
+        self::FIELD => FieldBuilder::class,
+        self::FIELDSET=> FieldsetBuilder::class,
+        self::DATE_TIME_SELECT => DateTimeSelectBuilder::class,
+        self::ERROR => DefaultErrorBuilder::class
     );
 
     /**

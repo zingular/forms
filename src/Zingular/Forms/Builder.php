@@ -19,4 +19,5 @@ class Builder
     const FIELDSET = 'fieldset';
     const DATE_TIME_SELECT = 'dateTimeSelect';
     const FORM = 'form';
+    const ERROR = 'error';
 }

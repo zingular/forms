@@ -17,7 +17,6 @@ use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
-use Zingular\Forms\Service\Builder\Error\ErrorBuilderFactory;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Component\ComponentFactory;
 use Zingular\Forms\Service\Conversion\ConverterPool;
@@ -96,11 +95,6 @@ interface ServiceGetterInterface
      * @return ComponentFactory
      */
     public function getComponentFactory();
-
-     /**
-     * @return ErrorBuilderFactory
-     */
-    public function getErrorBuilderFactory();
 
     /**
      * @return FormBuilderFactoryInterface
