@@ -64,12 +64,13 @@ class ConditionGroup
      */
     public function execute(FormState $state)
     {
-        $pool = $state->getServices()->getConditions();
+        // get the condition instance from the pool
+        $condition = $state->getServices()->getConditions()->get($this->condition);
 
-        $condition = $pool->get($this->condition);
-
+        // check the condition
         $valid = $condition->isValid($this->component,$this->params,$state);
 
+        // if condition was successful, apply the callbacks
         if($valid)
         {
             $component = $this->component;
