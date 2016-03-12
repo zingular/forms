@@ -16,10 +16,4 @@ interface ConverterFactoryInterface
      * @return ConverterInterface
      */
     public function create($type);
-
-    /**
-     * @param string $type
-     * @return bool
-     */
-    public function has($type);
 }

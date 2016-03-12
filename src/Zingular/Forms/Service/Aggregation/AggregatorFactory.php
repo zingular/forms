@@ -21,15 +21,6 @@ use Zingular\Forms\Plugins\Aggregators\DummyAggregator;
 class AggregatorFactory implements AggregatorFactoryInterface
 {
     /**
-     * @var array
-     */
-    protected $types = array
-    (
-        Aggregation::NONE,
-        Aggregation::DATE_TIME_SELECT
-    );
-
-    /**
      * @param $type
      * @param array $options
      * @return AggregatorInterface
@@ -44,14 +35,5 @@ class AggregatorFactory implements AggregatorFactoryInterface
         }
 
         throw new FormException(sprintf("Unknown aggregation strategy: '%s'",$type));
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return in_array($name,$this->types);
     }
 }

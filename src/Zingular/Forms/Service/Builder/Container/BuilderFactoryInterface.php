@@ -20,10 +20,4 @@ interface BuilderFactoryInterface
      * @return RuntimeBuilderInterface
      */
     public function create($type);
-
-    /**
-     * @param string $type
-     * @return bool
-     */
-    public function has($type);
 }

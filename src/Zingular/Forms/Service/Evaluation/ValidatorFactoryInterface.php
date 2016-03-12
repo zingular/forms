@@ -20,10 +20,4 @@ interface ValidatorFactoryInterface
      * @return ValidatorInterface
      */
     public function create($name);
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
 }

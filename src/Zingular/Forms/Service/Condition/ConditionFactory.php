@@ -21,15 +21,6 @@ use Zingular\Forms\Plugins\Conditions\ValueCondition;
 class ConditionFactory implements ConditionFactoryInterface
 {
     /**
-     * @var array
-     */
-    protected $types = array
-    (
-        Condition::STARTS_WITH,
-        Condition::VALUE
-    );
-
-    /**
      * @param $type
      * @param array $options
      * @return ConditionInterface
@@ -45,14 +36,5 @@ class ConditionFactory implements ConditionFactoryInterface
         }
 
         throw new FormException(sprintf("Cannot create condition: unknown condition type '%s'",$type));
-    }
-
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function has($type)
-    {
-        return in_array($type,$this->types);
     }
 }

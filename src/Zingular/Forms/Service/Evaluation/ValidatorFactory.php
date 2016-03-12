@@ -21,27 +21,6 @@ use Zingular\Forms\Validator;
 class ValidatorFactory implements ValidatorFactoryInterface
 {
     /**
-     * @var array
-     */
-    protected $types = array
-    (
-        Validator::REGEX,
-        Validator::MIN_LENGTH,
-        Validator::MAX_LENGTH,
-        Validator::MIN_VALUE,
-        Validator::MAX_VALUE
-    );
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return in_array($name,$this->types);
-    }
-
-    /**
      * @param $name
      * @return ValidatorInterface
      * @throws FormException

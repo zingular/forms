@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder\Container;
 
+use Zingular\Forms\Builder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\FieldBuilder;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
@@ -21,22 +22,6 @@ use Zingular\Forms\Plugins\Builders\Container\DateTimeSelectBuilder;
  */
 class BuilderFactory implements BuilderFactoryInterface
 {
-    const FIELD = 'field';
-    const FIELDSET = 'fieldset';
-    const DATE_TIME_SELECT = 'dateTimeSelect';
-    const ERROR = 'error';
-
-    /**
-     * @var array
-     */
-    protected $types = array
-    (
-        self::FIELD => FieldBuilder::class,
-        self::FIELDSET=> FieldsetBuilder::class,
-        self::DATE_TIME_SELECT => DateTimeSelectBuilder::class,
-        self::ERROR => DefaultErrorBuilder::class
-    );
-
     /**
      * @param $type
      * @return RuntimeBuilderInterface
@@ -44,22 +29,14 @@ class BuilderFactory implements BuilderFactoryInterface
      */
     public function create($type)
     {
-        if(!isset($this->types[$type]))
+        switch($type)
         {
-            throw new FormException(sprintf("Cannot create container builder, unknown container builder type: '%s'",$type));
+            case Builder::FIELD: return new FieldBuilder();
+            case Builder::FIELDSET: return new FieldsetBuilder();
+            case Builder::DATE_TIME_SELECT: return new DateTimeSelectBuilder();
+            case Builder::ERROR: return new DefaultErrorBuilder();
         }
 
-        $class = $this->types[$type];
-
-        return new $class();
-    }
-
-    /**
-     * @param string $type
-     * @return bool
-     */
-    public function has($type)
-    {
-        return isset($this->types[$type]);
+        throw new FormException(sprintf("Cannot create container builder, unknown container builder type: '%s'",$type));
     }
 }

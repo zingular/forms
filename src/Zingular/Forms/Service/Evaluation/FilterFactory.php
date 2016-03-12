@@ -20,20 +20,6 @@ use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 class FilterFactory implements FilterFactoryInterface
 {
     /**
-     * @var array
-     */
-    protected $types = array
-    (
-        Filter::UPPERCASE,
-        Filter::LOWERCASE,
-        Filter::TRIM,
-        Filter::TRIM_LEFT,
-        Filter::TRIM_RIGHT,
-        Filter::FORCE_LEADING,
-        Filter::FORCE_TRAILING
-    );
-
-    /**
      * @param string $name
      * @return FilterInterface
      * @throws FormException
@@ -51,15 +37,6 @@ class FilterFactory implements FilterFactoryInterface
             case Filter::FORCE_TRAILING: return new CallableFilter(Filter::FORCE_TRAILING,array($this,Filter::FORCE_TRAILING));
             default: throw new FormException(sprintf("Cannot create filter: unknown filter type '%s'",$name));
         }
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return in_array($name,$this->types);
     }
 
     /**

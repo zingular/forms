@@ -20,10 +20,4 @@ interface FilterFactoryInterface
      * @return FilterInterface
      */
     public function create($name);
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
 }

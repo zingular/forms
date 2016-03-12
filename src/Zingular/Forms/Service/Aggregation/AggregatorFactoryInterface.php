@@ -20,10 +20,4 @@ interface AggregatorFactoryInterface
      * @return AggregatorInterface
      */
     public function create($name);
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function has($name);
 }

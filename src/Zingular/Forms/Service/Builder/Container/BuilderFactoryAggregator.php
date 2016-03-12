@@ -10,7 +10,6 @@ namespace Zingular\Forms\Service\Builder\Container;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
-
 /**
  * Class BuilderFactoryAggregator
  * @package Zingular\Form\Service\Builder
@@ -32,30 +31,16 @@ class BuilderFactoryAggregator implements BuilderFactoryInterface
         /** @var BuilderFactoryInterface $factory */
         foreach($this->factories as $factory)
         {
-            if($factory->has($type))
+            try
             {
                 return $factory->create($type);
+            }
+            catch(FormException $e)
+            {
+                continue;
             }
         }
 
         throw new FormException(sprintf("Cannot create builder: none of the factories in the factory aggregator has the requested type '%s'!",$type));
-    }
-
-    /**
-     * @param string $type
-     * @return bool
-     */
-    public function has($type)
-    {
-        /** @var BuilderFactoryInterface $factory */
-        foreach($this->factories as $factory)
-        {
-            if($factory->has($type))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

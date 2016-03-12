@@ -15,18 +15,18 @@ namespace Zingular\Forms\Plugins\Converters;
 interface ConverterInterface
 {
     /**
-     * @param $value
-     * @param array ...$params
+     * @param mixed $value
+     * @param array $params
      * @return mixed
      */
-    public function encode($value,...$params);
+    public function encode($value,array $params = array());
 
     /**
-     * @param $value
-     * @param $params
+     * @param mixed $value
+     * @param array $params
      * @return mixed
      */
-    public function decode($value,...$params);
+    public function decode($value,array $params = array());
 
     /**
      * @return string
