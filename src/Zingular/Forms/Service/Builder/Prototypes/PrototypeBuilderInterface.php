@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder\Prototypes;
 
-use Zingular\Forms\Component\Container\PrototypesInterface;
+use Zingular\Forms\Component\Containers\PrototypesInterface;
 
 /**
  * Interface PrototypeBuilderInterface

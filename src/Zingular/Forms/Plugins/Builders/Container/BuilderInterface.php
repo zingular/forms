@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
-use Zingular\Forms\Component\Container\BuildableInterface;
+use Zingular\Forms\Component\Containers\BuildableInterface;
 
 /**
  * Interface BuilderInterface
@@ -16,6 +16,9 @@ use Zingular\Forms\Component\Container\BuildableInterface;
  */
 interface BuilderInterface
 {
+    const START = 0;
+    const END = -1;
+
     /**
      * @param BuildableInterface $container
      */

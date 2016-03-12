@@ -9,9 +9,9 @@
 namespace Zingular\Forms\Plugins\Builders\Form;
 
 use Zingular\Forms\Aggregation;
-use Zingular\Forms\Component\Container\BuildableInterface;
-use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Component\Container\PrototypesInterface;
+use Zingular\Forms\Component\Containers\BuildableInterface;
+use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\TestCompoment;
 use Zingular\Forms\Condition;
 use Zingular\Forms\Converter;
@@ -72,7 +72,7 @@ class TestFormbuilder implements  FormBuilderInterface
             ->addField('fldTestSelect')
                 ->addSelect('testSelect')->setOptions(array($this,'getOptions'))->nextParent()
             ->addLabel('description')->setContent('bladibla')->nextParent()
-            ->addField('fldHobby1')->showIf(Condition::STARTS_WITH,4)->orIf(Condition::STARTS_WITH)->showIf('endsWith')->requiredIf('')
+            ->addField('fldHobby1')
                 ->addInput('hobby1')
                     ->setValue('aa')
                     ->setEmptyStringIsValue(false)

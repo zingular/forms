@@ -7,8 +7,8 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Component\Container\Container;
-use Zingular\Forms\Component\Container\Prototypes;
+use Zingular\Forms\Component\Containers\Container;
+use Zingular\Forms\Component\Containers\Prototypes;
 
 /**
  * Class Context

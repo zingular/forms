@@ -8,20 +8,20 @@
 
 namespace Zingular\Forms\Service\Bridge\View;
 
-use Zingular\Forms\Component\Container\ContainerInterface;
-use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Component\Element\Content\ContentInterface;
-use Zingular\Forms\Component\Element\Content\Html;
-use Zingular\Forms\Component\Element\Content\HtmlTag;
-use Zingular\Forms\Component\Element\Content\Label;
-use Zingular\Forms\Component\Element\Content\View;
-use Zingular\Forms\Component\Element\Control\Button;
-use Zingular\Forms\Component\Element\Control\Checkbox;
-use Zingular\Forms\Component\Element\Control\Input;
-use Zingular\Forms\Component\Element\Control\Option;
-use Zingular\Forms\Component\Element\Control\OptionGroup;
-use Zingular\Forms\Component\Element\Control\Select;
-use Zingular\Forms\Component\Element\Control\Textarea;
+use Zingular\Forms\Component\Containers\ContainerInterface;
+use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Elements\Contents\ContentInterface;
+use Zingular\Forms\Component\Elements\Contents\Html;
+use Zingular\Forms\Component\Elements\Contents\HtmlTag;
+use Zingular\Forms\Component\Elements\Contents\Label;
+use Zingular\Forms\Component\Elements\Contents\View;
+use Zingular\Forms\Component\Elements\Controls\Button;
+use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\Input;
+use Zingular\Forms\Component\Elements\Controls\Option;
+use Zingular\Forms\Component\Elements\Controls\OptionGroup;
+use Zingular\Forms\Component\Elements\Controls\Select;
+use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Exception\FormException;
 
 /**

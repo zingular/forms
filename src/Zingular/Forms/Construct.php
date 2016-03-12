@@ -7,10 +7,8 @@
  */
 
 namespace Zingular\Forms;
-use Zingular\Forms\Component\Container\Form;
-use Zingular\Forms\Component\Container\Prototypes;
-use Zingular\Forms\Component\ServiceSetterTrait;
-use Zingular\Forms\Component\ServicesInterface;
+use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Containers\Prototypes;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
@@ -18,6 +16,7 @@ use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\Service\Services;
+use Zingular\Forms\Service\ServicesInterface;
 
 /**
  * Class Construct
@@ -25,7 +24,7 @@ use Zingular\Forms\Service\Services;
  */
 class Construct
 {
-    use ServiceSetterTrait;
+    use Service\ServiceSetterTrait;
 
     /**
      * @var Prototypes
@@ -134,11 +133,17 @@ class Construct
      */
     public function createForm($formId,$model = null)
     {
-        // clone the services to allow the user to override services per form, with system defaults
+        // clone the services and prototypes to allow the user to override services per form, with system defaults
+        $form = $this
+            ->getServices()
+            ->getComponentFactory()
+            ->createForm($formId,clone $this->getServices(),clone $this->getPrototypes());
 
-        // TODO: clone prototypes to allow the user to override prototypes per form, with system defaults
-
-        $form = new Form($formId,clone $this->getServices(),clone $this->getPrototypes(),$model);
+        // also set the model, if provided
+        if(!is_null($model))
+        {
+            $form->setModel($model);
+        }
 
         return $form;
     }

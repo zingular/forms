@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Component\Element\Content\ContentInterface;
+use Zingular\Forms\Component\Elements\Contents\ContentInterface;
 
 /**
  * Class TestCompoment

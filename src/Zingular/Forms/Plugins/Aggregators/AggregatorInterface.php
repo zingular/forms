@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Plugins\Aggregators;
-use Zingular\Forms\Component\Container\Aggregator;
+use Zingular\Forms\Component\Containers\Aggregator;
 
 /**
  * Interface AggregatorInterface

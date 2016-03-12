@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Extension;
-use Zingular\Forms\Component\Container\PrototypesInterface;
+use Zingular\Forms\Component\Containers\PrototypesInterface;
 
 /**
  * Class AbstractExtension

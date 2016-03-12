@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Prototype;
 
-use Zingular\Forms\Component\Container\PrototypesInterface;
+use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\View;
 
@@ -37,9 +37,11 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->getButtonPrototype()->setCssBaseTypeClass('ctrl');
 
         // manipulate content base prototypes
+        $prototypes->getContentPrototype()->setCssBaseTypeClass('cont');
         $prototypes->getLabelPrototype()->setCssBaseTypeClass('lbl');
         $prototypes->getHtmlPrototype()->setCssBaseTypeClass('html');
         $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('tag');
+        $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('view');
 
         /*
         $prototypes->defineSelect('selecter');

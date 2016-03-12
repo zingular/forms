@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Options;
 
-use Zingular\Forms\Component\Container\BuildableInterface;
+use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\OptionsProvider;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;

@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component;
 
-use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Containers\Container;
 
 /**
  * Interface NavigationInterface

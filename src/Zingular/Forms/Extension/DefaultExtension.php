@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Extension;
-use Zingular\Forms\Component\Container\PrototypesInterface;
+use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderWrapper;
 use Zingular\Forms\Plugins\Evaluators\CallableValidator;

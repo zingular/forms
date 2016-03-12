@@ -7,7 +7,6 @@
  */
 
 namespace Zingular\Forms\Service;
-use Zingular\Forms\Component\ServicesInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
@@ -54,7 +53,7 @@ use Zingular\Forms\Service\Condition\ConditionPool;
 
 /**
  * Class Service
- * @package Zingular\Form
+ * @package Zingular\Form\Service
  */
 class Services implements ServicesInterface
 {

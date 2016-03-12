@@ -7,74 +7,44 @@
  */
 
 namespace Zingular\Forms\Service\Component;
-use Zingular\Forms\BaseTypes;
-use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\Container\Aggregator;
-use Zingular\Forms\Component\Container\Field;
-use Zingular\Forms\Component\Container\Fieldset;
-use Zingular\Forms\Component\Container\Row;
-use Zingular\Forms\Component\Element\Control\Button;
-use Zingular\Forms\Component\Container\Container;
-use Zingular\Forms\Component\Element\Content\Content;
-use Zingular\Forms\Component\Element\Content\Html;
-use Zingular\Forms\Component\Element\Content\HtmlTag;
-use Zingular\Forms\Component\Element\Content\Label;
-use Zingular\Forms\Component\Element\Content\View;
-use Zingular\Forms\Component\Element\Control\Checkbox;
-use Zingular\Forms\Component\Element\Control\Hidden;
-use Zingular\Forms\Component\Element\Control\Input;
-use Zingular\Forms\Component\Element\Control\Select;
-use Zingular\Forms\Component\Element\Control\Textarea;
-use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Component\Containers\Aggregator;
+use Zingular\Forms\Component\Containers\Field;
+use Zingular\Forms\Component\Containers\Fieldset;
+use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Containers\Prototypes;
+use Zingular\Forms\Component\Containers\Row;
+use Zingular\Forms\Component\Elements\Controls\Button;
+use Zingular\Forms\Component\Containers\Container;
+use Zingular\Forms\Component\Elements\Contents\Content;
+use Zingular\Forms\Component\Elements\Contents\Html;
+use Zingular\Forms\Component\Elements\Contents\HtmlTag;
+use Zingular\Forms\Component\Elements\Contents\Label;
+use Zingular\Forms\Component\Elements\Contents\View;
+use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\Hidden;
+use Zingular\Forms\Component\Elements\Controls\Input;
+use Zingular\Forms\Component\Elements\Controls\Select;
+use Zingular\Forms\Component\Elements\Controls\Textarea;
+use Zingular\Forms\Service\ServicesInterface;
 
 /**
  * Class ComponentFactory
  * @package Zingular\Form\Component
  */
-class ComponentFactory
+class ComponentFactory implements ComponentFactoryInterface
 {
-    /**
-     * @param $type
-     * @return ComponentInterface
-     * @throws FormException
-     */
-    public function create($type)
-    {
-        switch($type)
-        {
-            case BaseTypes::AGGREGATOR: return $this->createAggregator();
-            case BaseTypes::FIELD: return $this->createField();
-            case BaseTypes::FIELDSET: return $this->createFieldset();
-            case BaseTypes::ROW: return $this->createRow();
-            case BaseTypes::BUTTON: return $this->createButton();
-            case BaseTypes::CONTAINER: return $this->createContainer();
-            case BaseTypes::CONTENT: return $this->createContent();
-            case BaseTypes::HTML: return $this->createHtml();
-            case BaseTypes::HTMLTAG: return $this->createHtmlTag();
-            case BaseTypes::LABEL: return $this->createLabel();
-            case BaseTypes::VIEW: return $this->createView();
-            case BaseTypes::CHECKBOX: return $this->createCheckbox();
-            case BaseTypes::INPUT: return $this->createInput();
-            case BaseTypes::HIDDEN: return $this->createHidden();
-            case BaseTypes::SELECT: return $this->createSelect();
-            case BaseTypes::TEXTAREA: return $this->createTextarea();
-        }
-
-        throw new FormException(sprintf("Cannot create form component: unknown component type '%s'",$type));
-    }
-
     /**
      * @return Content
      */
-    protected function createContent()
+    public function createContent()
     {
         return new Content();
     }
 
     /**
-     * @return Content
+     * @return Label
      */
-    protected function createLabel()
+    public function createLabel()
     {
         return new Label();
     }
@@ -82,7 +52,7 @@ class ComponentFactory
     /**
      * @return Html
      */
-    protected function createHtml()
+    public function createHtml()
     {
         return new Html();
     }
@@ -90,7 +60,7 @@ class ComponentFactory
     /**
      * @return HtmlTag
      */
-    protected function createHtmlTag()
+    public function createHtmlTag()
     {
         return new HtmlTag();
     }
@@ -98,7 +68,7 @@ class ComponentFactory
     /**
      * @return View
      */
-    protected function createView()
+    public function createView()
     {
         return new View();
     }
@@ -106,15 +76,15 @@ class ComponentFactory
     /**
      * @return Input
      */
-    protected function createInput()
+    public function createInput()
     {
         return new Input();
     }
 
     /**
-     * @return Input
+     * @return Checkbox
      */
-    protected function createCheckbox()
+    public function createCheckbox()
     {
         return new Checkbox();
     }
@@ -122,7 +92,7 @@ class ComponentFactory
     /**
      * @return Button
      */
-    protected function createButton()
+    public function createButton()
     {
         return new Button();
     }
@@ -130,7 +100,7 @@ class ComponentFactory
     /**
      * @return Select
      */
-    protected function createSelect()
+    public function createSelect()
     {
         return new Select();
     }
@@ -138,7 +108,7 @@ class ComponentFactory
     /**
      * @return Hidden
      */
-    protected function createHidden()
+    public function createHidden()
     {
         return new Hidden();
     }
@@ -146,7 +116,7 @@ class ComponentFactory
     /**
      * @return Textarea
      */
-    protected function createTextarea()
+    public function createTextarea()
     {
         return new Textarea();
     }
@@ -154,7 +124,7 @@ class ComponentFactory
     /**
      * @return Container
      */
-    protected function createContainer()
+    public function createContainer()
     {
         return new Container();
     }
@@ -162,7 +132,7 @@ class ComponentFactory
     /**
      * @return Field
      */
-    protected function createField()
+    public function createField()
     {
         return new Field();
     }
@@ -170,7 +140,7 @@ class ComponentFactory
     /**
      * @return Fieldset
      */
-    protected function createFieldset()
+    public function createFieldset()
     {
         return new Fieldset();
     }
@@ -178,7 +148,7 @@ class ComponentFactory
     /**
      * @return Row
      */
-    protected function createRow()
+    public function createRow()
     {
        return new Row();
     }
@@ -186,8 +156,19 @@ class ComponentFactory
     /**
      * @return Aggregator
      */
-    protected function createAggregator()
+    public function createAggregator()
     {
         return new Aggregator();
+    }
+
+    /**
+     * @param $id
+     * @param ServicesInterface $services
+     * @param Prototypes $prototypes
+     * @return Form
+     */
+    public function createForm($id,ServicesInterface $services,Prototypes $prototypes)
+    {
+        return new Form($id,$services,$prototypes);
     }
 }

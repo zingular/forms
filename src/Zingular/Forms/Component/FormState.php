@@ -8,9 +8,10 @@
 
 namespace Zingular\Forms\Component;
 
-use Zingular\Forms\Component\Container\Container;
-use Zingular\Forms\Component\Container\ContainerInterface;
-use Zingular\Forms\Component\Container\Form;
+use Zingular\Forms\Component\Containers\Container;
+use Zingular\Forms\Component\Containers\ContainerInterface;
+use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Service\ServiceGetterInterface;
 
 /**
  * Class FormState

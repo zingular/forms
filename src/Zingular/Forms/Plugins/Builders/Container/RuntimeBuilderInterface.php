@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
-use Zingular\Forms\Component\Container\BuildableInterface;
+use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
 
 /**
@@ -17,6 +17,9 @@ use Zingular\Forms\Component\FormState;
  */
 interface RuntimeBuilderInterface
 {
+    const START = 0;
+    const END = -1;
+
     /**
      * @param BuildableInterface $container
      * @param FormState $context

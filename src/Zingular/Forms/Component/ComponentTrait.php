@@ -7,8 +7,9 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Component\Container\Container;
+use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Service\ServiceGetterInterface;
 
 /**
  * Class ComponentTrait

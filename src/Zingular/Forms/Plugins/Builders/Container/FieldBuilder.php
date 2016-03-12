@@ -8,8 +8,8 @@
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
-use Zingular\Forms\Component\Container\BuildableInterface;
-use Zingular\Forms\Component\Container\AbstractContainer;
+use Zingular\Forms\Component\Containers\BuildableInterface;
+use Zingular\Forms\Component\Containers\AbstractContainer;
 use Zingular\Forms\Component\FormState;
 
 
@@ -25,7 +25,7 @@ class FieldBuilder implements RuntimeBuilderInterface
      */
     public function build(BuildableInterface $container,FormState $context)
     {
-        $container->addLabel('lbl'.ucfirst($container->getId()),AbstractContainer::START)
+        $container->addLabel('lbl'.ucfirst($container->getId()),self::START)
             ->setFor($container)
             ->setTranslationKey($container->getId().'.label');
     }
