@@ -162,6 +162,14 @@ class ComponentFactory implements ComponentFactoryInterface
     }
 
     /**
+     * @return Prototypes
+     */
+    public function createPrototypes()
+    {
+        return new Prototypes($this);
+    }
+
+    /**
      * @param $id
      * @param ServicesInterface $services
      * @param Prototypes $prototypes
@@ -171,4 +179,5 @@ class ComponentFactory implements ComponentFactoryInterface
     {
         return new Form($id,$services,$prototypes);
     }
+
 }

@@ -23,7 +23,8 @@ use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\Component\ComponentFactory;
+
+use Zingular\Forms\Service\Component\ComponentFactoryInterface;
 
 /**
  * Class Prototypes
@@ -37,14 +38,14 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     protected $prototypes;
 
     /**
-     * @var ComponentFactory
+     * @var ComponentFactoryInterface
      */
     protected $componentFactory;
 
     /**
-     * @param ComponentFactory $factory
+     * @param ComponentFactoryInterface $factory
      */
-    public function __construct(ComponentFactory $factory)
+    public function __construct(ComponentFactoryInterface $factory)
     {
         $this->componentFactory = $factory;
     }

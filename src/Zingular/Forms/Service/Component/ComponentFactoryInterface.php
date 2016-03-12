@@ -112,6 +112,11 @@ interface ComponentFactoryInterface
     public function createAggregator();
 
     /**
+     * @return Prototypes
+     */
+    public function createPrototypes();
+
+    /**
      * @param $id
      * @param ServicesInterface $services
      * @param Prototypes $prototypes

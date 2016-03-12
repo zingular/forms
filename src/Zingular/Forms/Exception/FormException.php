@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Exception;
-use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
+
 
 /**
  * Class FormException

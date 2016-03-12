@@ -24,7 +24,7 @@ use Zingular\Forms\Exception\FormException;
  * Interface BuildableInterface
  * @package Zingular\Forms\Component\Container
  */
-interface BuildableInterface extends ContainerInterface
+interface BuildableInterface extends ContainerInterface,PositionableInterface
 {
     /**
      * @return string
@@ -135,111 +135,111 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Label
      */
-    public function addContent($name,$position = -1);
+    public function addContent($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Label
      */
-    public function addLabel($name,$position = -1);
+    public function addLabel($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Html
      */
-    public function addHtml($name,$position = -1);
+    public function addHtml($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return HtmlTag
      */
-    public function addHtmlTag($name,$position = -1);
+    public function addHtmlTag($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return View
      */
-    public function addView($name,$position = -1);
+    public function addView($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Input
      */
-    public function addInput($name,$position = -1);
+    public function addInput($name,$position = self::END);
     /**
      * @param $name
      * @param int|string $position
      * @return Checkbox
      */
-    public function addCheckbox($name,$position = -1);
+    public function addCheckbox($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Hidden
      */
-    public function addHidden($name,$position = -1);
+    public function addHidden($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Select
      */
-    public function addSelect($name,$position = -1);
+    public function addSelect($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Textarea
      */
-    public function addTextarea($name,$position = -1);
+    public function addTextarea($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Button
      */
-    public function addButton($name,$position = -1);
+    public function addButton($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Container
      */
-    public function addContainer($name,$position = -1);
+    public function addContainer($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Aggregator
      */
-    public function addAggregator($name,$position = -1);
+    public function addAggregator($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Fieldset
      */
-    public function addFieldset($name,$position = -1);
+    public function addFieldset($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Container
      */
-    public function addField($name,$position = -1);
+    public function addField($name,$position = self::END);
 
     /**
      * @param $name
      * @param int|string $position
      * @return Row
      */
-    public function addRow($name,$position = -1);
+    public function addRow($name,$position = self::END);
 
     /***************************************************************
      * USE (import prototypes)
@@ -251,7 +251,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Label
      */
-    public function useContent($prototype,$as = null,$position = -1);
+    public function useContent($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -259,7 +259,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Label
      */
-    public function useLabel($prototype,$as = null,$position = -1);
+    public function useLabel($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -267,7 +267,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Html
      */
-    public function useHtml($prototype,$as = null,$position = -1);
+    public function useHtml($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -275,7 +275,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return HtmlTag
      */
-    public function useHtmlTag($prototype,$as = null,$position = -1);
+    public function useHtmlTag($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -283,7 +283,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return View
      */
-    public function useView($prototype,$as = null,$position = -1);
+    public function useView($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -291,7 +291,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Input
      */
-    public function useInput($prototype,$as = null,$position = -1);
+    public function useInput($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -299,7 +299,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Checkbox
      */
-    public function useCheckbox($prototype,$as = null,$position = -1);
+    public function useCheckbox($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -307,7 +307,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Select
      */
-    public function useSelect($prototype,$as = null,$position = -1);
+    public function useSelect($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -315,7 +315,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Textarea
      */
-    public function useTextarea($prototype,$as = null,$position = -1);
+    public function useTextarea($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -323,7 +323,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Button
      */
-    public function useButton($prototype,$as = null,$position = -1);
+    public function useButton($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -331,7 +331,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Container
      */
-    public function useContainer($prototype,$as = null,$position = -1);
+    public function useContainer($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -339,7 +339,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Aggregator
      */
-    public function useAggregator($prototype,$as = null,$position = -1);
+    public function useAggregator($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -347,7 +347,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Fieldset
      */
-    public function useFieldset($prototype,$as = null,$position = -1);
+    public function useFieldset($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -355,7 +355,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Field
      */
-    public function useField($prototype,$as = null,$position = -1);
+    public function useField($prototype,$as = null,$position = self::END);
 
     /**
      * @param $prototype
@@ -363,7 +363,7 @@ interface BuildableInterface extends ContainerInterface
      * @param int|string $position
      * @return Row
      */
-    public function useRow($prototype,$as = null,$position = -1);
+    public function useRow($prototype,$as = null,$position = self::END);
 
     /***************************************************************
      * IMPORT

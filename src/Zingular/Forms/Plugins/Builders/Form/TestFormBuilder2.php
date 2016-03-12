@@ -10,7 +10,7 @@ namespace Zingular\Forms\Plugins\Builders\Form;
 
 use Zingular\Forms\Aggregation;
 use Zingular\Forms\Builder;
-use Zingular\Forms\Component\Containers\Aggregator;
+
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\PrototypesInterface;

@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service;
 
-use Zingular\Forms\Service\ServiceSetterInterface;
+
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;

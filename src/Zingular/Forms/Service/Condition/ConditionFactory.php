@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service\Condition;
 use Zingular\Forms\Condition;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Plugins\Conditions\CallableCondition;
+
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Conditions\StartsWithCondition;
 use Zingular\Forms\Plugins\Conditions\ValueCondition;

@@ -9,16 +9,14 @@
 namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
+use Zingular\Forms\Component\Containers\PositionableInterface;
 
 /**
  * Interface BuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface BuilderInterface
+interface BuilderInterface extends PositionableInterface
 {
-    const START = 0;
-    const END = -1;
-
     /**
      * @param BuildableInterface $container
      */

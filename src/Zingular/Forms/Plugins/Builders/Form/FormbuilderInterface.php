@@ -10,17 +10,15 @@ namespace Zingular\Forms\Plugins\Builders\Form;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Containers\PositionableInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 
 /**
  * Interface FormBuilderInterface
  * @package Zingular\Forms\Service\Builder
  */
-interface FormBuilderInterface
+interface FormBuilderInterface extends PositionableInterface
 {
-    const START = 0;
-    const END = -1;
-
     /**
      * @param PrototypesInterface $form
      */

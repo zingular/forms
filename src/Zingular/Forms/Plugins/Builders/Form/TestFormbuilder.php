@@ -13,7 +13,7 @@ use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\TestCompoment;
-use Zingular\Forms\Condition;
+
 use Zingular\Forms\Converter;
 use Zingular\Forms\CssClass;
 use Zingular\Forms\Exception\ValidationException;

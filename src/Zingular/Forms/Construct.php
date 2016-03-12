@@ -112,11 +112,15 @@ class Construct
     {
         if(is_null($this->prototypes))
         {
-            $this->prototypes = new Prototypes($this->getServices()->getComponentFactory());
+            // create the prototypes container
+            $prototypes = $this->getServices()->getComponentFactory()->createPrototypes();
 
             // make sure the default builder is always applied
             $defaultBuilder = new DefaultPrototypeBuilder();
-            $defaultBuilder->buildPrototypes($this->prototypes);
+            $defaultBuilder->buildPrototypes($prototypes);
+
+            // store the prototypes
+            $this->prototypes = $prototypes;
         }
 
         return $this->prototypes;
