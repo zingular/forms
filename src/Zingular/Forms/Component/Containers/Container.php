@@ -848,7 +848,6 @@ class Container extends AbstractContainer implements
         );
     }
 
-
     /**
      * @param int $level
      * @return Container
@@ -876,6 +875,7 @@ class Container extends AbstractContainer implements
      */
     protected function createContext($id)
     {
+        // create a new context with this container as parent, and inherit this containers prototypes
         return new Context($id,$this,$this->context->getPrototypes());
     }
 

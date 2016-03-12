@@ -14,6 +14,7 @@ use Zingular\Forms\Builder;
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
+use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
@@ -114,6 +115,13 @@ class TestFormBuilder2 implements FormBuilderInterface
 
             return $state->getValue('/hobbies',$hobbies);
         });
+
+
+        if($form instanceof DescribableInterface)
+        {
+            //print_rf($form->describe());
+        }
+
 
 
 

@@ -10,6 +10,7 @@ namespace Zingular\Forms\Component\Elements\Controls;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitInterface;
 use Zingular\Forms\Component\DataUnitTrait;
+use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
@@ -25,7 +26,8 @@ use Zingular\Forms\Exception\ValidationException;
 abstract class AbstractControl extends AbstractElement implements
     DataUnitInterface,
     RequiredInterface,
-    CssComponentInterface
+    CssComponentInterface,
+    DescribableInterface
 {
     use RequiredTrait;
     use DataUnitTrait;

@@ -26,10 +26,10 @@ class FieldsetBuilder implements RuntimeBuilderInterface
     public function build(BuildableInterface $container,FormState $context)
     {
         // create a legend first
-        $container->addHtmlTag('p'.ucfirst($container->getId()),self::START)
+        $container->addHtmlTag('p'.ucfirst($container->getId()),self::POSITION_START)
             ->setTagName('p')
             ->setTranslationKey($container->getId().'.description');
-        $container->addHtmlTag('lgnd'.ucfirst($container->getId()),self::START)
+        $container->addHtmlTag('lgnd'.ucfirst($container->getId()),self::POSITION_START)
             ->setTagName('legend')
             ->setTranslationKey($container->getId().'.legend');
     }

@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Elements\Contents;
+use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
@@ -15,7 +16,10 @@ use Zingular\Forms\Component\CssComponentInterface;
  * Class Content
  * @package Zingular\Form
  */
-class Content extends AbstractElement implements CssComponentInterface,ContentInterface
+class Content extends AbstractElement implements
+    CssComponentInterface,
+    ContentInterface,
+    DescribableInterface
 {
     /**
      * @var string

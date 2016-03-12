@@ -42,27 +42,7 @@ trait ComponentTrait
      */
     public function getParent($level = 1)
     {
-        $parent = $this->context->getParent();
-
-        if(is_null($parent))
-        {
-            return null;
-        }
-
-        $currentLevel = 1;
-
-        while($currentLevel < $level)
-        {
-            $parent = $parent->getParent();
-
-            if(is_null($parent))
-            {
-                return null;
-            }
-
-            $currentLevel++;
-        }
-        return $parent;
+        return $this->context->getParent($level);
     }
 
     /**

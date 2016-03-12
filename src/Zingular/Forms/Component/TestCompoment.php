@@ -13,7 +13,10 @@ use Zingular\Forms\Component\Elements\Contents\ContentInterface;
  * Class TestCompoment
  * @package Zingular\Forms\Component
  */
-class TestCompoment implements CssComponentInterface,ContentInterface,ViewableComponentInterface
+class TestCompoment implements
+    CssComponentInterface,
+    ContentInterface,
+    ViewableComponentInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
@@ -26,13 +29,5 @@ class TestCompoment implements CssComponentInterface,ContentInterface,ViewableCo
     public function compile(FormState $state)
     {
         // TODO: Implement compile() method.
-    }
-
-    /**
-     * @return array
-     */
-    public function describe()
-    {
-        // TODO: Implement describe() method.
     }
 }

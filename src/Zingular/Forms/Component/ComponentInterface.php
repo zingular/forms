@@ -35,11 +35,6 @@ interface ComponentInterface extends NavigationInterface
     public function getIndex();
 
     /**
-     * @return array
-     */
-    public function describe();
-
-    /**
      * @return string
      */
     public function getViewName();

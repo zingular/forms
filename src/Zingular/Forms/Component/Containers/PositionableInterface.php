@@ -14,6 +14,6 @@ namespace Zingular\Forms\Component\Containers;
  */
 interface PositionableInterface
 {
-    const START = 0;
-    const END = -1;
+    const POSITION_START = 0;
+    const POSITION_END = -1;
 }

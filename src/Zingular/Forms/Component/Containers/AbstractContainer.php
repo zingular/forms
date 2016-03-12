@@ -1,6 +1,7 @@
 <?php
 
 namespace Zingular\Forms\Component\Containers;
+use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -16,7 +17,7 @@ use Zingular\Forms\Exception\FormException;
  * Class AbstractContainer
  * @package Zingular\Form\Component
  */
-abstract class AbstractContainer
+abstract class AbstractContainer implements DescribableInterface
 {
     /**
      * @var array
@@ -323,23 +324,29 @@ abstract class AbstractContainer
     }
 
     /**
-     * @param bool $recursive
      * @return array
      */
-    public function describe($recursive = false)
+    public function describe()
     {
         $data = $this->describeSelf();
 
         foreach($this->components as $component)
         {
-            if($component instanceof Container)
+            if($component instanceof ComponentInterface)
             {
-                $data['children'][$component->getId()] = $component->describe($recursive);
-            }
-            else
-            {
-                /** @var ComponentInterface $component */
-                $data['children'][$component->getId()] = $component->describe();
+                $id = $component->getId();
+
+                if($component instanceof DescribableInterface)
+                {
+                    $data['children'][$id] = $component->describe();
+                }
+                else
+                {
+                    $data['children'][$id] = array
+                    (
+                        'type'=>get_class($component)
+                    );
+                }
             }
         }
 

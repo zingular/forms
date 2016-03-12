@@ -99,13 +99,32 @@ class Context
     }
 
     /**
+     * @param int $level
      * @return Container
      */
-    public function getParent()
+    public function getParent($level = 1)
     {
-        // TODO: move number of descendents int to over here, instead of in the child component class
+        $parent = $this->parent;
 
-        return $this->parent;
+        if(is_null($parent))
+        {
+            return null;
+        }
+
+        $currentLevel = 1;
+
+        while($currentLevel < $level)
+        {
+            $parent = $parent->getParent();
+
+            if(is_null($parent))
+            {
+                return null;
+            }
+
+            $currentLevel++;
+        }
+        return $parent;
     }
 
     /**
