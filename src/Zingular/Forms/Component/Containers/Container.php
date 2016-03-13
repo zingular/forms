@@ -2,30 +2,16 @@
 
 namespace Zingular\Forms\Component\Containers;
 
-use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Builder;
 use Zingular\Forms\Component\CompilableComponentInterface;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
-use Zingular\Forms\Component\ConditionableTrait;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\DataComponentInterface;
 use Zingular\Forms\Component\DataUnitComponentInterface;
-use Zingular\Forms\Component\Elements\Contents\Content;
-use Zingular\Forms\Component\Elements\Contents\ContentInterface;
-use Zingular\Forms\Component\Elements\Contents\Html;
-use Zingular\Forms\Component\Elements\Contents\HtmlTag;
-use Zingular\Forms\Component\Elements\Contents\Label;
-use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\AbstractControl;
-use Zingular\Forms\Component\Elements\Controls\Button;
-use Zingular\Forms\Component\Elements\Controls\Checkbox;
-use Zingular\Forms\Component\Elements\Controls\Hidden;
-use Zingular\Forms\Component\Elements\Controls\Input;
-use Zingular\Forms\Component\Elements\Controls\Select;
-use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
@@ -37,7 +23,6 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
-use Zingular\Forms\Types;
 use Zingular\Forms\Validator;
 
 
@@ -47,7 +32,7 @@ use Zingular\Forms\Validator;
  */
 class Container extends AbstractContainer implements
     DataComponentInterface,
-    BuildableContainerInterface,
+    BuildableInterface,
     CssComponentInterface,
     ViewableComponentInterface,
     ConditionableInterface
@@ -56,6 +41,7 @@ class Container extends AbstractContainer implements
     use ViewSetterTrait;
     use CssComponentTrait;
     use HtmlAttributesTrait;
+    use BuildableTrait;
     //use ConditionableTrait;
 
     /**
@@ -158,379 +144,12 @@ class Container extends AbstractContainer implements
         return $component;
     }
 
-    /***************************************************************
-     * DEFINE
-     **************************************************************/
-
     /**
-     * @param $name
-     * @param $position
-     * @param $baseType
-     * @return ComponentInterface
+     * @return Context
      */
-    protected function add($name,$position,$baseType)
+    protected function getContext()
     {
-        return $this->adopt($name,$this->context->getPrototypes()->exportPrototype($baseType),$position);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Label
-     */
-    public function addContent($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::CONTENT);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Label
-     */
-    public function addLabel($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::LABEL);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Html
-     */
-    public function addHtml($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::HTML);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return HtmlTag
-     */
-    public function addHtmlTag($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::HTMLTAG);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return View
-     */
-    public function addView($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::VIEW);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Input
-     */
-    public function addInput($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::INPUT);
-    }
-
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Checkbox
-     */
-    public function addCheckbox($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::CHECKBOX);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Hidden
-     */
-    public function addHidden($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::HIDDEN);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Select
-     */
-    public function addSelect($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::SELECT);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Textarea
-     */
-    public function addTextarea($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::TEXTAREA);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Button
-     */
-    public function addButton($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::BUTTON);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Container
-     */
-    public function addContainer($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::CONTAINER);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Aggregator
-     */
-    public function addAggregator($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::AGGREGATOR);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Fieldset
-     */
-    public function addFieldset($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::FIELDSET);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Container
-     */
-    public function addField($name,$position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::FIELD);
-    }
-
-    /**
-     * @param $name
-     * @param int|string $position
-     * @return Row
-     */
-    public function addRow($name, $position = -1)
-    {
-        return $this->add($name,$position,BaseTypes::ROW);
-    }
-
-    /***************************************************************
-     * USE (import prototypes)
-     **************************************************************/
-
-    /**
-     * @param $prototype
-     * @param $as
-     * @param $baseType
-     * @param $baseClass
-     * @param int|string $position
-     * @return ComponentInterface
-     * @throws FormException
-     */
-    protected function useComponent($prototype,$as,$baseType,$baseClass,$position = -1)
-    {
-        $as = is_null($as) ? $prototype : $as;
-        return $this->adopt($as,$this->context->getPrototypes()->export($baseType,$baseClass,$prototype),$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Label
-     */
-    public function useContent($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::CONTENT,Content::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Label
-     */
-    public function useLabel($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::LABEL,Label::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Html
-     */
-    public function useHtml($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::HTML,Html::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return HtmlTag
-     */
-    public function useHtmlTag($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::HTMLTAG,HtmlTag::class,$position);
-
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return View
-     */
-    public function useView($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::VIEW,View::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Input
-     */
-    public function useInput($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::INPUT,Input::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Checkbox
-     */
-    public function useCheckbox($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::CHECKBOX,Checkbox::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Select
-     */
-    public function useSelect($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::SELECT,Select::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Textarea
-     */
-    public function useTextarea($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::TEXTAREA,Textarea::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Button
-     */
-    public function useButton($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::BUTTON,Button::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Container
-     */
-    public function useContainer($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::CONTAINER,Container::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Aggregator
-     */
-    public function useAggregator($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::AGGREGATOR,Aggregator::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Fieldset
-     */
-    public function useFieldset($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::FIELDSET,Fieldset::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Field
-     */
-    public function useField($prototype,$as = null,$position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::FIELD,Field::class,$position);
-    }
-
-    /**
-     * @param $prototype
-     * @param null $as
-     * @param int|string $position
-     * @return Row
-     */
-    public function useRow($prototype, $as = null, $position = -1)
-    {
-        return $this->useComponent($prototype,$as,BaseTypes::ROW,Row::class,$position);
-    }
-
-    /***************************************************************
-     * IMPORT
-     **************************************************************/
-
-    /**
-     * @param ComponentInterface $component
-     * @param string $name
-     * @return ComponentInterface
-     */
-    public function import(ComponentInterface $component,$name)
-    {
-        return $this->adopt($name,$component);
+        return $this->context;
     }
 
     /***************************************************************
@@ -628,7 +247,6 @@ class Container extends AbstractContainer implements
         return $this;
     }
 
-
     /**
      * @param BuilderInterface $builder
      * @return $this
@@ -639,8 +257,6 @@ class Container extends AbstractContainer implements
         $this->applyBuilderType($builder);
         return $this;
     }
-
-
 
     /**
      * @return $this
@@ -722,7 +338,7 @@ class Container extends AbstractContainer implements
                 // compile the child component
                 try
                 {
-
+                    // TODO: move to containing class? now, form cannot have conditions itself (or manually re-implement that in its compile method?)
                     if($component instanceof ConditionableInterface)
                     {
                         $component->applyConditions($state);
@@ -906,7 +522,7 @@ class Container extends AbstractContainer implements
     }
 
     /***************************************************************
-     * CONDITIONS
+     * CONDITIONABLE
      **************************************************************/
 
     /**

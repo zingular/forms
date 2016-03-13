@@ -8,9 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
-use Zingular\Forms\Component\Containers\BuildableContainerInterface;
 use Zingular\Forms\Component\Containers\BuildableInterface;
-
 use Zingular\Forms\Component\FormState;
 
 
@@ -21,10 +19,10 @@ use Zingular\Forms\Component\FormState;
 class FieldsetBuilder implements RuntimeBuilderInterface
 {
     /**
-     * @param BuildableContainerInterface $container
+     * @param BuildableInterface $container
      * @param FormState $context
      */
-    public function build(BuildableContainerInterface $container,FormState $context)
+    public function build(BuildableInterface $container,FormState $context)
     {
         // create a legend first
         $container->addHtmlTag('p'.ucfirst($container->getId()),self::POSITION_START)

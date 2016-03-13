@@ -10,7 +10,6 @@ namespace Zingular\Forms\Plugins\Builders\Options;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Container;
-
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
 /**

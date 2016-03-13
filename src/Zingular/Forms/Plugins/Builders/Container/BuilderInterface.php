@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
-use Zingular\Forms\Component\Containers\BuildableContainerInterface;
+use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\PositionableInterface;
 
 /**
@@ -18,7 +18,7 @@ use Zingular\Forms\Component\Containers\PositionableInterface;
 interface BuilderInterface extends PositionableInterface
 {
     /**
-     * @param BuildableContainerInterface $container
+     * @param BuildableInterface $container
      */
-    public function build(BuildableContainerInterface $container);
+    public function build(BuildableInterface $container);
 }
