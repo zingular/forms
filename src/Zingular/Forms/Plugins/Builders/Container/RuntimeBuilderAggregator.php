@@ -13,10 +13,10 @@ use Zingular\Forms\Component\FormState;
 
 
 /**
- * Class BuilderAggregator
+ * Class RuntimeBuilderAggregator
  * @package Zingular\Form\Service\Builder
  */
-class BuilderAggregator implements RuntimeBuilderInterface
+class RuntimeBuilderAggregator implements RuntimeBuilderInterface
 {
     /**
      * @var array

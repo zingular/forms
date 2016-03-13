@@ -2,18 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Giel
- * Date: 19-2-2016
- * Time: 19:38
+ * Date: 13-3-2016
+ * Time: 22:28
  */
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
-
 /**
  * Interface RegisterableBuilderInterface
- * @package Zingular\Form\Service\Builder
+ * @package Zingular\Forms\Plugins\Builders\Container
  */
-interface RegisterableBuilderInterface extends RuntimeBuilderInterface
+interface RegisterableBuilderInterface
 {
     /**
      * @return string

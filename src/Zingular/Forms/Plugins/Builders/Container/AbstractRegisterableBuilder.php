@@ -14,7 +14,7 @@ namespace Zingular\Forms\Plugins\Builders\Container;
  * Class AbstractRegisterableBuilder
  * @package Zingular\Form\Service\Builder
  */
-abstract class AbstractRegisterableBuilder implements RegisterableBuilderInterface
+abstract class AbstractRegisterableBuilder implements RegisterableRuntimeBuilderInterface
 {
     /**
      * @var string

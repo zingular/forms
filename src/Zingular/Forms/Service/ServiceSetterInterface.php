@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service;
 
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
-use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Plugins\Evaluators\FilterInterface;
@@ -38,9 +38,9 @@ interface ServiceSetterInterface
     public function addFilterType(FilterInterface $filter);
 
     /**
-     * @param RegisterableBuilderInterface $builder
+     * @param RegisterableRuntimeBuilderInterface $builder
      */
-    public function addBuilderType(RegisterableBuilderInterface $builder);
+    public function addBuilderType(RegisterableRuntimeBuilderInterface $builder);
 
     /**
      * @param PoolableAggregatorInterface $aggregator

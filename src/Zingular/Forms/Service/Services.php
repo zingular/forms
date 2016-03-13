@@ -13,7 +13,7 @@ use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
-use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactory;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
@@ -193,9 +193,9 @@ class Services implements ServicesInterface
     }
 
     /**
-     * @param RegisterableBuilderInterface $builder
+     * @param RegisterableRuntimeBuilderInterface $builder
      */
-    public function addBuilderType(RegisterableBuilderInterface $builder)
+    public function addBuilderType(RegisterableRuntimeBuilderInterface $builder)
     {
         $this->getBuilders()->add($builder);
     }

@@ -19,7 +19,7 @@ use Zingular\Forms\CssClass;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Filter;
 use Zingular\Forms\InputType;
-use Zingular\Forms\Plugins\Builders\Container\BuilderAggregator;
+use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderAggregator;
 use Zingular\Forms\Plugins\Builders\Container\DateTimeSelectBuilder;
 use Zingular\Forms\Types;
 use Zingular\Forms\Validator;
@@ -86,7 +86,7 @@ class TestFormbuilder implements  FormBuilderInterface
             ->addFieldset('fsBirthday')
                 ->addField('fldBirthday')
                     ->addAggregator('dateSelect')
-                        ->setBuilder((new BuilderAggregator())
+                        ->setBuilder((new RuntimeBuilderAggregator())
                         ->addBuilder(new DateTimeSelectBuilder()))
                         ->setAggregationType(Aggregation::DATE_TIME_SELECT)
                         ->nextParent(3)
