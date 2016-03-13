@@ -7,7 +7,6 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Component\Elements\Contents\ContentInterface;
 
 /**
  * Class TestCompoment
@@ -15,7 +14,7 @@ use Zingular\Forms\Component\Elements\Contents\ContentInterface;
  */
 class TestCompoment implements
     CssComponentInterface,
-    ContentInterface,
+    CompilableComponentInterface,
     ViewableComponentInterface
 {
     use ComponentTrait;

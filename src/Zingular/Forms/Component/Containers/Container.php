@@ -4,14 +4,15 @@ namespace Zingular\Forms\Component\Containers;
 
 use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Builder;
+use Zingular\Forms\Component\CompilableComponentInterface;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
 use Zingular\Forms\Component\ConditionableTrait;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssComponentTrait;
-use Zingular\Forms\Component\DataInterface;
-use Zingular\Forms\Component\DataUnitInterface;
+use Zingular\Forms\Component\DataComponentInterface;
+use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Contents\ContentInterface;
 use Zingular\Forms\Component\Elements\Contents\Html;
@@ -42,7 +43,7 @@ use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
  * @package Zingular\Form
  */
 class Container extends AbstractContainer implements
-    DataInterface,
+    DataComponentInterface,
     BuildableInterface,
     CssComponentInterface,
     ViewableComponentInterface,
@@ -726,11 +727,13 @@ class Container extends AbstractContainer implements
                 // compile the child component
                 try
                 {
-                    if($component instanceof DataInterface)
+                    // if it is a data component, compile with default values
+                    if($component instanceof DataComponentInterface)
                     {
                         $component->compile($state,$defaultValues);
                     }
-                    elseif($component instanceof ContentInterface)
+                    // if it is a regular compilable component, compile with state only
+                    elseif($component instanceof CompilableComponentInterface)
                     {
                         $component->compile($state);
                     }
@@ -747,7 +750,7 @@ class Container extends AbstractContainer implements
                 }
 
                 // collect the values of the child component
-                if($component instanceof DataUnitInterface)
+                if($component instanceof DataUnitComponentInterface)
                 {
                     // if its value should be ignored, return
                     if($component->shouldIgnoreValue())
@@ -763,9 +766,9 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param DataUnitInterface $child
+     * @param DataUnitComponentInterface $child
      */
-    protected function storeValue(DataUnitInterface $child)
+    protected function storeValue(DataUnitComponentInterface $child)
     {
         // add the child to the form state
         $this->state->registerComponent($child);

@@ -102,9 +102,9 @@ class FormState
     }
 
     /**
-     * @param DataUnitInterface $component
+     * @param DataUnitComponentInterface $component
      */
-    public function registerComponent(DataUnitInterface $component)
+    public function registerComponent(DataUnitComponentInterface $component)
     {
         $this->values[$component->getFullName()] = $component->getValue();
     }

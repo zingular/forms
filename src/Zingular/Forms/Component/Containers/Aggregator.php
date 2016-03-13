@@ -10,7 +10,7 @@ namespace Zingular\Forms\Component\Containers;
 use Zingular\Forms\Aggregation;
 use Zingular\Forms\AggregationMode;
 use Zingular\Forms\Component\ConvertableTrait;
-use Zingular\Forms\Component\DataUnitInterface;
+use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\RequiredInterface;
@@ -25,7 +25,7 @@ use Zingular\Forms\RequiredMode;
  * Class Aggregator
  * @package Zingular\Form
  */
-class Aggregator extends Container implements DataUnitInterface,RequiredInterface
+class Aggregator extends Container implements DataUnitComponentInterface,RequiredInterface
 {
     use DataUnitTrait;
     use RequiredTrait;
@@ -191,9 +191,9 @@ class Aggregator extends Container implements DataUnitInterface,RequiredInterfac
     }
 
     /**
-     * @param DataUnitInterface $child
+     * @param DataUnitComponentInterface $child
      */
-    protected function storeValue(DataUnitInterface $child)
+    protected function storeValue(DataUnitComponentInterface $child)
     {
         // add the value of the component to the values of this container
         $this->values[$child->getName()] = $child->getValue();

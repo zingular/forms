@@ -9,10 +9,10 @@
 namespace Zingular\Forms\Component;
 
 /**
- * Interface DataInterface
+ * Interface DataComponentInterface
  * @package Zingular\Forms\Component
  */
-interface DataInterface extends ComponentInterface
+interface DataComponentInterface extends ComponentInterface
 {
     /**
      * @param FormState $state

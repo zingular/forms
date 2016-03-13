@@ -7,16 +7,17 @@
  */
 
 namespace Zingular\Forms\Component\Elements\Contents;
-use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Component\CompilableComponentInterface;
 
 /**
  * Interface ContentInterface
  * @package Zingular\Forms\Component\Element\Content
  */
-interface ContentInterface
+interface ContentInterface extends CompilableComponentInterface
 {
     /**
-     * @param FormState $state
+     * @return string
+     * @throws \Exception
      */
-    public function compile(FormState $state);
+    public function getContent();
 }

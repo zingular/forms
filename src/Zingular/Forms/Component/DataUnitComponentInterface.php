@@ -9,10 +9,10 @@
 namespace Zingular\Forms\Component;
 
 /**
- * Interface DataUnitInterface
+ * Interface DataUnitComponentInterface
  * @package Zingular\Form\Component
  */
-interface DataUnitInterface extends DataInterface
+interface DataUnitComponentInterface extends DataComponentInterface
 {
     /**
      * @return mixed

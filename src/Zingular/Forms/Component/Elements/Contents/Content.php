@@ -112,10 +112,9 @@ class Content extends AbstractElement implements
 
     /**
      * @param FormState $state
-     * @param array $defaultValues
      * @return string
      */
-    public function compile(FormState $state,array $defaultValues = array())
+    public function compile(FormState $state)
     {
         // store the state locally
         $this->state = $state;

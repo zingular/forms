@@ -59,6 +59,8 @@ trait ConditionableTrait
         /** @var ConditionGroup $condition */
         foreach($this->conditions as $condition)
         {
+            // TODO: see if it is condition ON and if so, add set it as selector via state
+
             $condition->execute($state);
         }
     }

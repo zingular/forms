@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component\Elements\Controls;
 use Zingular\Forms\Component\ConvertableTrait;
-use Zingular\Forms\Component\DataUnitInterface;
+use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
@@ -24,7 +24,7 @@ use Zingular\Forms\Exception\ValidationException;
  * @package Zingular\Form
  */
 abstract class AbstractControl extends AbstractElement implements
-    DataUnitInterface,
+    DataUnitComponentInterface,
     RequiredInterface,
     CssComponentInterface,
     DescribableInterface

@@ -27,7 +27,6 @@ trait ComponentTrait
      */
     protected $state;
 
-
     /**
      * @param Context $context
      */
