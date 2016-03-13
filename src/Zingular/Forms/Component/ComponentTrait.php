@@ -102,6 +102,14 @@ trait ComponentTrait
         return $this->getContext()->getIndex();
     }
 
+    /**
+     * @return string
+     */
+    public function getDataPath()
+    {
+        return $this->getContext()->getDataPath();
+    }
+
     /**********************************************************************
      * MAGIC
      *********************************************************************/

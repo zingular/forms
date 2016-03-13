@@ -151,19 +151,6 @@ class Container extends AbstractContainer implements
     }
 
     /***************************************************************
-     * DATA
-     **************************************************************/
-
-    /**
-     * @return string
-     */
-    public function getDataPath()
-    {
-        // simply return the data path of the parent (don't add anything)
-        return $this->context->getDataPath();
-    }
-
-    /***************************************************************
      * DEFINE
      **************************************************************/
 
@@ -863,14 +850,6 @@ class Container extends AbstractContainer implements
     /***************************************************************
      * CONTEXT
      **************************************************************/
-
-    /**
-     * @param Context $context
-     */
-    public function setContext(Context $context)
-    {
-        $this->context = $context;
-    }
 
     /**
      * @param $id
