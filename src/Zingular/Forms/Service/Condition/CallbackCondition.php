@@ -26,7 +26,7 @@ class CallbackCondition implements ConditionInterface
      */
     public function getName()
     {
-        Condition::CALLBACK;
+        return Condition::CALLBACK;
     }
 
     /**
