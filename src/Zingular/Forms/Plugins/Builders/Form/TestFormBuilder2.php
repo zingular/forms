@@ -67,23 +67,26 @@ class TestFormBuilder2 implements FormBuilderInterface
                 ->addInput('firstname')
                     ->setValue('tap')->next()
                 ->addInput('lastname')
-                    ->addConditionOn('firstname',Validator::MAX_LENGTH,3)
+                    //->addConditionOn('firstname',Validator::MAX_LENGTH,3)
                         ->setRequired()
                         ->setHtmlAttribute('style','background-color:black;color:white;')
-                    ->endCondition()
-                    ->addCondition(Condition::CALLBACK,function(FormState $state){return true;})
+                    //->endCondition()
+                    //->addCondition(Condition::CALLBACK,function(FormState $state){return true;})
                         ->setValue('lalala')
-                    ->endCondition()
+                    //->endCondition()
                 ->nextParent()
             ->useField('fldEmail')->next()
             ->useField('fldHobbies')->next()
             ->addButton('submit')
                 ->ignoreValue();
 
-        $form->addContainer('testCondition')
-            ->addCondition(Condition::VALUE,'lastname','leideman')
-                ->addInput('yow')->setValue('1')->next()
-                ->addInput('yow2')->setValue(2)->nextParent()
+        echo 'HE!!<BR/>';
+
+        $form->addFieldset('testCondition')
+            ->addCondition(Condition::CALLBACK,function(){return true;})
+                ->addInput('yow')->setValue(1)->next()
+                ->addCssClass('gelukt')
+                ->addInput('yow2')->setValue(2)->next()
             ->endCondition()
             ->addInput('yow3')->setValue(3);
 
@@ -105,7 +108,7 @@ class TestFormBuilder2 implements FormBuilderInterface
 
             //->applyConditions();
 
-
+        /*
         $form->addContent('testCallback')->setContentCallback(function(FormState $state,Content $content)
         {
             $hobbies = $content->getParent()
@@ -115,7 +118,7 @@ class TestFormBuilder2 implements FormBuilderInterface
 
             return $state->getValue('/hobbies',$hobbies);
         });
-
+*/
 
         if($form instanceof DescribableInterface)
         {

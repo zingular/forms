@@ -29,6 +29,7 @@ use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
+use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Service\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
@@ -36,6 +37,8 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+use Zingular\Forms\Types;
+use Zingular\Forms\Validator;
 
 
 /**
@@ -44,7 +47,7 @@ use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
  */
 class Container extends AbstractContainer implements
     DataComponentInterface,
-    BuildableInterface,
+    BuildableContainerInterface,
     CssComponentInterface,
     ViewableComponentInterface,
     ConditionableInterface
@@ -53,7 +56,7 @@ class Container extends AbstractContainer implements
     use ViewSetterTrait;
     use CssComponentTrait;
     use HtmlAttributesTrait;
-    use ConditionableTrait;
+    //use ConditionableTrait;
 
     /**
      * @var RuntimeBuilderInterface
@@ -89,6 +92,11 @@ class Container extends AbstractContainer implements
      * @var array
      */
     protected $adoptionHistory;
+
+    /**
+     * @var array
+     */
+    protected $conditions = array();
 
     /**
      * @return array
@@ -714,6 +722,12 @@ class Container extends AbstractContainer implements
                 // compile the child component
                 try
                 {
+
+                    if($component instanceof ConditionableInterface)
+                    {
+                        $component->applyConditions($state);
+                    }
+
                     // if it is a data component, compile with default values
                     if($component instanceof DataComponentInterface)
                     {
@@ -884,10 +898,71 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @return \Zingular\Forms\Service\ServiceGetterInterface
+     * @return ServiceGetterInterface
      */
     protected function getServices()
     {
         return $this->state->getServices();
+    }
+
+    /***************************************************************
+     * CONDITIONS
+     **************************************************************/
+
+    /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function addCondition($condition, ...$params)
+    {
+        // create a new condition container
+        $container = $this->addContainer('__condition__'.count($this->conditions))
+            ->setViewName(\Zingular\Forms\View::TRANSPARENT);
+
+        // create a new condition group
+        $group = new ConditionGroup($container,$condition,$params,$this);
+
+        // add the condition group to the conditions list
+        $this->conditions[] = $group;
+
+        // return the condition group
+        return $group;
+    }
+
+    /**
+     * @param string $field
+     * @param $validator
+     * @param ...$params
+     * @return static
+     */
+    public function addConditionOn($field, $validator = Validator::HAS_VALUE, ...$params)
+    {
+
+    }
+
+
+
+    /**
+     * @return static
+     */
+    public function endCondition()
+    {
+        // DUMMY METHOD TO FOOL EDI, NEVER ACTUALLY CALLED
+        return $this;
+    }
+
+    /**
+     * @param FormState $state
+     */
+    public function applyConditions(FormState $state)
+    {
+        /** @var ConditionGroup $condition */
+        foreach($this->conditions as $condition)
+        {
+            // TODO: see if it is condition ON and if so, add set it as selector via state
+
+            $condition->execute($state);
+        }
     }
 }

@@ -19,7 +19,12 @@ class ConditionGroup
     /**
      * @var ComponentInterface
      */
-    protected $component;
+    protected $subject;
+
+    /**
+     * @var ComponentInterface
+     */
+    protected $return;
 
     /**
      * @var string
@@ -37,15 +42,17 @@ class ConditionGroup
     protected $callbacks = array();
 
     /**
-     * @param ComponentInterface $component
+     * @param ComponentInterface $subject
      * @param $condition
      * @param array $params
+     * @param ComponentInterface $return
      */
-    public function __construct(ComponentInterface $component,$condition,array $params = array())
+    public function __construct(ComponentInterface $subject,$condition,array $params = array(),ComponentInterface $return = null)
     {
-        $this->component = $component;
+        $this->subject = $subject;
         $this->condition = $condition;
         $this->params = $params;
+        $this->return = is_null($return) ? $subject->getParent() : $return;
     }
 
     /**
@@ -64,16 +71,10 @@ class ConditionGroup
      */
     public function execute(FormState $state)
     {
-        // get the condition instance from the pool
-        $condition = $state->getServices()->getConditions()->get($this->condition);
-
-        // check the condition
-        $valid = $condition->isValid($this->component,$this->params,$state);
-
         // if condition was successful, apply the callbacks
-        if($valid)
+        if($this->isValid($state))
         {
-            $component = $this->component;
+            $component = $this->subject;
 
             foreach($this->callbacks as $callback)
             {
@@ -83,10 +84,23 @@ class ConditionGroup
     }
 
     /**
+     * @param FormState $state
+     * @return mixed
+     */
+    protected function isValid(FormState $state)
+    {
+        // get the condition instance from the pool
+        $condition = $state->getServices()->getConditions()->get($this->condition);
+
+        // check the condition
+        return $condition->isValid($this->subject,$this->params,$state);
+    }
+
+    /**
      * @return ComponentInterface
      */
     public function endCondition()
     {
-        return $this->component;
+        return $this->return;
     }
 }

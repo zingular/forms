@@ -33,6 +33,11 @@ interface ConditionableInterface
     /**
      * @return static
      */
+    //public function elseCondition();
+
+    /**
+     * @return static
+     */
     public function endCondition();
 
     /**
