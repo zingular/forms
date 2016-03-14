@@ -10,6 +10,7 @@ namespace Zingular\Forms\Service;
 
 
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
+use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
@@ -63,6 +64,14 @@ trait ServiceSetterTrait
     public function addBuilderType(RegisterableRuntimeBuilderInterface $builder)
     {
         $this->getServices()->addBuilderType($builder);
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     */
+    public function addFormBuilderType(FormBuilderInterface $builder)
+    {
+        $this->getServices()->addFormBuilderType($builder);
     }
 
     /**

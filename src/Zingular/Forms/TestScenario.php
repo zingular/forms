@@ -10,7 +10,7 @@ namespace Zingular\Forms;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\TestExtension;
 
-use Zingular\Forms\Plugins\Builders\Form\TestFormBuilder2;
+
 use Zingular\Forms\Service\Bridge\Orm\GetterSetterOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
 use Zingular\Forms\Service\Bridge\Orm\PublicPropertyOrmHandler;
@@ -43,6 +43,7 @@ class TestScenario
 
         // create form construct
         $construct = new Construct();
+
 
         // add extensions
         $construct->addExtension(new DefaultExtension());
@@ -79,6 +80,9 @@ class TestScenario
         // set the default translator
         $construct->setTranslator($translator);
 
+
+
+
         // orm
         $ormHandler = new OrmHandlerAggregator();
         $ppOrmHandler = new PublicPropertyOrmHandler();
@@ -94,6 +98,8 @@ class TestScenario
 
         // create a form
         $form = $construct->buildForm('testForm',Forms::TEST,$model);
+
+
 
         $form->setDefaultValue('checkit',true);
         $form->setDefaultValue('hobbies','a:3:{s:6:"hobby1";s:1:"1";s:6:"hobby2";s:1:"2";s:6:"hobby3";s:1:"6";}');

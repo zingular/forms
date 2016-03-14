@@ -10,6 +10,7 @@ namespace Zingular\Forms\Service;
 
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Plugins\Evaluators\FilterInterface;
@@ -42,6 +43,12 @@ interface ServiceSetterInterface
      */
     public function addBuilderType(RegisterableRuntimeBuilderInterface $builder);
 
+    // TODO: remove here and add only to Construct, since it makes no sense to add form builder factory to a form
+    /**
+     * @param FormBuilderInterface $builder
+     */
+    public function addFormBuilderType(FormBuilderInterface $builder);
+
     /**
      * @param PoolableAggregatorInterface $aggregator
      */
@@ -72,6 +79,7 @@ interface ServiceSetterInterface
      */
     public function setValidatorFactory(ValidatorFactoryInterface $factory);
 
+    // TODO: remove here and add only to Construct, since it makes no sense to add form builder factory to a form
     /**
      * @param FormBuilderFactoryInterface $factory
      */
