@@ -548,7 +548,7 @@ class Container extends AbstractContainer implements
 
     /**
      * @param string $field
-     * @param $validator
+     * @param string $validator
      * @param ...$params
      * @return static
      */

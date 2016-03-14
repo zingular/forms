@@ -161,6 +161,7 @@ class Construct
      */
     public function buildForm($formId,$builder,$model = null)
     {
+        // create builder if it is requested using a string
         if(is_string($builder))
         {
             $builder = $this->getServices()->getFormBuilderFactory()->create($builder);
@@ -170,6 +171,7 @@ class Construct
             throw new FormException(sprintf("Cannot build form with id '%': invalid builder type '%s'!",$formId,gettype($builder)));
         }
 
+        // actually create the form
         $form = $this->createForm($formId,$model);
 
         // first, build form-specific prototypes

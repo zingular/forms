@@ -20,6 +20,7 @@ use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
+use Zingular\Forms\Forms;
 
 
 /**
@@ -142,6 +143,15 @@ class TestFormBuilder2 implements FormBuilderInterface
         // TODO: Implement configureForm() method.
     }
 
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return Forms::TEST;
+    }
+
     /**********************************************************
      * CALLBACKS
      *********************************************************/
@@ -154,4 +164,6 @@ class TestFormBuilder2 implements FormBuilderInterface
     {
         return $context->getFormId();
     }
+
+
 }

@@ -34,4 +34,9 @@ interface FormBuilderInterface extends PositionableInterface
      * @return mixed
      */
     public function configureForm(Form $form);
+
+    /**
+     * @return string
+     */
+    public function getName();
 }

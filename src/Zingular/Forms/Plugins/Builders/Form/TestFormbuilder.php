@@ -18,6 +18,7 @@ use Zingular\Forms\Converter;
 use Zingular\Forms\CssClass;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Filter;
+use Zingular\Forms\Forms;
 use Zingular\Forms\InputType;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderAggregator;
 use Zingular\Forms\Plugins\Builders\Container\DateTimeSelectBuilder;
@@ -124,6 +125,15 @@ class TestFormbuilder implements  FormBuilderInterface
         $form->setDefaultValue('dateSelect',1234516454);
         $form->setDefaultValue('question','test');
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return Forms::TEST.'old';
+    }
+
 
     /**************************************************************************
      * CALLBACKS

@@ -93,7 +93,7 @@ class TestScenario
         $model = new TestModel();
 
         // create a form
-        $form = $construct->buildForm('testForm',new TestFormBuilder2(),$model);
+        $form = $construct->buildForm('testForm',Forms::TEST,$model);
 
         $form->setDefaultValue('checkit',true);
         $form->setDefaultValue('hobbies','a:3:{s:6:"hobby1";s:1:"1";s:6:"hobby2";s:1:"2";s:6:"hobby3";s:1:"6";}');

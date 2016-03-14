@@ -56,4 +56,12 @@ class XmlBuilder implements FormBuilderInterface
     {
         // TODO: Implement buildPrototypes() method.
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'xml';
+    }
 }

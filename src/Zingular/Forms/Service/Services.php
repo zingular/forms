@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Service;
+use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
@@ -14,6 +15,7 @@ use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
 use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
+use Zingular\Forms\Service\Builder\Container\FormBuilderPool;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactory;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
@@ -163,6 +165,11 @@ class Services implements ServicesInterface
     protected $builders;
 
     /**
+     * @var FormBuilderPool
+     */
+    protected $formBuilders;
+
+    /**
      * @var AggregatorPool
      */
     protected $aggregators;
@@ -198,6 +205,14 @@ class Services implements ServicesInterface
     public function addBuilderType(RegisterableRuntimeBuilderInterface $builder)
     {
         $this->getBuilders()->add($builder);
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     */
+    public function addFormBuilderType(FormBuilderInterface $builder)
+    {
+        $this->getFormBuilders()->add($builder);
     }
 
     /**
@@ -468,6 +483,19 @@ class Services implements ServicesInterface
         }
 
         return $this->builders;
+    }
+
+    /**
+     * @return FormBuilderPool
+     */
+    public function getFormBuilders()
+    {
+        if(is_null($this->formBuilders))
+        {
+            $this->formBuilders = new FormBuilderPool($this->getFormBuilderFactory());
+        }
+
+        return $this->formBuilders;
     }
 
     /**
