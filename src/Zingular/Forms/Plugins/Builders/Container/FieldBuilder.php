@@ -21,8 +21,9 @@ class FieldBuilder implements RuntimeBuilderInterface
     /**
      * @param BuildableInterface $container
      * @param FormState $context
+     * @param array $options
      */
-    public function build(BuildableInterface $container,FormState $context)
+    public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
         $container->addLabel('lbl'.ucfirst($container->getId()),self::POSITION_START)
             ->setFor($container)

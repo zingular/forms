@@ -19,6 +19,7 @@ interface BuilderInterface extends PositionableInterface
 {
     /**
      * @param BuildableInterface $container
+     * @param array $options
      */
-    public function build(BuildableInterface $container);
+    public function build(BuildableInterface $container,array $options = array());
 }

@@ -9,7 +9,9 @@
 namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
+use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Condition;
 
 
 /**
@@ -21,15 +23,16 @@ class FieldsetBuilder implements RuntimeBuilderInterface
     /**
      * @param BuildableInterface $container
      * @param FormState $context
+     * @param array $options
      */
-    public function build(BuildableInterface $container,FormState $context)
+    public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
         // create a legend first
-        $container->addHtmlTag('p'.ucfirst($container->getId()),self::POSITION_START)
+        $container->addHtmlTag('p' . ucfirst($container->getId()), self::POSITION_START)
             ->setTagName('p')
-            ->setTranslationKey($container->getId().'.description');
-        $container->addHtmlTag('lgnd'.ucfirst($container->getId()),self::POSITION_START)
+            ->setTranslationKey($container->getId() . '.description');
+        $container->addHtmlTag('lgnd' . ucfirst($container->getId()), self::POSITION_START)
             ->setTagName('legend')
-            ->setTranslationKey($container->getId().'.legend');
+            ->setTranslationKey($container->getId() . '.legend');
     }
 }

@@ -40,10 +40,12 @@ class CallableRuntimeBuilder implements RegisterableRuntimeBuilderInterface
     /**
      * @param BuildableInterface $container
      * @param FormState $state
+     * @param array $options
      */
-    public function build(BuildableInterface $container,FormState $state)
+    public function build(BuildableInterface $container,FormState $state,array $options = array())
     {
-        call_user_func($this->callable,$container);
+        array_unshift($options,$container,$state);
+        call_user_func_array($this->callable,$options);
     }
 
     /**

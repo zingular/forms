@@ -38,10 +38,12 @@ class CallableBuilder implements RegisterableBuilderInterface
 
     /**
      * @param BuildableInterface $container
+     * @param array $options
      */
-    public function build(BuildableInterface $container)
+    public function build(BuildableInterface $container,array $options = array())
     {
-        call_user_func($this->callable,$container);
+        array_unshift($options,$container);
+        call_user_func_array($this->callable,$options);
     }
 
     /**

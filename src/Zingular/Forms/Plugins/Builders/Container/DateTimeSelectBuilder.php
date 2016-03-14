@@ -20,8 +20,9 @@ class DateTimeSelectBuilder implements RuntimeBuilderInterface
     /**
      * @param BuildableInterface $container
      * @param FormState $context
+     * @param array $options
      */
-    public function build(BuildableInterface $container,FormState $context)
+    public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
         $container->addInput('n');
         $container->addInput('j');
