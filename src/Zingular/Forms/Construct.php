@@ -10,8 +10,16 @@ namespace Zingular\Forms;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\Prototypes;
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Extension\AggregationExtensionInterface;
+use Zingular\Forms\Extension\BuilderExtensionInterface;
+use Zingular\Forms\Extension\ConditionExtensionInterface;
+use Zingular\Forms\Extension\ConverterExtensionInterface;
 use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
+use Zingular\Forms\Extension\FilterExtensionInterface;
+use Zingular\Forms\Extension\FormBuilderExtensionInterface;
+use Zingular\Forms\Extension\FullExtensionInterface;
+use Zingular\Forms\Extension\ValidationExtensionInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
@@ -54,39 +62,66 @@ class Construct
     public function addExtension(ExtensionInterface $extension)
     {
         // add filters
-        foreach($extension->getFilters() as $filter)
+        if($extension instanceof FilterExtensionInterface)
         {
-            $this->addFilterType($filter);
+            foreach($extension->getFilters() as $filter)
+            {
+                $this->addFilterType($filter);
+            }
         }
 
         // add validators
-        foreach($extension->getValidators() as $validator)
+        if($extension instanceof ValidationExtensionInterface)
         {
-            $this->addValidatorType($validator);
+            foreach($extension->getValidators() as $validator)
+            {
+                $this->addValidatorType($validator);
+            }
         }
 
         // add builders
-        foreach($extension->getBuilders() as $builder)
+        if($extension instanceof BuilderExtensionInterface)
         {
-            $this->addBuilderType($builder);
+            foreach($extension->getBuilders() as $builder)
+            {
+                $this->addBuilderType($builder);
+            }
+        }
+
+        // add form builders
+        if($extension instanceof FormBuilderExtensionInterface)
+        {
+            foreach($extension->getFormBuilders() as $formBuilder)
+            {
+                $this->addFormBuilderType($formBuilder);
+            }
         }
 
         // add aggregators
-        foreach($extension->getAggregators() as $aggregator)
+        if($extension instanceof AggregationExtensionInterface)
         {
-            $this->addAggregatorType($aggregator);
+            foreach($extension->getAggregators() as $aggregator)
+            {
+                $this->addAggregatorType($aggregator);
+            }
         }
 
         // add conditions
-        foreach($extension->getConditions() as $condition)
+        if($extension instanceof ConditionExtensionInterface)
         {
-            $this->addConditionType($condition);
+            foreach($extension->getConditions() as $condition)
+            {
+                $this->addConditionType($condition);
+            }
         }
 
         // add converters
-        foreach($extension->getConverters() as $converter)
+        if($extension instanceof ConverterExtensionInterface)
         {
-            $this->addConverterType($converter);
+            foreach($extension->getConverters() as $converter)
+            {
+                $this->addConverterType($converter);
+            }
         }
 
         // allow extension to add prototypes

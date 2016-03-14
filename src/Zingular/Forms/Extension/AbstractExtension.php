@@ -13,7 +13,7 @@ use Zingular\Forms\Component\Containers\PrototypesInterface;
  * Class AbstractExtension
  * @package Zingular\Form\Extension
  */
-class AbstractExtension implements ExtensionInterface
+class AbstractExtension implements FullExtensionInterface
 {
     /**
      * @param PrototypesInterface $prototypes
@@ -64,6 +64,14 @@ class AbstractExtension implements ExtensionInterface
      * @return array
      */
     public function getConverters()
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormBuilders()
     {
         return array();
     }
