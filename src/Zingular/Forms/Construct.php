@@ -125,7 +125,10 @@ class Construct
         }
 
         // allow extension to add prototypes
-        $this->addPrototypes($extension);
+        if($extension instanceof PrototypeBuilderInterface)
+        {
+            $this->addPrototypes($extension);
+        }
     }
 
     /**
