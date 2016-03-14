@@ -60,7 +60,7 @@ class XmlBuilder implements FormBuilderInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getFormName()
     {
         return 'xml';
     }

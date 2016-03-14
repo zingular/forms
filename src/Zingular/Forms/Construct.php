@@ -18,7 +18,7 @@ use Zingular\Forms\Extension\DefaultExtension;
 use Zingular\Forms\Extension\ExtensionInterface;
 use Zingular\Forms\Extension\FilterExtensionInterface;
 use Zingular\Forms\Extension\FormBuilderExtensionInterface;
-use Zingular\Forms\Extension\FullExtensionInterface;
+use Zingular\Forms\Extension\PrototypeExtensionInterface;
 use Zingular\Forms\Extension\ValidationExtensionInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
@@ -125,7 +125,7 @@ class Construct
         }
 
         // allow extension to add prototypes
-        if($extension instanceof PrototypeBuilderInterface)
+        if($extension instanceof PrototypeExtensionInterface)
         {
             $this->addPrototypes($extension);
         }

@@ -40,7 +40,7 @@ class FormBuilderPool
      */
     public function add(FormBuilderInterface $builder)
     {
-        $this->pool[$builder->getName()] = $builder;
+        $this->pool[$builder->getFormName()] = $builder;
     }
 
     /**

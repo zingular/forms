@@ -8,13 +8,14 @@
 
 namespace Zingular\Forms\Extension;
 
-use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
-
 /**
  * Interface ExtensionInterface
  * @package Zingular\Forms\Extension
  */
-interface ExtensionInterface extends PrototypeBuilderInterface
+interface ExtensionInterface
 {
-
+    /**
+     * @return string
+     */
+    public function getExtensionName();
 }

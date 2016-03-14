@@ -98,7 +98,7 @@ class TestFormBuilder2 implements FormBuilderInterface
                     ->setBuilder(Builder::DATE_TIME_SELECT)
                     ->setAggregationType(Aggregation::DATE_TIME_SELECT)
                     ->setConverter(Converter::TIMESTAMP_TO_STRING)
-                ->close()
+                ->nextParent()
             ->addRow('newRow')
                 ->addInput('date')
                     ->setConverter(Converter::TIMESTAMP_TO_STRING);
@@ -147,7 +147,7 @@ class TestFormBuilder2 implements FormBuilderInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getFormName()
     {
         return Forms::TEST;
     }

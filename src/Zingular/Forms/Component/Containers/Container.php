@@ -468,15 +468,6 @@ class Container extends AbstractContainer implements
         );
     }
 
-    /**
-     * @param int $level
-     * @return Container
-     */
-    public function close($level = 1)
-    {
-        return $this->getParent($level);
-    }
-
     /***************************************************************
      * CONTEXT
      **************************************************************/
@@ -508,6 +499,12 @@ class Container extends AbstractContainer implements
 
         // call parent clone to clone all children
         parent::__clone();
+
+        // clear adoption history
+        $this->adoptionHistory = null;
+
+        // clear any runtime errors
+        $this->errors = null;
 
         // unset the current context
         $this->context = null;

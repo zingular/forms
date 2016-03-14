@@ -23,8 +23,17 @@ class TestExtension extends AbstractExtension
     {
         $prototypes->defineSelect('selecter');
 
+
         $prototypes->defineFieldset('test1234')
             ->addInput('testInput')->next()
             ->useSelect('selecter','aapje');
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtensionName()
+    {
+        return 'test';
     }
 }

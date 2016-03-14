@@ -18,7 +18,8 @@ interface FullExtensionInterface extends
     FormBuilderExtensionInterface,
     ConverterExtensionInterface,
     AggregationExtensionInterface,
-    ConditionExtensionInterface
+    ConditionExtensionInterface,
+    PrototypeExtensionInterface
 {
 
 

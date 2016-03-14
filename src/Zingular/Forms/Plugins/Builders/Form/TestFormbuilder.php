@@ -129,7 +129,7 @@ class TestFormbuilder implements  FormBuilderInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getFormName()
     {
         return Forms::TEST.'old';
     }

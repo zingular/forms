@@ -38,5 +38,5 @@ interface FormBuilderInterface extends PositionableInterface
     /**
      * @return string
      */
-    public function getName();
+    public function getFormName();
 }

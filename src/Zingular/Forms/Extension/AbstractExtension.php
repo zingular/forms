@@ -13,7 +13,7 @@ use Zingular\Forms\Component\Containers\PrototypesInterface;
  * Class AbstractExtension
  * @package Zingular\Form\Extension
  */
-class AbstractExtension implements FullExtensionInterface
+abstract class AbstractExtension implements FullExtensionInterface
 {
     /**
      * @param PrototypesInterface $prototypes

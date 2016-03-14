@@ -32,6 +32,7 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
 
         // manipulate control base prototypess
         $prototypes->getInputPrototype()->setCssBaseTypeClass('ctrl');
+        $prototypes->getCheckboxPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getSelectPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getTextareaPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getButtonPrototype()->setCssBaseTypeClass('ctrl');
@@ -42,40 +43,5 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->getHtmlPrototype()->setCssBaseTypeClass('html');
         $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('tag');
         $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('view');
-
-        /*
-        $prototypes->defineSelect('selecter');
-
-        $prototypes->defineFieldset('test1234')
-            ->addInput('testInput')->next()
-            ->useSelect('selecter','aapje');
-        */
-
-
-
-        /*
-        $original = $prototypes->getContainer('test');
-        var_dump($original);
-        $clone = clone $original;
-        echo '<hr/>';
-        var_dump($clone);
-        echo '<hr/>';
-        var_dump($clone->getInput('testInput')->getParent());
-        exit;
-        */
-        // add custom extended named prototypes
-        /*
-        $prototypes
-            ->defineFieldset('myContainer')
-                ->addField('myField')
-                    ->addSelect('mySelect')->nextParent()
-                ->addField('myField2')
-                    ->addInput('test');
-        */
-        //echo $prototypes->getComponent('myContainer')->getId();
-
-
-        //print_rf($prototypes->describe(true));
-
     }
 }

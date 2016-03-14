@@ -77,4 +77,12 @@ class DefaultExtension extends AbstractExtension
     {
         return true;
     }
+
+    /**
+     * @return string
+     */
+    public function getExtensionName()
+    {
+        return 'default';
+    }
 }
