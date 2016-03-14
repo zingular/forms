@@ -41,7 +41,15 @@ class ConditionGroup
      */
     protected $callbacks = array();
 
+    /**
+     * @var int
+     */
     protected $position;
+
+    /**
+     * @var self
+     */
+    protected $currentNestedCondition = 0;
 
     /**
      * @param ComponentInterface $subject
@@ -70,9 +78,12 @@ class ConditionGroup
 
     /**
      * @param FormState $state
+     * @return array
      */
     public function execute(FormState $state)
     {
+        $newConditions = array();
+
         // if condition was successful, apply the callbacks
         if($this->isValid($state))
         {
@@ -81,8 +92,15 @@ class ConditionGroup
             foreach($this->callbacks as $callback)
             {
                 $component = call_user_func($callback,$component);
+
+                if($component instanceof ConditionGroup)
+                {
+                    $newConditions[spl_object_hash($component)] = $component;
+                }
             }
         }
+
+        return $newConditions;
     }
 
     /**
@@ -107,10 +125,28 @@ class ConditionGroup
     }
 
     /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function addCondition($condition, ...$params)
+    {
+        $this->__call(__FUNCTION__,func_get_args());
+
+        $this->currentNestedCondition++;
+
+
+        return $this;
+    }
+
+    /**
      * @return ComponentInterface
      */
     public function endCondition()
     {
-        return $this->subject->endCondition();
+        $nested = $this->currentNestedCondition;
+        $this->currentNestedCondition--;
+
+        return $nested > 0 ? $this->subject->endCondition() : $this;
     }
 }

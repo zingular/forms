@@ -538,7 +538,7 @@ class Container extends AbstractContainer implements
     public function addCondition($condition, ...$params)
     {
         // create a new condition group
-        $group = new ConditionGroup($this,$condition,$params,count($this->conditions));
+        $group = new ConditionGroup($this,$condition,$params,count($this->components));
 
         // add the condition group to the conditions list
         $this->conditions[] = $group;
@@ -574,8 +574,17 @@ class Container extends AbstractContainer implements
      */
     public function applyConditions(FormState $state)
     {
+        $this->doApplyConditions($this->conditions,$state);
+    }
+
+    /**
+     * @param array $conditions
+     * @param FormState $state
+     */
+    protected function doApplyConditions(array $conditions,FormState $state)
+    {
         /** @var ConditionGroup $condition */
-        foreach($this->conditions as $condition)
+        foreach($conditions as $condition)
         {
             // make sure the default position is directly after the last inserted one
             $this->defaultPosition = self::POSITION_AFTER_LAST;
@@ -583,12 +592,15 @@ class Container extends AbstractContainer implements
             // set the new current position to the current number of components
             $this->lastPosition = $condition->getPosition();
 
-            // TODO: see if it is condition ON and if so, add set it as selector via state
 
-            $condition->execute($state);
+            $newConditions = $condition->execute($state);
+
+            // reset the default position to end
+            $this->lastPosition = count($this->components);
+
+
+            $this->doApplyConditions($newConditions,$state);
+
         }
-
-        // reset the default position to end
-        $this->defaultPosition = self::POSITION_END;
     }
 }
