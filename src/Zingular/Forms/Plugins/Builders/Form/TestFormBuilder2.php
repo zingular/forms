@@ -84,12 +84,16 @@ class TestFormBuilder2 implements FormBuilderInterface
         echo 'HE!!<BR/>';
 
         $form->addFieldset('testCondition')
+            ->addInput('yow0')->setValue(0)->next()
             ->addCondition(Condition::CALLBACK,function(){return true;})
                 ->addInput('yow')->setValue(1)->next()
                 ->addCssClass('gelukt')
-                ->addInput('yow2')->setValue(2)->next()
+                ->addCondition(Condition::CALLBACK,function(){return true;})
+                    ->addInput('yow2')->setValue(2)->next()
+                ->endCondition()
+                ->addInput('yow3')->setValue(3)->next()
             ->endCondition()
-            ->addInput('yow3')->setValue(3);
+            ->addInput('yow4')->setValue(4);
 
 
         $form->addFieldset('fsDates')

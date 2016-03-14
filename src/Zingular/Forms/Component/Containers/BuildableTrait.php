@@ -44,7 +44,7 @@ trait BuildableTrait
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = -1)
+    protected function adopt($name,ComponentInterface $component,$position = -2)
     {
         // implement in adopting class
     }
@@ -184,7 +184,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Content
      */
-    public function addContent($name,$position = -1)
+    public function addContent($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::CONTENT);
     }
@@ -194,7 +194,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Label
      */
-    public function addLabel($name,$position = -1)
+    public function addLabel($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::LABEL);
     }
@@ -204,7 +204,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Html
      */
-    public function addHtml($name,$position = -1)
+    public function addHtml($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::HTML);
     }
@@ -214,7 +214,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return HtmlTag
      */
-    public function addHtmlTag($name,$position = -1)
+    public function addHtmlTag($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::HTMLTAG);
     }
@@ -224,7 +224,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return View
      */
-    public function addView($name,$position = -1)
+    public function addView($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::VIEW);
     }
@@ -234,7 +234,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Input
      */
-    public function addInput($name,$position = -1)
+    public function addInput($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::INPUT);
     }
@@ -245,7 +245,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Checkbox
      */
-    public function addCheckbox($name,$position = -1)
+    public function addCheckbox($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::CHECKBOX);
     }
@@ -255,7 +255,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Hidden
      */
-    public function addHidden($name,$position = -1)
+    public function addHidden($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::HIDDEN);
     }
@@ -265,7 +265,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Select
      */
-    public function addSelect($name,$position = -1)
+    public function addSelect($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::SELECT);
     }
@@ -275,7 +275,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Textarea
      */
-    public function addTextarea($name,$position = -1)
+    public function addTextarea($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::TEXTAREA);
     }
@@ -285,7 +285,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Button
      */
-    public function addButton($name,$position = -1)
+    public function addButton($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::BUTTON);
     }
@@ -295,7 +295,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Container
      */
-    public function addContainer($name,$position = -1)
+    public function addContainer($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::CONTAINER);
     }
@@ -305,7 +305,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Aggregator
      */
-    public function addAggregator($name,$position = -1)
+    public function addAggregator($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::AGGREGATOR);
     }
@@ -315,7 +315,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Fieldset
      */
-    public function addFieldset($name,$position = -1)
+    public function addFieldset($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::FIELDSET);
     }
@@ -325,7 +325,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Container
      */
-    public function addField($name,$position = -1)
+    public function addField($name,$position = -2)
     {
         return $this->add($name,$position,BaseTypes::FIELD);
     }
@@ -335,7 +335,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Row
      */
-    public function addRow($name, $position = -1)
+    public function addRow($name, $position = -2)
     {
         return $this->add($name,$position,BaseTypes::ROW);
     }
@@ -353,7 +353,7 @@ trait BuildableTrait
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function useComponent($prototype,$as,$baseType,$baseClass,$position = -1)
+    protected function useComponent($prototype,$as,$baseType,$baseClass,$position = -2)
     {
         $as = is_null($as) ? $prototype : $as;
         return $this->adopt($as,$this->getContext()->getPrototypes()->export($baseType,$baseClass,$prototype),$position);
@@ -365,7 +365,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Label
      */
-    public function useContent($prototype,$as = null,$position = -1)
+    public function useContent($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::CONTENT,Content::class,$position);
     }
@@ -376,7 +376,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Label
      */
-    public function useLabel($prototype,$as = null,$position = -1)
+    public function useLabel($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::LABEL,Label::class,$position);
     }
@@ -387,7 +387,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Html
      */
-    public function useHtml($prototype,$as = null,$position = -1)
+    public function useHtml($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::HTML,Html::class,$position);
     }
@@ -398,7 +398,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return HtmlTag
      */
-    public function useHtmlTag($prototype,$as = null,$position = -1)
+    public function useHtmlTag($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::HTMLTAG,HtmlTag::class,$position);
 
@@ -410,7 +410,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return View
      */
-    public function useView($prototype,$as = null,$position = -1)
+    public function useView($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::VIEW,View::class,$position);
     }
@@ -421,7 +421,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Input
      */
-    public function useInput($prototype,$as = null,$position = -1)
+    public function useInput($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::INPUT,Input::class,$position);
     }
@@ -432,7 +432,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Checkbox
      */
-    public function useCheckbox($prototype,$as = null,$position = -1)
+    public function useCheckbox($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::CHECKBOX,Checkbox::class,$position);
     }
@@ -443,7 +443,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Select
      */
-    public function useSelect($prototype,$as = null,$position = -1)
+    public function useSelect($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::SELECT,Select::class,$position);
     }
@@ -454,7 +454,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Textarea
      */
-    public function useTextarea($prototype,$as = null,$position = -1)
+    public function useTextarea($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::TEXTAREA,Textarea::class,$position);
     }
@@ -465,7 +465,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Button
      */
-    public function useButton($prototype,$as = null,$position = -1)
+    public function useButton($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::BUTTON,Button::class,$position);
     }
@@ -476,7 +476,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Container
      */
-    public function useContainer($prototype,$as = null,$position = -1)
+    public function useContainer($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::CONTAINER,Container::class,$position);
     }
@@ -487,7 +487,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Aggregator
      */
-    public function useAggregator($prototype,$as = null,$position = -1)
+    public function useAggregator($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::AGGREGATOR,Aggregator::class,$position);
     }
@@ -498,7 +498,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Fieldset
      */
-    public function useFieldset($prototype,$as = null,$position = -1)
+    public function useFieldset($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::FIELDSET,Fieldset::class,$position);
     }
@@ -509,7 +509,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Field
      */
-    public function useField($prototype,$as = null,$position = -1)
+    public function useField($prototype,$as = null,$position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::FIELD,Field::class,$position);
     }
@@ -520,7 +520,7 @@ trait BuildableTrait
      * @param int|string $position
      * @return Row
      */
-    public function useRow($prototype, $as = null, $position = -1)
+    public function useRow($prototype, $as = null, $position = -2)
     {
         return $this->useComponent($prototype,$as,BaseTypes::ROW,Row::class,$position);
     }

@@ -17,12 +17,27 @@ use Zingular\Forms\Exception\FormException;
  * Class AbstractContainer
  * @package Zingular\Form\Component
  */
-abstract class AbstractContainer implements DescribableInterface
+abstract class AbstractContainer implements DescribableInterface,PositionableInterface
 {
     /**
      * @var array
      */
     protected $components = array();
+
+    /**
+     * @var int
+     */
+    protected $defaultPosition = self::POSITION_END;
+
+    /**
+     * @var int
+     */
+    protected $currentPosition = self::POSITION_END;
+
+    /**
+     * @var int
+     */
+    protected $lastPosition = self::POSITION_END;
 
     /***************************************************************
      * CLONING
@@ -58,44 +73,69 @@ abstract class AbstractContainer implements DescribableInterface
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = -1)
+    protected function adopt($name,ComponentInterface $component,$position = self::POSITION_DEFAULT)
     {
-        // append
-        if($position === -1)
-        {
-            $this->components[] = $component;
-        }
-        // prepend
-        elseif($position === 0)
-        {
-            array_unshift($this->components,$component);
-        }
-        // any indexed position
-        elseif(is_int($position) && $position > -1)
-        {
-            $count = count($this->components);
+        // store the position as default index
+        $index = $position;
 
-            if($position > $count)
-            {
-                $position = $count;
-            }
-
-            array_splice($this->components,$position,0,array($component));
-        }
         // append after component with specified name
-        elseif(is_string($position))
+        if(is_string($index))
         {
             // try to lookup component
-            $index = $this->getComponentIndex($position);
+            $afterIndex = $this->getComponentIndex($index);
 
             // if target component not found, throw exception
             if(is_null($index))
             {
-                throw new FormException(sprintf("Cannot insert component after component '%s': no such component!",$position));
+                throw new FormException(sprintf("Cannot insert component '%s' after component '%s': no such component!",$name,$position));
             }
 
-            // recursive call with new index as target position
-            return $this->adopt($name,$component,$index + 1);
+            // set the index to the after index plus one
+            $index = $afterIndex + 1;
+        }
+
+        // if index is int at this point
+        if(is_int($index) == false)
+        {
+            throw new FormException(sprintf("Cannot insert component '%s': invalid position type: '%s'",is_scalar($index) ? $index : gettype($index)));
+        }
+
+        // load the default position
+        if($index === self::POSITION_DEFAULT)
+        {
+            $index = $this->defaultPosition;
+        }
+
+        // after the last inserted index
+        if($index === self::POSITION_AFTER_LAST)
+        {
+            echo 'after last<br/>';
+            $index = max($this->lastPosition + 1,0);
+        }
+
+
+
+        // prepend
+        if($index === self::POSITION_START)
+        {
+            array_unshift($this->components,$component);
+        }
+        // append
+        elseif($index === self::POSITION_END)
+        {
+            $this->components[] = $component;
+        }
+        // any indexed position
+        elseif($index > -1)
+        {
+            $count = count($this->components);
+
+            if($index > $count)
+            {
+                $index = $count;
+            }
+
+            array_splice($this->components,$index,0,array($component));
         }
         // throw exception if incorrect position argument
         else
@@ -106,6 +146,40 @@ abstract class AbstractContainer implements DescribableInterface
         // set the context to the component
         $component->setContext($this->createContext($name));
 
+        $this->lastPosition = $index;
+
+        /*
+        if($name === 'yow')
+        {
+            echo 'yow<br/>';
+            var_dump($index);
+            echo '<hr/>';
+        }
+        if($name === 'yow2')
+        {
+            echo 'yow2<br/>';
+            var_dump($index);
+            echo '<hr/>';
+        }
+        if($name === 'yow3')
+        {
+            print_rf($this->describe());
+            echo '<br/>';
+            echo 'yow3<br/>';
+            var_dump($index);
+            echo '<hr/>';
+        }
+        if($name === 'yow4')
+        {
+
+            echo 'yow4<br/>';
+            var_dump($index);
+            echo '<hr/>';
+
+
+        }
+
+        */
         return $component;
     }
 

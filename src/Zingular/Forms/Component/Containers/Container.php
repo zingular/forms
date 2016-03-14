@@ -123,7 +123,7 @@ class Container extends AbstractContainer implements
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = -1)
+    protected function adopt($name,ComponentInterface $component,$position = self::POSITION_DEFAULT)
     {
         // add using parent method
         $component = parent::adopt($name,$component,$position);
@@ -142,6 +142,14 @@ class Container extends AbstractContainer implements
 
         // return component
         return $component;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setDefaultPosition($position = self::POSITION_END)
+    {
+        $this->defaultPosition = $position;
     }
 
     /**
@@ -529,12 +537,8 @@ class Container extends AbstractContainer implements
      */
     public function addCondition($condition, ...$params)
     {
-        // create a new condition container
-        $container = $this->addContainer('__condition__'.count($this->conditions))
-            ->setViewName(\Zingular\Forms\View::TRANSPARENT);
-
         // create a new condition group
-        $group = new ConditionGroup($container,$condition,$params,$this);
+        $group = new ConditionGroup($this,$condition,$params,count($this->conditions));
 
         // add the condition group to the conditions list
         $this->conditions[] = $group;
@@ -561,7 +565,7 @@ class Container extends AbstractContainer implements
      */
     public function endCondition()
     {
-        // DUMMY METHOD TO FOOL EDI, NEVER ACTUALLY CALLED
+        // return this container to allow regular building instead of delayed
         return $this;
     }
 
@@ -573,9 +577,18 @@ class Container extends AbstractContainer implements
         /** @var ConditionGroup $condition */
         foreach($this->conditions as $condition)
         {
+            // make sure the default position is directly after the last inserted one
+            $this->defaultPosition = self::POSITION_AFTER_LAST;
+
+            // set the new current position to the current number of components
+            $this->lastPosition = $condition->getPosition();
+
             // TODO: see if it is condition ON and if so, add set it as selector via state
 
             $condition->execute($state);
         }
+
+        // reset the default position to end
+        $this->defaultPosition = self::POSITION_END;
     }
 }

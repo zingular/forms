@@ -41,18 +41,20 @@ class ConditionGroup
      */
     protected $callbacks = array();
 
+    protected $position;
+
     /**
      * @param ComponentInterface $subject
      * @param $condition
      * @param array $params
-     * @param ComponentInterface $return
+     * @param int $position
      */
-    public function __construct(ComponentInterface $subject,$condition,array $params = array(),ComponentInterface $return = null)
+    public function __construct(ComponentInterface $subject,$condition,array $params = array(),$position = 0)
     {
         $this->subject = $subject;
         $this->condition = $condition;
         $this->params = $params;
-        $this->return = is_null($return) ? $subject->getParent() : $return;
+        $this->position = $position;
     }
 
     /**
@@ -97,10 +99,18 @@ class ConditionGroup
     }
 
     /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
      * @return ComponentInterface
      */
     public function endCondition()
     {
-        return $this->return;
+        return $this->subject->endCondition();
     }
 }
