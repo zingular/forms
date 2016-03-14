@@ -10,7 +10,8 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
-use Zingular\Forms\Exception\EvaluationException;
+use Zingular\Forms\Exception\ComponentException;
+use Zingular\Forms\Exception\AbstractEvaluationException;
 use Zingular\Forms\Exception\FormException;
 
 /**
@@ -28,7 +29,7 @@ class DefaultErrorBuilder implements RuntimeBuilderInterface
     {
         foreach($container->getErrors() as $index=>$e)
         {
-            if($e instanceof EvaluationException)
+            if($e instanceof ComponentException)
             {
                 $container->addLabel('lblError'.$index,$e->getComponent()->getId())
                     ->setFor($e->getComponent())

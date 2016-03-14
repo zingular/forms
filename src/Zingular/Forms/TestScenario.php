@@ -76,6 +76,7 @@ class TestScenario
 
         // set control names
         $translator->setTranslation('control.question','Question');
+        $translator->setTranslation('control.lastname','Lastname');
 
         // set the default translator
         $construct->setTranslator($translator);

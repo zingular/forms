@@ -581,4 +581,108 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
 
         return $clone;
     }
+
+    /***************************************************************
+     * GETTERS
+     **************************************************************/
+
+    /**
+     * @param $name
+     * @return Input
+     * @throws FormException
+     */
+    public function getInputDefinition($name)
+    {
+        return $this->getComponent($name,Input::class);
+    }
+
+    /**
+     * @param $name
+     * @return Checkbox
+     * @throws FormException
+     */
+    public function getCheckboxDefinition($name)
+    {
+        return $this->getComponent($name,Checkbox::class);
+    }
+
+    /**
+     * @param $name
+     * @return Select
+     * @throws FormException
+     */
+    public function getSelectDefinition($name)
+    {
+        return $this->getComponent($name,Select::class);
+    }
+
+    /**
+     * @param $name
+     * @return Textarea
+     * @throws FormException
+     */
+    public function getTextareaDefinition($name)
+    {
+        return $this->getComponent($name,Textarea::class);
+    }
+
+    /**
+     * @param $name
+     * @return Button
+     * @throws FormException
+     */
+    public function getButtonDefinition($name)
+    {
+        return $this->getComponent($name,Button::class);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getContainerDefinition($name)
+    {
+        return $this->getComponent($name,Container::class);
+    }
+
+    /**
+     * @param $name
+     * @return Aggregator
+     * @throws FormException
+     */
+    public function getAggregatorDefinition($name)
+    {
+        return $this->getComponent($name,Aggregator::class);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldsetDefinition($name)
+    {
+        return $this->getComponent($name,Fieldset::class);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldDefinition($name)
+    {
+        return $this->getComponent($name,Field::class);
+    }
+
+    /**
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function getRowDefinition($name)
+    {
+        return $this->getComponent($name,Row::class);
+    }
 }

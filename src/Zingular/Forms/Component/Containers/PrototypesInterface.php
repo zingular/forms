@@ -289,4 +289,78 @@ interface PrototypesInterface
      * @throws FormException
      */
     public function extendRow($parentName,$name);
+
+    /***************************************************************
+     * GETTERS
+     **************************************************************/
+
+    /**
+     * @param $name
+     * @return Input
+     * @throws FormException
+     */
+    public function getInputDefinition($name);
+
+    /**
+     * @param $name
+     * @return Checkbox
+     * @throws FormException
+     */
+    public function getCheckboxDefinition($name);
+
+    /**
+     * @param $name
+     * @return Select
+     * @throws FormException
+     */
+    public function getSelectDefinition($name);
+
+    /**
+     * @param $name
+     * @return Textarea
+     * @throws FormException
+     */
+    public function getTextareaDefinition($name);
+
+    /**
+     * @param $name
+     * @return Button
+     * @throws FormException
+     */
+    public function getButtonDefinition($name);
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getContainerDefinition($name);
+
+    /**
+     * @param $name
+     * @return Aggregator
+     * @throws FormException
+     */
+    public function getAggregatorDefinition($name);
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldsetDefinition($name);
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldDefinition($name);
+
+    /**
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function getRowDefinition($name);
 }

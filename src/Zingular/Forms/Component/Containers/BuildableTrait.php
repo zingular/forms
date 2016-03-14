@@ -49,6 +49,121 @@ trait BuildableTrait
         // implement in adopting class
     }
 
+    /**
+     * @param $name
+     * @param string $type
+     * @return ComponentInterface
+     * @throws FormException
+     */
+    protected function getComponent($name,$type = null)
+    {
+        // implement in adopting class
+    }
+
+    /***************************************************************
+     * GET
+     **************************************************************/
+
+    /**
+     * @param $name
+     * @return Input
+     * @throws FormException
+     */
+    public function getInput($name)
+    {
+        return $this->getComponent($name,Input::class);
+    }
+
+    /**
+     * @param $name
+     * @return Checkbox
+     * @throws FormException
+     */
+    public function getCheckbox($name)
+    {
+        return $this->getComponent($name,Checkbox::class);
+    }
+
+    /**
+     * @param $name
+     * @return Select
+     * @throws FormException
+     */
+    public function getSelect($name)
+    {
+        return $this->getComponent($name,Select::class);
+    }
+
+    /**
+     * @param $name
+     * @return Textarea
+     * @throws FormException
+     */
+    public function getTextarea($name)
+    {
+        return $this->getComponent($name,Textarea::class);
+    }
+
+    /**
+     * @param $name
+     * @return Button
+     * @throws FormException
+     */
+    public function getButton($name)
+    {
+        return $this->getComponent($name,Button::class);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getContainer($name)
+    {
+        return $this->getComponent($name,Container::class);
+    }
+
+    /**
+     * @param $name
+     * @return Aggregator
+     * @throws FormException
+     */
+    public function getAggregator($name)
+    {
+        return $this->getComponent($name,Aggregator::class);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldset($name)
+    {
+        return $this->getComponent($name,Fieldset::class);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getField($name)
+    {
+        return $this->getComponent($name,Field::class);
+    }
+
+    /**
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function getRow($name)
+    {
+        return $this->getComponent($name,Row::class);
+    }
+
     /***************************************************************
      * ADD
      **************************************************************/

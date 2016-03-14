@@ -43,5 +43,7 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->getHtmlPrototype()->setCssBaseTypeClass('html');
         $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('tag');
         $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('view');
+
+        //$prototypes->getContainerDefinition('cnt');
     }
 }

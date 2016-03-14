@@ -15,6 +15,8 @@ namespace Zingular\Forms\Exception;
  */
 class FormException extends \Exception
 {
+    const TYPE_GENERIC = 'generic';
+
     /**
      * @var string
      */
@@ -26,11 +28,11 @@ class FormException extends \Exception
     protected $params;
 
     /**
+     * @param string $message
      * @param string $type
      * @param array $params
-     * @param string $message
      */
-    public function __construct($type,array $params = array(),$message = '')
+    public function __construct($message = '',$type = self::TYPE_GENERIC,array $params = array())
     {
         parent::__construct($message);
         $this->type = $type;

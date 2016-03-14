@@ -93,13 +93,13 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
         // if form is already compiling
         if(!is_null($this->state))
         {
-            throw new FormException('orm.tooLateToSetModel',array(),"Cannot set ORM-model: form already compiling!");
+            throw new FormException("Cannot set ORM-model: form already compiling!",'orm.tooLateToSetModel');
         }
 
         // model should be object
         if(!is_object($model))
         {
-            throw new FormException('orm.invalidModelType',array(gettype($model)),sprintf("Cannot set ORM-model: invalid model type!",gettype($model)));
+            throw new FormException(sprintf("Cannot set ORM-model: invalid model type!",gettype($model)),'orm.invalidModelType',array(gettype($model)));
         }
 
         // store the model
@@ -711,4 +711,107 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
         return $this->context->getPrototypes()->getRowPrototype();
     }
 
+    /***************************************************************
+     * GETTERS
+     **************************************************************/
+
+    /**
+     * @param $name
+     * @return Input
+     * @throws FormException
+     */
+    public function getInputDefinition($name)
+    {
+        return $this->context->getPrototypes()->getInputDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Checkbox
+     * @throws FormException
+     */
+    public function getCheckboxDefinition($name)
+    {
+        return $this->context->getPrototypes()->getCheckboxDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Select
+     * @throws FormException
+     */
+    public function getSelectDefinition($name)
+    {
+        return $this->context->getPrototypes()->getSelectDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Textarea
+     * @throws FormException
+     */
+    public function getTextareaDefinition($name)
+    {
+        return $this->context->getPrototypes()->getTextareaDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Button
+     * @throws FormException
+     */
+    public function getButtonDefinition($name)
+    {
+        return $this->context->getPrototypes()->getButtonDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getContainerDefinition($name)
+    {
+        return $this->context->getPrototypes()->getContainerDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Aggregator
+     * @throws FormException
+     */
+    public function getAggregatorDefinition($name)
+    {
+        return $this->context->getPrototypes()->getAggregatorDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldsetDefinition($name)
+    {
+        return $this->context->getPrototypes()->getFieldsetDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Container
+     * @throws FormException
+     */
+    public function getFieldDefinition($name)
+    {
+        return $this->context->getPrototypes()->getFieldsetDefinition($name);
+    }
+
+    /**
+     * @param $name
+     * @return Row
+     * @throws FormException
+     */
+    public function getRowDefinition($name)
+    {
+        return $this->context->getPrototypes()->getRowDefinition($name);
+    }
 }

@@ -36,7 +36,7 @@ class ValidatorFactory implements ValidatorFactoryInterface
             case Validator::MIN_VALUE: return new CallableValidator($name,array($this,$name),array('min'));
             case Validator::MAX_VALUE: return new CallableValidator($name,array($this,$name),array('max'));
             case Validator::HAS_VALUE: return new CallableValidator($name,array($this,$name));
-            default: throw new FormException('validatorFactory',array(),sprintf("Cannot create validator: unknown validator type '%s'",$name));
+            default: throw new FormException(sprintf("Cannot create validator: unknown validator type '%s'",$name),'validatorFactory');
         }
     }
 

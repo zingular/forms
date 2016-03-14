@@ -42,8 +42,16 @@ class ComponentTester
             $this->preloadAll();
         }
 
-        // fire up test scenario
-        new TestScenario();
+        try
+        {
+            // fire up test scenario
+            new TestScenario();
+        }
+        catch(Exception $e)
+        {
+            var_dump($e->getMessage());
+        }
+
     }
 
     /**

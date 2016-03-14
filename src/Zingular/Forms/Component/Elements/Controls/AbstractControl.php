@@ -16,7 +16,7 @@ use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
-use Zingular\Forms\Exception\EvaluationException;
+use Zingular\Forms\Exception\AbstractEvaluationException;
 use Zingular\Forms\Exception\ValidationException;
 
 /**
@@ -65,7 +65,7 @@ abstract class AbstractControl extends AbstractElement implements
 
     /**
      * @param null $defaultValue
-     * @throws EvaluationException
+     * @throws AbstractEvaluationException
      * @throws ValidationException
      */
     public function retrieveValue($defaultValue = null)
@@ -88,7 +88,7 @@ abstract class AbstractControl extends AbstractElement implements
                 // required check
                 if($this->isRequired())
                 {
-                    throw new EvaluationException($this,'required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
+                    throw new ValidationException($this,'required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
                 }
             }
             // if there was a value from the input
