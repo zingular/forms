@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Form;
 
+use Nette\Forms\Validator;
 use Zingular\Forms\Aggregation;
 use Zingular\Forms\Builder;
 
@@ -83,7 +84,7 @@ class TestFormBuilder2 implements FormBuilderInterface
 
         $form->addFieldset('testCondition')
             ->addInput('yow0')->setValue(0)->next()
-            ->addCondition(Condition::TRUE)
+            ->addCondition(Condition::FIELD_VALUE,'/firstname',\Zingular\Forms\Validator::EQUALS,'tapa')
                 ->addInput('yow1')->setValue(1)->next()
                 ->addInput('yow1a')->setValue('1a')->next()
                 ->addInput('yow1b')->setValue('1b')->next()
