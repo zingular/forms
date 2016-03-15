@@ -19,6 +19,5 @@ class Condition
     const TRUE = 'true';
     const FALSE = 'false';
     const FIELD_VALUE = 'fieldValue';
-    const STARTS_WITH = 'startsWith';
     const CALLBACK = 'callback';
 }

@@ -13,8 +13,7 @@ use Zingular\Forms\Exception\FormException;
 
 use Zingular\Forms\Plugins\Conditions\CallableCondition;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
-use Zingular\Forms\Plugins\Conditions\StartsWithCondition;
-use Zingular\Forms\Plugins\Conditions\ValueCondition;
+use Zingular\Forms\Plugins\Conditions\FieldValueCondition;
 
 /**
  * Class ConditionFactory
@@ -35,8 +34,7 @@ class ConditionFactory implements ConditionFactoryInterface
             case Condition::VALUE: return new CallableCondition(Condition::VALUE,function(ComponentInterface $component,$value){return (bool) $value;});
             case Condition::TRUE: return new CallableCondition(Condition::TRUE,function(){return true;});
             case Condition::FALSE: return new CallableCondition(Condition::FALSE,function(){return false;});
-            case Condition::FIELD_VALUE: return new ValueCondition();
-            case Condition::STARTS_WITH: return new StartsWithCondition();
+            case Condition::FIELD_VALUE: return new FieldValueCondition();
             case Condition::CALLBACK: return new CallbackCondition();
         }
 

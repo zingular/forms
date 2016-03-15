@@ -83,7 +83,7 @@ class Container extends AbstractContainer implements
     /**
      * @var array
      */
-    protected $conditions = array();
+    protected $conditionGroups = array();
 
     /**
      * @return array
@@ -542,10 +542,21 @@ class Container extends AbstractContainer implements
         $group = new ConditionGroup($this,$condition,$params,count($this->components));
 
         // add the condition group to the conditions list
-        $this->conditions[] = $group;
+        $this->conditionGroups[] = $group;
 
         // return the condition group
         return $group;
+    }
+
+    /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function orCondition($condition, ...$params)
+    {
+        // will not actually be called
+        return $this;
     }
 
     /**
@@ -559,14 +570,13 @@ class Container extends AbstractContainer implements
         return $this;
     }
 
+
     /**
-     * @param $condition
-     * @param ...$params
      * @return static
      */
-    public function orCondition($condition, ...$params)
+    public function endCondition()
     {
-        // will not actually be called
+        // return this container to allow regular building instead of delayed
         return $this;
     }
 
@@ -582,41 +592,31 @@ class Container extends AbstractContainer implements
     }
 
 
-
-    /**
-     * @return static
-     */
-    public function endCondition()
-    {
-        // return this container to allow regular building instead of delayed
-        return $this;
-    }
-
     /**
      * @param FormState $state
      */
     public function applyConditions(FormState $state)
     {
-        $this->doApplyConditions($this->conditions,$state);
+        $this->doApplyConditions($this->conditionGroups,$state);
     }
 
     /**
-     * @param array $conditions
+     * @param array $conditionGroups
      * @param FormState $state
      */
-    protected function doApplyConditions(array $conditions,FormState $state)
+    protected function doApplyConditions(array $conditionGroups,FormState $state)
     {
-        /** @var ConditionGroup $condition */
-        foreach($conditions as $condition)
+        /** @var ConditionGroup $conditionGroup */
+        foreach($conditionGroups as $conditionGroup)
         {
             // make sure the default position is directly after the last inserted one
             $this->defaultPosition = self::POSITION_AFTER_LAST;
 
             // set the new current position to the current number of components
-            $this->lastPosition = $condition->getPosition();
+            $this->lastPosition = $conditionGroup->getPosition();
 
-
-            $newConditions = $condition->execute($state);
+            // execute and collect any additional condition groups
+            $newConditions = $conditionGroup->execute($state);
 
             // reset the default position to end
             $this->lastPosition = count($this->components);

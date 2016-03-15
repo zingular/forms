@@ -13,10 +13,10 @@ use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Validator;
 
 /**
- * Class ValueCondition
+ * Class FieldValueCondition
  * @package Zingular\Forms\Plugins\Conditions
  */
-class ValueCondition extends CallableCondition
+class FieldValueCondition extends CallableCondition
 {
     /**
      *
@@ -36,15 +36,19 @@ class ValueCondition extends CallableCondition
      */
     public function validate(ComponentInterface $source,FormState $state,$inputName,$validator = Validator::HAS_VALUE,...$params)
     {
+        // if the input has no value (NULL), always return false
         if($state->hasValue($inputName,$source->getParent()) === false)
         {
             return false;
         }
 
+        // try to get the validator from the services
         $validator = $state->getServices()->getValidators()->get($validator);
 
+        // get the current value for the target component
         $sourceValue = $state->getValue($inputName,$source->getParent());
 
+        // return if the validator validates
         return $validator->validate($sourceValue,$params);
     }
 

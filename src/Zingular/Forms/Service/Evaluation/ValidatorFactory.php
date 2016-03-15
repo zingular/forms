@@ -36,6 +36,8 @@ class ValidatorFactory implements ValidatorFactoryInterface
             case Validator::MIN_VALUE: return new CallableValidator($name,array($this,$name),array('min'));
             case Validator::MAX_VALUE: return new CallableValidator($name,array($this,$name),array('max'));
             case Validator::HAS_VALUE: return new CallableValidator($name,array($this,$name));
+            case Validator::STARTS_WITH: return new CallableValidator($name,array($this,$name));
+            case Validator::ENDS_WITH: return new CallableValidator($name,array($this,$name));
             default: throw new FormException(sprintf("Cannot create validator: unknown validator type '%s'",$name),'validatorFactory');
         }
     }
@@ -116,5 +118,25 @@ class ValidatorFactory implements ValidatorFactoryInterface
     public function maxValue($value,$maxValue = 10)
     {
         return (int) $value <= $maxValue;
+    }
+
+    /**
+     * @param $value
+     * @param $string
+     * @return bool
+     */
+    public function startsWith($value,$string)
+    {
+        return strpos($value,$string) === 0;
+    }
+
+    /**
+     * @param $value
+     * @param $string
+     * @return bool
+     */
+    public function endsWith($value,$string)
+    {
+        return strrpos($value,$string) === (mb_strlen($value) - mb_strlen($string));
     }
 }

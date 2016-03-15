@@ -37,6 +37,14 @@ trait ConditionableTrait
     }
 
     /**
+     * @return static
+     */
+    public function endCondition()
+    {
+        return $this;
+    }
+
+    /**
      * @param $field
      * @param string $validator
      * @param ...$params
@@ -65,11 +73,5 @@ trait ConditionableTrait
         }
     }
 
-    /**
-     * @return static
-     */
-    public function endCondition()
-    {
-        return $this;
-    }
+
 }

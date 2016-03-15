@@ -124,7 +124,7 @@ abstract class AbstractControl extends AbstractElement implements
      */
     protected function shouldReadInput(FormState $state)
     {
-        return $state->hasSubmit() && !$this->hasFixedValue();
+        return $state->hasSubmit() && !$this->hasFixedValue() && $state->hasInput($this->getFullName());
     }
 
     /**

@@ -8,20 +8,18 @@
 
 namespace Zingular\Forms\Plugins\Builders\Form;
 
-use Nette\Forms\Validator;
 use Zingular\Forms\Aggregation;
 use Zingular\Forms\Builder;
-
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\DescribableInterface;
-
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
 use Zingular\Forms\Forms;
+use Zingular\Forms\Validator;
 
 
 /**
@@ -83,27 +81,15 @@ class TestFormBuilder2 implements FormBuilderInterface
                 ->ignoreValue();
 
         $form->addFieldset('testCondition')
-            ->addInput('yow0')->setValue(0)->next()
-            ->addCondition(Condition::TRUE,'/firstname',\Zingular\Forms\Validator::EQUALS,'tapa')
-                ->addInput('yow1')->setValue(1)->next()
-                ->addInput('yow1a')->setValue('1a')->next()
-                ->addInput('yow1b')->setValue('1b')->next()
-                ->addCssClass('gelukt')
-                ->addCondition(Condition::TRUE)
-                    ->addInput('yow2')->setValue(2)->next()
-                    ->addInput('yow2a')->setValue('2a')->next()
-                ->endCondition()
-                ->addInput('yow3')->setValue(3)->next()
-                ->addCondition(Condition::FALSE)
-                    ->addInput('yow3a')->setValue('3a')->next()
-                    ->addInput('yow3b')->setValue('3b')->next()
-                ->elseCondition(Condition::TRUE)
-                    ->addInput('elseYow1')->setValue('elseYow1')->next()
-                ->endCondition()
+            ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::ENDS_WITH,'test')
+                ->orCondition(Condition::FALSE)
+                ->orCondition(Condition::FALSE)
+                ->addInput('sow1')->setValue('sow!')->next()
             ->elseCondition()
-                ->addLabel('elselse')->setContent('elselesee')->next()
+                ->addInput('sowElse')->setValue('sowElse')->next()
             ->endCondition()
-            ->addInput('yow4')->setValue(4);
+            ->addInput('sow2')->setValue('sow2');
+
 
 
         $form->addFieldset('fsDates')

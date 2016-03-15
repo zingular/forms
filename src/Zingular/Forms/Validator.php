@@ -21,4 +21,6 @@ class Validator
     const MAX_VALUE = 'maxValue';
     const EQUALS = 'equals';
     const HAS_VALUE = 'hasValue';
+    const STARTS_WITH = 'startsWith';
+    const ENDS_WITH = 'endsWith';
 }
