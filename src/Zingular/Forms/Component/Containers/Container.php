@@ -560,6 +560,17 @@ class Container extends AbstractContainer implements
     }
 
     /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function orCondition($condition, ...$params)
+    {
+        // will not actually be called
+        return $this;
+    }
+
+    /**
      * @param string $field
      * @param string $validator
      * @param ...$params

@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Conditions;
 use Zingular\Forms\Component\ComponentInterface;
+use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
 
@@ -23,29 +24,14 @@ class ConditionGroup
     protected $subject;
 
     /**
-     * @var ComponentInterface
+     * @var array
      */
-    protected $return;
-
-    /**
-     * @var string
-     */
-    protected $condition;
+    protected $conditions = array();
 
     /**
      * @var array
      */
-    protected $params;
-
-    /**
-     * @var string
-     */
-    protected $elseCondition;
-
-    /**
-     * @var array
-     */
-    protected $elseParams;
+    protected $elseConditions = array();
 
     /**
      * @var array
@@ -81,9 +67,26 @@ class ConditionGroup
     public function __construct(ComponentInterface $subject,$condition,array $params = array(),$position = 0)
     {
         $this->subject = $subject;
-        $this->condition = $condition;
-        $this->params = $params;
+        $this->addIfCondition($condition,$params);
         $this->position = $position;
+    }
+
+    /**
+     * @param $condition
+     * @param array $params
+     */
+    protected function addIfCondition($condition,array $params)
+    {
+        $this->conditions[] = array($condition,$params);
+    }
+
+    /**
+     * @param $condition
+     * @param array $params
+     */
+    protected function addElseCondition($condition,array $params)
+    {
+        $this->elseConditions[] = array($condition,$params);
     }
 
     /**
@@ -93,19 +96,18 @@ class ConditionGroup
      */
     public function __call($method,array $args)
     {
-        //echo $method.' - '.var_export($args,true).'<br/>';
-
-
+        // create a new callback for the call to allow delayed calling
         $callback = function ($component) use ($method, $args)
         {
-            //echo 'EXECUTING: '.$method.' - '.var_export($args,true).'<br/>';
             return call_user_func_array(array($component, $method), $args);
         };
 
-        if ($this->mode == 'if')
+        // add it to IF stack, if mode is IF
+        if($this->mode === 'if')
         {
             $this->commands[] = $callback;
         }
+        // add it to ELSE stack, if mode is ELSE
         else
         {
             $this->elseCommands[] = $callback;
@@ -120,19 +122,20 @@ class ConditionGroup
      */
     public function execute(FormState $state)
     {
-        //echo 'VALIDATING CONDITIONS<br/>';
-
-        if($this->isValid($state,$this->condition,$this->params))
+        // try to validate the IF conditions
+        if($this->validateConditions($this->conditions,$state))
         {
-            //echo 'IF is valid - '.var_export($this->params,true).'<br/>';
+            // if IF conditions succeed, process the IF commands
             return $this->processCommands($this->commands);
         }
-        elseif(is_null($this->elseCondition) || $this->isValid($state,$this->elseCondition,$this->elseParams))
+        // try to validate the ELSE conditions
+        elseif($this->validateConditions($this->elseConditions,$state))
         {
-            //echo 'ELSE is valid - '.var_export($this->params,true).'<br/>';
+            // if ELSE conditions succeed, process the ELSE commands
             return $this->processCommands($this->elseCommands);
         }
 
+        // return an empty array if no conditions validate
         return array();
     }
 
@@ -142,23 +145,53 @@ class ConditionGroup
      */
     protected function processCommands(array $commands)
     {
+        // create an array for any newly created condition groups
         $newConditions = array();
 
+        // start out with the subject component
         $component = $this->subject;
 
+        // apply each command
         foreach($commands as $callback)
         {
-            //echo 'COMPONENT IS NOW: '.$component->getId().'<br/>';
-
+            // collect its return value as the current component pointer
             $component = call_user_func($callback,$component);
 
+            // if component is another (nested) component group, store it to be recursively processed later
             if($component instanceof ConditionGroup)
             {
                 $newConditions[spl_object_hash($component)] = $component;
             }
         }
 
+        // return any nested condition groups
         return $newConditions;
+    }
+
+    /**
+     * @param array $conditions
+     * @param FormState $state
+     * @return bool
+     */
+    protected function validateConditions(array $conditions,FormState $state)
+    {
+        // if there are no conditions, it evaluates to TRUE
+        if(count($conditions) === 0)
+        {
+            return true;
+        }
+
+        // check each conditions as OR logic (ANY with true will trigger TRUE)
+        foreach($conditions as $condition)
+        {
+            if($this->conditionIsValid($state,$condition[0],$condition[1]))
+            {
+                return true;
+            }
+        }
+
+        // if NO condition validates, return false
+        return false;
     }
 
     /**
@@ -167,7 +200,7 @@ class ConditionGroup
      * @param array $params
      * @return bool
      */
-    protected function isValid(FormState $state,$condition,array $params)
+    protected function conditionIsValid(FormState $state,$condition,array $params)
     {
         // get the condition instance from the pool
         $condition = $state->getServices()->getConditions()->get($condition);
@@ -191,28 +224,61 @@ class ConditionGroup
      */
     public function addCondition($condition, ...$params)
     {
+        // log the condition call
         $this->__call(__FUNCTION__,func_get_args());
 
+        // add a level to the nested conditions
         $this->currentNestedCondition++;
-
 
         return $this;
     }
 
+    /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function orCondition($condition, ...$params)
+    {
+        // if there are currently no nested conditions, direct the or condition to this group
+        if($this->currentNestedCondition === 0)
+        {
+            // add IF condition
+            if($this->mode === 'if')
+            {
+                $this->addIfCondition($condition,$params);
+            }
+            // add ELSE condition
+            else
+            {
+                $this->addElseCondition($condition,$params);
+            }
+        }
+        else
+        {
+            $this->__call(__FUNCTION__,func_get_args());
+        }
+
+        return $this;
+    }
 
     /**
      * @param string $condition
      * @param ...$params
-     * @return $this
+     * @return static
      */
     public function elseCondition($condition = Condition::TRUE,...$params)
     {
+        // if there is no nested condition, the else was directed to this condition
         if($this->currentNestedCondition === 0)
         {
+            // swap mode to else-mode
             $this->mode = 'else';
-            $this->elseCondition = $condition;
-            $this->elseParams = $params;
+
+            // add the else condition
+            $this->addElseCondition($condition,$params);
         }
+        // if there is a nested condition, simply log the call
         else
         {
             $this->__call(__FUNCTION__,func_get_args());
