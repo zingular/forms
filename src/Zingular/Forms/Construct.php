@@ -7,7 +7,8 @@
  */
 
 namespace Zingular\Forms;
-use Zingular\Forms\Component\Containers\Form;
+
+use Zingular\Forms\Component\Containers\FormInterface;
 use Zingular\Forms\Component\Containers\Prototypes;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Extension\AggregationExtensionInterface;
@@ -171,7 +172,7 @@ class Construct
     /**
      * @param $formId
      * @param object $model
-     * @return Form
+     * @return FormInterface
      */
     public function createForm($formId,$model = null)
     {
@@ -191,13 +192,13 @@ class Construct
     }
 
     /**
-     * @param string $formId
      * @param FormBuilderInterface|string $builder
+     * @param string $formId
      * @param object $model
-     * @return Form
+     * @return FormInterface
      * @throws FormException
      */
-    public function buildForm($formId,$builder,$model = null)
+    public function buildForm($builder,$formId = null,$model = null)
     {
         // create builder if it is requested using a string
         if(is_string($builder))
@@ -208,6 +209,9 @@ class Construct
         {
             throw new FormException(sprintf("Cannot build form with id '%': invalid builder type '%s'!",$formId,gettype($builder)));
         }
+
+        // set the form id to form name by default
+        $formId = is_null($formId) ? $builder->getFormName() : $formId;
 
         // actually create the form
         $form = $this->createForm($formId,$model);

@@ -11,7 +11,8 @@ namespace Zingular\Forms\Plugins\Builders\Form;
 use Zingular\Forms\Aggregation;
 use Zingular\Forms\Builder;
 use Zingular\Forms\Component\Containers\BuildableInterface;
-use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
+
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\FormState;
@@ -20,7 +21,6 @@ use Zingular\Forms\Converter;
 use Zingular\Forms\Filter;
 use Zingular\Forms\Forms;
 use Zingular\Forms\Validator;
-
 
 /**
  * Class TestFormBuilder2
@@ -135,12 +135,12 @@ class TestFormBuilder2 implements FormBuilderInterface
     }
 
     /**
-     * @param Form $form
+     * @param ConfigurableFormInterface $form
      * @return mixed
      */
-    public function configureForm(Form $form)
+    public function configureForm(ConfigurableFormInterface $form)
     {
-        // TODO: Implement configureForm() method.
+
     }
 
 
@@ -164,6 +164,4 @@ class TestFormBuilder2 implements FormBuilderInterface
     {
         return $context->getFormId();
     }
-
-
 }

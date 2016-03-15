@@ -98,7 +98,9 @@ class TestScenario
         $model = new TestModel();
 
         // create a form
-        $form = $construct->buildForm('testForm',Forms::TEST,$model);
+        $form = $construct->buildForm(Forms::TEST,'testForm',$model);
+
+
 
 
 

@@ -11,7 +11,7 @@ namespace Zingular\Forms\Service\Evaluation;
 use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\AbstractEvaluationException;
-use Zingular\Forms\Exception\FilterException;
+
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\Plugins\Evaluators\CallableFilter;

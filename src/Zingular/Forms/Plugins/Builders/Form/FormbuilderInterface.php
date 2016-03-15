@@ -9,7 +9,8 @@
 namespace Zingular\Forms\Plugins\Builders\Form;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
-use Zingular\Forms\Component\Containers\Form;
+use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
+
 use Zingular\Forms\Component\Containers\PositionableInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 
@@ -30,10 +31,10 @@ interface FormBuilderInterface extends PositionableInterface
     public function buildForm(BuildableInterface $form);
 
     /**
-     * @param Form $form
+     * @param ConfigurableFormInterface $form
      * @return mixed
      */
-    public function configureForm(Form $form);
+    public function configureForm(ConfigurableFormInterface $form);
 
     /**
      * @return string

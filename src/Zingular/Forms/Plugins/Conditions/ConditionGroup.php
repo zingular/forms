@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Conditions;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\Containers\Form;
+
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
 

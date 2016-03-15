@@ -15,7 +15,7 @@ use Zingular\Forms\Component\DataUnitTrait;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
-use Zingular\Forms\Exception\AbstractEvaluationException;
+
 use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\ValidationException;
 use Zingular\Forms\IncompletionMode;

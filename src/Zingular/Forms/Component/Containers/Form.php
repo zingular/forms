@@ -22,7 +22,6 @@ use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Service\ServiceSetterInterface;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Method;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\Service\ServiceSetterTrait;
 use Zingular\Forms\Service\ServicesInterface;
@@ -31,7 +30,10 @@ use Zingular\Forms\Service\ServicesInterface;
  * Class Form
  * @package Zingular\Form
  */
-class Form extends Container implements PrototypesInterface,ServiceSetterInterface
+class Form extends Container implements
+    PrototypesInterface,
+    ServiceSetterInterface,
+    FormInterface
 {
     use ServiceSetterTrait;
 
@@ -125,13 +127,13 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @param string $method
      * @throws FormException
      */
-    public function setHttpMethod($method = Method::GET)
+    public function setHttpMethod($method = self::GET)
     {
         // normalize the method
         $method = strtolower($method);
 
         // check the method
-        if(!in_array($method,array(Method::GET,Method::POST)))
+        if(!in_array($method,array(self::GET,self::POST)))
         {
             throw new FormException(sprintf("Invalid form method: '%s'",$method));
         }
@@ -287,7 +289,7 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
     }
 
     /**
-     *
+     * @return bool
      */
     public function valid()
     {
