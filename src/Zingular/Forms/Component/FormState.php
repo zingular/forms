@@ -35,6 +35,16 @@ class FormState
     protected $values = array();
 
     /**
+     * @var array
+     */
+    protected $componentsByName = array();
+
+    /**
+     * @var array
+     */
+    protected $componentsById = array();
+
+    /**
      * @param Form $form
      * @param ServiceGetterInterface $services
      */
@@ -52,7 +62,7 @@ class FormState
     public function getValue($name,ContainerInterface $parent = null)
     {
         // first, make sure the path is absolute
-        $name = $this->makeAbsolute($name,$parent);
+        $name = $this->makeNameAbsolute($name,$parent);
 
         // return the value if it exists
         return array_key_exists($name,$this->values) ? $this->values[$name] : null;
@@ -73,7 +83,56 @@ class FormState
      */
     public function hasValue($name,Container $parent = null)
     {
-        return array_key_exists($this->makeAbsolute($name,$parent),$this->values);
+        return array_key_exists($this->makeNameAbsolute($name,$parent),$this->values);
+    }
+
+
+    /**
+     * @param $name
+     * @param ContainerInterface $parent
+     * @return bool
+     */
+    public function hasComponentByName($name,ContainerInterface $parent = null)
+    {
+        return array_key_exists($this->makeNameAbsolute($name,$parent),$this->componentsByName);
+    }
+
+    /**
+     * @param $name
+     * @param ContainerInterface $parent
+     * @return DataUnitComponentInterface
+     */
+    public function getComponentByName($name,ContainerInterface $parent = null)
+    {
+        // first, make sure the path is absolute
+        $name = $this->makeNameAbsolute($name,$parent);
+
+        // return the value if it exists
+        return array_key_exists($name,$this->componentsByName) ? $this->componentsByName[$name] : null;
+    }
+
+    /**
+     * @param $id
+     * @param ContainerInterface $parent
+     * @return bool
+     */
+    public function hasComponentById($id,ContainerInterface $parent = null)
+    {
+        return array_key_exists($this->makeNameAbsolute($id,$parent),$this->componentsById);
+    }
+
+    /**
+     * @param $id
+     * @param ContainerInterface $parent
+     * @return ComponentInterface
+     */
+    public function getComponentById($id,ContainerInterface $parent = null)
+    {
+        // first, make sure the path is absolute
+        $name = $this->makeNameAbsolute($id,$parent);
+
+        // return the value if it exists
+        return array_key_exists($name,$this->componentsByName) ? $this->componentsByName[$name] : null;
     }
 
     /**
@@ -88,9 +147,9 @@ class FormState
     /**
      * @param $name
      * @param ContainerInterface $parent
-     * @return mixed
+     * @return string
      */
-    protected function makeAbsolute($name,ContainerInterface $parent = null)
+    protected function makeNameAbsolute($name,ContainerInterface $parent = null)
     {
         // if it already is absolute, or no parent provided
         if($this->isAbsolute($name) || is_null($parent))
@@ -102,11 +161,38 @@ class FormState
     }
 
     /**
-     * @param DataUnitComponentInterface $component
+     * @param $id
+     * @param ContainerInterface $parent
+     * @return string
      */
-    public function registerComponent(DataUnitComponentInterface $component)
+    protected function makeIdAbsolute($id,ContainerInterface $parent = null)
     {
-        $this->values[$component->getFullName()] = $component->getValue();
+        // if it already is absolute, or no parent provided
+        if($this->isAbsolute($id) || is_null($parent))
+        {
+            return trim($id,'/');
+        }
+
+        return trim($parent->getFullId().'/'.$id,'/');
+    }
+
+    /**
+     * @param ComponentInterface $component
+     */
+    public function registerComponent(ComponentInterface $component)
+    {
+        $this->componentsById[$component->getFullId()] = $component;
+
+        // register value if it is a data unit
+        if($component instanceof DataUnitComponentInterface)
+        {
+            if(!$component->shouldIgnoreValue())
+            {
+                $this->values[$component->getFullName()] = $component->getValue();
+            }
+
+            $this->componentsByName[$component->getFullName()] = $component;
+        }
     }
 
     /**

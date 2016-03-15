@@ -12,6 +12,7 @@ use Zingular\Forms\Condition;
 use Zingular\Forms\Exception\FormException;
 
 use Zingular\Forms\Plugins\Conditions\CallableCondition;
+use Zingular\Forms\Plugins\Conditions\ComponentPropertyCondition;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Conditions\FieldValueCondition;
 
@@ -36,6 +37,7 @@ class ConditionFactory implements ConditionFactoryInterface
             case Condition::FALSE: return new CallableCondition(Condition::FALSE,function(){return false;});
             case Condition::FIELD_VALUE: return new FieldValueCondition();
             case Condition::CALLBACK: return new CallbackCondition();
+            case Condition::COMPONENT_PROPERTY: return new ComponentPropertyCondition();
         }
 
         throw new FormException(sprintf("Cannot create condition: unknown condition type '%s'",$type));

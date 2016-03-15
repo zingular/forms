@@ -2,12 +2,8 @@
 
 namespace Zingular\Forms\Component\Containers;
 use Zingular\Forms\Component\DescribableInterface;
-
-
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Context;
-
-
 use Zingular\Forms\Exception\FormException;
 
 /**

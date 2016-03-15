@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component;
+use Zingular\Forms\Condition;
 use Zingular\Forms\Validator;
 
 /**
@@ -23,6 +24,20 @@ interface ConditionableInterface
     public function addCondition($condition,...$params);
 
     /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function orCondition($condition, ...$params);
+
+    /**
+     * @param string $condition
+     * @param ...$params
+     * @return static
+     */
+    public function elseCondition($condition = Condition::TRUE,...$params);
+
+    /**
      * @param string $field
      * @param $validator
      * @param ...$params
@@ -33,15 +48,11 @@ interface ConditionableInterface
     /**
      * @return static
      */
-    //public function elseCondition();
-
-    /**
-     * @return static
-     */
     public function endCondition();
 
     /**
      * @param FormState $state
+     * @return array
      */
     public function applyConditions(FormState $state);
 }

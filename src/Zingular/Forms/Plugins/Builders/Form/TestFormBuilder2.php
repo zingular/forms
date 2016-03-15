@@ -80,7 +80,8 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->addButton('submit')
                 ->ignoreValue();
 
-        $form->addFieldset('testCondition')
+       $form->addFieldset('testCondition')
+
             ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::ENDS_WITH,'test')
                 ->orCondition(Condition::FALSE)
                 ->orCondition(Condition::FALSE)
@@ -88,8 +89,11 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->elseCondition()
                 ->addInput('sowElse')->setValue('sowElse')->next()
             ->endCondition()
-            ->addInput('sow2')->setValue('sow2');
 
+            ->addInput('sow2')->setValue('sow2')
+                ->addCondition(Condition::COMPONENT_PROPERTY,'firstname','isRequired')
+                    ->orCondition(Condition::FALSE)
+                    ->setHtmlAttribute('style','background-color:red;');
 
 
         $form->addFieldset('fsDates')

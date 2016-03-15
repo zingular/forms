@@ -120,7 +120,7 @@ class Content extends AbstractElement implements
         $this->state = $state;
 
         // apply any conditions for this content element
-        $this->applyConditions($state);
+       // $this->applyConditions($state);
 
     }
 }

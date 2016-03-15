@@ -7,6 +7,7 @@ use Zingular\Forms\Component\CompilableComponentInterface;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
+use Zingular\Forms\Component\ConditionableTrait;
 use Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\DataComponentInterface;
@@ -15,7 +16,6 @@ use Zingular\Forms\Component\Elements\Controls\AbstractControl;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
-use Zingular\Forms\Condition;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Service\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
@@ -24,8 +24,6 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
-use Zingular\Forms\Validator;
-
 
 /**
  * Class Container
@@ -43,7 +41,7 @@ class Container extends AbstractContainer implements
     use CssComponentTrait;
     use HtmlAttributesTrait;
     use BuildableTrait;
-    //use ConditionableTrait;
+    use ConditionableTrait;
 
     /**
      * @var RuntimeBuilderInterface
@@ -79,11 +77,6 @@ class Container extends AbstractContainer implements
      * @var array
      */
     protected $adoptionHistory;
-
-    /**
-     * @var array
-     */
-    protected $conditionGroups = array();
 
     /**
      * @return array
@@ -202,6 +195,27 @@ class Container extends AbstractContainer implements
         return $this;
     }
 
+
+    /**
+     * @param BuilderInterface $builder
+     * @return $this
+     * @throws FormException
+     */
+    public function applyBuilder(BuilderInterface $builder)
+    {
+        $this->applyBuilderType($builder);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setOptions($options)
+    {
+        $this->builderTypes[] = new OptionsBuilder($options);
+        return $this;
+    }
+
     /**
      * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
      * @return $this
@@ -256,25 +270,6 @@ class Container extends AbstractContainer implements
         return $this;
     }
 
-    /**
-     * @param BuilderInterface $builder
-     * @return $this
-     * @throws FormException
-     */
-    public function applyBuilder(BuilderInterface $builder)
-    {
-        $this->applyBuilderType($builder);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setOptions($options)
-    {
-        $this->builderTypes[] = new OptionsBuilder($options);
-        return $this;
-    }
 
     /***************************************************************
      * COMPILATION
@@ -379,14 +374,15 @@ class Container extends AbstractContainer implements
                 if($component instanceof DataUnitComponentInterface)
                 {
                     // if its value should be ignored, return
-                    if($component->shouldIgnoreValue())
+                    if(!$component->shouldIgnoreValue())
                     {
-                        return;
+                        // store the value
+                        $this->storeValue($component);
                     }
-
-                    // store the value
-                    $this->storeValue($component);
                 }
+
+                // add the child to the form state
+                $this->state->registerComponent($component);
             }
         }
     }
@@ -396,8 +392,7 @@ class Container extends AbstractContainer implements
      */
     protected function storeValue(DataUnitComponentInterface $child)
     {
-        // add the child to the form state
-        $this->state->registerComponent($child);
+        // DO NOTHING
     }
 
     /**
@@ -548,82 +543,4 @@ class Container extends AbstractContainer implements
         return $group;
     }
 
-    /**
-     * @param $condition
-     * @param ...$params
-     * @return static
-     */
-    public function orCondition($condition, ...$params)
-    {
-        // will not actually be called
-        return $this;
-    }
-
-    /**
-     * @param $condition
-     * @param ...$params
-     * @return static
-     */
-    public function elseCondition($condition = Condition::TRUE, ...$params)
-    {
-        // will not actually be called
-        return $this;
-    }
-
-
-    /**
-     * @return static
-     */
-    public function endCondition()
-    {
-        // return this container to allow regular building instead of delayed
-        return $this;
-    }
-
-    /**
-     * @param string $field
-     * @param string $validator
-     * @param ...$params
-     * @return static
-     */
-    public function addConditionOn($field, $validator = Validator::HAS_VALUE, ...$params)
-    {
-
-    }
-
-
-    /**
-     * @param FormState $state
-     */
-    public function applyConditions(FormState $state)
-    {
-        $this->doApplyConditions($this->conditionGroups,$state);
-    }
-
-    /**
-     * @param array $conditionGroups
-     * @param FormState $state
-     */
-    protected function doApplyConditions(array $conditionGroups,FormState $state)
-    {
-        /** @var ConditionGroup $conditionGroup */
-        foreach($conditionGroups as $conditionGroup)
-        {
-            // make sure the default position is directly after the last inserted one
-            $this->defaultPosition = self::POSITION_AFTER_LAST;
-
-            // set the new current position to the current number of components
-            $this->lastPosition = $conditionGroup->getPosition();
-
-            // execute and collect any additional condition groups
-            $newConditions = $conditionGroup->execute($state);
-
-            // reset the default position to end
-            $this->lastPosition = count($this->components);
-
-
-            $this->doApplyConditions($newConditions,$state);
-
-        }
-    }
 }

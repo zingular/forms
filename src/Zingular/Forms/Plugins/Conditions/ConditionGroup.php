@@ -9,14 +9,16 @@
 namespace Zingular\Forms\Plugins\Conditions;
 use Zingular\Forms\Component\ComponentInterface;
 
+use Zingular\Forms\Component\ConditionableInterface;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
+use Zingular\Forms\Validator;
 
 /**
  * Class ConditionGroup
  * @package Zingular\Forms\Plugins\Conditions
  */
-class ConditionGroup
+class ConditionGroup implements ConditionableInterface
 {
     /**
      * @var ComponentInterface
@@ -102,6 +104,18 @@ class ConditionGroup
     }
 
     /**
+     * @param string $field
+     * @param $validator
+     * @param ...$params
+     * @return static
+     */
+    public function addConditionOn($field, $validator = Validator::HAS_VALUE, ...$params)
+    {
+        // TODO
+        return $this;
+    }
+
+    /**
      * @param $condition
      * @param ...$params
      * @return static
@@ -162,7 +176,7 @@ class ConditionGroup
     {
         $this->currentNestedCondition--;
         $nested = $this->currentNestedCondition;
-        return $nested > 0 ? $this->subject->endCondition() : $this;
+        return $nested > 0 ? $this : $this->subject;
     }
 
     /************************************************************************
@@ -200,7 +214,7 @@ class ConditionGroup
      * @param FormState $state
      * @return array
      */
-    public function execute(FormState $state)
+    public function applyConditions(FormState $state)
     {
         // try to validate the IF conditions
         if($this->validateConditions($this->conditions,$state))
@@ -304,11 +318,12 @@ class ConditionGroup
      */
     protected function conditionIsValid(FormState $state,$condition,array $params)
     {
+        echo $condition;
+
         // get the condition instance from the pool
         $condition = $state->getServices()->getConditions()->get($condition);
 
         // check the condition
-        return $condition->isValid($this->subject,$params,$state);
+        return $condition->isValid($this->subject,$state,$params);
     }
-
 }

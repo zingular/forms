@@ -49,9 +49,9 @@ class CallableCondition implements ConditionInterface
      * @param ComponentInterface $source
      * @param array $params
      * @param FormState $state
-     * @return mixed
+     * @return bool
      */
-    public function isValid(ComponentInterface $source, array $params = array(),FormState $state)
+    public function isValid(ComponentInterface $source,FormState $state, array $params = array())
     {
         if($this->contextAware)
         {

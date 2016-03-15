@@ -20,4 +20,5 @@ class Condition
     const FALSE = 'false';
     const FIELD_VALUE = 'fieldValue';
     const CALLBACK = 'callback';
+    const COMPONENT_PROPERTY = 'componentProperty';
 }
