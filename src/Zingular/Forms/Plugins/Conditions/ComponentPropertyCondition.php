@@ -35,6 +35,10 @@ class ComponentPropertyCondition extends CallableCondition
      */
     public function validate(ComponentInterface $source, FormState $state,$target,$property)
     {
-        $state->getComponentByName($target);
+        $target = $state->getComponentByName($target);
+
+        
+
+        //echo $target->getFullId();
     }
 }
