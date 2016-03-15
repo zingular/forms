@@ -19,8 +19,8 @@ use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
 
 /**
  * Interface BuildableInterface
@@ -33,29 +33,29 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface
      **************************************************************/
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      * @param bool $post
      * @return $this
      */
     public function setBuilder($builder = null,$post = false);
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      */
     public function setErrorBuilder($builder);
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      * @return $this
      */
     public function addBuilder($builder);
 
     /**
-     * @param BuilderInterface $builder
+     * @param SimpleBuilderInterface $builder
      * @return $this
      * @throws FormException
      */
-    public function applyBuilder(BuilderInterface $builder);
+    public function applyBuilder(SimpleBuilderInterface $builder);
 
     /**
      * @return $this

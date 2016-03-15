@@ -15,7 +15,7 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 class BuilderConfig
 {
     /**
-     * @var string|BuilderInterface|RuntimeBuilderInterface|callable
+     * @var string|SimpleBuilderInterface|BuilderInterface|callable
      */
     protected $builderType;
 

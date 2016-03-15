@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Service\Evaluation;
 use Zingular\Forms\Plugins\Evaluators\FilterInterface;
+use Zingular\Forms\Plugins\Evaluators\FilterTypeInterface;
 use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 
 /**
@@ -35,16 +36,16 @@ class FilterPool
     }
 
     /**
-     * @param FilterInterface $filter
+     * @param FilterTypeInterface $filter
      */
-    public function add(FilterInterface $filter)
+    public function add(FilterTypeInterface $filter)
     {
         $this->filters[$filter->getName()] = $filter;
     }
 
     /**
      * @param string $name
-     * @return ValidatorInterface
+     * @return FilterInterface
      */
     public function get($name)
     {
@@ -54,9 +55,9 @@ class FilterPool
         }
         else
         {
-            $validator = $this->factory->create($name);
-            $this->add($validator);
-            return $validator;
+            $filter = $this->factory->create($name);
+            $this->filters[$name] = $filter;
+            return $filter;
         }
     }
 }

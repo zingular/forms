@@ -15,7 +15,7 @@ use Zingular\Forms\Component\FormState;
  * Class DateTimeContainerStrategy
  * @package Zingular\Form
  */
-class DateTimeSelectBuilder implements RuntimeBuilderInterface
+class DateTimeSelectBuilder implements BuilderInterface
 {
     /**
      * @param BuildableInterface $container

@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Aggregation;
 use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
-use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 
 /**
  * Class AggregatorPool
@@ -35,9 +35,9 @@ class AggregatorPool
     }
 
     /**
-     * @param PoolableAggregatorInterface $aggregator
+     * @param AggregatorTypeInterface $aggregator
      */
-    public function add(PoolableAggregatorInterface $aggregator)
+    public function add(AggregatorTypeInterface $aggregator)
     {
         $this->pool[$aggregator->getAggregatorName()] = $aggregator;
     }

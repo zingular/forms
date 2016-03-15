@@ -4,7 +4,8 @@ namespace Zingular\Forms\Service\Conversion;
 use Zingular\Forms\Converter;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
-use Zingular\Forms\Plugins\InternalCallableConverter;
+use Zingular\Forms\Plugins\Converters\InternalCallableConverter;
+
 
 /**
  * Class ConverterFactory

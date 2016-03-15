@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: michielleideman
- * Date: 09-03-16
- * Time: 08:58
+ * User: Giel
+ * Date: 19-2-2016
+ * Time: 19:51
  */
 
 namespace Zingular\Forms\Plugins\Builders\Container;
@@ -11,11 +11,12 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
 
+
 /**
- * Class RuntimeBuilderAdapter
- * @package Zingular\Forms\Plugins\Builders\Container
+ * Class BuilderTypeWrapper
+ * @package Zingular\Form\Service\Builder
  */
-class RuntimeBuilderAdapter implements RuntimeBuilderInterface
+class BuilderTypeWrapper extends AbstractBuilderType
 {
     /**
      * @var BuilderInterface
@@ -23,21 +24,23 @@ class RuntimeBuilderAdapter implements RuntimeBuilderInterface
     protected $builder;
 
     /**
-     * RuntimeBuilderAdapter constructor.
+     * @param $name
      * @param BuilderInterface $builder
      */
-    public function __construct(BuilderInterface $builder)
+    public function __construct($name,BuilderInterface $builder)
     {
+        parent::__construct($name);
         $this->builder = $builder;
     }
+
 
     /**
      * @param BuildableInterface $container
      * @param FormState $context
      * @param array $options
      */
-    public function build(BuildableInterface $container, FormState $context,array $options = array())
+    public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
-        $this->builder->build($container);
+        $this->builder->build($container,$context);
     }
 }

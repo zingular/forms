@@ -8,13 +8,17 @@
 
 namespace Zingular\Forms\Service;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
+use Zingular\Forms\Plugins\Conditions\ConditionTypeInterface;
+use Zingular\Forms\Plugins\Converters\ConverterTypeInterface;
+use Zingular\Forms\Plugins\Evaluators\FilterTypeInterface;
+use Zingular\Forms\Plugins\Evaluators\ValidatorTypeInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
-use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
 use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
-use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderTypeInterface;
 use Zingular\Forms\Service\Builder\Container\FormBuilderPool;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactory;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
@@ -184,25 +188,25 @@ class Services implements ServicesInterface
      *********************************************************************/
 
     /**
-     * @param ValidatorInterface $validator
+     * @param ValidatorTypeInterface $validator
      */
-    public function addValidatorType(ValidatorInterface $validator)
+    public function addValidatorType(ValidatorTypeInterface $validator)
     {
         $this->getValidators()->add($validator);
     }
 
     /**
-     * @param FilterInterface $filter
+     * @param FilterTypeInterface $filter
      */
-    public function addFilterType(FilterInterface $filter)
+    public function addFilterType(FilterTypeInterface $filter)
     {
         $this->getFilters()->add($filter);
     }
 
     /**
-     * @param RegisterableRuntimeBuilderInterface $builder
+     * @param BuilderTypeInterface $builder
      */
-    public function addBuilderType(RegisterableRuntimeBuilderInterface $builder)
+    public function addBuilderType(BuilderTypeInterface $builder)
     {
         $this->getBuilders()->add($builder);
     }
@@ -216,25 +220,25 @@ class Services implements ServicesInterface
     }
 
     /**
-     * @param PoolableAggregatorInterface $aggregator
+     * @param AggregatorTypeInterface $aggregator
      */
-    public function addAggregatorType(PoolableAggregatorInterface $aggregator)
+    public function addAggregatorType(AggregatorTypeInterface $aggregator)
     {
         $this->getAggregators()->add($aggregator);
     }
 
     /**
-     * @param ConditionInterface $condition
+     * @param ConditionTypeInterface $condition
      */
-    public function addConditionType(ConditionInterface $condition)
+    public function addConditionType(ConditionTypeInterface $condition)
     {
         $this->getConditions()->add($condition);
     }
 
     /**
-     * @param ConverterInterface $converter
+     * @param ConverterTypeInterface $converter
      */
-    public function addConverterType(ConverterInterface $converter)
+    public function addConverterType(ConverterTypeInterface $converter)
     {
         $this->getConverters()->add($converter);
     }

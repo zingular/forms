@@ -16,7 +16,7 @@ use Zingular\Forms\Component\FormState;
  * Class TestBuilder
  * @package Zingular\Form\Service\Builder
  */
-class TestBuilder implements RuntimeBuilderInterface
+class TestBuilder implements BuilderInterface
 {
     /**
      * @param BuildableInterface $container

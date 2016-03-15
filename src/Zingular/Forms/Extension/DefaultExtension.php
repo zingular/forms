@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Extension;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
-use Zingular\Forms\Plugins\Builders\Container\RegisterableBuilderWrapper;
+use Zingular\Forms\Plugins\Builders\Container\BuilderTypeWrapper;
 use Zingular\Forms\Plugins\Evaluators\CallableValidator;
 
 /**
@@ -49,7 +49,7 @@ class DefaultExtension extends AbstractExtension
     {
         return array
         (
-            new RegisterableBuilderWrapper('myBuilder',new FieldsetBuilder())
+            new BuilderTypeWrapper('myBuilder',new FieldsetBuilder())
         );
     }
 

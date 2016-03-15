@@ -9,11 +9,15 @@
 namespace Zingular\Forms\Service;
 
 
-use Zingular\Forms\Plugins\Aggregators\PoolableAggregatorInterface;
+use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
+use Zingular\Forms\Plugins\Conditions\ConditionTypeInterface;
+use Zingular\Forms\Plugins\Converters\ConverterTypeInterface;
+use Zingular\Forms\Plugins\Evaluators\FilterTypeInterface;
+use Zingular\Forms\Plugins\Evaluators\ValidatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
-use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderTypeInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
@@ -43,25 +47,25 @@ trait ServiceSetterTrait
     }
 
     /**
-     * @param ValidatorInterface $validator
+     * @param ValidatorTypeInterface $validator
      */
-    public function addValidatorType(ValidatorInterface $validator)
+    public function addValidatorType(ValidatorTypeInterface $validator)
     {
         $this->getServices()->addValidatorType($validator);
     }
 
     /**
-     * @param FilterInterface $filter
+     * @param FilterTypeInterface $filter
      */
-    public function addFilterType(FilterInterface $filter)
+    public function addFilterType(FilterTypeInterface $filter)
     {
         $this->getServices()->addFilterType($filter);
     }
 
     /**
-     * @param RegisterableRuntimeBuilderInterface $builder
+     * @param BuilderTypeInterface $builder
      */
-    public function addBuilderType(RegisterableRuntimeBuilderInterface $builder)
+    public function addBuilderType(BuilderTypeInterface $builder)
     {
         $this->getServices()->addBuilderType($builder);
     }
@@ -75,25 +79,25 @@ trait ServiceSetterTrait
     }
 
     /**
-     * @param PoolableAggregatorInterface $aggregator
+     * @param AggregatorTypeInterface $aggregator
      */
-    public function addAggregatorType(PoolableAggregatorInterface $aggregator)
+    public function addAggregatorType(AggregatorTypeInterface $aggregator)
     {
         $this->getServices()->addAggregatorType($aggregator);
     }
 
     /**
-     * @param ConditionInterface $condition
+     * @param ConditionTypeInterface $condition
      */
-    public function addConditionType(ConditionInterface $condition)
+    public function addConditionType(ConditionTypeInterface $condition)
     {
         $this->getServices()->addConditionType($condition);
     }
 
     /**
-     * @param ConverterInterface $converter
+     * @param ConverterTypeInterface $converter
      */
-    public function addConverterType(ConverterInterface $converter)
+    public function addConverterType(ConverterTypeInterface $converter)
     {
         $this->getServices()->addConverterType($converter);
     }

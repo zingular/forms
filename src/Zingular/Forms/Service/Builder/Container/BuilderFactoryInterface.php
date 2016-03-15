@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Builder\Container;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 
 /**
  * Interface BuilderFactoryInterface
@@ -17,7 +17,7 @@ interface BuilderFactoryInterface
 {
     /**
      * @param string $type
-     * @return RuntimeBuilderInterface
+     * @return BuilderInterface
      */
     public function create($type);
 }

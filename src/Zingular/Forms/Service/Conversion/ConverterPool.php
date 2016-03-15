@@ -2,6 +2,7 @@
 
 namespace Zingular\Forms\Service\Conversion;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
+use Zingular\Forms\Plugins\Converters\ConverterTypeInterface;
 
 /**
  * Class ConverterPool
@@ -28,9 +29,9 @@ class ConverterPool
     }
 
     /**
-     * @param ConverterInterface $converter
+     * @param ConverterTypeInterface $converter
      */
-    public function add(ConverterInterface $converter)
+    public function add(ConverterTypeInterface $converter)
     {
         $this->converters[$converter->getName()] = $converter;
     }
@@ -48,7 +49,7 @@ class ConverterPool
         else
         {
             $converter = $this->factory->create($name);
-            $this->add($converter);
+            $this->converters[$name] = $converter;
             return $converter;
         }
     }

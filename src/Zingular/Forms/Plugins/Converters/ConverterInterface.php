@@ -27,9 +27,4 @@ interface ConverterInterface
      * @return mixed
      */
     public function decode($value,array $params = array());
-
-    /**
-     * @return string
-     */
-    public function getName();
 }

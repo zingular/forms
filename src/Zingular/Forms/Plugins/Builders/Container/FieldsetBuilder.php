@@ -17,7 +17,7 @@ use Zingular\Forms\Component\FormState;
  * Class FieldsetBuilder
  * @package Service\Builder
  */
-class FieldsetBuilder implements RuntimeBuilderInterface
+class FieldsetBuilder implements BuilderInterface
 {
     /**
      * @param BuildableInterface $container

@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Builder\Container;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 
 /**
  * Class BuilderFactoryAggregator
@@ -23,7 +23,7 @@ class BuilderFactoryAggregator implements BuilderFactoryInterface
 
     /**
      * @param string $type
-     * @return RuntimeBuilderInterface
+     * @return BuilderInterface
      * @throws FormException
      */
     public function create($type)

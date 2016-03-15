@@ -10,10 +10,10 @@ namespace Zingular\Forms\Plugins\Aggregators;
 
 
 /**
- * Interface PoolableAggregatorInterface
+ * Interface AggregatorTypeInterface
  * @package Zingular\Form\Service\Aggregation
  */
-interface PoolableAggregatorInterface extends AggregatorInterface
+interface AggregatorTypeInterface extends AggregatorInterface
 {
     /**
      * @return string

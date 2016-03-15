@@ -11,12 +11,11 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
 
-
 /**
  * Class FieldBuilder
  * @package Zingular\Form\Service\Builder
  */
-class FieldBuilder implements RuntimeBuilderInterface
+class FieldBuilder implements BuilderInterface
 {
     /**
      * @param BuildableInterface $container

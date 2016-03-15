@@ -14,8 +14,5 @@ namespace Zingular\Forms\Plugins\Evaluators;
  */
 interface EvaluatorInterface
 {
-    /**
-     * @return string
-     */
-    public function getName();
+
 }

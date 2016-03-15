@@ -13,10 +13,10 @@ use Zingular\Forms\Component\FormState;
 
 
 /**
- * Class RuntimeBuilderAggregator
+ * Class BuilderAggregator
  * @package Zingular\Form\Service\Builder
  */
-class RuntimeBuilderAggregator implements RuntimeBuilderInterface
+class BuilderAggregator implements BuilderInterface
 {
     /**
      * @var array
@@ -24,10 +24,20 @@ class RuntimeBuilderAggregator implements RuntimeBuilderInterface
     protected $builders = array();
 
     /**
-     * @param RuntimeBuilderInterface $builder
+     * @param BuilderInterface $builder
      * @return $this
      */
-    public function addBuilder(RuntimeBuilderInterface $builder)
+    public function addBuilder(BuilderInterface $builder)
+    {
+        $this->builders[] = $builder;
+        return $this;
+    }
+
+    /**
+     * @param SimpleBuilderInterface $builder
+     * @return $this
+     */
+    public function addSimpleBuilder(SimpleBuilderInterface $builder)
     {
         $this->builders[] = $builder;
         return $this;
@@ -40,10 +50,16 @@ class RuntimeBuilderAggregator implements RuntimeBuilderInterface
      */
     public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
-        /** @var RuntimeBuilderInterface $builder */
         foreach($this->builders as $builder)
         {
-            $builder->build($container,$context);
+            if($builder instanceof BuilderInterface)
+            {
+                $builder->build($container,$context,$options);
+            }
+            elseif($builder instanceof SimpleBuilderInterface)
+            {
+                $builder->build($container,$options);
+            }
         }
     }
 }

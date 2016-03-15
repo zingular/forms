@@ -10,13 +10,13 @@ namespace Zingular\Forms\Plugins\Builders\Options;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Container;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 
 /**
  * Class OptionsBuilder
  * @package Zingular\Form\Service\Builder
  */
-class OptionsBuilder extends AbstractOptionsBuilder implements RuntimeBuilderInterface
+class OptionsBuilder extends AbstractOptionsBuilder implements BuilderInterface
 {
     /**
      * @param $groupName

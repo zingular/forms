@@ -2,26 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: Giel
- * Date: 6-2-2016
- * Time: 12:13
+ * Date: 3-3-2016
+ * Time: 20:47
  */
 
 namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\PositionableInterface;
-use Zingular\Forms\Component\FormState;
 
 /**
- * Interface BuilderInterface
- * @package Service\Builder
+ * Interface SimpleBuilderInterface
+ * @package Zingular\Forms\Service\Builder
  */
-interface BuilderInterface extends PositionableInterface
+interface SimpleBuilderInterface extends PositionableInterface
 {
     /**
      * @param BuildableInterface $container
-     * @param FormState $context
      * @param array $options
      */
-    public function build(BuildableInterface $container,FormState $context,array $options = array());
+    public function build(BuildableInterface $container,array $options = array());
 }

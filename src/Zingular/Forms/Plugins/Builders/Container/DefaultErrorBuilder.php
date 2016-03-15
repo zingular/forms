@@ -18,7 +18,7 @@ use Zingular\Forms\Exception\FormException;
  * Class DefaultErrorBuilder
  * @package Zingular\Forms\Plugins\Builders\Error
  */
-class DefaultErrorBuilder implements RuntimeBuilderInterface
+class DefaultErrorBuilder implements BuilderInterface
 {
     /**
      * @param BuildableInterface $container

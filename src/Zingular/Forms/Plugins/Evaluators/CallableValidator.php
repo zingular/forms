@@ -13,7 +13,7 @@ namespace Zingular\Forms\Plugins\Evaluators;
  * Class CallableValidator
  * @package Zingular\Form\Evaluation\Evaluator
  */
-class CallableValidator extends AbstractCallableEvaluator implements ValidatorInterface
+class CallableValidator extends AbstractCallableEvaluator implements ValidatorTypeInterface
 {
     /**
      * @param mixed $value

@@ -6,15 +6,13 @@
  * Time: 12:25
  */
 
-namespace Zingular\Forms\Plugins;
-
-use Zingular\Forms\Plugins\Converters\ConverterInterface;
+namespace Zingular\Forms\Plugins\Converters;
 
 /**
  * Class CallableConverter
  * @package Zingular\Forms\Plugins
  */
-class CallableConverter implements ConverterInterface
+class CallableConverter implements ConverterTypeInterface
 {
     /**
      * @var string

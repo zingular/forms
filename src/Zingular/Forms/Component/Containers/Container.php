@@ -21,9 +21,9 @@ use Zingular\Forms\Service\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
-use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
+use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
 
 /**
  * Class Container
@@ -44,12 +44,12 @@ class Container extends AbstractContainer implements
     use ConditionableTrait;
 
     /**
-     * @var RuntimeBuilderInterface
+     * @var BuilderInterface
      */
     protected $preBuilder;
 
     /**
-     * @var RuntimeBuilderInterface
+     * @var BuilderInterface
      */
     protected $postBuilder;
 
@@ -159,7 +159,7 @@ class Container extends AbstractContainer implements
      **************************************************************/
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      * @param bool $post
      * @return $this
      */
@@ -178,7 +178,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      */
     public function setErrorBuilder($builder)
     {
@@ -186,7 +186,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      * @return $this
      */
     public function addBuilder($builder)
@@ -197,11 +197,11 @@ class Container extends AbstractContainer implements
 
 
     /**
-     * @param BuilderInterface $builder
+     * @param SimpleBuilderInterface $builder
      * @return $this
      * @throws FormException
      */
-    public function applyBuilder(BuilderInterface $builder)
+    public function applyBuilder(SimpleBuilderInterface $builder)
     {
         $this->applyBuilderType($builder);
         return $this;
@@ -217,7 +217,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param string|BuilderInterface|RuntimeBuilderInterface|callable $builder
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      * @return $this
      * @throws FormException
      */
@@ -245,17 +245,17 @@ class Container extends AbstractContainer implements
         }
 
         // if it is a simple builder
-        if($builder instanceof BuilderInterface)
+        if($builder instanceof SimpleBuilderInterface)
         {
             $builder->build($this);
         }
         // if it is a runtime builder, also provide the state
-        elseif($builder instanceof RuntimeBuilderInterface)
+        elseif($builder instanceof BuilderInterface)
         {
             // check if there actually is a form state
             if(is_null($this->state))
             {
-                throw new FormException(sprintf("Cannot apply builder of type RuntimeBuilderInterface: runtime builders can only be applied run-time, not definition-time (%s). Use instance of BuilderInterface instead!",get_class($builder)));
+                throw new FormException(sprintf("Cannot apply builder of type BuilderInterface: runtime builders can only be applied run-time, not definition-time (%s). Use instance of SimpleBuilderInterface instead!",get_class($builder)));
             }
 
             // apply the runtime builder
@@ -264,7 +264,7 @@ class Container extends AbstractContainer implements
         // if anyting else: throw exception
         else
         {
-            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, (Runtime)BuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
+            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, (Runtime)SimpleBuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
         }
 
         return $this;

@@ -7,8 +7,8 @@
  */
 
 namespace Zingular\Forms\Service\Builder\Container;
-use Zingular\Forms\Plugins\Builders\Container\RegisterableRuntimeBuilderInterface;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderTypeInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 
 
 /**
@@ -36,9 +36,9 @@ class BuilderPool
     }
 
     /**
-     * @param RegisterableRuntimeBuilderInterface $builder
+     * @param BuilderTypeInterface $builder
      */
-    public function add(RegisterableRuntimeBuilderInterface $builder)
+    public function add(BuilderTypeInterface $builder)
     {
         $this->pool[$builder->getBuilderName()] = $builder;
     }
@@ -54,7 +54,7 @@ class BuilderPool
 
     /**
      * @param string $name
-     * @return RuntimeBuilderInterface
+     * @return BuilderInterface
      */
     public function get($name)
     {

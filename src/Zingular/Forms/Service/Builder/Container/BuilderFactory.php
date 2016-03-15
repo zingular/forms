@@ -12,7 +12,7 @@ use Zingular\Forms\Builder;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\FieldBuilder;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
-use Zingular\Forms\Plugins\Builders\Container\RuntimeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 use Zingular\Forms\Plugins\Builders\Container\DefaultErrorBuilder;
 use Zingular\Forms\Plugins\Builders\Container\DateTimeSelectBuilder;
 
@@ -24,7 +24,7 @@ class BuilderFactory implements BuilderFactoryInterface
 {
     /**
      * @param $type
-     * @return RuntimeBuilderInterface
+     * @return BuilderInterface
      * @throws FormException
      */
     public function create($type)

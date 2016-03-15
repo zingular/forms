@@ -11,6 +11,7 @@ namespace Zingular\Forms\Service\Condition;
 
 
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
+use Zingular\Forms\Plugins\Conditions\ConditionTypeInterface;
 
 /**
  * Class ConditionPool
@@ -37,9 +38,9 @@ class ConditionPool
     }
 
     /**
-     * @param ConditionInterface $condition
+     * @param ConditionTypeInterface $condition
      */
-    public function add(ConditionInterface $condition)
+    public function add(ConditionTypeInterface $condition)
     {
         $this->pool[$condition->getName()] = $condition;
     }

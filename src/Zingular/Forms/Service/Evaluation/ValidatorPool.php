@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Service\Evaluation;
-use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
+use Zingular\Forms\Plugins\Evaluators\ValidatorTypeInterface;
 
 /**
  * Class ValidatorPool
@@ -34,16 +34,16 @@ class ValidatorPool
     }
 
     /**
-     * @param ValidatorInterface $validator
+     * @param ValidatorTypeInterface $validator
      */
-    public function add(ValidatorInterface $validator)
+    public function add(ValidatorTypeInterface $validator)
     {
         $this->validators[$validator->getName()] = $validator;
     }
 
     /**
      * @param string $name
-     * @return ValidatorInterface
+     * @return ValidatorTypeInterface
      */
     public function get($name)
     {
@@ -54,7 +54,7 @@ class ValidatorPool
         else
         {
             $validator = $this->factory->create($name);
-            $this->add($validator);
+            $this->validators[$name] = $validator;
             return $validator;
         }
     }

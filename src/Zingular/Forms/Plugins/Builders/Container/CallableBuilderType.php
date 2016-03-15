@@ -9,12 +9,13 @@
 namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
+use Zingular\Forms\Component\FormState;
 
 /**
  * Class CallableBuilder
  * @package Zingular\Form\Service\Builder
  */
-class CallableBuilder implements RegisterableBuilderInterface
+class CallableBuilderType implements BuilderTypeInterface
 {
     /**
      * @var string
@@ -38,11 +39,12 @@ class CallableBuilder implements RegisterableBuilderInterface
 
     /**
      * @param BuildableInterface $container
+     * @param FormState $state
      * @param array $options
      */
-    public function build(BuildableInterface $container,array $options = array())
+    public function build(BuildableInterface $container,FormState $state,array $options = array())
     {
-        array_unshift($options,$container);
+        array_unshift($options,$container,$state);
         call_user_func_array($this->callable,$options);
     }
 

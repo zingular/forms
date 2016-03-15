@@ -19,11 +19,6 @@ use Zingular\Forms\Component\FormState;
 interface ConditionInterface
 {
     /**
-     * @return string
-     */
-    public function getName();
-
-    /**
      * @param ComponentInterface $source
      * @param array $params
      * @param FormState $state

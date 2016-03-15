@@ -6,7 +6,7 @@
  * Time: 12:32
  */
 
-namespace Zingular\Forms\Plugins;
+namespace Zingular\Forms\Plugins\Converters;
 
 /**
  * Class InternalCallableConverter
