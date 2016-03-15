@@ -720,9 +720,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Input
      * @throws FormException
      */
-    public function getInputDefinition($name)
+    public function getDefinedInput($name)
     {
-        return $this->context->getPrototypes()->getInputDefinition($name);
+        return $this->context->getPrototypes()->getDefinedInput($name);
     }
 
     /**
@@ -730,9 +730,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Checkbox
      * @throws FormException
      */
-    public function getCheckboxDefinition($name)
+    public function getDefinedCheckbox($name)
     {
-        return $this->context->getPrototypes()->getCheckboxDefinition($name);
+        return $this->context->getPrototypes()->getDefinedCheckbox($name);
     }
 
     /**
@@ -740,9 +740,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Select
      * @throws FormException
      */
-    public function getSelectDefinition($name)
+    public function getDefinedSelect($name)
     {
-        return $this->context->getPrototypes()->getSelectDefinition($name);
+        return $this->context->getPrototypes()->getDefinedSelect($name);
     }
 
     /**
@@ -750,9 +750,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Textarea
      * @throws FormException
      */
-    public function getTextareaDefinition($name)
+    public function getDefinedTextarea($name)
     {
-        return $this->context->getPrototypes()->getTextareaDefinition($name);
+        return $this->context->getPrototypes()->getDefinedTextarea($name);
     }
 
     /**
@@ -760,9 +760,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Button
      * @throws FormException
      */
-    public function getButtonDefinition($name)
+    public function getDefinedButton($name)
     {
-        return $this->context->getPrototypes()->getButtonDefinition($name);
+        return $this->context->getPrototypes()->getDefinedButton($name);
     }
 
     /**
@@ -770,9 +770,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Container
      * @throws FormException
      */
-    public function getContainerDefinition($name)
+    public function getDefinedContainer($name)
     {
-        return $this->context->getPrototypes()->getContainerDefinition($name);
+        return $this->context->getPrototypes()->getDefinedContainer($name);
     }
 
     /**
@@ -780,9 +780,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Aggregator
      * @throws FormException
      */
-    public function getAggregatorDefinition($name)
+    public function getDefinedAggregator($name)
     {
-        return $this->context->getPrototypes()->getAggregatorDefinition($name);
+        return $this->context->getPrototypes()->getDefinedAggregator($name);
     }
 
     /**
@@ -790,9 +790,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Container
      * @throws FormException
      */
-    public function getFieldsetDefinition($name)
+    public function getDefinedFieldset($name)
     {
-        return $this->context->getPrototypes()->getFieldsetDefinition($name);
+        return $this->context->getPrototypes()->getDefinedFieldset($name);
     }
 
     /**
@@ -800,9 +800,9 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Container
      * @throws FormException
      */
-    public function getFieldDefinition($name)
+    public function getDefinedField($name)
     {
-        return $this->context->getPrototypes()->getFieldsetDefinition($name);
+        return $this->context->getPrototypes()->getDefinedFieldset($name);
     }
 
     /**
@@ -810,8 +810,8 @@ class Form extends Container implements PrototypesInterface,ServiceSetterInterfa
      * @return Row
      * @throws FormException
      */
-    public function getRowDefinition($name)
+    public function getDefinedRow($name)
     {
-        return $this->context->getPrototypes()->getRowDefinition($name);
+        return $this->context->getPrototypes()->getDefinedRow($name);
     }
 }

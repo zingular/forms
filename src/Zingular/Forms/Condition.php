@@ -16,6 +16,9 @@ namespace Zingular\Forms;
 class Condition
 {
     const VALUE = 'value';
+    const TRUE = 'true';
+    const FALSE = 'false';
+    const FIELD_VALUE = 'fieldValue';
     const STARTS_WITH = 'startsWith';
     const CALLBACK = 'callback';
 }

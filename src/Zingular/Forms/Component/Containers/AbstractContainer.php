@@ -109,7 +109,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
         // after the last inserted index
         if($index === self::POSITION_AFTER_LAST)
         {
-            echo 'after last<br/>';
+            //echo 'after last<br/>';
             $index = max($this->lastPosition + 1,0);
         }
 

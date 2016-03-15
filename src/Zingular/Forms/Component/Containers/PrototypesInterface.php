@@ -299,68 +299,68 @@ interface PrototypesInterface
      * @return Input
      * @throws FormException
      */
-    public function getInputDefinition($name);
+    public function getDefinedInput($name);
 
     /**
      * @param $name
      * @return Checkbox
      * @throws FormException
      */
-    public function getCheckboxDefinition($name);
+    public function getDefinedCheckbox($name);
 
     /**
      * @param $name
      * @return Select
      * @throws FormException
      */
-    public function getSelectDefinition($name);
+    public function getDefinedSelect($name);
 
     /**
      * @param $name
      * @return Textarea
      * @throws FormException
      */
-    public function getTextareaDefinition($name);
+    public function getDefinedTextarea($name);
 
     /**
      * @param $name
      * @return Button
      * @throws FormException
      */
-    public function getButtonDefinition($name);
+    public function getDefinedButton($name);
 
     /**
      * @param $name
      * @return Container
      * @throws FormException
      */
-    public function getContainerDefinition($name);
+    public function getDefinedContainer($name);
 
     /**
      * @param $name
      * @return Aggregator
      * @throws FormException
      */
-    public function getAggregatorDefinition($name);
+    public function getDefinedAggregator($name);
 
     /**
      * @param $name
      * @return Container
      * @throws FormException
      */
-    public function getFieldsetDefinition($name);
+    public function getDefinedFieldset($name);
 
     /**
      * @param $name
      * @return Container
      * @throws FormException
      */
-    public function getFieldDefinition($name);
+    public function getDefinedField($name);
 
     /**
      * @param $name
      * @return Row
      * @throws FormException
      */
-    public function getRowDefinition($name);
+    public function getDefinedRow($name);
 }

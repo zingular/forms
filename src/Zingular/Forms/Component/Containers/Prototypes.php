@@ -591,7 +591,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Input
      * @throws FormException
      */
-    public function getInputDefinition($name)
+    public function getDefinedInput($name)
     {
         return $this->getComponent($name,Input::class);
     }
@@ -601,7 +601,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Checkbox
      * @throws FormException
      */
-    public function getCheckboxDefinition($name)
+    public function getDefinedCheckbox($name)
     {
         return $this->getComponent($name,Checkbox::class);
     }
@@ -611,7 +611,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Select
      * @throws FormException
      */
-    public function getSelectDefinition($name)
+    public function getDefinedSelect($name)
     {
         return $this->getComponent($name,Select::class);
     }
@@ -621,7 +621,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Textarea
      * @throws FormException
      */
-    public function getTextareaDefinition($name)
+    public function getDefinedTextarea($name)
     {
         return $this->getComponent($name,Textarea::class);
     }
@@ -631,7 +631,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Button
      * @throws FormException
      */
-    public function getButtonDefinition($name)
+    public function getDefinedButton($name)
     {
         return $this->getComponent($name,Button::class);
     }
@@ -641,7 +641,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Container
      * @throws FormException
      */
-    public function getContainerDefinition($name)
+    public function getDefinedContainer($name)
     {
         return $this->getComponent($name,Container::class);
     }
@@ -651,7 +651,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Aggregator
      * @throws FormException
      */
-    public function getAggregatorDefinition($name)
+    public function getDefinedAggregator($name)
     {
         return $this->getComponent($name,Aggregator::class);
     }
@@ -661,7 +661,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Container
      * @throws FormException
      */
-    public function getFieldsetDefinition($name)
+    public function getDefinedFieldset($name)
     {
         return $this->getComponent($name,Fieldset::class);
     }
@@ -671,7 +671,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Container
      * @throws FormException
      */
-    public function getFieldDefinition($name)
+    public function getDefinedField($name)
     {
         return $this->getComponent($name,Field::class);
     }
@@ -681,7 +681,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      * @return Row
      * @throws FormException
      */
-    public function getRowDefinition($name)
+    public function getDefinedRow($name)
     {
         return $this->getComponent($name,Row::class);
     }

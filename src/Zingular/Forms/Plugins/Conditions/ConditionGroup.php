@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Plugins\Conditions;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Condition;
 
 /**
  * Class ConditionGroup
@@ -37,9 +38,24 @@ class ConditionGroup
     protected $params;
 
     /**
+     * @var string
+     */
+    protected $elseCondition;
+
+    /**
      * @var array
      */
-    protected $callbacks = array();
+    protected $elseParams;
+
+    /**
+     * @var array
+     */
+    protected $commands = array();
+
+    /**
+     * @var array
+     */
+    protected $elseCommands = array();
 
     /**
      * @var int
@@ -50,6 +66,11 @@ class ConditionGroup
      * @var self
      */
     protected $currentNestedCondition = 0;
+
+    /**
+     * @var string
+     */
+    protected $mode = 'if';
 
     /**
      * @param ComponentInterface $subject
@@ -72,7 +93,24 @@ class ConditionGroup
      */
     public function __call($method,array $args)
     {
-        $this->callbacks[] = function($component) use ($method,$args){return call_user_func_array(array($component,$method),$args);};
+        //echo $method.' - '.var_export($args,true).'<br/>';
+
+
+        $callback = function ($component) use ($method, $args)
+        {
+            //echo 'EXECUTING: '.$method.' - '.var_export($args,true).'<br/>';
+            return call_user_func_array(array($component, $method), $args);
+        };
+
+        if ($this->mode == 'if')
+        {
+            $this->commands[] = $callback;
+        }
+        else
+        {
+            $this->elseCommands[] = $callback;
+        }
+
         return $this;
     }
 
@@ -82,21 +120,41 @@ class ConditionGroup
      */
     public function execute(FormState $state)
     {
+        //echo 'VALIDATING CONDITIONS<br/>';
+
+        if($this->isValid($state,$this->condition,$this->params))
+        {
+            //echo 'IF is valid - '.var_export($this->params,true).'<br/>';
+            return $this->processCommands($this->commands);
+        }
+        elseif(is_null($this->elseCondition) || $this->isValid($state,$this->elseCondition,$this->elseParams))
+        {
+            //echo 'ELSE is valid - '.var_export($this->params,true).'<br/>';
+            return $this->processCommands($this->elseCommands);
+        }
+
+        return array();
+    }
+
+    /**
+     * @param array $commands
+     * @return array
+     */
+    protected function processCommands(array $commands)
+    {
         $newConditions = array();
 
-        // if condition was successful, apply the callbacks
-        if($this->isValid($state))
+        $component = $this->subject;
+
+        foreach($commands as $callback)
         {
-            $component = $this->subject;
+            //echo 'COMPONENT IS NOW: '.$component->getId().'<br/>';
 
-            foreach($this->callbacks as $callback)
+            $component = call_user_func($callback,$component);
+
+            if($component instanceof ConditionGroup)
             {
-                $component = call_user_func($callback,$component);
-
-                if($component instanceof ConditionGroup)
-                {
-                    $newConditions[spl_object_hash($component)] = $component;
-                }
+                $newConditions[spl_object_hash($component)] = $component;
             }
         }
 
@@ -105,15 +163,17 @@ class ConditionGroup
 
     /**
      * @param FormState $state
-     * @return mixed
+     * @param $condition
+     * @param array $params
+     * @return bool
      */
-    protected function isValid(FormState $state)
+    protected function isValid(FormState $state,$condition,array $params)
     {
         // get the condition instance from the pool
-        $condition = $state->getServices()->getConditions()->get($this->condition);
+        $condition = $state->getServices()->getConditions()->get($condition);
 
         // check the condition
-        return $condition->isValid($this->subject,$this->params,$state);
+        return $condition->isValid($this->subject,$params,$state);
     }
 
     /**
@@ -139,14 +199,35 @@ class ConditionGroup
         return $this;
     }
 
+
+    /**
+     * @param string $condition
+     * @param ...$params
+     * @return $this
+     */
+    public function elseCondition($condition = Condition::TRUE,...$params)
+    {
+        if($this->currentNestedCondition === 0)
+        {
+            $this->mode = 'else';
+            $this->elseCondition = $condition;
+            $this->elseParams = $params;
+        }
+        else
+        {
+            $this->__call(__FUNCTION__,func_get_args());
+        }
+
+        return $this;
+    }
+
     /**
      * @return ComponentInterface
      */
     public function endCondition()
     {
-        $nested = $this->currentNestedCondition;
         $this->currentNestedCondition--;
-
+        $nested = $this->currentNestedCondition;
         return $nested > 0 ? $this->subject->endCondition() : $this;
     }
 }

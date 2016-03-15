@@ -44,7 +44,7 @@ trait ConditionableTrait
      */
     public function addConditionOn($field,$validator = Validator::HAS_VALUE,...$params)
     {
-        $condition = new ConditionGroup($this,Condition::VALUE,func_get_args());
+        $condition = new ConditionGroup($this,Condition::FIELD_VALUE,func_get_args());
 
         $this->conditions[] = $condition;
 

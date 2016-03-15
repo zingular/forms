@@ -15,6 +15,7 @@ use Zingular\Forms\Component\Elements\Controls\AbstractControl;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
+use Zingular\Forms\Condition;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Service\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
@@ -545,6 +546,17 @@ class Container extends AbstractContainer implements
 
         // return the condition group
         return $group;
+    }
+
+    /**
+     * @param $condition
+     * @param ...$params
+     * @return static
+     */
+    public function elseCondition($condition = Condition::TRUE, ...$params)
+    {
+        // will not actually be called
+        return $this;
     }
 
     /**

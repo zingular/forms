@@ -81,24 +81,26 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->addButton('submit')
                 ->ignoreValue();
 
-        echo 'HE!!<BR/>';
-
         $form->addFieldset('testCondition')
             ->addInput('yow0')->setValue(0)->next()
-            ->addCondition(Condition::CALLBACK,function(){return true;})
+            ->addCondition(Condition::TRUE)
                 ->addInput('yow1')->setValue(1)->next()
                 ->addInput('yow1a')->setValue('1a')->next()
                 ->addInput('yow1b')->setValue('1b')->next()
                 ->addCssClass('gelukt')
-                ->addCondition(Condition::CALLBACK,function(){return true;})
+                ->addCondition(Condition::TRUE)
                     ->addInput('yow2')->setValue(2)->next()
                     ->addInput('yow2a')->setValue('2a')->next()
                 ->endCondition()
                 ->addInput('yow3')->setValue(3)->next()
-                ->addCondition(Condition::CALLBACK,function(){return true;})
+                ->addCondition(Condition::FALSE)
                     ->addInput('yow3a')->setValue('3a')->next()
                     ->addInput('yow3b')->setValue('3b')->next()
+                ->elseCondition(Condition::TRUE)
+                    ->addInput('elseYow1')->setValue('elseYow1')->next()
                 ->endCondition()
+            ->elseCondition()
+                ->addLabel('elselse')->setContent('elselesee')->next()
             ->endCondition()
             ->addInput('yow4')->setValue(4);
 
