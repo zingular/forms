@@ -17,9 +17,10 @@ abstract class AbstractEvaluationException extends FormException
     /**
      * @param string $type
      * @param array $params
+     * @param string $message
      */
-    public function __construct($type = self::TYPE_GENERIC,array $params = array())
+    public function __construct($type = self::TYPE_GENERIC,array $params = array(),$message = '')
     {
-        parent::__construct('',$type,$params);
+        parent::__construct($message,$type,$params);
     }
 }

@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Exception\ValidationException;
+use Zingular\Forms\Exception\ValidatorException;
 use Zingular\Forms\Plugins\Evaluators\CallableValidator;
 use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 use Zingular\Forms\Validator;
@@ -66,7 +66,7 @@ class ValidatorFactory implements ValidatorFactoryInterface
      * @param $value
      * @param $format
      * @return bool
-     * @throws ValidationException
+     * @throws ValidatorException
      */
     public function regex($value,$format)
     {
@@ -74,7 +74,7 @@ class ValidatorFactory implements ValidatorFactoryInterface
 
         if($res === false)
         {
-            throw new ValidationException('invalidRegex',array('regex'=>$format));
+            throw new ValidatorException('invalidRegex',array('regex'=>$format));
         }
 
         return $res === 1;

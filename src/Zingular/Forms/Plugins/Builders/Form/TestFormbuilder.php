@@ -17,7 +17,7 @@ use Zingular\Forms\Component\TestCompoment;
 
 use Zingular\Forms\Converter;
 use Zingular\Forms\CssClass;
-use Zingular\Forms\Exception\ValidationException;
+use Zingular\Forms\Exception\ValidatorException;
 use Zingular\Forms\Filter;
 use Zingular\Forms\Forms;
 use Zingular\Forms\InputType;
@@ -148,20 +148,20 @@ class TestFormbuilder implements  FormBuilderInterface
 
     /**
      * @param $value
-     * @throws ValidationException
+     * @throws ValidatorException
      */
     public function testValidator($value)
     {
         if($value === 'test1')
         {
-            throw new ValidationException('myValidator',array('value'=>$value));
+            throw new ValidatorException('myValidator',array('value'=>$value));
         }
     }
 
     /**
      * @param $value
      * @return string
-     * @throws ValidationException
+     * @throws ValidatorException
      */
     public function testFilter($value)
     {

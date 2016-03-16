@@ -13,7 +13,7 @@ use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\AbstractEvaluationException;
 
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Exception\ValidationException;
+use Zingular\Forms\Exception\ValidatorException;
 use Zingular\Forms\Plugins\Evaluators\CallableFilter;
 use Zingular\Forms\Plugins\Evaluators\CallableValidator;
 
@@ -73,9 +73,14 @@ class EvaluationHandler
             // re-throw the exception
             catch(AbstractEvaluationException $e)
             {
-                throw new ComponentException($subject,$e->getType(),$e->getParams());
+                throw new ComponentException($subject,$e->getMessage(),$e->getType(),$e->getParams());
             }
-            // catch any component-specific exception, and return that
+            // convert form exception to component exception
+            catch(FormException $e)
+            {
+                throw new ComponentException($subject,$e->getMessage(),$e->getType(),$e->getParams());
+            }
+            // catch and convert any other exception, and return it
             catch(\Exception $e)
             {
                 throw new ComponentException($subject,$e->getMessage());
@@ -149,7 +154,7 @@ class EvaluationHandler
         }
         else
         {
-            throw new FormException("Unknown or incorrect validator type!");
+            throw new FormException("Unknown or incorrect validator type!",'validation.unknownType');
         }
 
         // execute the validator and collect any return value
@@ -160,8 +165,7 @@ class EvaluationHandler
         {
             $params = $validator->compileArgs($config->getArgs());
             $params['value'] = $value;
-
-            throw new ValidationException($validator->getName(),$params);
+            throw new ValidatorException($validator->getName(),$params,"Generic validator failed!");
         }
 
         return $result;

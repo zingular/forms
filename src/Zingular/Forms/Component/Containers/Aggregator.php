@@ -17,7 +17,7 @@ use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 
 use Zingular\Forms\Exception\ComponentException;
-use Zingular\Forms\Exception\ValidationException;
+use Zingular\Forms\Exception\ValidatorException;
 use Zingular\Forms\IncompletionMode;
 use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
 use Zingular\Forms\Exception\FormException;
@@ -117,7 +117,7 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
 
     /**
      * @param null $defaultValue
-     * @throws ValidationException
+     * @throws ValidatorException
      * @throws ComponentException
      */
     public function retrieveValue($defaultValue = null)
@@ -140,7 +140,7 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
                 // check required
                 if($this->isRequired())
                 {
-                    throw new ValidationException($this,'required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
+                    throw new FormException($this,'validator.required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
                 }
             }
             // if there was a value from the input

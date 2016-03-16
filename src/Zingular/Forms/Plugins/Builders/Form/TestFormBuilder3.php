@@ -30,9 +30,12 @@ class TestFormBuilder3 implements FormBuilderInterface
     {
         // define the field 'name'
         $form->defineField('fldName')
-            ->addInput('firstname')->next()
+            ->addInput('firstname')
+                ->addFilter(Filter::LOWERCASE)
+                ->addValidator(Validator::EQUALS,'yo')
+                ->next()
             ->addInput('lastname')->next()
-            ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::EQUALS,'m')
+            ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::STARTS_WITH,'m')
                 ->addSelect('gender');
     }
 
@@ -78,6 +81,7 @@ class TestFormBuilder3 implements FormBuilderInterface
         $translator = new ArrayTranslator();
         $translator->setTranslation('fsTest.legend','Test');
         $translator->setTranslation('fsTest.description','Dit is mijn test fieldset.');
+        $translator->setTranslation('error.validator.equals','Waarde moet gelijk zijn aan \'{value2}\'!');
         $iterator->addTranslator($translator);
 
         //

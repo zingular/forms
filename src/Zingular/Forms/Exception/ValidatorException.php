@@ -2,17 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Giel
- * Date: 14-3-2016
- * Time: 19:57
+ * Date: 12-2-2016
+ * Time: 13:50
  */
 
 namespace Zingular\Forms\Exception;
 
 /**
- * Class FilterException
+ * Class ValidatorException
  * @package Zingular\Forms\Exception
  */
-class FilterException extends AbstractEvaluationException
+class ValidatorException extends AbstractEvaluationException
 {
     /**
      * ValidatorException constructor.
@@ -22,6 +22,6 @@ class FilterException extends AbstractEvaluationException
      */
     public function __construct($type, array $params,$message = '')
     {
-        parent::__construct('filter.'.$type, $params,$message);
+        parent::__construct('validator.'.$type, $params,$message);
     }
 }
