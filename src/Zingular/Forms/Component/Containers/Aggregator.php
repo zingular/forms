@@ -117,27 +117,27 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
 
     /**
      * @param null $defaultValue
-     * @throws ValidatorException
      * @throws ComponentException
+     * @throws FormException
      */
     public function retrieveValue($defaultValue = null)
     {
         // if there was a form scope default value provided, set that
         if(!is_null($defaultValue))
         {
-            $this->value = $defaultValue;
+            $this->setValue($defaultValue);
         }
 
         // if there was a submit
         if($this->shouldReadInput($this->state))
         {
             // read the raw value
-            $this->value = $this->readInput();
+            $this->setValue($this->readInput($this->state));
 
             // if there was no value from the input
             if($this->hasValue() === false)
             {
-                // check required
+                // required check
                 if($this->isRequired())
                 {
                     throw new FormException($this,'validator.required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
@@ -147,10 +147,10 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
             else
             {
                 // evaluate the value
-                $this->value = $this->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this);
+                $this->setValue($this->getServices()->getEvaluationHandler()->evaluate($this,$this->getEvaluatorCollection()));
 
                 // encode the value (if converter set)
-                $this->value = $this->encodeValue($this->value);
+                $this->setValue($this->encodeValue($this->value));
 
                 // store the read input if it should be persisted
                 if($this->isPersistent() || $this->state->isPersistent())
@@ -165,7 +165,7 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
             // if persistent and the persistence handler has a value for this data unit, load it
             if(($this->isPersistent() || $this->state->isPersistent()) && $this->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->state->getFormId()))
             {
-                $this->value = $this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId());
+                $this->setValue($this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId()));
             }
         }
     }
@@ -180,9 +180,10 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
     }
 
     /**
+     * @param FormState $state
      * @return mixed
      */
-    protected function readInput()
+    protected function readInput(FormState $state)
     {
         $raw = $this->values;
 

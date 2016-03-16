@@ -81,9 +81,6 @@ abstract class AbstractControl extends AbstractElement implements
             // read the raw value
             $this->setValue($this->readInput($this->state));
 
-
-            //var_dump($this->value);
-
             // if there was no value from the input
             if($this->hasValue() === false)
             {
@@ -97,7 +94,7 @@ abstract class AbstractControl extends AbstractElement implements
             else
             {
                 // evaluate the value
-                $this->setValue($this->getServices()->getEvaluationHandler()->evaluate($this->value,$this->getEvaluatorCollection(),$this));
+                $this->setValue($this->getServices()->getEvaluationHandler()->evaluate($this,$this->getEvaluatorCollection()));
 
                 // encode the value (if converter set)
                 $this->setValue($this->encodeValue($this->value));
@@ -118,9 +115,6 @@ abstract class AbstractControl extends AbstractElement implements
                 $this->setValue($this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId()));
             }
         }
-
-
-        //var_dump($this->value);
     }
 
     /**

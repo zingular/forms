@@ -45,15 +45,15 @@ class EvaluationHandler
     }
 
     /**
-     * @param mixed $value
-     * @param EvaluatorConfigCollection $collection
      * @param DataUnitComponentInterface $subject
+     * @param EvaluatorConfigCollection $collection
      * @return mixed
      * @throws ComponentException
-     * @throws AbstractEvaluationException
      */
-    public function evaluate($value,EvaluatorConfigCollection $collection,DataUnitComponentInterface $subject)
+    public function evaluate(DataUnitComponentInterface $subject,EvaluatorConfigCollection $collection)
     {
+        $value = $subject->getValue();
+
         // extract the evaluators
         $evaluators = $collection->getEvaluators();
 
