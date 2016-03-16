@@ -12,10 +12,7 @@ namespace Zingular\Forms\Plugins\Evaluators;
  * Interface FilterTypeInterface
  * @package Zingular\Forms\Plugins\Evaluators
  */
-interface FilterTypeInterface extends FilterInterface
+interface FilterTypeInterface extends FilterInterface,EvaluatorTypeInterface
 {
-    /**
-     * @return string
-     */
-    public function getName();
+
 }

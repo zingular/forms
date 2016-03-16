@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms\Plugins\Evaluators;
 
-
 /**
  * Interface ValidatorInterface
  * @package Zingular\Form\Evaluation

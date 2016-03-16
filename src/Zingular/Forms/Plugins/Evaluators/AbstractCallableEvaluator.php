@@ -8,12 +8,11 @@
 
 namespace Zingular\Forms\Plugins\Evaluators;
 
-
 /**
  * Class AbstractCallableEvaluator
  * @package Zingular\Form\Evaluation\Evaluator
  */
-abstract class AbstractCallableEvaluator implements EvaluatorInterface
+abstract class AbstractCallableEvaluator implements EvaluatorTypeInterface
 {
     /**
      * @var string
@@ -43,25 +42,11 @@ abstract class AbstractCallableEvaluator implements EvaluatorInterface
     }
 
     /**
-     * @param array $args
      * @return array
      */
-    public function compileArgs(array $args = array())
+    public function getParams()
     {
-        $params = $this->params;
-        $argsCount = count($args);
-        $paramCount = count($params);
-
-        if($argsCount < $paramCount)
-        {
-            $params = array_slice($params,0,$argsCount,false);
-        }
-        elseif($paramCount < $argsCount)
-        {
-            $args = array_slice($args,0,$paramCount,false);
-        }
-
-        return array_combine($params,$args);
+        return $this->params;
     }
 
     /**

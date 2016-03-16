@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Plugins\Conditions;
 use Zingular\Forms\Component\ComponentInterface;
 
-use Zingular\Forms\Component\ConditionableInterface;
+
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Condition;
 use Zingular\Forms\Validator;
@@ -212,22 +212,22 @@ class ConditionGroup// implements ConditionableInterface
 
     /**
      * @param FormState $state
-     * @param ComponentInterface $component
+     * @param ComponentInterface $subject
      * @return array
      */
-    public function execute(FormState $state,ComponentInterface $component)
+    public function execute(FormState $state,ComponentInterface $subject)
     {
         // try to validate the IF conditions
-        if($this->validateConditions($this->conditions,$state))
+        if($this->validateConditions($subject,$this->conditions,$state))
         {
             // if IF conditions succeed, process the IF commands
-            return $this->processCommands($this->commands,$component);
+            return $this->processCommands($this->commands,$subject);
         }
         // try to validate the ELSE conditions
-        elseif($this->validateConditions($this->elseConditions,$state))
+        elseif($this->validateConditions($subject,$this->elseConditions,$state))
         {
             // if ELSE conditions succeed, process the ELSE commands
-            return $this->processCommands($this->elseCommands,$component);
+            return $this->processCommands($this->elseCommands,$subject);
         }
 
         // return an empty array if no conditions validate
@@ -286,11 +286,12 @@ class ConditionGroup// implements ConditionableInterface
     }
 
     /**
+     * @param ComponentInterface $subject
      * @param array $conditions
      * @param FormState $state
      * @return bool
      */
-    protected function validateConditions(array $conditions,FormState $state)
+    protected function validateConditions(ComponentInterface $subject,array $conditions,FormState $state)
     {
         // if there are no conditions, it evaluates to TRUE
         if(count($conditions) === 0)
@@ -301,7 +302,7 @@ class ConditionGroup// implements ConditionableInterface
         // check each conditions as OR logic (ANY with true will trigger TRUE)
         foreach($conditions as $condition)
         {
-            if($this->conditionIsValid($state,$condition[0],$condition[1]))
+            if($this->conditionIsValid($subject,$state,$condition[0],$condition[1]))
             {
                 return true;
             }
@@ -312,17 +313,18 @@ class ConditionGroup// implements ConditionableInterface
     }
 
     /**
+     * @param ComponentInterface $subject
      * @param FormState $state
      * @param $condition
      * @param array $params
      * @return bool
      */
-    protected function conditionIsValid(FormState $state,$condition,array $params)
+    protected function conditionIsValid(ComponentInterface $subject,FormState $state,$condition,array $params)
     {
         // get the condition instance from the pool
         $condition = $state->getServices()->getConditions()->get($condition);
 
         // check the condition
-        return $condition->isValid($this->subject,$state,$params);
+        return $condition->isValid($subject,$state,$params);
     }
 }

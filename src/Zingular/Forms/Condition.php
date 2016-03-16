@@ -15,10 +15,11 @@ namespace Zingular\Forms;
  */
 class Condition
 {
-    const VALUE = 'value';
+    const PROVIDED_VALUE = 'value';
     const TRUE = 'true';
     const FALSE = 'false';
     const FIELD_VALUE = 'fieldValue';
+    const CURRENT_VALUE = 'currentValue';
     const CALLBACK = 'callback';
     const COMPONENT_PROPERTY = 'componentProperty';
 }

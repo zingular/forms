@@ -14,6 +14,7 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Conditions\CallableCondition;
 use Zingular\Forms\Plugins\Conditions\ComponentPropertyCondition;
 use Zingular\Forms\Plugins\Conditions\ConditionInterface;
+use Zingular\Forms\Plugins\Conditions\CurrentValueCondition;
 use Zingular\Forms\Plugins\Conditions\FieldValueCondition;
 
 /**
@@ -32,10 +33,11 @@ class ConditionFactory implements ConditionFactoryInterface
     {
         switch($type)
         {
-            case Condition::VALUE: return new CallableCondition(Condition::VALUE,function(ComponentInterface $component,$value){return (bool) $value;});
+            case Condition::PROVIDED_VALUE: return new CallableCondition(Condition::PROVIDED_VALUE,function(ComponentInterface $component,$value){return (bool) $value;});
             case Condition::TRUE: return new CallableCondition(Condition::TRUE,function(){return true;});
             case Condition::FALSE: return new CallableCondition(Condition::FALSE,function(){return false;});
             case Condition::FIELD_VALUE: return new FieldValueCondition();
+            case Condition::CURRENT_VALUE: return new CurrentValueCondition();
             case Condition::CALLBACK: return new CallbackCondition();
             case Condition::COMPONENT_PROPERTY: return new ComponentPropertyCondition();
         }

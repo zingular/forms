@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Service\Evaluation;
 use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 use Zingular\Forms\Plugins\Evaluators\FilterTypeInterface;
-use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
+
 
 /**
  * Class FilterPool

@@ -15,13 +15,12 @@ namespace Zingular\Forms\Exception;
 class InvalidArgumentException extends FormException
 {
     /**
-     * InvalidArgumentException constructor.
-     * @param string $method
-     * @param string $param
      * @param string $message
+     * @param string $type
+     * @param array $args
      */
-    public function __construct($method,$param,$message = '')
+    public function __construct($message = '',$type = self::TYPE_GENERIC,array $args = array())
     {
-        parent::__construct($message, $type = 'invalidArgument', array('method'=>$method,'param'=>$param));
+        parent::__construct($message, 'invalidArgument.'.$type, $args);
     }
 }

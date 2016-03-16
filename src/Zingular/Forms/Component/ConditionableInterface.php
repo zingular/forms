@@ -21,7 +21,7 @@ interface ConditionableInterface
      * @param ...$params
      * @return static
      */
-    public function addCondition($condition,...$params);
+    public function ifCondition($condition,...$params);
 
     /**
      * @param $condition

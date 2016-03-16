@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Service\Evaluation\EvaluationHandler;
+
 use Zingular\Forms\Service\Evaluation\EvaluatorConfigCollection;
 use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
@@ -38,17 +38,15 @@ trait DataUnitTrait
      */
     protected $ignoreWhenEmpty = false;
 
-
-
     /**
      * @var bool
      */
     protected $persistent = false;
 
     /**
-     * @var EvaluationHandler
+     * @var EvaluatorConfigCollection
      */
-    protected $evaluationHandler;
+    protected $evaluatorCollection;
 
     /***************************************************************
      * COMPILING
@@ -59,6 +57,7 @@ trait DataUnitTrait
      */
     public function getValue()
     {
+        //var_dump($this->value);
         return $this->value;
     }
 
@@ -68,6 +67,8 @@ trait DataUnitTrait
      */
     public function setValue($value)
     {
+        //var_dump($value);
+
         $this->value = $value;
         return $this;
     }
@@ -177,12 +178,12 @@ trait DataUnitTrait
      */
     protected function getEvaluatorCollection()
     {
-        if(is_null($this->evaluationHandler))
+        if(is_null($this->evaluatorCollection))
         {
-            $this->evaluationHandler = new EvaluatorConfigCollection();
+            $this->evaluatorCollection = new EvaluatorConfigCollection();
         }
 
-        return $this->evaluationHandler;
+        return $this->evaluatorCollection;
     }
 
 

@@ -12,10 +12,7 @@ namespace Zingular\Forms\Plugins\Evaluators;
  * Interface ValidatorTypeInterface
  * @package Zingular\Forms\Plugins\Evaluators
  */
-interface ValidatorTypeInterface extends ValidatorInterface
+interface ValidatorTypeInterface extends ValidatorInterface,EvaluatorTypeInterface
 {
-    /**
-     * @return string
-     */
-    public function getName();
+
 }

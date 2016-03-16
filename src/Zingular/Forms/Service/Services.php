@@ -24,19 +24,19 @@ use Zingular\Forms\Service\Builder\Form\FormBuilderFactory;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
 use Zingular\Forms\Service\Condition\ConditionFactoryInterface;
-use Zingular\Forms\Plugins\Conditions\ConditionInterface;
+
 use Zingular\Forms\Service\Conversion\ConverterFactory;
 use Zingular\Forms\Service\Conversion\ConverterFactoryInterface;
-use Zingular\Forms\Plugins\Converters\ConverterInterface;
+
 use Zingular\Forms\Service\Conversion\ConverterPool;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
 use Zingular\Forms\Service\Evaluation\FilterFactory;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
-use Zingular\Forms\Plugins\Evaluators\FilterInterface;
+
 use Zingular\Forms\Service\Evaluation\FilterPool;
 use Zingular\Forms\Service\Evaluation\ValidatorFactory;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
-use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
+
 use Zingular\Forms\Service\Evaluation\ValidatorPool;
 use Zingular\Forms\Service\Aggregation\AggregatorFactory;
 use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;

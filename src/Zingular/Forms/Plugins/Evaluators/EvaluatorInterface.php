@@ -14,5 +14,8 @@ namespace Zingular\Forms\Plugins\Evaluators;
  */
 interface EvaluatorInterface
 {
-
+    /**
+     * @return array
+     */
+    public function getParams();
 }

@@ -54,12 +54,12 @@ class TestScenario
         $translator = new ArrayTranslator();
 
         // error translations
-        $translator->setTranslation('error.test','Test');
-        $translator->setTranslation('error.required',"Field '{control}' is required!");
-        $translator->setTranslation('error.valueIsTest','Value cannot be test!');
-        $translator->setTranslation('error.regex','Value {value} not valid!');
-        $translator->setTranslation('error.invalidRegex','Invalid regex: {regex}!');
-        $translator->setTranslation('error.maxLength','Value should not be longer than {max} characters!');
+        $translator->setTranslation('error.validator.test','Test');
+        $translator->setTranslation('error.validator.required',"Field '{control}' is required!");
+        $translator->setTranslation('error.validator.valueIsTest','Value cannot be test!');
+        $translator->setTranslation('error.validator.regex','Value {value} not valid!');
+        $translator->setTranslation('error.validator.invalidRegex','Invalid regex: {regex}!');
+        $translator->setTranslation('error.validator.maxLength','Value should not be longer than {max} characters!');
 
         // fieldset legends
         $translator->setTranslation('fsPersonalia.legend','Personalia');

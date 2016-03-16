@@ -66,11 +66,11 @@ class TestFormBuilder2 implements FormBuilderInterface
                 ->addInput('firstname')
                     ->setValue('tap')->next()
                 ->addInput('lastname')
-                    ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::MAX_LENGTH,3)
+                    ->ifCondition(Condition::FIELD_VALUE,'firstname',Validator::MAX_LENGTH,3)
                         ->setRequired()
                         ->setHtmlAttribute('style','background-color:black;color:white;')
                     ->endCondition()
-                    ->addCondition(Condition::CALLBACK,function(){return true;})
+                    ->ifCondition(Condition::CALLBACK,function(){return true;})
                         ->setValue('lalala')
                     ->endCondition()
                 ->nextParent()
@@ -81,7 +81,7 @@ class TestFormBuilder2 implements FormBuilderInterface
 
        $form->addFieldset('testCondition')
 
-            ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::ENDS_WITH,'test')
+            ->ifCondition(Condition::FIELD_VALUE,'firstname',Validator::ENDS_WITH,'test')
                 ->orCondition(Condition::FALSE)
                 ->orCondition(Condition::FALSE)
                 ->addInput('sow1')->setValue('sow!')->next()
@@ -90,7 +90,7 @@ class TestFormBuilder2 implements FormBuilderInterface
             ->endCondition()
 
             ->addInput('sow2')->setValue('sow2')
-                ->addCondition(Condition::COMPONENT_PROPERTY,'firstname','isRequired')
+                ->ifCondition(Condition::COMPONENT_PROPERTY,'firstname','isRequired')
                     ->orCondition(Condition::FALSE)
                     ->setHtmlAttribute('style','background-color:red;');
 

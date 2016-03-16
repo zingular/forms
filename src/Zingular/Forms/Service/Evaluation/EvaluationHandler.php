@@ -13,6 +13,7 @@ use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\AbstractEvaluationException;
 
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Exception\InvalidArgumentException;
 use Zingular\Forms\Exception\ValidatorException;
 use Zingular\Forms\Plugins\Evaluators\CallableFilter;
 use Zingular\Forms\Plugins\Evaluators\CallableValidator;
@@ -73,12 +74,12 @@ class EvaluationHandler
             // re-throw the exception
             catch(AbstractEvaluationException $e)
             {
-                throw new ComponentException($subject,$e->getMessage(),$e->getType(),$e->getParams());
+                throw new ComponentException($subject,$e->getMessage(),$e->getType(),$this->prepareExceptionParams($e->getParams(),$value,$subject));
             }
             // convert form exception to component exception
             catch(FormException $e)
             {
-                throw new ComponentException($subject,$e->getMessage(),$e->getType(),$e->getParams());
+                throw new ComponentException($subject,$e->getMessage(),$e->getType(),$this->prepareExceptionParams($e->getParams(),$value,$subject));
             }
             // catch and convert any other exception, and return it
             catch(\Exception $e)
@@ -87,14 +88,19 @@ class EvaluationHandler
             }
         }
 
-        /*
-        if($value === 'test')
-        {
-            throw new AbstractEvaluationException($subject,'valueIsTest');
-        }
-        */
-
         return $value;
+    }
+
+    /**
+     * @param $args
+     * @param $value
+     * @param DataUnitComponentInterface $component
+     */
+    protected function prepareExceptionParams($args,$value,DataUnitComponentInterface $component)
+    {
+        $args['value'] = $value;
+        $args['component'] = $component->getId();
+        return $args;
     }
 
     /**
@@ -109,8 +115,6 @@ class EvaluationHandler
 
         // TODO: create method to map passed arguments to registered arguments, and on mismatch, throw exception
         // TODO: map passed arguments to registered arguments, and map combine them to key=>value array so they can be used as params for error translation
-        // TODO: make pool have factory instead of factory having a pool, so that a custom factory can be set easily, and clean separation of pool logic
-        // and so that native filter and validator callbacks can be housed inside the factories
 
         $filter = null;
 
@@ -124,12 +128,14 @@ class EvaluationHandler
         }
         else
         {
-            throw new FormException("Unknown or incorrect filter type!");
+            throw new InvalidArgumentException("Unknown or incorrect filter type!",'filterType',gettype($filter));
         }
 
-        $value = $filter->filter($value,$config->getArgs());
+        // compile the argumens
+        $args = $this->compileArgs($filter->getParams(),$config->getArgs());
 
-        return $value;
+        // actually apply the filter
+        return $filter->filter($value,$args);
     }
 
     /**
@@ -141,7 +147,6 @@ class EvaluationHandler
     protected function evaluateValidator(ValidatorConfig $config,$value)
     {
         $evaluator = $config->getEvaluator();
-        $result = null;
         $validator = null;
 
         if(is_string($evaluator))
@@ -157,17 +162,41 @@ class EvaluationHandler
             throw new FormException("Unknown or incorrect validator type!",'validation.unknownType');
         }
 
-        // execute the validator and collect any return value
-        $result = $validator->validate($value,$config->getArgs());
+        //
+        $args = $this->compileArgs($validator->getParams(),$config->getArgs());
+
+        // actually validate
+        $valid = $validator->validate($value,$args);
 
         // if no exception thrown, but FALSE returned, handle that as a validation failure
-        if($result === false)
+        if($valid === false)
         {
-            $params = $validator->compileArgs($config->getArgs());
-            $params['value'] = $value;
-            throw new ValidatorException($validator->getName(),$params,"Generic validator failed!");
+            throw new ValidatorException($validator->getName(),$args,"Generic validator failed!");
         }
 
-        return $result;
+        // execute the validator and collect any return value
+        return $valid;
+    }
+
+    /**
+     * @param array $params
+     * @param array $args
+     * @return array
+     */
+    protected function compileArgs(array $params,array $args)
+    {
+        $argsCount = count($args);
+        $paramCount = count($params);
+
+        if($argsCount < $paramCount)
+        {
+            $params = array_slice($params,0,$argsCount,false);
+        }
+        elseif($paramCount < $argsCount)
+        {
+            $args = array_slice($args,0,$paramCount,false);
+        }
+
+        return array_combine($params,$args);
     }
 }

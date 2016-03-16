@@ -19,4 +19,5 @@ class CssClass
     const MEDIUM = 'size_m';
     const LARGE = 'size_l';
     const EXTRA_LARGE = 'size_xl';
+    const ERROR = 'error';
 }

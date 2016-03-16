@@ -16,6 +16,7 @@ use Zingular\Forms\Component\Elements\Controls\AbstractControl;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
+use Zingular\Forms\CssClass;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Service\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
@@ -364,7 +365,7 @@ class Container extends AbstractContainer implements
                 {
                     if($component instanceof CssComponentInterface)
                     {
-                        $component->addCssClass('error');
+                        $component->addCssClass(CssClass::ERROR);
                     }
 
                     $this->errors[] = $e;
@@ -532,7 +533,7 @@ class Container extends AbstractContainer implements
      * @param ...$params
      * @return static
      */
-    public function addCondition($condition, ...$params)
+    public function ifCondition($condition, ...$params)
     {
         // create a new condition group
         $group = new ConditionGroup($this,$condition,$params,count($this->components));

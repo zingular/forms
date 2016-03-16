@@ -139,7 +139,7 @@ class Form extends Container implements
         // check the method
         if(!in_array($method,array(self::GET,self::POST)))
         {
-            throw new InvalidArgumentException(__METHOD__,'method',$message = sprintf("Invalid form method: '%s', should be either 'get' or 'post'!",$method));
+            throw new InvalidArgumentException(sprintf("Invalid form method: '%s', should be either 'get' or 'post'!",$method),'httpMethod',array('method'=>$method));
         }
 
         $this->method = $method;

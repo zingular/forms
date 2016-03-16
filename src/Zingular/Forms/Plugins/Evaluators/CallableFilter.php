@@ -13,7 +13,7 @@ namespace Zingular\Forms\Plugins\Evaluators;
  * Class CallableFilter
  * @package Zingular\Form\Evaluation\Evaluator
  */
-class CallableFilter extends AbstractCallableEvaluator implements FilterInterface
+class CallableFilter extends AbstractCallableEvaluator implements FilterTypeInterface
 {
     /**
      * @param $value

@@ -12,6 +12,8 @@ use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Condition;
+use Zingular\Forms\Exception\FilterException;
+
 use Zingular\Forms\Filter;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorAggregator;
@@ -33,10 +35,17 @@ class TestFormBuilder3 implements FormBuilderInterface
             ->addInput('firstname')
                 ->addFilter(Filter::LOWERCASE)
                 ->addValidator(Validator::EQUALS,'yo')
+                    ->ifCondition(Condition::CURRENT_VALUE,Validator::EQUALS,'yo')
+                        ->setHtmlAttribute('style','background-color:red;')
+                        ->addValidator(Validator::EQUALS,'peter')
+                    ->endCondition()
                 ->next()
             ->addInput('lastname')->next()
-            ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::STARTS_WITH,'m')
-                ->addSelect('gender');
+            ->ifCondition(Condition::FIELD_VALUE,'firstname',Validator::STARTS_WITH,'m')
+                ->addSelect('gender')->next()
+            ->endCondition()
+            ->addInput('jaja')->setValue('jaja');
+
     }
 
     /**
@@ -49,13 +58,23 @@ class TestFormBuilder3 implements FormBuilderInterface
                 ->useField('fldName')->next()
                 ->addField('fldBirthday')
                     ->addInput('dateOfBirth')
-                        ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::STARTS_WITH,'mi')
+                        ->ifCondition(Condition::FIELD_VALUE,'firstname',Validator::STARTS_WITH,'mi')
                             ->setHtmlAttribute('style','background-color:red')
                         ->elseCondition()
                             ->setHtmlAttribute('style','background-color:green')
                         ->endCondition()
-                        ->addFilter(Filter::LOWERCASE)->nextParent()
-                ->next()
+                        ->addFilter(Filter::LOWERCASE)
+                        ->next()
+                    ->addInput('lala')
+                        ->addValidator(function($value,array $args = array())
+                        {
+                            //throw new ValidatorException('myType',array('lala'=>'test'));
+                        })
+                        ->addFilter(function($value,array $args = array())
+                        {
+                            throw new FilterException('myType',array('test'=>$value));
+                        })
+                    ->nextParent()
             ->addButton('submit');
 
 
@@ -82,6 +101,11 @@ class TestFormBuilder3 implements FormBuilderInterface
         $translator->setTranslation('fsTest.legend','Test');
         $translator->setTranslation('fsTest.description','Dit is mijn test fieldset.');
         $translator->setTranslation('error.validator.equals','Waarde moet gelijk zijn aan \'{value2}\'!');
+        $translator->setTranslation('error.validator.myType','Yes! \'{lala}\'!');
+        $translator->setTranslation('error.filter.myType','Yes! \'{value}\'!');
+
+
+
         $iterator->addTranslator($translator);
 
         //

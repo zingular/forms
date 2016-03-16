@@ -20,7 +20,7 @@ class ValidatorException extends AbstractEvaluationException
      * @param string $type
      * @param array $params
      */
-    public function __construct($type, array $params,$message = '')
+    public function __construct($type, array $params = array(),$message = '')
     {
         parent::__construct('validator.'.$type, $params,$message);
     }
