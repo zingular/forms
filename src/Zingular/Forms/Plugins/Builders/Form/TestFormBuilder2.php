@@ -67,13 +67,13 @@ class TestFormBuilder2 implements FormBuilderInterface
                 ->addInput('firstname')
                     ->setValue('tap')->next()
                 ->addInput('lastname')
-                    //->addConditionOn('firstname',Validator::MAX_LENGTH,3)
+                    ->addCondition(Condition::FIELD_VALUE,'firstname',Validator::MAX_LENGTH,3)
                         ->setRequired()
                         ->setHtmlAttribute('style','background-color:black;color:white;')
-                    //->endCondition()
-                    //->addCondition(Condition::CALLBACK,function(FormState $state){return true;})
+                    ->endCondition()
+                    ->addCondition(Condition::CALLBACK,function(){return true;})
                         ->setValue('lalala')
-                    //->endCondition()
+                    ->endCondition()
                 ->nextParent()
             ->useField('fldEmail')->next()
             ->useField('fldHobbies')->next()
@@ -144,9 +144,8 @@ class TestFormBuilder2 implements FormBuilderInterface
      */
     public function configureForm(ConfigurableFormInterface $form)
     {
-
+        $form->setHttpMethod('post');
     }
-
 
     /**
      * @return string

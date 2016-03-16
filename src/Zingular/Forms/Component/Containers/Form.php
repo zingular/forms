@@ -20,6 +20,7 @@ use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Exception\InvalidArgumentException;
 use Zingular\Forms\Service\ServiceSetterInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
@@ -116,6 +117,9 @@ class Form extends Container implements
      */
     public function hasSubmit()
     {
+        // TODO: do csrf check here?
+
+
         return $this->getFormContext()->getInput('FORM_SUBMITTED') === $this->getId();
     }
 
@@ -135,7 +139,7 @@ class Form extends Container implements
         // check the method
         if(!in_array($method,array(self::GET,self::POST)))
         {
-            throw new FormException(sprintf("Invalid form method: '%s'",$method));
+            throw new InvalidArgumentException(__METHOD__,'method',$message = sprintf("Invalid form method: '%s', should be either 'get' or 'post'!",$method));
         }
 
         $this->method = $method;
@@ -258,6 +262,19 @@ class Form extends Container implements
         }
     }
 
+
+    /**
+     * @return string
+     */
+    public function render()
+    {
+        // compile this form
+        $this->compile($this->getFormContext(),$this->defaultValues);
+
+        // return the rendered view
+        return $this->getServices()->getViewHandler()->render($this);
+    }
+
     /**
      * @param FormState $state
      */
@@ -277,22 +294,12 @@ class Form extends Container implements
     }
 
     /**
-     * @return string
-     */
-    public function render()
-    {
-        // compile this form
-        $this->compile($this->getFormContext(),$this->defaultValues);
-
-        // return the rendered view
-        return $this->getServices()->getViewHandler()->render($this);
-    }
-
-    /**
      * @return bool
      */
     public function valid()
     {
+        // TODO: csrf check?
+
         // TODO: check if there were errors
         return true;
     }
