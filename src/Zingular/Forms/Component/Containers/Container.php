@@ -342,12 +342,6 @@ class Container extends AbstractContainer implements
                 // compile the child component
                 try
                 {
-                    // TODO: move to containing class? now, form cannot have conditions itself (or manually re-implement that in its compile method?)
-                    if($component instanceof ConditionableInterface)
-                    {
-                        $component->applyConditions($state);
-                    }
-
                     // if it is a data component, compile with default values
                     if($component instanceof DataComponentInterface)
                     {
@@ -357,6 +351,12 @@ class Container extends AbstractContainer implements
                     elseif($component instanceof CompilableComponentInterface)
                     {
                         $component->compile($state);
+                    }
+
+                    // TODO: move to containing class? now, form cannot have conditions itself (or manually re-implement that in its compile method?)
+                    if($component instanceof ConditionableInterface)
+                    {
+                        $component->applyConditions($state);
                     }
                 }
                 // catch any errors during child compilation
@@ -468,7 +468,8 @@ class Container extends AbstractContainer implements
             'type'=>get_class($this),
             'builders'=>$this->builderTypes,
             'view'=>$this->viewName,
-            'children'=>array()
+            'children'=>array(),
+            'conditions'=>count($this->conditionGroups)
         );
     }
 

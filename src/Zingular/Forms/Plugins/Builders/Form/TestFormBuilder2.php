@@ -12,7 +12,6 @@ use Zingular\Forms\Aggregation;
 use Zingular\Forms\Builder;
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
-
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\FormState;

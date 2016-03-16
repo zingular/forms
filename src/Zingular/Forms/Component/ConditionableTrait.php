@@ -101,7 +101,7 @@ trait ConditionableTrait
         foreach($conditionGroups as $conditionGroup)
         {
             // recursively apply the conditions
-            $this->doApplyConditions($conditionGroup->applyConditions($state),$state);
+            $this->doApplyConditions($conditionGroup->execute($state,$this),$state);
         }
 
         return array();

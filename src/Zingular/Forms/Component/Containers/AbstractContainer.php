@@ -234,6 +234,8 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
      */
     protected function getComponent($name,$type = null)
     {
+        //var_dump($name);
+
         $index = $this->getComponentIndex($name);
 
         if($index === false)
@@ -313,7 +315,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
             }
         }
 
-        ksort($data);
+        //ksort($data);
 
         return $data;
     }

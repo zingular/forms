@@ -18,7 +18,7 @@ use Zingular\Forms\Validator;
  * Class ConditionGroup
  * @package Zingular\Forms\Plugins\Conditions
  */
-class ConditionGroup implements ConditionableInterface
+class ConditionGroup// implements ConditionableInterface
 {
     /**
      * @var ComponentInterface
@@ -212,21 +212,22 @@ class ConditionGroup implements ConditionableInterface
 
     /**
      * @param FormState $state
+     * @param ComponentInterface $component
      * @return array
      */
-    public function applyConditions(FormState $state)
+    public function execute(FormState $state,ComponentInterface $component)
     {
         // try to validate the IF conditions
         if($this->validateConditions($this->conditions,$state))
         {
             // if IF conditions succeed, process the IF commands
-            return $this->processCommands($this->commands);
+            return $this->processCommands($this->commands,$component);
         }
         // try to validate the ELSE conditions
         elseif($this->validateConditions($this->elseConditions,$state))
         {
             // if ELSE conditions succeed, process the ELSE commands
-            return $this->processCommands($this->elseCommands);
+            return $this->processCommands($this->elseCommands,$component);
         }
 
         // return an empty array if no conditions validate
@@ -259,13 +260,13 @@ class ConditionGroup implements ConditionableInterface
      * @param array $commands
      * @return array
      */
-    protected function processCommands(array $commands)
+    protected function processCommands(array $commands,ComponentInterface $component)
     {
         // create an array for any newly created condition groups
         $newConditions = array();
 
         // start out with the subject component
-        $component = $this->subject;
+        //$component = $this->subject;
 
         // apply each command
         foreach($commands as $callback)
@@ -318,8 +319,6 @@ class ConditionGroup implements ConditionableInterface
      */
     protected function conditionIsValid(FormState $state,$condition,array $params)
     {
-        echo $condition;
-
         // get the condition instance from the pool
         $condition = $state->getServices()->getConditions()->get($condition);
 

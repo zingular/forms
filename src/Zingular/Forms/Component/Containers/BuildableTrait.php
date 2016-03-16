@@ -55,10 +55,12 @@ trait BuildableTrait
      * @return ComponentInterface
      * @throws FormException
      */
+    /*
     protected function getComponent($name,$type = null)
     {
         // implement in adopting class
     }
+    */
 
     /***************************************************************
      * GET
@@ -141,6 +143,11 @@ trait BuildableTrait
      */
     public function getFieldset($name)
     {
+        //echo $name;
+
+        //var_dump($this->getComponent($name,Fieldset::class));
+
+        //exit;
         return $this->getComponent($name,Fieldset::class);
     }
 
