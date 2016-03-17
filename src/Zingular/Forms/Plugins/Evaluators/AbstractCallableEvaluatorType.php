@@ -9,10 +9,10 @@
 namespace Zingular\Forms\Plugins\Evaluators;
 
 /**
- * Class AbstractCallableEvaluator
+ * Class AbstractCallableEvaluatorType
  * @package Zingular\Form\Evaluation\Evaluator
  */
-abstract class AbstractCallableEvaluator implements EvaluatorTypeInterface
+abstract class AbstractCallableEvaluatorType implements EvaluatorTypeInterface
 {
     /**
      * @var string

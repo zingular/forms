@@ -17,14 +17,15 @@ use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\CssClass;
+use Zingular\Forms\Events\ComponentEvent;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
-use Zingular\Forms\Service\ServiceGetterInterface;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
+use Zingular\Forms\Service\ServiceConsumerTrait;
 
 /**
  * Class Container
@@ -43,6 +44,7 @@ class Container extends AbstractContainer implements
     use HtmlAttributesTrait;
     use BuildableTrait;
     use ConditionableTrait;
+    use ServiceConsumerTrait;
 
     /**
      * @var BuilderInterface
@@ -242,7 +244,7 @@ class Container extends AbstractContainer implements
         // builder is a type string, create a builder from it using the factory
         if(is_string($builder))
         {
-            $builder = $this->getServices()->getBuilders()->get($builder);
+            $builder = $this->getBuilders()->get($builder);
         }
 
         // if it is a simple builder
@@ -384,6 +386,10 @@ class Container extends AbstractContainer implements
 
                 // add the child to the form state
                 $this->state->registerComponent($component);
+
+                // dispatch event
+                $event = new ComponentEvent(ComponentEvent::COMPILED,$component);
+                $this->getEventDispatcher()->dispatch($event);
             }
         }
     }
@@ -514,14 +520,6 @@ class Container extends AbstractContainer implements
 
         // unset the current context
         $this->context = null;
-    }
-
-    /**
-     * @return ServiceGetterInterface
-     */
-    protected function getServices()
-    {
-        return $this->state->getServices();
     }
 
     /***************************************************************

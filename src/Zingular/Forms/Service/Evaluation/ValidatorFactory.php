@@ -10,7 +10,7 @@ namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\ValidatorException;
-use Zingular\Forms\Plugins\Evaluators\CallableValidator;
+use Zingular\Forms\Plugins\Evaluators\CallableValidatorType;
 use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 use Zingular\Forms\Validator;
 
@@ -29,15 +29,15 @@ class ValidatorFactory implements ValidatorFactoryInterface
     {
         switch($name)
         {
-            case Validator::EQUALS: return new CallableValidator($name,array($this,$name),array('value2','strict'));
-            case Validator::REGEX: return new CallableValidator($name,array($this,$name),array('regex'));
-            case Validator::MIN_LENGTH: return new CallableValidator($name,array($this,$name),array('min'));
-            case Validator::MAX_LENGTH:return new CallableValidator($name,array($this,$name),array('max'));
-            case Validator::MIN_VALUE: return new CallableValidator($name,array($this,$name),array('min'));
-            case Validator::MAX_VALUE: return new CallableValidator($name,array($this,$name),array('max'));
-            case Validator::HAS_VALUE: return new CallableValidator($name,array($this,$name));
-            case Validator::STARTS_WITH: return new CallableValidator($name,array($this,$name));
-            case Validator::ENDS_WITH: return new CallableValidator($name,array($this,$name));
+            case Validator::EQUALS: return new CallableValidatorType($name,array($this,$name),array('value2','strict'));
+            case Validator::REGEX: return new CallableValidatorType($name,array($this,$name),array('regex'));
+            case Validator::MIN_LENGTH: return new CallableValidatorType($name,array($this,$name),array('min'));
+            case Validator::MAX_LENGTH:return new CallableValidatorType($name,array($this,$name),array('max'));
+            case Validator::MIN_VALUE: return new CallableValidatorType($name,array($this,$name),array('min'));
+            case Validator::MAX_VALUE: return new CallableValidatorType($name,array($this,$name),array('max'));
+            case Validator::HAS_VALUE: return new CallableValidatorType($name,array($this,$name));
+            case Validator::STARTS_WITH: return new CallableValidatorType($name,array($this,$name));
+            case Validator::ENDS_WITH: return new CallableValidatorType($name,array($this,$name));
             default: throw new FormException(sprintf("Cannot create validator: unknown validator type '%s'",$name),'validatorFactory');
         }
     }

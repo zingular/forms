@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Component\Containers;
 
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\ServiceSetterInterface;
+use Zingular\Forms\Service\ServiceDefinerInterface;
 
 /**
  * Interface ConfigurableFormInterface
@@ -17,7 +17,7 @@ use Zingular\Forms\Service\ServiceSetterInterface;
  */
 interface ConfigurableFormInterface extends
     HttpMethodInterface,
-    ServiceSetterInterface
+    ServiceDefinerInterface
 {
     /**
      * @param $model

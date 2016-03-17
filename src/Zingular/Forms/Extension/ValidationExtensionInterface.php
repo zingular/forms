@@ -17,5 +17,5 @@ interface ValidationExtensionInterface extends ExtensionInterface
     /**
      * @return array
      */
-    public function getValidators();
+    public function getValidatorTypes();
 }

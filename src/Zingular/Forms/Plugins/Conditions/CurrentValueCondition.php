@@ -24,7 +24,7 @@ class CurrentValueCondition extends CallableCondition
      */
     public function __construct()
     {
-        parent::__construct('currentValue',array($this,'evaluate'),true);
+        parent::__construct(array($this,'evaluate'),true);
     }
 
     /**

@@ -18,14 +18,16 @@ interface AggregatorInterface
     /**
      * @param array $values
      * @param Aggregator $aggregator
+     * @param array $options
      * @return mixed
      */
-    public function aggregate(array $values,Aggregator $aggregator);
+    public function aggregate(array $values,Aggregator $aggregator,array $options = array());
 
     /**
-     * @param mixed $value
+     * @param $value
      * @param Aggregator $aggregator
+     * @param array $options
      * @return array
      */
-    public function deaggegate($value,Aggregator $aggregator);
+    public function deaggegate($value,Aggregator $aggregator,array $options = array());
 }

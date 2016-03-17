@@ -12,7 +12,7 @@ namespace Zingular\Forms\Plugins\Converters;
  * Class InternalCallableConverter
  * @package Zingular\Forms\Plugins
  */
-class InternalCallableConverter extends CallableConverter
+class InternalCallableConverter extends CallableConverterType
 {
     /**
      * @param string $name

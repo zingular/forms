@@ -7,18 +7,18 @@
  */
 
 namespace Zingular\Forms\Service\Bridge\Event;
+use Zingular\Forms\Events\Event;
 
 /**
- * Interface EventHandlerInterface
+ * Interface EventDispatcherInterface
  * @package Zingular\Form\Service\Event
  */
-interface EventHandlerInterface
+interface EventDispatcherInterface
 {
     /**
-     * @param string $type
-     * @param array $data
+     * @param Event $event
      */
-    public function dispatch($type,array $data = array());
+    public function dispatch(Event $event);
 
     /**
      * @param string $type

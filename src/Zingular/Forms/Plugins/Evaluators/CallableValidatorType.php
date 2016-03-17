@@ -10,10 +10,10 @@ namespace Zingular\Forms\Plugins\Evaluators;
 
 
 /**
- * Class CallableValidator
+ * Class CallableValidatorType
  * @package Zingular\Form\Evaluation\Evaluator
  */
-class CallableValidator extends AbstractCallableEvaluator implements ValidatorTypeInterface
+class CallableValidatorType extends AbstractCallableEvaluatorType implements ValidatorTypeInterface
 {
     /**
      * @param mixed $value

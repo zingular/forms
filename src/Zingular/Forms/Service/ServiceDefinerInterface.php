@@ -27,10 +27,10 @@ use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
 
 /**
- * Interface ServiceSetterInterface
+ * Interface ServiceDefinerInterface
  * @package Zingular\Forms\Component
  */
-interface ServiceSetterInterface
+interface ServiceDefinerInterface
 {
     /**
      * @param ValidatorTypeInterface $validator

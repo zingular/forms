@@ -2,23 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: Giel
- * Date: 12-3-2016
- * Time: 12:25
+ * Date: 17-3-2016
+ * Time: 19:18
  */
 
 namespace Zingular\Forms\Plugins\Converters;
 
 /**
  * Class CallableConverter
- * @package Zingular\Forms\Plugins
+ * @package Zingular\Forms\Plugins\Converters
  */
-class CallableConverter implements ConverterTypeInterface
+class CallableConverter implements ConverterInterface
 {
-    /**
-     * @var string
-     */
-    protected $name;
-
     /**
      * @var callable
      */
@@ -30,13 +25,11 @@ class CallableConverter implements ConverterTypeInterface
     protected $decodeCallback;
 
     /**
-     * @param string $name
      * @param callable $encodeCallback
      * @param callable $decodeCallback
      */
-    public function __construct($name,$encodeCallback,$decodeCallback)
+    public function __construct($encodeCallback,$decodeCallback)
     {
-        $this->name = $name;
         $this->encodeCallback = $encodeCallback;
         $this->decodeCallback = $decodeCallback;
     }
@@ -61,13 +54,5 @@ class CallableConverter implements ConverterTypeInterface
     {
         array_unshift($params,$value);
         return call_user_func_array($this->decodeCallback,$params);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

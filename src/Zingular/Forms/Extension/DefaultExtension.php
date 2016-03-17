@@ -10,7 +10,7 @@ namespace Zingular\Forms\Extension;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderTypeWrapper;
-use Zingular\Forms\Plugins\Evaluators\CallableValidator;
+use Zingular\Forms\Plugins\Evaluators\CallableValidatorType;
 
 /**
  * Class DefaultExtension
@@ -26,18 +26,18 @@ class DefaultExtension implements FullExtensionInterface
     /**
      * @return array
      */
-    public function getValidators()
+    public function getValidatorTypes()
     {
         return array
         (
-            new CallableValidator('doValidate',array($this,'validate'))
+            new CallableValidatorType('doValidate',array($this,'validate'))
         );
     }
 
     /**
      * @return array
      */
-    public function getFilters()
+    public function getFilterTypes()
     {
         return array();
     }
@@ -45,7 +45,7 @@ class DefaultExtension implements FullExtensionInterface
     /**
      * @return array
      */
-    public function getBuilders()
+    public function getBuilderTypes()
     {
         return array
         (
@@ -64,7 +64,7 @@ class DefaultExtension implements FullExtensionInterface
     /**
      * @return array
      */
-    public function getConditions()
+    public function getConditionTypes()
     {
         return array();
     }
@@ -89,9 +89,9 @@ class DefaultExtension implements FullExtensionInterface
     /**
      * @return array
      */
-    public function getConverters()
+    public function getConverterTypes()
     {
-        // TODO: Implement getConverters() method.
+        return array();
     }
 
     /**
@@ -99,6 +99,6 @@ class DefaultExtension implements FullExtensionInterface
      */
     public function getFormBuilders()
     {
-        // TODO: Implement getFormBuilders() method.
+        return array();
     }
 }

@@ -10,6 +10,7 @@ use Zingular\Forms\Component\HtmlAttributesInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
+use Zingular\Forms\Service\ServiceConsumerTrait;
 
 
 /**
@@ -27,4 +28,5 @@ abstract class AbstractElement implements
     use CssComponentTrait;
     use HtmlAttributesTrait;
     use ConditionableTrait;
+    use ServiceConsumerTrait;
 }

@@ -42,39 +42,39 @@ class TestExtension implements FullExtensionInterface
      */
     public function getAggregators()
     {
-        // TODO: Implement getAggregators() method.
+        return array();
     }
 
     /**
      * @return array
      */
-    public function getBuilders()
+    public function getBuilderTypes()
     {
-        // TODO: Implement getBuilders() method.
+        return array();
     }
 
     /**
      * @return array
      */
-    public function getConditions()
+    public function getConditionTypes()
     {
-        // TODO: Implement getConditions() method.
+        return array();
     }
 
     /**
      * @return array
      */
-    public function getConverters()
+    public function getConverterTypes()
     {
-        // TODO: Implement getConverters() method.
+        return array();
     }
 
     /**
      * @return array
      */
-    public function getFilters()
+    public function getFilterTypes()
     {
-        // TODO: Implement getFilters() method.
+        return array();
     }
 
     /**
@@ -82,14 +82,14 @@ class TestExtension implements FullExtensionInterface
      */
     public function getFormBuilders()
     {
-        // TODO: Implement getFormBuilders() method.
+        return array();
     }
 
     /**
      * @return array
      */
-    public function getValidators()
+    public function getValidatorTypes()
     {
-        // TODO: Implement getValidators() method.
+        return array();
     }
 }

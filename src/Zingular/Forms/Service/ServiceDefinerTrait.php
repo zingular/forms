@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service;
 
 
+use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionTypeInterface;
@@ -18,31 +19,33 @@ use Zingular\Forms\Plugins\Evaluators\ValidatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Plugins\Builders\Container\BuilderTypeInterface;
-
-
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
-
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
-
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 
 /**
- * Class ServiceSetterTrait
+ * Class ServiceDefinerTrait
  * @package Zingular\Form\Component
  */
-trait ServiceSetterTrait
+trait ServiceDefinerTrait
 {
     /**
-     * @var ServiceSetterInterface
+     * @var ServiceDefinerInterface
      */
     protected $services;
 
     /**
-     * @return ServiceSetterInterface
+     * @return ServicesInterface
+     * @throws FormException
      */
     protected function getServices()
     {
+        if(!isset($this->services))
+        {
+            throw new FormException(sprintf("Cannot retrieve form services: services not set!"));
+        }
+
         return $this->services;
     }
 

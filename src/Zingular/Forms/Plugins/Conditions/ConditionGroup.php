@@ -258,6 +258,7 @@ class ConditionGroup// implements ConditionableInterface
 
     /**
      * @param array $commands
+     * @param ComponentInterface $component
      * @return array
      */
     protected function processCommands(array $commands,ComponentInterface $component)

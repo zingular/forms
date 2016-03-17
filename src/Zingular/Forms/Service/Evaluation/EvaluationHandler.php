@@ -15,8 +15,8 @@ use Zingular\Forms\Exception\AbstractEvaluationException;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\InvalidArgumentException;
 use Zingular\Forms\Exception\ValidatorException;
-use Zingular\Forms\Plugins\Evaluators\CallableFilter;
-use Zingular\Forms\Plugins\Evaluators\CallableValidator;
+use Zingular\Forms\Plugins\Evaluators\CallableFilterType;
+use Zingular\Forms\Plugins\Evaluators\CallableValidatorType;
 
 /**
  * Class EvaluationHandler
@@ -124,7 +124,7 @@ class EvaluationHandler
         }
         elseif(is_callable($evaluator))
         {
-            $filter = new CallableFilter('generic',$evaluator);
+            $filter = new CallableFilterType('generic',$evaluator);
         }
         else
         {
@@ -155,7 +155,7 @@ class EvaluationHandler
         }
         elseif(is_callable($evaluator))
         {
-            $validator = new CallableValidator('generic',$evaluator);
+            $validator = new CallableValidatorType('generic',$evaluator);
         }
         else
         {

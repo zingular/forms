@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Component;
 use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\ServiceGetterInterface;
+use Zingular\Forms\Service\ServiceProviderInterface;
 
 /**
  * Class ComponentTrait
@@ -125,14 +125,6 @@ trait ComponentTrait
     /**********************************************************************
      * CSS / VIEW
      *********************************************************************/
-
-    /**
-     * @return ServiceGetterInterface
-     */
-    protected function getServices()
-    {
-        return $this->state->getServices();
-    }
 
     /**
      * @throws FormException

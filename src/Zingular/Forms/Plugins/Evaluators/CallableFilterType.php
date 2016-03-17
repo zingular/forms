@@ -10,10 +10,10 @@ namespace Zingular\Forms\Plugins\Evaluators;
 
 
 /**
- * Class CallableFilter
+ * Class CallableFilterType
  * @package Zingular\Form\Evaluation\Evaluator
  */
-class CallableFilter extends AbstractCallableEvaluator implements FilterTypeInterface
+class CallableFilterType extends AbstractCallableEvaluatorType implements FilterTypeInterface
 {
     /**
      * @param $value

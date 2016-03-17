@@ -87,7 +87,7 @@ class Content extends AbstractElement implements
             {
                 throw new \Exception();
             }
-            return $this->state->getServices()->getTranslator()->translate($this->translationKey,$this->translationParams);
+            return $this->getTranslator()->translate($this->translationKey,$this->translationParams);
         }
         elseif(!is_null($this->callback))
         {

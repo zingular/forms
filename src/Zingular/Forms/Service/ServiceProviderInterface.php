@@ -10,7 +10,7 @@ namespace Zingular\Forms\Service;
 
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;
-use Zingular\Forms\Service\Bridge\Event\EventHandlerInterface;
+use Zingular\Forms\Service\Bridge\Event\EventDispatcherInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\Persistence\PersistenceHandlerInterface;
 use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;
@@ -26,10 +26,10 @@ use Zingular\Forms\Service\Evaluation\FilterPool;
 use Zingular\Forms\Service\Evaluation\ValidatorPool;
 
 /**
- * Class ServiceGetterInterface
+ * Class ServiceConsumerInterface
  * @package Zingular\Forms\Component
  */
-interface ServiceGetterInterface
+interface ServiceProviderInterface
 {
     /**********************************************************************
      * HANDLER GETTERS
@@ -56,9 +56,9 @@ interface ServiceGetterInterface
     public function getCsrfHandler();
 
     /**
-     * @return EventHandlerInterface
+     * @return EventDispatcherInterface
      */
-    public function getEventHandler();
+    public function getEventDispatcher();
 
     /**
      * @return PersistenceHandlerInterface

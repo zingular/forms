@@ -33,7 +33,7 @@ use Zingular\Forms\Service\ServicesInterface;
  */
 class Construct
 {
-    use Service\ServiceSetterTrait;
+    use Service\ServiceDefinerTrait;
 
     /**
      * @var Prototypes
@@ -81,7 +81,7 @@ class Construct
         // add filters
         if($extension instanceof FilterExtensionInterface)
         {
-            foreach($extension->getFilters() as $filter)
+            foreach($extension->getFilterTypes() as $filter)
             {
                 $this->addFilterType($filter);
             }
@@ -90,7 +90,7 @@ class Construct
         // add validators
         if($extension instanceof ValidationExtensionInterface)
         {
-            foreach($extension->getValidators() as $validator)
+            foreach($extension->getValidatorTypes() as $validator)
             {
                 $this->addValidatorType($validator);
             }
@@ -99,7 +99,7 @@ class Construct
         // add builders
         if($extension instanceof BuilderExtensionInterface)
         {
-            foreach($extension->getBuilders() as $builder)
+            foreach($extension->getBuilderTypes() as $builder)
             {
                 $this->addBuilderType($builder);
             }
@@ -126,7 +126,7 @@ class Construct
         // add conditions
         if($extension instanceof ConditionExtensionInterface)
         {
-            foreach($extension->getConditions() as $condition)
+            foreach($extension->getConditionTypes() as $condition)
             {
                 $this->addConditionType($condition);
             }
@@ -135,7 +135,7 @@ class Construct
         // add converters
         if($extension instanceof ConverterExtensionInterface)
         {
-            foreach($extension->getConverters() as $converter)
+            foreach($extension->getConverterTypes() as $converter)
             {
                 $this->addConverterType($converter);
             }

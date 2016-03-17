@@ -15,7 +15,7 @@ use Zingular\Forms\Component\FormState;
  * Class CallableBuilder
  * @package Zingular\Form\Service\Builder
  */
-class CallableBuilderType implements BuilderTypeInterface
+class CallableBuilderType extends CallableBuilder implements BuilderTypeInterface
 {
     /**
      * @var string
@@ -23,29 +23,13 @@ class CallableBuilderType implements BuilderTypeInterface
     protected $name;
 
     /**
-     * @var callable
-     */
-    protected $callable;
-
-    /**
      * @param $name
      * @param $callable
      */
     public function __construct($name,$callable)
     {
+        parent::__construct($callable);
         $this->name = $name;
-        $this->callable = $callable;
-    }
-
-    /**
-     * @param BuildableInterface $container
-     * @param FormState $state
-     * @param array $options
-     */
-    public function build(BuildableInterface $container,FormState $state,array $options = array())
-    {
-        array_unshift($options,$container,$state);
-        call_user_func_array($this->callable,$options);
     }
 
     /**

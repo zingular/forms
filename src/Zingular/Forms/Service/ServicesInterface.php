@@ -12,7 +12,7 @@ namespace Zingular\Forms\Service;
  * Class ServicesInterface
  * @package Zingular\Forms\Component
  */
-interface ServicesInterface extends ServiceSetterInterface,ServiceGetterInterface
+interface ServicesInterface extends ServiceDefinerInterface,ServiceProviderInterface
 {
 
 }

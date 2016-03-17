@@ -20,11 +20,12 @@ use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Events\FormEvent;
 use Zingular\Forms\Exception\InvalidArgumentException;
-use Zingular\Forms\Service\ServiceSetterInterface;
+use Zingular\Forms\Service\ServiceDefinerInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
-use Zingular\Forms\Service\ServiceSetterTrait;
+use Zingular\Forms\Service\ServiceDefinerTrait;
 use Zingular\Forms\Service\ServicesInterface;
 
 /**
@@ -33,10 +34,10 @@ use Zingular\Forms\Service\ServicesInterface;
  */
 class Form extends Container implements
     PrototypesInterface,
-    ServiceSetterInterface,
+    ServiceDefinerInterface,
     FormInterface
 {
-    use ServiceSetterTrait;
+    use ServiceDefinerTrait;
 
     /**
      * @var string
@@ -253,12 +254,16 @@ class Form extends Container implements
                 // handle the orm model, if any
                 if(!is_null($this->model))
                 {
-                    $this->getServices()->getOrmHandler()->setValues($this->getValues(),$this->model);
+                    $this->getOrmHandler()->setValues($this->getValues(),$this->model);
                 }
 
                 // handle handlers
                 // TODO
             }
+
+            // dispatch event
+            $event = new FormEvent(FormEvent::COMPILED,$this);
+            $this->getEventDispatcher()->dispatch($event);
         }
     }
 
@@ -272,7 +277,7 @@ class Form extends Container implements
         $this->compile($this->getFormContext(),$this->defaultValues);
 
         // return the rendered view
-        return $this->getServices()->getViewHandler()->render($this);
+        return $this->getViewHandler()->render($this);
     }
 
     /**
@@ -286,7 +291,7 @@ class Form extends Container implements
             ->ignoreValue();
 
         // add csrf validation field
-        $handler = $this->getServices()->getCsrfHandler();
+        $handler = $this->getCsrfHandler();
 
         // add csrf field
         $this->addHidden($handler->generateTokenFieldname($handler->generateToken($this->getId()),$this->getId()))

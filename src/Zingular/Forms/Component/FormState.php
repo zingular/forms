@@ -11,7 +11,7 @@ namespace Zingular\Forms\Component;
 use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Component\Containers\ContainerInterface;
 use Zingular\Forms\Component\Containers\Form;
-use Zingular\Forms\Service\ServiceGetterInterface;
+use Zingular\Forms\Service\ServiceProviderInterface;
 
 /**
  * Class FormState
@@ -25,7 +25,7 @@ class FormState
     protected $form;
 
     /**
-     * @var ServiceGetterInterface
+     * @var ServiceProviderInterface
      */
     protected $services;
 
@@ -46,9 +46,9 @@ class FormState
 
     /**
      * @param Form $form
-     * @param ServiceGetterInterface $services
+     * @param ServiceProviderInterface $services
      */
-    public function __construct(Form $form,ServiceGetterInterface $services)
+    public function __construct(Form $form,ServiceProviderInterface $services)
     {
         $this->form = $form;
         $this->services = $services;
@@ -235,7 +235,7 @@ class FormState
     }
 
     /**
-     * @return ServiceGetterInterface
+     * @return ServiceProviderInterface
      */
     public function getServices()
     {

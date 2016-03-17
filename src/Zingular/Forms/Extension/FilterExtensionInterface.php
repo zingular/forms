@@ -18,5 +18,5 @@ interface FilterExtensionInterface extends ExtensionInterface
     /**
      * @return array
      */
-    public function getFilters();
+    public function getFilterTypes();
 }

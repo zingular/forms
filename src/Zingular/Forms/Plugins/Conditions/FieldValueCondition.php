@@ -23,7 +23,7 @@ class FieldValueCondition extends CallableCondition
      */
     public function __construct()
     {
-        parent::__construct('value',array($this,'validate'),true);
+        parent::__construct(array($this,'validate'),true);
     }
 
     /**

@@ -18,5 +18,5 @@ interface ConditionExtensionInterface extends ExtensionInterface
     /**
      * @return array
      */
-    public function getConditions();
+    public function getConditionTypes();
 }

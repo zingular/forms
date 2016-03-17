@@ -16,8 +16,13 @@ use Zingular\Forms\Component\FormState;
  * Class BuilderTypeWrapper
  * @package Zingular\Form\Service\Builder
  */
-class BuilderTypeWrapper extends AbstractBuilderType
+class BuilderTypeWrapper implements BuilderTypeInterface
 {
+    /**
+     * @var string
+     */
+    protected $name;
+
     /**
      * @var BuilderInterface
      */
@@ -29,10 +34,9 @@ class BuilderTypeWrapper extends AbstractBuilderType
      */
     public function __construct($name,BuilderInterface $builder)
     {
-        parent::__construct($name);
+        $this->name = $name;
         $this->builder = $builder;
     }
-
 
     /**
      * @param BuildableInterface $container
@@ -42,5 +46,13 @@ class BuilderTypeWrapper extends AbstractBuilderType
     public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
         $this->builder->build($container,$context);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuilderName()
+    {
+        return $this->name;
     }
 }

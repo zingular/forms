@@ -19,11 +19,6 @@ use Zingular\Forms\Component\FormState;
 class CallableCondition implements ConditionInterface
 {
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @var callable
      */
     protected $callable;
@@ -34,13 +29,11 @@ class CallableCondition implements ConditionInterface
     protected $contextAware;
 
     /**
-     * @param $name
      * @param callable $callable
      * @param bool $contextAware
      */
-    public function __construct($name,callable $callable,$contextAware = false)
+    public function __construct($callable,$contextAware = false)
     {
-        $this->name = $name;
         $this->callable = $callable;
         $this->contextAware = $contextAware;
     }
@@ -59,13 +52,5 @@ class CallableCondition implements ConditionInterface
         }
 
         return call_user_func_array($this->callable,array_merge(array($source),$params));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

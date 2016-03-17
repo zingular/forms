@@ -18,5 +18,5 @@ interface ConverterExtensionInterface extends ExtensionInterface
     /**
      * @return array
      */
-    public function getConverters();
+    public function getConverterTypes();
 }

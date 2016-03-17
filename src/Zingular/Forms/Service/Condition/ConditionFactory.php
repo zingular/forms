@@ -33,9 +33,9 @@ class ConditionFactory implements ConditionFactoryInterface
     {
         switch($type)
         {
-            case Condition::PROVIDED_VALUE: return new CallableCondition(Condition::PROVIDED_VALUE,function(ComponentInterface $component,$value){return (bool) $value;});
-            case Condition::TRUE: return new CallableCondition(Condition::TRUE,function(){return true;});
-            case Condition::FALSE: return new CallableCondition(Condition::FALSE,function(){return false;});
+            case Condition::PROVIDED_VALUE: return new CallableCondition(function(ComponentInterface $component,$value){return (bool) $value;});
+            case Condition::TRUE: return new CallableCondition(function(){return true;});
+            case Condition::FALSE: return new CallableCondition(function(){return false;});
             case Condition::FIELD_VALUE: return new FieldValueCondition();
             case Condition::CURRENT_VALUE: return new CurrentValueCondition();
             case Condition::CALLBACK: return new CallbackCondition();

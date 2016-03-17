@@ -10,7 +10,7 @@ namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Filter;
-use Zingular\Forms\Plugins\Evaluators\CallableFilter;
+use Zingular\Forms\Plugins\Evaluators\CallableFilterType;
 use Zingular\Forms\Plugins\Evaluators\FilterInterface;
 
 /**
@@ -28,13 +28,13 @@ class FilterFactory implements FilterFactoryInterface
     {
         switch($name)
         {
-            case Filter::UPPERCASE: return new CallableFilter(Filter::UPPERCASE,array($this,Filter::UPPERCASE));
-            case Filter::LOWERCASE: return new CallableFilter(Filter::LOWERCASE,array($this,Filter::LOWERCASE));
-            case Filter::TRIM: return new CallableFilter(Filter::TRIM,array($this,Filter::TRIM));
-            case Filter::TRIM_LEFT: return new CallableFilter(Filter::TRIM_LEFT,array($this,Filter::TRIM_LEFT));
-            case Filter::TRIM_RIGHT: return new CallableFilter(Filter::TRIM_RIGHT,array($this,Filter::TRIM_RIGHT));
-            case Filter::FORCE_LEADING: return new CallableFilter(Filter::FORCE_LEADING,array($this,Filter::FORCE_LEADING));
-            case Filter::FORCE_TRAILING: return new CallableFilter(Filter::FORCE_TRAILING,array($this,Filter::FORCE_TRAILING));
+            case Filter::UPPERCASE: return new CallableFilterType(Filter::UPPERCASE,array($this,Filter::UPPERCASE));
+            case Filter::LOWERCASE: return new CallableFilterType(Filter::LOWERCASE,array($this,Filter::LOWERCASE));
+            case Filter::TRIM: return new CallableFilterType(Filter::TRIM,array($this,Filter::TRIM));
+            case Filter::TRIM_LEFT: return new CallableFilterType(Filter::TRIM_LEFT,array($this,Filter::TRIM_LEFT));
+            case Filter::TRIM_RIGHT: return new CallableFilterType(Filter::TRIM_RIGHT,array($this,Filter::TRIM_RIGHT));
+            case Filter::FORCE_LEADING: return new CallableFilterType(Filter::FORCE_LEADING,array($this,Filter::FORCE_LEADING));
+            case Filter::FORCE_TRAILING: return new CallableFilterType(Filter::FORCE_TRAILING,array($this,Filter::FORCE_TRAILING));
             default: throw new FormException(sprintf("Cannot create filter: unknown filter type '%s'",$name));
         }
     }

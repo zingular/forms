@@ -23,7 +23,7 @@ class ComponentPropertyCondition extends CallableCondition
      */
     public function __construct()
     {
-        parent::__construct(Condition::COMPONENT_PROPERTY,array($this,'validate'),$contextAware = true);
+        parent::__construct(array($this,'validate'),$contextAware = true);
     }
 
     /**

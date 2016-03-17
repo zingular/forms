@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms\Extension;
 
-
 /**
  * Interface BuilderExtensionInterface
  * @package Zingular\Forms\Extension
@@ -18,5 +17,5 @@ interface BuilderExtensionInterface extends ExtensionInterface
     /**
      * @return array
      */
-    public function getBuilders();
+    public function getBuilderTypes();
 }

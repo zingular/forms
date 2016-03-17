@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Component;
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Service\Conversion\ConverterConfig;
+use Zingular\Forms\Service\ServiceConsumerTrait;
 
 /**
  * Class ConvertableTrait
@@ -16,6 +17,8 @@ use Zingular\Forms\Service\Conversion\ConverterConfig;
  */
 trait ConvertableTrait
 {
+    use ServiceConsumerTrait;
+
     /**
      * @var ConverterConfig
      */
@@ -45,7 +48,7 @@ trait ConvertableTrait
     {
         if(is_null($this->converter) && !is_null($this->converterConfig))
         {
-            $this->converter = $this->getServices()->getConverters()->get($this->converterConfig->getType());
+            $this->converter = $this->getConverters()->get($this->converterConfig->getType());
         }
 
         return $this->converter;

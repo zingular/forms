@@ -140,14 +140,14 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
                 // required check
                 if($this->isRequired())
                 {
-                    throw new FormException($this,'validator.required',array('control'=>$this->getServices()->getTranslator()->translate('control.'.$this->getName())));
+                    throw new FormException($this,'validator.required',array('control'=>$this->getTranslator()->translate('control.'.$this->getName())));
                 }
             }
             // if there was a value from the input
             else
             {
                 // evaluate the value
-                $this->setValue($this->getServices()->getEvaluationHandler()->evaluate($this,$this->getEvaluatorCollection()));
+                $this->setValue($this->getEvaluationHandler()->evaluate($this,$this->getEvaluatorCollection()));
 
                 // encode the value (if converter set)
                 $this->setValue($this->encodeValue($this->value));
@@ -155,7 +155,7 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
                 // store the read input if it should be persisted
                 if($this->isPersistent() || $this->state->isPersistent())
                 {
-                    $this->getServices()->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->state->getFormId());
+                    $this->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->state->getFormId());
                 }
             }
         }
@@ -163,9 +163,9 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
         else
         {
             // if persistent and the persistence handler has a value for this data unit, load it
-            if(($this->isPersistent() || $this->state->isPersistent()) && $this->getServices()->getPersistenceHandler()->hasValue($this->getFullName(),$this->state->getFormId()))
+            if(($this->isPersistent() || $this->state->isPersistent()) && $this->getPersistenceHandler()->hasValue($this->getFullName(),$this->state->getFormId()))
             {
-                $this->setValue($this->getServices()->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId()));
+                $this->setValue($this->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId()));
             }
         }
     }
@@ -293,7 +293,7 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
     {
         if(is_null($this->aggregator))
         {
-            $this->aggregator = $this->getServices()->getAggregators()->get($this->aggregatorType);
+            $this->aggregator = $this->getAggregators()->get($this->aggregatorType);
         }
         return $this->aggregator;
     }
