@@ -17,7 +17,7 @@ use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 
 use Zingular\Forms\Exception\ComponentException;
-use Zingular\Forms\Exception\ValidatorException;
+
 use Zingular\Forms\IncompletionMode;
 use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
 use Zingular\Forms\Exception\FormException;

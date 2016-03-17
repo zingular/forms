@@ -6,15 +6,16 @@
  * Time: 20:06
  */
 
-namespace Zingular\Forms\Service\Builder\Container;
+namespace Zingular\Forms\Service\Conversion;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+use Zingular\Forms\Plugins\Converters\ConverterInterface;
 
 /**
  * Class BuilderFactoryAggregator
  * @package Zingular\Form\Service\Builder
  */
-class BuilderFactoryAggregator implements BuilderFactoryInterface
+class ConverterFactoryAggregator implements ConverterFactoryInterface
 {
     /**
      * @var array
@@ -22,21 +23,21 @@ class BuilderFactoryAggregator implements BuilderFactoryInterface
     protected $factories = array();
 
     /**
-     * @param BuilderFactoryInterface $factory
+     * @param ConverterFactoryInterface $factory
      */
-    public function add(BuilderFactoryInterface $factory)
+    public function add(ConverterFactoryInterface $factory)
     {
-        $this->factories[] = $factory;
+        $this->factories = $factory;
     }
 
     /**
      * @param string $type
-     * @return BuilderInterface
+     * @return ConverterInterface
      * @throws FormException
      */
     public function create($type)
     {
-        /** @var BuilderFactoryInterface $factory */
+        /** @var ConverterFactoryInterface $factory */
         foreach($this->factories as $factory)
         {
             try
@@ -49,6 +50,6 @@ class BuilderFactoryAggregator implements BuilderFactoryInterface
             }
         }
 
-        throw new FormException(sprintf("Cannot create builder: none of the factories in the factory aggregator has the requested type '%s'!",$type));
+        throw new FormException(sprintf("Cannot create converter: none of the factories in the factory aggregator has the requested type '%s'!",$type));
     }
 }

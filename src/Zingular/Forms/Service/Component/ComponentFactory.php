@@ -179,5 +179,4 @@ class ComponentFactory implements ComponentFactoryInterface
     {
         return new Form($id,$services,$prototypes);
     }
-
 }
