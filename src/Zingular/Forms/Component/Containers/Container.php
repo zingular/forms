@@ -485,10 +485,15 @@ class Container extends AbstractContainer implements
 
     /**
      * @param $show
-     * @return mixed
+     * @return string|bool
      */
     public function showErrors($show = self::ERRORS_CHILDREN)
     {
+        if(is_bool($show))
+        {
+            $show = $show ? self::ERRORS_CHILDREN : self::ERRORS_NONE;
+        }
+
         $this->showErrors = $show;
         return $this;
     }

@@ -85,7 +85,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
 
     /**
      * @param $show
-     * @return mixed
+     * @return string|bool
      */
     public function showErrors($show = self::ERRORS_CHILDREN);
 
