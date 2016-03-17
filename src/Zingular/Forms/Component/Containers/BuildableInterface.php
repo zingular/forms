@@ -29,6 +29,10 @@ use Zingular\Forms\Events\EventDispatcherInterface;
  */
 interface BuildableInterface extends ContainerInterface,PositionableInterface,EventDispatcherInterface
 {
+    const ERRORS_CHILDREN = 'children';
+    const ERRORS_DESCENDANTS = 'descendants';
+    const ERRORS_NONE = 'none';
+
     /***************************************************************
      * BUILDER
      **************************************************************/
@@ -78,6 +82,12 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      * @return array
      */
     public function getErrors($recursive = false);
+
+    /**
+     * @param $show
+     * @return mixed
+     */
+    public function showErrors($show = self::ERRORS_CHILDREN);
 
     /***************************************************************
      * GET

@@ -35,7 +35,8 @@ class Container extends AbstractContainer implements
     BuildableInterface,
     CssComponentInterface,
     ViewableComponentInterface,
-    ConditionableInterface
+    ConditionableInterface,
+    ErrorContainerInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
@@ -73,7 +74,7 @@ class Container extends AbstractContainer implements
     /**
      * @var bool
      */
-    protected $showErrors = true;
+    protected $showErrors = self::ERRORS_CHILDREN;
 
     /**
      * @var array
@@ -326,7 +327,7 @@ class Container extends AbstractContainer implements
         $this->adoptionHistory = array();
 
         // process any errors found during compilation
-        $this->buildErrors();
+        $this->processErrors();
 
         // compile the errors
         $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
@@ -395,6 +396,8 @@ class Container extends AbstractContainer implements
         }
     }
 
+
+
     /**
      * @param DataUnitComponentInterface $child
      */
@@ -421,22 +424,40 @@ class Container extends AbstractContainer implements
     /**
      * @throws FormException
      */
-    protected function buildErrors()
+    protected function processErrors()
     {
-        // if there are errors and they should be shown
-        if($this->showErrors && count($this->errors))
+        if($this->showErrors === self::ERRORS_CHILDREN)
         {
-            // apply the error builder
-            $this->applyBuilderType($this->errorBuilder,array($this->errors));
-
-            // add error css class
-            if($this instanceof CssComponentInterface)
-            {
-                // mark this container to have errors
-                $this->addCssClass(CssClass::ERROR_CONTAINER);
-            }
+            $this->buildErrors($this->getErrors(false));
+        }
+        elseif($this->showErrors === self::ERRORS_DESCENDANTS)
+        {
+            $this->buildErrors($this->getErrors(true));
         }
     }
+
+    /**
+     * @param array $errors
+     * @throws FormException
+     */
+    protected function buildErrors(array $errors)
+    {
+        if(count($errors) === 0)
+        {
+            return;
+        }
+
+        // apply the error builder
+        $this->applyBuilderType($this->errorBuilder,array($errors));
+
+        // add error css class
+        if($this instanceof CssComponentInterface)
+        {
+            // mark this container to have errors
+            $this->addCssClass(CssClass::ERROR_CONTAINER);
+        }
+    }
+
 
     /**
      * @param bool $recursive
@@ -463,12 +484,12 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param bool $set
-     * @return $this
+     * @param $show
+     * @return mixed
      */
-    public function showErrors($set = true)
+    public function showErrors($show = self::ERRORS_CHILDREN)
     {
-        $this->showErrors = $set;
+        $this->showErrors = $show;
         return $this;
     }
 
@@ -528,7 +549,7 @@ class Container extends AbstractContainer implements
         $this->adoptionHistory = null;
 
         // clear any runtime errors
-        $this->errors = null;
+        $this->errors = array();
 
         // unset the current context
         $this->context = null;
