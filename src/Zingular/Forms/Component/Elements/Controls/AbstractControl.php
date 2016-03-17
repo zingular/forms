@@ -17,6 +17,7 @@ use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 
+use Zingular\Forms\Events\ComponentEvent;
 use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\FormException;
 
@@ -60,61 +61,10 @@ abstract class AbstractControl extends AbstractElement implements
 
         // make sure the value is collected
         $this->retrieveValue($defaultValue);
-    }
 
-    /**
-     * @param null $defaultValue
-     * @throws FormException
-     * @throws ComponentException
-     */
-    public function retrieveValue($defaultValue = null)
-    {
-        // if there was a form scope default value provided, set that
-        if(!is_null($defaultValue))
-        {
-            $this->setValue($defaultValue);
-        }
-
-        // if there was a submit
-        if($this->shouldReadInput($this->state))
-        {
-            // read the raw value
-            $this->setValue($this->readInput($this->state));
-
-            // if there was no value from the input
-            if($this->hasValue() === false)
-            {
-                // required check
-                if($this->isRequired())
-                {
-                    throw new FormException($this,'validator.required',array('control'=>$this->getTranslator()->translate('control.'.$this->getName())));
-                }
-            }
-            // if there was a value from the input
-            else
-            {
-                // evaluate the value
-                $this->setValue($this->getEvaluationHandler()->evaluate($this,$this->getEvaluatorCollection()));
-
-                // encode the value (if converter set)
-                $this->setValue($this->encodeValue($this->value));
-
-                // store the read input if it should be persisted
-                if($this->isPersistent() || $this->state->isPersistent())
-                {
-                    $this->getPersistenceHandler()->setValue($this->getFullName(),$this->value,$this->state->getFormId());
-                }
-            }
-        }
-        // if input should not be read, get value from other source
-        else
-        {
-            // if persistent and the persistence handler has a value for this data unit, load it
-            if(($this->isPersistent() || $this->state->isPersistent()) && $this->getPersistenceHandler()->hasValue($this->getFullName(),$this->state->getFormId()))
-            {
-                $this->setValue($this->getPersistenceHandler()->getValue($this->getFullName(),$this->state->getFormId()));
-            }
-        }
+        // dispatch event
+        $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
+        $this->dispatch($event);
     }
 
     /**

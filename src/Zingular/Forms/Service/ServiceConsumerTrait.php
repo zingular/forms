@@ -11,7 +11,6 @@ namespace Zingular\Forms\Service;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;
-use Zingular\Forms\Service\Bridge\Event\EventDispatcherInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\Persistence\PersistenceHandlerInterface;
 use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;
@@ -80,14 +79,6 @@ trait ServiceConsumerTrait
     protected function getCsrfHandler()
     {
         return $this->getServices()->getCsrfHandler();
-    }
-
-    /**
-     * @return EventDispatcherInterface
-     */
-    protected function getEventDispatcher()
-    {
-        return $this->getServices()->getEventDispatcher();
     }
 
     /**

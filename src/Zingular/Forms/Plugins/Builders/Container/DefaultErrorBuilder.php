@@ -18,16 +18,24 @@ use Zingular\Forms\Exception\FormException;
  * Class DefaultErrorBuilder
  * @package Zingular\Forms\Plugins\Builders\Error
  */
-class DefaultErrorBuilder implements BuilderInterface
+class DefaultErrorBuilder extends CallableBuilder
 {
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct(array($this,'buildErrors'));
+    }
+
     /**
      * @param BuildableInterface $container
      * @param FormState $context
-     * @param array $options
+     * @param array $errors
      */
-    public function build(BuildableInterface $container, FormState $context,array $options = array())
+    public function buildErrors(BuildableInterface $container, FormState $context,array $errors)
     {
-        foreach($container->getErrors() as $index=>$e)
+        foreach($errors as $index=>$e)
         {
             if($e instanceof ComponentException)
             {

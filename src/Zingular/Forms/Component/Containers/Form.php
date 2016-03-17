@@ -259,11 +259,12 @@ class Form extends Container implements
 
                 // handle handlers
                 // TODO
-            }
 
-            // dispatch event
-            $event = new FormEvent(FormEvent::COMPILED,$this);
-            $this->getEventDispatcher()->dispatch($event);
+
+                // dispatch event
+                $event = new FormEvent(FormEvent::VALID,$this);
+                $this->dispatch($event);
+            }
         }
     }
 

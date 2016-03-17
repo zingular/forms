@@ -15,6 +15,8 @@ use Zingular\Forms\Component\ComponentInterface;
  */
 class ComponentEvent extends Event
 {
+    const COMPILED = 'component.compiled';
+
     /**
      * @var ComponentInterface
      */

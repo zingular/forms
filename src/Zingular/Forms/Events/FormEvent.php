@@ -9,6 +9,8 @@ use Zingular\Forms\Component\Containers\FormInterface;
  */
 class FormEvent extends Event
 {
+    const VALID = 'form.valid';
+
     /**
      * @var FormInterface
      */

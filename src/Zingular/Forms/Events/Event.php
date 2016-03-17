@@ -14,8 +14,7 @@ namespace Zingular\Forms\Events;
  */
 class Event
 {
-    const GENERIC = 'generic';
-    const COMPILED = 'compiled';
+    const GENERIC = 'event';
 
     /**
      * @var string

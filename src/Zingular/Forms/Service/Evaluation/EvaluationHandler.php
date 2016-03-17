@@ -11,7 +11,6 @@ namespace Zingular\Forms\Service\Evaluation;
 use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\AbstractEvaluationException;
-
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\InvalidArgumentException;
 use Zingular\Forms\Exception\ValidatorException;

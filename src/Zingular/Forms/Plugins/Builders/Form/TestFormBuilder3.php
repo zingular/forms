@@ -12,6 +12,8 @@ use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Condition;
+use Zingular\Forms\Events\Event;
+use Zingular\Forms\Events\FormEvent;
 use Zingular\Forms\Exception\FilterException;
 
 use Zingular\Forms\Filter;
@@ -111,6 +113,8 @@ class TestFormBuilder3 implements FormBuilderInterface
         //
         $form->setTranslator($iterator);
 
+        $form->addEventListener(FormEvent::VALID,array($this,'onFormValid'));
+
         //
     }
 
@@ -119,6 +123,14 @@ class TestFormBuilder3 implements FormBuilderInterface
      */
     public function getFormName()
     {
-        // TODO: Implement getFormName() method.
+        return 'test3';
+    }
+
+    /**
+     * @param Event $e
+     */
+    public function onFormValid(Event $e)
+    {
+        echo $e->getType().'<br/>';
     }
 }

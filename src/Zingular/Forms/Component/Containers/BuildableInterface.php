@@ -21,12 +21,13 @@ use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+use Zingular\Forms\Events\EventDispatcherInterface;
 
 /**
  * Interface BuildableInterface
  * @package Zingular\Forms\Component\Container
  */
-interface BuildableInterface extends ContainerInterface,PositionableInterface
+interface BuildableInterface extends ContainerInterface,PositionableInterface,EventDispatcherInterface
 {
     /***************************************************************
      * BUILDER
@@ -52,10 +53,10 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface
 
     /**
      * @param SimpleBuilderInterface $builder
+     * @param $params
      * @return $this
-     * @throws FormException
      */
-    public function applyBuilder(SimpleBuilderInterface $builder);
+    public function applyBuilder(SimpleBuilderInterface $builder,...$params);
 
     /**
      * @return $this
@@ -73,9 +74,10 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface
     public function removeComponent($name);
 
     /**
+     * @param bool $recursive
      * @return array
      */
-    public function getErrors();
+    public function getErrors($recursive = false);
 
     /***************************************************************
      * GET

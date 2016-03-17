@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Component\Containers;
 
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Events\EventDispatcherInterface;
 use Zingular\Forms\Service\ServiceDefinerInterface;
 
 /**
@@ -17,7 +18,8 @@ use Zingular\Forms\Service\ServiceDefinerInterface;
  */
 interface ConfigurableFormInterface extends
     HttpMethodInterface,
-    ServiceDefinerInterface
+    ServiceDefinerInterface,
+    EventDispatcherInterface
 {
     /**
      * @param $model

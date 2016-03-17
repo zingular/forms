@@ -11,6 +11,7 @@ use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
+use Zingular\Forms\Events\ComponentEvent;
 
 /**
  * Class Content
@@ -119,8 +120,8 @@ class Content extends AbstractElement implements
         // store the state locally
         $this->state = $state;
 
-        // apply any conditions for this content element
-       // $this->applyConditions($state);
-
+        // dispatch event
+        $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
+        $this->dispatch($event);
     }
 }

@@ -25,7 +25,6 @@ use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
-use Zingular\Forms\Service\ServiceConsumerTrait;
 
 /**
  * Class Container
@@ -44,7 +43,7 @@ class Container extends AbstractContainer implements
     use HtmlAttributesTrait;
     use BuildableTrait;
     use ConditionableTrait;
-    use ServiceConsumerTrait;
+    use \Zingular\Forms\Events\EventDispatcherTrait;
 
     /**
      * @var BuilderInterface
@@ -201,10 +200,11 @@ class Container extends AbstractContainer implements
 
     /**
      * @param SimpleBuilderInterface $builder
+     * @param $params
      * @return $this
      * @throws FormException
      */
-    public function applyBuilder(SimpleBuilderInterface $builder)
+    public function applyBuilder(SimpleBuilderInterface $builder,...$params)
     {
         $this->applyBuilderType($builder);
         return $this;
@@ -221,10 +221,11 @@ class Container extends AbstractContainer implements
 
     /**
      * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
+     * @param array $args
      * @return $this
      * @throws FormException
      */
-    protected function applyBuilderType($builder)
+    protected function applyBuilderType($builder,array $args = array())
     {
         // callable
         if(is_callable($builder))
@@ -250,7 +251,7 @@ class Container extends AbstractContainer implements
         // if it is a simple builder
         if($builder instanceof SimpleBuilderInterface)
         {
-            $builder->build($this);
+            $builder->build($this,$args);
         }
         // if it is a runtime builder, also provide the state
         elseif($builder instanceof BuilderInterface)
@@ -262,7 +263,7 @@ class Container extends AbstractContainer implements
             }
 
             // apply the runtime builder
-            $builder->build($this,$this->state);
+            $builder->build($this,$this->state,$args);
         }
         // if anyting else: throw exception
         else
@@ -325,10 +326,14 @@ class Container extends AbstractContainer implements
         $this->adoptionHistory = array();
 
         // process any errors found during compilation
-        $this->processErrors();
+        $this->buildErrors();
 
         // compile the errors
         $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
+
+        // dispatch event
+        $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
+        $this->dispatch($event);
     }
 
     /**
@@ -386,10 +391,6 @@ class Container extends AbstractContainer implements
 
                 // add the child to the form state
                 $this->state->registerComponent($component);
-
-                // dispatch event
-                $event = new ComponentEvent(ComponentEvent::COMPILED,$component);
-                $this->getEventDispatcher()->dispatch($event);
             }
         }
     }
@@ -413,40 +414,51 @@ class Container extends AbstractContainer implements
      */
     protected function postBuild(FormState $context) {}
 
+    /***************************************************************
+     * ERRORS
+     **************************************************************/
+
     /**
      * @throws FormException
      */
-    protected function processErrors()
+    protected function buildErrors()
     {
         // if there are errors and they should be shown
         if($this->showErrors && count($this->errors))
         {
             // apply the error builder
-            $this->applyBuilderType($this->errorBuilder);
+            $this->applyBuilderType($this->errorBuilder,array($this->errors));
 
             // add error css class
             if($this instanceof CssComponentInterface)
             {
                 // mark this container to have errors
-                $this->addCssClass('errorContainer');
+                $this->addCssClass(CssClass::ERROR_CONTAINER);
             }
         }
     }
 
     /**
+     * @param bool $recursive
      * @return array
      */
-    public function getErrors()
+    public function getErrors($recursive = false)
     {
         // TODO: merge with errors of child containers i.c.w. showErrors
         return $this->errors;
     }
 
     /**
+     * @param bool $recursive
      * @return bool
      */
-    public function hasErrors()
+    public function hasErrors($recursive = false)
     {
+        if($recursive)
+        {
+
+        }
+
         return count($this->errors) > 0;
     }
 

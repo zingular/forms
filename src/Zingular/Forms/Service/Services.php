@@ -36,13 +36,10 @@ use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
 use Zingular\Forms\Service\Evaluation\FilterPool;
 use Zingular\Forms\Service\Evaluation\ValidatorFactory;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
-
 use Zingular\Forms\Service\Evaluation\ValidatorPool;
 use Zingular\Forms\Service\Aggregation\AggregatorFactory;
 use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;
 use Zingular\Forms\Service\Bridge\Csrf\DefaultCsrfHandler;
-use Zingular\Forms\Service\Bridge\Event\DefaultEventDispatcher;
-use Zingular\Forms\Service\Bridge\Event\EventDispatcherInterface;
 use Zingular\Forms\Service\Bridge\Orm\PublicPropertyOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\Persistence\SessionPersistenceHandler;
@@ -112,11 +109,6 @@ class Services implements ServicesInterface
      * @var CsrfHandlerInterface
      */
     protected $csrfHandler;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventHandler;
 
     /**
      * @var PersistenceHandlerInterface
@@ -392,19 +384,6 @@ class Services implements ServicesInterface
         }
 
         return $this->csrfHandler;
-    }
-
-    /**
-     * @return EventDispatcherInterface
-     */
-    public function getEventDispatcher()
-    {
-        if(is_null($this->eventHandler))
-        {
-            $this->eventHandler = new DefaultEventDispatcher();
-        }
-
-        return $this->eventHandler;
     }
 
     /**

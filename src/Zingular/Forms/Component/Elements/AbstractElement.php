@@ -10,6 +10,8 @@ use Zingular\Forms\Component\HtmlAttributesInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
+use Zingular\Forms\Events\EventDispatcherInterface;
+use Zingular\Forms\Events\EventDispatcherTrait;
 use Zingular\Forms\Service\ServiceConsumerTrait;
 
 
@@ -21,12 +23,13 @@ abstract class AbstractElement implements
     ElementInterface,
     HtmlAttributesInterface,
     ViewableComponentInterface,
-    ConditionableInterface
+    ConditionableInterface,
+    EventDispatcherInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
     use CssComponentTrait;
     use HtmlAttributesTrait;
     use ConditionableTrait;
-    use ServiceConsumerTrait;
+    use \Zingular\Forms\Events\EventDispatcherTrait;
 }
