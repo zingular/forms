@@ -45,10 +45,11 @@ class TestScenario
         // create form construct
         $construct = new Construct();
 
-
         // add extensions
-        $construct->addExtension(new DefaultExtension());
+       // $construct->addExtension(new DefaultExtension());
         $construct->addExtension(new TestExtension());
+
+        print_rf($construct->getRegisteredExtensions());
 
         // prepare translator
         $translator = new ArrayTranslator();

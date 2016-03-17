@@ -14,7 +14,7 @@ use Zingular\Forms\Component\Containers\PrototypesInterface;
  * Class TestExtension
  * @package Zingular\Forms\Extension
  */
-class TestExtension extends AbstractExtension
+class TestExtension implements FullExtensionInterface
 {
     /**
      * @param PrototypesInterface $prototypes
@@ -35,5 +35,61 @@ class TestExtension extends AbstractExtension
     public function getExtensionName()
     {
         return 'test';
+    }
+
+    /**
+     * @return array
+     */
+    public function getAggregators()
+    {
+        // TODO: Implement getAggregators() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getBuilders()
+    {
+        // TODO: Implement getBuilders() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getConditions()
+    {
+        // TODO: Implement getConditions() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getConverters()
+    {
+        // TODO: Implement getConverters() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        // TODO: Implement getFilters() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormBuilders()
+    {
+        // TODO: Implement getFormBuilders() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidators()
+    {
+        // TODO: Implement getValidators() method.
     }
 }

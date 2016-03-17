@@ -16,7 +16,7 @@ use Zingular\Forms\Plugins\Evaluators\CallableValidator;
  * Class DefaultExtension
  * @package Zingular\Form\Extension
  */
-class DefaultExtension extends AbstractExtension
+class DefaultExtension implements FullExtensionInterface
 {
     /**
      * @param PrototypesInterface $prototypes
@@ -84,5 +84,21 @@ class DefaultExtension extends AbstractExtension
     public function getExtensionName()
     {
         return 'default';
+    }
+
+    /**
+     * @return array
+     */
+    public function getConverters()
+    {
+        // TODO: Implement getConverters() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormBuilders()
+    {
+        // TODO: Implement getFormBuilders() method.
     }
 }

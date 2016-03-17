@@ -46,6 +46,11 @@ class Construct
     protected $prototypeBuilder;
 
     /**
+     * @var array
+     */
+    protected $extensions = array();
+
+    /**
      * @param bool $loadDefaultExtension
      */
     public function __construct($loadDefaultExtension = true)
@@ -59,9 +64,20 @@ class Construct
 
     /**
      * @param ExtensionInterface $extension
+     * @throws FormException
      */
     public function addExtension(ExtensionInterface $extension)
     {
+        $name = $extension->getExtensionName();
+
+        if(in_array($name,$this->extensions))
+        {
+            throw new FormException(sprintf("Cannot add extension: there already is an extension registered with the name '%s'",$name),'extension.duplicate');
+        }
+
+        // register the extension
+        $this->extensions[] = $extension->getExtensionName();
+
         // add filters
         if($extension instanceof FilterExtensionInterface)
         {
@@ -130,6 +146,14 @@ class Construct
         {
             $this->addPrototypes($extension);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getRegisteredExtensions()
+    {
+        return $this->extensions;
     }
 
     /**
