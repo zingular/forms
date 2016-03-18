@@ -25,7 +25,7 @@ use Zingular\Forms\Exception\InvalidArgumentException;
 use Zingular\Forms\FormContext;
 use Zingular\Forms\Service\ServiceDefinerInterface;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Prototype\PrototypeBuilderInterface;
 use Zingular\Forms\Service\ServiceDefinerTrait;
 use Zingular\Forms\Service\ServicesInterface;
 

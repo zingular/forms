@@ -6,7 +6,7 @@
  * Time: 12:14
  */
 
-namespace Zingular\Forms\Service\Builder\Prototypes;
+namespace Zingular\Forms\Plugins\Builders\Prototype;
 
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 

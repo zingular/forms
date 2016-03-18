@@ -22,9 +22,9 @@ use Zingular\Forms\Extension\FilterExtensionInterface;
 use Zingular\Forms\Extension\FormBuilderExtensionInterface;
 use Zingular\Forms\Extension\PrototypeExtensionInterface;
 use Zingular\Forms\Extension\ValidationExtensionInterface;
-use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
+use Zingular\Forms\Plugins\Builders\Prototype\BasePrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
-use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Prototype\PrototypeBuilderInterface;
 use Zingular\Forms\Service\ServiceConsumerTrait;
 use Zingular\Forms\Service\ServiceDefinerTrait;
 use Zingular\Forms\Service\Services;
@@ -184,7 +184,7 @@ class Construct
             $prototypes = $this->getServices()->getComponentFactory()->createPrototypes();
 
             // make sure the default builder is always applied
-            $defaultBuilder = new DefaultPrototypeBuilder();
+            $defaultBuilder = new BasePrototypeBuilder();
             $defaultBuilder->buildPrototypes($prototypes);
 
             // store the prototypes

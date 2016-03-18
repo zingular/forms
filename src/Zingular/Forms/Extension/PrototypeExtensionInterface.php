@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Extension;
-use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
+use Zingular\Forms\Plugins\Builders\Prototype\PrototypeBuilderInterface;
 
 /**
  * Interface PrototypeExtensionInterface

@@ -34,30 +34,52 @@ trait TranslatableComponentTrait
      */
     public function getTranslationKey()
     {
-        return $this->translationKey.'.'.$this->getId();
+        return $this->parseTranslationKey($this->translationKey);
     }
 
+
+
+
     /**
-     * @param $format
+     * @param $key
      * @return string
      */
-    protected function replaceWildcards($format)
+    protected function parseTranslationKey($key)
     {
         // TODO: make more effictient by actively looking for tags present in the format, and replacing only those
 
         // apply path formatting
-        $format = str_replace('{parent}',$this->getParent()->getId(),$format);
-        $format = str_replace('{id}',$this->getId(),$format);
-        $format = str_replace('{path}',str_replace('/','.',$this->getFullId()),$format);
-        $format = str_replace('{parentPath}',str_replace('/','.',$this->getParent()->getFullId()),$format);
+        $key = str_replace('{id}',$this->getId(),$key);
+        $key = str_replace('{path}',str_replace('/','.',$this->processPath($this->getFullId())),$key);
+        $key = str_replace('{parentId}',$this->getParent()->getId(),$key);
+        $key = str_replace('{parentPath}',$this->processPath($this->getParent()->getFullId()),$key);
+
+        if($this instanceof DataUnitComponentInterface)
+        {
+            $key = str_replace('{name}',$this->getName(),$key);
+            $key = str_replace('{parentName}',$this->processPath($this->getParent()->getDataPath()),$key);
+        }
 
         if($this instanceof TypedComponentInterface)
         {
-            $format = str_replace('{type}',$this->getType(),$format);
-            $format = str_replace('{basetype}',$this->getBaseType(),$format);
+            $key = str_replace('{type}',$this->getType(),$key);
+            $key = str_replace('{basetype}',$this->getBaseType(),$key);
         }
 
-        return $format;
+        return $key;
     }
 
+    /**
+     * @param $path
+     * @return mixed
+     */
+    protected function processPath($path)
+    {
+        return str_replace('/','.',$path);
+    }
+
+
+
+    // TODO: add option to apply translation, with replacing wildcards, and optionally recursive replace (also replace references to other component names)
+    // "Field '{control.myControl.name}' is required!" special wildcard 'control' (with any sub-keys) will get recursively translated
 }
