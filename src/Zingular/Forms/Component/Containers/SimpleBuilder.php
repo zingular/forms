@@ -70,6 +70,12 @@ class SimpleBuilder
         return $this->currentFieldset;
     }
 
+
+    public function addSubmit()
+    {
+        return $this->buildable->addButton('submit')->ignoreValue();
+    }
+
     /**
      * @return Fieldset
      */

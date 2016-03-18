@@ -8,6 +8,8 @@
 
 namespace Zingular\Forms\Component;
 
+use Zingular\Forms\Exception\ComponentException;
+use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Evaluation\EvaluatorConfigCollection;
 use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
@@ -73,7 +75,7 @@ trait DataUnitTrait
                 // required check
                 if($this->isRequired())
                 {
-                    throw new FormException($this,'validator.required',array('control'=>$this->getTranslator()->translate('control.'.$this->getName())));
+                    throw new ComponentException($this,'','validator.required',array('control'=>$this->getTranslator()->translate('control.'.$this->getName())));
                 }
             }
             // if there was a value from the input
