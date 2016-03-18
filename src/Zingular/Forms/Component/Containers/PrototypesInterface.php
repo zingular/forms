@@ -110,6 +110,11 @@ interface PrototypesInterface
      */
     public function getAggregatorPrototype();
 
+    /**
+     * @return Form
+     */
+    public function getFormPrototype();
+
      /***************************************************************
      * DEFINE
      **************************************************************/

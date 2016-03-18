@@ -25,7 +25,8 @@ class FieldBuilder implements BuilderInterface
     public function build(BuildableInterface $container,FormState $context,array $options = array())
     {
         $container->addLabel('lbl'.ucfirst($container->getId()),self::POSITION_START)
-            ->setFor($container)
-            ->setTranslationKey($container->getId().'.label');
+            ->setFor($container);
+
+            //->setTranslationKey($container->getId().'.label');
     }
 }

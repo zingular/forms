@@ -41,7 +41,4 @@ class Input extends AbstractControl implements ConditionableInterface
         $this->inputType = $type;
         return $this;
     }
-
-
-
 }

@@ -111,6 +111,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
             case BaseTypes::HIDDEN: return $this->componentFactory->createHidden();
             case BaseTypes::SELECT: return $this->componentFactory->createSelect();
             case BaseTypes::TEXTAREA: return $this->componentFactory->createTextarea();
+            case BaseTypes::FORM: return $this->componentFactory->createForm();
         }
 
         throw new FormException(sprintf("Cannot create form component: unknown component base type '%s'",$baseType));
@@ -148,6 +149,14 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     public function exportPrototype($baseType)
     {
         return clone $this->getPrototype($baseType);
+    }
+
+    /**
+     * @return Form
+     */
+    public function exportFormPrototype()
+    {
+       return $this->exportPrototype(BaseTypes::FORM);
     }
 
     /**
@@ -289,6 +298,14 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     public function getAggregatorPrototype()
     {
         return $this->getPrototype(BaseTypes::AGGREGATOR);
+    }
+
+    /**
+     * @return Form
+     */
+    public function getFormPrototype()
+    {
+        return $this->getPrototype(BaseTypes::FORM);
     }
 
     /***************************************************************

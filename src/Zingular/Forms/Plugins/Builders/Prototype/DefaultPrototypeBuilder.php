@@ -26,24 +26,25 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
     public function buildPrototypes(PrototypesInterface $prototypes)
     {
         // manipulate container base prototypes
-        $prototypes->getContainerPrototype()->setCssBaseTypeClass('type_container')->setViewName(View::CONTAINER);
-        $prototypes->getFieldsetPrototype()->setCssBaseTypeClass('type_fieldset')->setViewName(View::FIELDSET);
-        $prototypes->getFieldPrototype()->setCssBaseTypeClass('type_field')->setViewName(View::FIELD);
-        $prototypes->getRowPrototype()->setCssBaseTypeClass('type_row')->setViewName(View::ROW);
-        $prototypes->getAggregatorPrototype()->setCssBaseTypeClass('type_aggregator')->setViewName(View::TRANSPARENT);
+        $prototypes->getFormPrototype()->setCssBaseTypeClass('zingularForm')->setViewName(View::FORM)->setBaseType('form');
+        $prototypes->getContainerPrototype()->setCssBaseTypeClass('type_container')->setViewName(View::CONTAINER)->setBaseType('container');
+        $prototypes->getFieldsetPrototype()->setCssBaseTypeClass('type_fieldset')->setViewName(View::FIELDSET)->setBaseType('fieldset');
+        $prototypes->getFieldPrototype()->setCssBaseTypeClass('type_field')->setViewName(View::FIELD)->setBaseType('field');
+        $prototypes->getRowPrototype()->setCssBaseTypeClass('type_row')->setViewName(View::ROW)->setBaseType('row');
+        $prototypes->getAggregatorPrototype()->setCssBaseTypeClass('type_aggregator')->setViewName(View::TRANSPARENT)->setBaseType('aggregator');
 
         // manipulate control base prototypess
-        $prototypes->getInputPrototype()->setCssBaseTypeClass('ctrl');//->addEventListener(ComponentEvent::COMPILED,function(ComponentEvent $e){$e->getComponent()->addCssClass('compiled');});
-        $prototypes->getCheckboxPrototype()->setCssBaseTypeClass('ctrl');
-        $prototypes->getSelectPrototype()->setCssBaseTypeClass('ctrl');
-        $prototypes->getTextareaPrototype()->setCssBaseTypeClass('ctrl');
-        $prototypes->getButtonPrototype()->setCssBaseTypeClass('ctrl');
+        $prototypes->getInputPrototype()->setCssBaseTypeClass('ctrl')->setTranslationKey('control')->setBaseType('control');//->addEventListener(ComponentEvent::COMPILED,function(ComponentEvent $e){$e->getComponent()->addCssClass('compiled');});
+        $prototypes->getCheckboxPrototype()->setCssBaseTypeClass('ctrl')->setTranslationKey('control')->setBaseType('control');
+        $prototypes->getSelectPrototype()->setCssBaseTypeClass('ctrl')->setTranslationKey('control')->setBaseType('control');
+        $prototypes->getTextareaPrototype()->setCssBaseTypeClass('ctrl')->setTranslationKey('control')->setBaseType('control');
+        $prototypes->getButtonPrototype()->setCssBaseTypeClass('btn')->setTranslationKey('button')->setBaseType('control');
 
         // manipulate content base prototypes
-        $prototypes->getContentPrototype()->setCssBaseTypeClass('cont');
-        $prototypes->getLabelPrototype()->setCssBaseTypeClass('lbl');
-        $prototypes->getHtmlPrototype()->setCssBaseTypeClass('html');
-        $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('tag');
-        $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('view');
+        $prototypes->getContentPrototype()->setCssBaseTypeClass('cont')->setBaseType('cont');
+        $prototypes->getLabelPrototype()->setCssBaseTypeClass('lbl')->setBaseType('lbl')->setTranslationKey('{parent}.{basetype}.{id}');
+        $prototypes->getHtmlPrototype()->setCssBaseTypeClass('html')->setBaseType('html');
+        $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('tag')->setBaseType('tag');
+        $prototypes->getHtmlTagPrototype()->setCssBaseTypeClass('view')->setBaseType('view');
     }
 }

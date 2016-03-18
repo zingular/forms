@@ -10,6 +10,7 @@ namespace Zingular\Forms;
 
 use Zingular\Forms\Component\Containers\FormInterface;
 use Zingular\Forms\Component\Containers\Prototypes;
+use Zingular\Forms\Component\Context;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Extension\AggregationExtensionInterface;
 use Zingular\Forms\Extension\BuilderExtensionInterface;
@@ -24,6 +25,8 @@ use Zingular\Forms\Extension\ValidationExtensionInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\DefaultPrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
+use Zingular\Forms\Service\ServiceConsumerTrait;
+use Zingular\Forms\Service\ServiceDefinerTrait;
 use Zingular\Forms\Service\Services;
 use Zingular\Forms\Service\ServicesInterface;
 
@@ -33,7 +36,9 @@ use Zingular\Forms\Service\ServicesInterface;
  */
 class Construct
 {
-    use Service\ServiceDefinerTrait;
+    use ServiceDefinerTrait;
+    use ServiceConsumerTrait;
+
 
     /**
      * @var Prototypes
@@ -201,10 +206,13 @@ class Construct
     public function createForm($formId,$model = null)
     {
         // clone the services and prototypes to allow the user to override services per form, with system defaults
-        $form = $this
-            ->getServices()
-            ->getComponentFactory()
-            ->createForm($formId,clone $this->getServices(),clone $this->getPrototypes());
+        $form = $this->getPrototypes()->exportFormPrototype();
+
+        // create a new form context
+        $context = new FormContext(clone $this->getServices(),$formId,clone $this->getPrototypes());
+
+        // set the form context
+        $form->setContext($context);
 
         // also set the model, if provided
         if(!is_null($model))

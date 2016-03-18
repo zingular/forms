@@ -11,6 +11,7 @@ use Zingular\Forms\Component\Containers\Aggregator;
 use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Component\Containers\Field;
 use Zingular\Forms\Component\Containers\Fieldset;
+use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\Prototypes;
 use Zingular\Forms\Component\Containers\Row;
 use Zingular\Forms\Component\Elements\Contents\Content;
@@ -117,10 +118,7 @@ interface ComponentFactoryInterface
     public function createPrototypes();
 
     /**
-     * @param $id
-     * @param ServicesInterface $services
-     * @param Prototypes $prototypes
-     * @return mixed
+     * @return Form
      */
-    public function createForm($id,ServicesInterface $services,Prototypes $prototypes);
+    public function createForm();
 }

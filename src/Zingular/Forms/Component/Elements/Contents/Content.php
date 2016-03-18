@@ -88,7 +88,10 @@ class Content extends AbstractElement implements
             {
                 throw new \Exception();
             }
-            return $this->getTranslator()->translate($this->translationKey,$this->translationParams);
+
+
+
+            return $this->getTranslator()->translate($this->replaceWildcards($this->translationKey),$this->translationParams);
         }
         elseif(!is_null($this->callback))
         {

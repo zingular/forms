@@ -22,6 +22,7 @@ use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Events\FormEvent;
 use Zingular\Forms\Exception\InvalidArgumentException;
+use Zingular\Forms\FormContext;
 use Zingular\Forms\Service\ServiceDefinerInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
@@ -75,17 +76,19 @@ class Form extends Container implements
     protected $model;
 
     /**
-     * @param Prototypes $id
-     * @param ServicesInterface $services
-     * @param Prototypes $prototypes
+     * @param Context $context
+     * @throws FormException
      */
-    public function __construct($id,ServicesInterface $services,Prototypes $prototypes)
+    public function setContext(Context $context)
     {
-        // store the services
-        $this->services = $services;
+        parent::setContext($context);
 
-        // manually set context (without parent)
-        $this->setContext(new Context($id,null,$prototypes));
+        if(!($context instanceof FormContext))
+        {
+            throw new FormException("Cannot set form context: context for form should be instance of FormContext!");
+        }
+
+        $this->services = $context->getServices();
     }
 
     /**
@@ -121,7 +124,7 @@ class Form extends Container implements
         // TODO: do csrf check here?
 
 
-        return $this->getFormContext()->getInput('FORM_SUBMITTED') === $this->getId();
+        return $this->getFormState()->getInput('FORM_SUBMITTED') === $this->getId();
     }
 
     /**********************************************************************
@@ -275,7 +278,7 @@ class Form extends Container implements
     public function render()
     {
         // compile this form
-        $this->compile($this->getFormContext(),$this->defaultValues);
+        $this->compile($this->getFormState(),$this->defaultValues);
 
         // return the rendered view
         return $this->getViewHandler()->render($this);
@@ -317,7 +320,7 @@ class Form extends Container implements
     /**
      * @return FormState
      */
-    protected function getFormContext()
+    protected function getFormState()
     {
         if(is_null($this->state))
         {
@@ -724,6 +727,14 @@ class Form extends Container implements
     public function getRowPrototype()
     {
         return $this->context->getPrototypes()->getRowPrototype();
+    }
+
+    /**
+     * @return Form
+     */
+    public function getFormPrototype()
+    {
+        return $this->context->getPrototypes()->getFormPrototype();
     }
 
     /***************************************************************

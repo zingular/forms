@@ -37,7 +37,8 @@ class TestFormBuilder4 implements FormBuilderInterface
         $wrapper->addInput('yow2');
         $wrapper->addInput('yow3')->setRequired();
         $wrapper->nextFieldset('personalia','fldName');
-        $wrapper->addInput('lala');
+        $wrapper->addInput('lala')
+            ->setHtmlAttribute('placeholder','lala');
         $wrapper->addSubmit();
     }
 

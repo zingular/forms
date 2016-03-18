@@ -170,13 +170,10 @@ class ComponentFactory implements ComponentFactoryInterface
     }
 
     /**
-     * @param $id
-     * @param ServicesInterface $services
-     * @param Prototypes $prototypes
      * @return Form
      */
-    public function createForm($id,ServicesInterface $services,Prototypes $prototypes)
+    public function createForm()
     {
-        return new Form($id,$services,$prototypes);
+        return new Form();
     }
 }

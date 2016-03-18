@@ -16,8 +16,13 @@ use Zingular\Forms\Component\Elements\Controls\AbstractControl;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
+use Zingular\Forms\Component\TranslatableComponentInterface;
+use Zingular\Forms\Component\TranslatableComponentTrait;
+use Zingular\Forms\Component\TypedComponentInterface;
+use Zingular\Forms\Component\TypedComponentTrait;
 use Zingular\Forms\CssClass;
 use Zingular\Forms\Events\ComponentEvent;
+use Zingular\Forms\Events\EventDispatcherTrait;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
@@ -36,7 +41,9 @@ class Container extends AbstractContainer implements
     CssComponentInterface,
     ViewableComponentInterface,
     ConditionableInterface,
-    ErrorContainerInterface
+    ErrorContainerInterface,
+    TranslatableComponentInterface,
+    TypedComponentInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
@@ -44,7 +51,9 @@ class Container extends AbstractContainer implements
     use HtmlAttributesTrait;
     use BuildableTrait;
     use ConditionableTrait;
-    use \Zingular\Forms\Events\EventDispatcherTrait;
+    use EventDispatcherTrait;
+    use TranslatableComponentTrait;
+    use TypedComponentTrait;
 
     /**
      * @var BuilderInterface
