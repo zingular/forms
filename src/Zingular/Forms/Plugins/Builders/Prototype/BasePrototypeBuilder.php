@@ -62,9 +62,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     }
 
     /*****************************************************************
-     *
+     * CONTAINER PROTOTYPES
      ****************************************************************/
-
 
     /**
      * @param Form $form
@@ -83,10 +82,9 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     protected function buildContainerPrototype(Container $container)
     {
         $container
-            ->setCssBaseTypeClass('type_container')
+            ->setCssBaseTypeClass('container')
             ->setViewName(View::CONTAINER)
             ->setBaseType('container');
-
     }
 
     /**
@@ -95,7 +93,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     protected function buildFieldsetPrototype(Fieldset $fieldset)
     {
         $fieldset
-            ->setCssBaseTypeClass('type_fieldset')
+            ->setCssBaseTypeClass('fieldset')
             ->setViewName(View::FIELDSET)
             ->setBaseType('fieldset');
     }
@@ -106,7 +104,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     protected function buildFieldPrototype(Field $field)
     {
         $field
-            ->setCssBaseTypeClass('type_field')
+            ->setCssBaseTypeClass('field')
             ->setViewName(View::FIELD)
             ->setBaseType('field');
     }
@@ -116,7 +114,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
      */
     protected function buildRowPrototype(Row $row)
     {
-        $row->setCssBaseTypeClass('type_row')
+        $row->setCssBaseTypeClass('row')
             ->setViewName(View::ROW)
             ->setBaseType('row');
     }
@@ -127,10 +125,14 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     protected function buildAggregatorPrototype(Aggregator $aggregator)
     {
         $aggregator
-            ->setCssBaseTypeClass('type_aggregator')
+            ->setCssBaseTypeClass('aggregator')
             ->setViewName(View::TRANSPARENT)
             ->setBaseType('aggregator');
     }
+
+    /*****************************************************************
+     * CONTROL PROTOTYPES
+     ****************************************************************/
 
     /**
      * @param Input $input
@@ -187,6 +189,10 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
             ->setBaseType('control');
     }
 
+    /*****************************************************************
+     * CONTENT PROTOTYPES
+     ****************************************************************/
+
     /**
      * @param Content $content
      */
@@ -206,7 +212,6 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
             ->setCssBaseTypeClass('lbl')
             ->setBaseType('lbl')
             ->setTranslationKey('{parentId}.{id}');
-
     }
 
     /**
@@ -227,7 +232,6 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $tag
             ->setCssBaseTypeClass('tag')
             ->setBaseType('tag');
-
     }
 
     /**

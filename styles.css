@@ -69,14 +69,14 @@ p
     border-radius: 4px;
 }
 
-.type_field,
-.type_row
+.field,
+.row
 {
     clear:left;
     overflow:hidden;
 }
 
-.type_field
+.field
 {
     background-color:#cccccc;
     border: 1px solid #a0a0a0;
@@ -84,12 +84,12 @@ p
     margin-bottom:8px;
 }
 
-.type_field .inner
+.field .inner
 {
     padding: 8px 8px 0;
 }
 
-.type_row
+.row
 {
     clear:left;
 }
