@@ -10,6 +10,7 @@ namespace Zingular\Forms\Plugins\Builders\Container;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\CssClass;
 use Zingular\Forms\Exception\ComponentException;
 
 use Zingular\Forms\Exception\FormException;
@@ -41,19 +42,19 @@ class DefaultErrorBuilder extends CallableBuilder
             {
                 $container->addLabel('lblError'.$index,$e->getComponent()->getId())
                     ->setFor($e->getComponent())
-                    ->addCssClass('error')
+                    ->addCssClass(CssClass::ERROR)
                     ->setTranslationKey('error.'.$e->getType(),$e->getParams());
             }
             elseif($e instanceof FormException)
             {
                 $container->addLabel('lblError'.$index)
-                    ->addCssClass('error')
+                    ->addCssClass(CssClass::ERROR)
                     ->setTranslationKey('error.'.$e->getType(),$e->getParams());
             }
             elseif($e instanceof \Exception)
             {
                 $container->addLabel('lblError'.$index)
-                ->addCssClass('error')
+                ->addCssClass(CssClass::ERROR)
                 ->setContent($e->getMessage().get_class($e));
                 //->setTranslationKey('error.generic')
                 // TODO: check debug mode: if debug, show full exception text, else show generic error

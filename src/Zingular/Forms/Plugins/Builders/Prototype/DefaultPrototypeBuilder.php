@@ -9,6 +9,8 @@
 namespace Zingular\Forms\Plugins\Builders\Prototype;
 
 use Zingular\Forms\Component\Containers\PrototypesInterface;
+use Zingular\Forms\Events\ComponentEvent;
+use Zingular\Forms\Events\Event;
 use Zingular\Forms\Service\Builder\Prototypes\PrototypeBuilderInterface;
 use Zingular\Forms\View;
 
@@ -31,7 +33,7 @@ class DefaultPrototypeBuilder implements PrototypeBuilderInterface
         $prototypes->getAggregatorPrototype()->setCssBaseTypeClass('type_aggregator')->setViewName(View::TRANSPARENT);
 
         // manipulate control base prototypess
-        $prototypes->getInputPrototype()->setCssBaseTypeClass('ctrl');
+        $prototypes->getInputPrototype()->setCssBaseTypeClass('ctrl');//->addEventListener(ComponentEvent::COMPILED,function(ComponentEvent $e){$e->getComponent()->addCssClass('compiled');});
         $prototypes->getCheckboxPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getSelectPrototype()->setCssBaseTypeClass('ctrl');
         $prototypes->getTextareaPrototype()->setCssBaseTypeClass('ctrl');
