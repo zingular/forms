@@ -9,8 +9,6 @@
 namespace Zingular\Forms\Component\Containers;
 
 
-use Zingular\Forms\Builder;
-
 
 /**
  * Class Field
@@ -18,8 +16,5 @@ use Zingular\Forms\Builder;
  */
 class Field extends Container
 {
-    /**
-     * @var string
-     */
-    protected $postBuilder = Builder::FIELD;
+
 }

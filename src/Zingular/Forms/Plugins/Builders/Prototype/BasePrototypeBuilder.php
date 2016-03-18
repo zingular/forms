@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Plugins\Builders\Prototype;
 
+use Zingular\Forms\Builder;
 use Zingular\Forms\Component\Containers\Aggregator;
 use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Component\Containers\Field;
@@ -95,7 +96,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $fieldset
             ->setCssBaseTypeClass('fieldset')
             ->setViewName(View::FIELDSET)
-            ->setBaseType('fieldset');
+            ->setBaseType('fieldset')
+            ->setBuilder(Builder::FIELDSET);
     }
 
     /**
@@ -106,7 +108,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $field
             ->setCssBaseTypeClass('field')
             ->setViewName(View::FIELD)
-            ->setBaseType('field');
+            ->setBaseType('field')
+            ->setBuilder(Builder::FIELD,$post = true);
     }
 
     /**
@@ -141,7 +144,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $input
             ->setCssBaseTypeClass('ctrl')
-            ->setTranslationKey('control')
+            ->setTranslationKey('control.{name}')
             ->setBaseType('control');//->addEventListener(ComponentEvent::COMPILED,function(ComponentEvent $e){$e->getComponent()->addCssClass('compiled');});
     }
 
@@ -152,7 +155,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $checkbox
             ->setCssBaseTypeClass('ctrl')
-            ->setTranslationKey('control')
+            ->setTranslationKey('control.{name}')
             ->setBaseType('control');
     }
 
@@ -163,7 +166,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $select
             ->setCssBaseTypeClass('ctrl')
-            ->setTranslationKey('control')
+            ->setTranslationKey('control.{name}')
             ->setBaseType('control');
     }
 
@@ -174,7 +177,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $textarea
             ->setCssBaseTypeClass('ctrl')
-            ->setTranslationKey('control')
+            ->setTranslationKey('control.{name}')
             ->setBaseType('control');
     }
 
@@ -185,7 +188,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $button
             ->setCssBaseTypeClass('btn')
-            ->setTranslationKey('button')
+            ->setTranslationKey('button.{name}')
             ->setBaseType('control');
     }
 
@@ -211,7 +214,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $label
             ->setCssBaseTypeClass('lbl')
             ->setBaseType('lbl')
-            ->setTranslationKey('{parentId}.{id}');
+            ->setTranslationKey('{parentName}.{parentId}.{type}.{id}');
     }
 
     /**

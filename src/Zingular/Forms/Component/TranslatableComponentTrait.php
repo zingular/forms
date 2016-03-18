@@ -17,7 +17,7 @@ trait TranslatableComponentTrait
     /**
      * @var string
      */
-    protected $translationKey = '{parent}.{id}';
+    protected $translationKey = '{parentId}.{id}';
 
     /**
      * @param string $key
@@ -37,9 +37,6 @@ trait TranslatableComponentTrait
         return $this->parseTranslationKey($this->translationKey);
     }
 
-
-
-
     /**
      * @param $key
      * @return string
@@ -48,16 +45,19 @@ trait TranslatableComponentTrait
     {
         // TODO: make more effictient by actively looking for tags present in the format, and replacing only those
 
+        // TODO: make sure no errors occur when parent is NULL, etc
+
         // apply path formatting
         $key = str_replace('{id}',$this->getId(),$key);
         $key = str_replace('{path}',str_replace('/','.',$this->processPath($this->getFullId())),$key);
         $key = str_replace('{parentId}',$this->getParent()->getId(),$key);
         $key = str_replace('{parentPath}',$this->processPath($this->getParent()->getFullId()),$key);
+        $key = str_replace('{parentName}',$this->processPath($this->getParent()->getDataPath()),$key);
 
         if($this instanceof DataUnitComponentInterface)
         {
             $key = str_replace('{name}',$this->getName(),$key);
-            $key = str_replace('{parentName}',$this->processPath($this->getParent()->getDataPath()),$key);
+
         }
 
         if($this instanceof TypedComponentInterface)
@@ -65,6 +65,9 @@ trait TranslatableComponentTrait
             $key = str_replace('{type}',$this->getType(),$key);
             $key = str_replace('{basetype}',$this->getBaseType(),$key);
         }
+
+        // TODO: make more intelligent (replace any arbitrary set of dots with a single dot, trim dots, etc
+        $key = trim(str_replace('..','.',$key),'.');
 
         return $key;
     }

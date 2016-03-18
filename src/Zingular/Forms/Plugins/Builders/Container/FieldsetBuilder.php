@@ -12,7 +12,6 @@ use Zingular\Forms\Component\Containers\BuildableInterface;
 
 use Zingular\Forms\Component\FormState;
 
-
 /**
  * Class FieldsetBuilder
  * @package Service\Builder
@@ -29,9 +28,9 @@ class FieldsetBuilder implements BuilderInterface
         // create a legend first
         $container->addHtmlTag('p' . ucfirst($container->getId()), self::POSITION_START)
             ->setTagName('p')
-            ->setTranslationKey($container->getId() . '.description');
+            ->setTranslationKey('{parentId}.description');
         $container->addHtmlTag('lgnd' . ucfirst($container->getId()), self::POSITION_START)
             ->setTagName('legend')
-            ->setTranslationKey($container->getId() . '.legend');
+            ->setTranslationKey('{parentId}.legend');
     }
 }

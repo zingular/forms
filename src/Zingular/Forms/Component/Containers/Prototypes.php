@@ -22,6 +22,7 @@ use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\CssComponentInterface;
+use Zingular\Forms\Component\TypedComponentInterface;
 use Zingular\Forms\Exception\FormException;
 
 use Zingular\Forms\Service\Component\ComponentFactoryInterface;
@@ -66,6 +67,12 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
         if($component instanceof CssComponentInterface)
         {
             $component->setCssTypeClass($name);
+        }
+
+        // set the name as type
+        if($component instanceof TypedComponentInterface)
+        {
+            $component->setType($name);
         }
 
         // also set the css type class
