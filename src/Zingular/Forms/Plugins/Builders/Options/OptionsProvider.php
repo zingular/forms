@@ -6,7 +6,7 @@
  * Time: 21:13
  */
 
-namespace Zingular\Forms\Component;
+namespace Zingular\Forms\Plugins\Builders\Options;
 
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\OptionMode;

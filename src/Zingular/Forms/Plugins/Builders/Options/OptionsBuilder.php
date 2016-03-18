@@ -10,20 +10,21 @@ namespace Zingular\Forms\Plugins\Builders\Options;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\Container;
-use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+use Zingular\Forms\Component\FormState;
 
 /**
  * Class OptionsBuilder
  * @package Zingular\Form\Service\Builder
  */
-class OptionsBuilder extends AbstractOptionsBuilder implements BuilderInterface
+class OptionsBuilder extends AbstractOptionsBuilder
 {
     /**
      * @param $groupName
      * @param BuildableInterface $container
+     * @param FormState $state
      * @return Container
      */
-    protected function addGroup($groupName,BuildableInterface $container)
+    protected function addGroup($groupName,BuildableInterface $container,FormState $state)
     {
         return $container->addContainer($groupName);
     }
@@ -32,8 +33,9 @@ class OptionsBuilder extends AbstractOptionsBuilder implements BuilderInterface
      * @param BuildableInterface $container
      * @param $key
      * @param $value
+     * @param FormState $state
      */
-    protected function addOption(BuildableInterface $container,$key,$value)
+    protected function addOption(BuildableInterface $container,$key,$value,FormState $state)
     {
         $label = $container->addLabel('lbl'.ucfirst($key));
         $checkbox = $container->addCheckbox($key);

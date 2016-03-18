@@ -25,11 +25,10 @@ class ConditionFactory implements ConditionFactoryInterface
 {
     /**
      * @param $type
-     * @param array $options
      * @return ConditionInterface
      * @throws FormException
      */
-    public function create($type,array $options = array())
+    public function create($type)
     {
         switch($type)
         {

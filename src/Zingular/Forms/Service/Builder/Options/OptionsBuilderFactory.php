@@ -7,7 +7,9 @@
  */
 
 namespace Zingular\Forms\Service\Builder\Options;
-
+use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
+use Zingular\Forms\Plugins\Builders\Options\OptionsBuilderInterface;
 
 /**
  * Class OptionsBuilderFactory
@@ -15,12 +17,18 @@ namespace Zingular\Forms\Service\Builder\Options;
  */
 class OptionsBuilderFactory
 {
-
     /**
      * @param $type
+     * @return OptionsBuilderInterface
+     * @throws FormException
      */
     public function create($type)
     {
+        switch($type)
+        {
+            case 'default': return new OptionsBuilder();
+        }
 
+        throw new FormException(sprintf("Cannot create options builder: unknown type '%s'",$type));
     }
 }

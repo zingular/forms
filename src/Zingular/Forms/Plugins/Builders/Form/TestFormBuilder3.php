@@ -15,7 +15,6 @@ use Zingular\Forms\Condition;
 use Zingular\Forms\Events\Event;
 use Zingular\Forms\Events\FormEvent;
 use Zingular\Forms\Exception\FilterException;
-
 use Zingular\Forms\Filter;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorAggregator;

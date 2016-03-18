@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Component\Elements\Controls;
 
-use Zingular\Forms\Component\OptionsProvider;
+use Zingular\Forms\Plugins\Builders\Options\OptionsProvider;
 use Zingular\Forms\OptionMode;
 
 /**

@@ -10,42 +10,41 @@ namespace Zingular\Forms\Plugins\Builders\Options;
 
 use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\FormState;
-use Zingular\Forms\Component\OptionsProvider;
-use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
 
 /**
  * Class AbstractOptionsBuilder
  * @package Zingular\Form\Service\Builder
  */
-abstract class AbstractOptionsBuilder extends OptionsProvider implements BuilderInterface
+abstract class AbstractOptionsBuilder implements OptionsBuilderInterface
 {
     /**
      * @param BuildableInterface $container
-     * @param FormState $context
-     * @param array $options
+     * @param FormState $state
+     * @param OptionsProvider $provider
      */
-    public function build(BuildableInterface $container,FormState $context,array $options = array())
+    public function buildOptions(BuildableInterface $container,FormState $state,OptionsProvider $provider)
     {
-        $this->buildGroup($this->getOptions(),$container);
+        $this->buildGroup($provider->getOptions(),$container,$state);
     }
 
     /**
      * @param array $options
      * @param BuildableInterface $container
+     * @param FormState $state
      */
-    protected function buildGroup(array $options,BuildableInterface $container)
+    protected function buildGroup(array $options,BuildableInterface $container,FormState $state)
     {
         foreach($options as $key=>$value)
         {
             // option group
             if(is_array($value))
             {
-                $this->buildGroup($value,$this->addGroup($key,$container));
+                $this->buildGroup($value,$this->addGroup($key,$container,$state),$state);
             }
             // regular option
             else
             {
-                $this->addOption($container,$key,$value);
+                $this->addOption($container,$key,$value,$state);
             }
         }
     }
@@ -53,15 +52,17 @@ abstract class AbstractOptionsBuilder extends OptionsProvider implements Builder
     /**
      * @param $groupName
      * @param BuildableInterface $container
+     * @param FormState $state
      * @return BuildableInterface
      */
-    abstract protected function addGroup($groupName,BuildableInterface $container);
+    abstract protected function addGroup($groupName,BuildableInterface $container,FormState $state);
 
     /**
      * @param BuildableInterface $container
      * @param $key
      * @param $value
+     * @param FormState $state
+     * @return
      */
-    abstract protected function addOption(BuildableInterface $container,$key,$value);
-
+    abstract protected function addOption(BuildableInterface $container,$key,$value,FormState $state);
 }
