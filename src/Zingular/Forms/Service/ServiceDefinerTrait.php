@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms\Service;
 
-
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;

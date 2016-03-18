@@ -42,7 +42,6 @@ class Construct
     use ServiceDefinerTrait;
     use ServiceConsumerTrait;
 
-
     /**
      * @var Prototypes
      */

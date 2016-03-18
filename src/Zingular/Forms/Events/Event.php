@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Events;
+use Zingular\Forms\Exception\FormException;
 
 /**
  * Class Event
@@ -50,17 +51,22 @@ class Event
     }
 
     /**
-     *
+     * @throws FormException
      */
     public function cancel()
     {
-        if($this->cancellable)
+        if($this->cancellable !== true)
         {
-            $this->cancelled = true;
-            return true;
+            throw new FormException(sprintf("Cannot cancel event of type '%s': event is not cancellable!",$this->type),'event.notCancellable',array('type'=>$this->type));
         }
+    }
 
-        return false;
+    /**
+     * @return bool
+     */
+    public function cancellable()
+    {
+        return $this->cancellable;
     }
 
     /**

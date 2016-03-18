@@ -11,6 +11,8 @@ class FormEvent extends Event
 {
     const VALID = 'form.valid';
     const INVALID = 'form.invalid';
+    const SUBMIT = 'form.submit';
+    const SUCCESS = 'form.success';
 
     /**
      * @var FormInterface

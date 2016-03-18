@@ -21,10 +21,9 @@ trait RequiredTrait
 
     /**
      * @param bool $required
-     * @param null $translationKey
      * @return $this
      */
-    public function setRequired($required = true,$translationKey = null)
+    public function setRequired($required = true)
     {
         // TODO: handle translation key
         $this->required = $required;

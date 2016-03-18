@@ -41,10 +41,10 @@ class TwigViewHandler implements ViewHandlerInterface
     }
 
     /**
-     * @param ComponentInterface $component
+     * @param ViewableComponentInterface $component
      * @return string
      */
-    protected function getTemplateNameFromView(ComponentInterface $component)
+    protected function getTemplateNameFromView(ViewableComponentInterface $component)
     {
         // TODO: map generic form view name to twig template
         return $component->getViewName().'.twig';

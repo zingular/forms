@@ -151,8 +151,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $input
             ->setCssBaseTypeClass('ctrl')
-            ->setTranslationKey('control.{name}.{bla}')
-            ->setBaseType('control');//->addEventListener(ComponentEvent::COMPILED,function(ComponentEvent $e){$e->getComponent()->addCssClass('compiled');});
+            ->setTranslationKey('control.{name}')
+            ->setBaseType('control');
     }
 
     /**
@@ -221,7 +221,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $label
             ->setCssBaseTypeClass('lbl')
             ->setBaseType('lbl')
-            ->setTranslationKey('{parentName}.{parentId}.{type}.{id}');
+            ->setTranslationKey('{parentId}.{id}');
     }
 
     /**

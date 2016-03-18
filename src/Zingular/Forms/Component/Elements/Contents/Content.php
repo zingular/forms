@@ -12,6 +12,8 @@ use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Events\ComponentEvent;
+use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Exception\InvalidStateException;
 
 /**
  * Class Content
@@ -82,18 +84,21 @@ class Content extends AbstractElement implements
         {
             return $this->content;
         }
+        elseif(!is_null($this->callback))
+        {
+            return call_user_func($this->callback,$this->state,$this);
+        }
         elseif(!is_null($this->translationKey))
         {
             if(is_null($this->state))
             {
-                throw new \Exception();
+                throw new InvalidStateException
+                (
+                    sprintf(
+                        "Cannot get content from translation key for content component '%' before it is compiled!",$this->getFullId()),'notCompiled');
             }
 
             return $this->getTranslator()->translateRaw($this->translationKey,$this,$this->state,$this->translationParams);
-        }
-        elseif(!is_null($this->callback))
-        {
-            return call_user_func($this->callback,$this->state,$this);
         }
 
         return '';

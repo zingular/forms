@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Component\Containers;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Exception\InvalidStateException;
 
 /**
  * Class SimpleBuilder
@@ -41,7 +42,7 @@ class SimpleBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return Input
      */
     public function addInput($name)
@@ -50,7 +51,7 @@ class SimpleBuilder
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return Field
      */
     public function nextField($name)
@@ -60,14 +61,14 @@ class SimpleBuilder
     }
 
     /**
-     * @param $name
-     * @param $fieldName
+     * @param string $name
+     * @param $firstFieldName
      * @return Fieldset
      */
-    public function nextFieldset($name,$fieldName)
+    public function nextFieldset($name,$firstFieldName)
     {
         $this->currentFieldset = $this->buildable->addFieldset($name);
-        $this->nextField($fieldName);
+        $this->nextField($firstFieldName);
         return $this->currentFieldset;
     }
 
@@ -87,7 +88,7 @@ class SimpleBuilder
     {
         if(is_null($this->currentFieldset))
         {
-            throw new FormException("No current fieldset available! Create a new fieldset using nextFieldset method!");
+            throw new InvalidStateException("No current fieldset available! Create a new fieldset using nextFieldset method!");
         }
 
         return $this->currentFieldset;
@@ -101,7 +102,7 @@ class SimpleBuilder
     {
         if(is_null($this->currentField))
         {
-            throw new FormException("No current field available! Create a new field using nextField method!");
+            throw new InvalidStateException("No current field available! Create a new field using nextField method!");
         }
 
         return $this->currentField;

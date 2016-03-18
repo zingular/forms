@@ -53,7 +53,9 @@ abstract class AbstractViewHandler implements ViewHandlerInterface
         // render generic component
         else
         {
-            // TODO: find a way to render view of custom components that only implement the base interfaces
+            // TODO: find a way to render view of custom components that only implement the base interfaces (possibly build view components of various types
+            // that handle rendering of specific types of components, and option to map specific types of components to specific renderers)
+            // this allows usage of various view engines together (different engines for different component or types)
             return '';
         }
     }

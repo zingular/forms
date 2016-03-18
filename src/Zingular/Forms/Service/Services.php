@@ -668,6 +668,8 @@ class Services implements ServicesInterface
         {
             $this->translationHandler = clone $this->translationHandler;
         }
+
+        // TODO: make sure all cloned (nested) services are also cloned correctly
     }
 
 }

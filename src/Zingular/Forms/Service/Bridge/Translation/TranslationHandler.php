@@ -58,6 +58,8 @@ class TranslationHandler implements TranslatorInterface
         // try to translate
         $translation = $this->translator->translate($key,$params);
 
+        // TODO: nested translations: check returned translation to contain a sub-translation, and while so, keep translating the sub-translation
+
         // make sure to always return the key if no translation could be found
         return is_null($translation) ? $key : $translation;
     }

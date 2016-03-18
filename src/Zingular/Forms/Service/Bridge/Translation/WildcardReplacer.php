@@ -102,7 +102,6 @@ class WildcardReplacer
         $this->customCallbacks[$name] = $callback;
     }
 
-    // TODO: allow construction to add custom wildcards to the translation key format
     // TODO: add option to apply translation, with replacing wildcards, and optionally recursive replace (also replace references to other component names)
     // "Field '{control.myControl.name}' is required!" special wildcard 'control' (with any sub-keys) will get recursively translated
 

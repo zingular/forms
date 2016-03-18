@@ -113,7 +113,7 @@ class Form extends Container implements
         $this->model = $model;
 
         // extract and set the default values
-        $this->setDefaultValues($this->services->getOrmHandler()->extractValues($model));
+        $this->setDefaultValues($this->getOrmHandler()->extractValues($model));
     }
 
     /**
@@ -121,9 +121,6 @@ class Form extends Container implements
      */
     public function hasSubmit()
     {
-        // TODO: do csrf check here?
-
-
         return $this->getFormState()->getInput('FORM_SUBMITTED') === $this->getId();
     }
 
@@ -249,10 +246,32 @@ class Form extends Container implements
         if($this->compiled === false)
         {
             $this->compiled = true;
+
+            // TODO: do CSRF check
+
             parent::compile($state,$defaultValues);
+
+            // if form was submitted
+            if($this->hasSubmit())
+            {
+                $this->dispatchEvent(new FormEvent(FormEvent::SUBMIT,$this));
+            }
 
             // if form was successful
             if($this->valid())
+            {
+                // dispatch valid event
+                $this->dispatchEvent(new FormEvent(FormEvent::VALID,$this));
+            }
+            // if not valid
+            else
+            {
+                // dispatch invalid event
+                $this->dispatchEvent(new FormEvent(FormEvent::INVALID,$this));
+            }
+
+            // form was submitted and validated successfuly
+            if($this->success())
             {
                 // handle the orm model, if any
                 if(!is_null($this->model))
@@ -260,20 +279,13 @@ class Form extends Container implements
                     $this->getOrmHandler()->setValues($this->getValues(),$this->model);
                 }
 
+                // dispatch success event
+                $this->dispatchEvent(new FormEvent(FormEvent::SUCCESS,$this));
+
                 // handle handlers
-                // TODO
+                // TODO: implement form handlers
 
 
-                // dispatchEvent event
-                $event = new FormEvent(FormEvent::VALID,$this);
-                $this->dispatchEvent($event);
-            }
-            // if not valid
-            else
-            {
-                // dispatch event
-                $event = new FormEvent(FormEvent::INVALID,$this);
-                $this->dispatchEvent($event);
             }
         }
     }
@@ -316,10 +328,16 @@ class Form extends Container implements
      */
     public function valid()
     {
-        // TODO: csrf check?
-
         // TODO: check if there were errors
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function success()
+    {
+        return $this->hasSubmit() && $this->valid();
     }
 
     /**********************************************************************
