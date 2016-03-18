@@ -81,10 +81,14 @@ class EvaluationHandler
                 throw new ComponentException($subject,$e->getMessage(),$e->getType(),$this->prepareExceptionParams($e->getParams(),$value,$subject));
             }
             // catch and convert any other exception, and return it
+
             catch(\Exception $e)
             {
+                var_dump($e->getMessage());
                 throw new ComponentException($subject,$e->getMessage());
+
             }
+
         }
 
         return $value;

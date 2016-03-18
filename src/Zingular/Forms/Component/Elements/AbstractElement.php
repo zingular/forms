@@ -62,7 +62,7 @@ abstract class AbstractElement implements
      */
     public function getTranslationKey()
     {
-        return $this->getTranslator()->parseTranslationKey($this->translationKey,$this,$this->state);
+        return $this->translationKey;
     }
 
     /***************************************************************

@@ -13,6 +13,7 @@ use Zingular\Forms\Component\Containers\BuildableInterface;
 use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\Containers\SimpleBuilder;
+use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
 
 /**
  * Class TestFormBuilder4
@@ -56,7 +57,11 @@ class TestFormBuilder4 implements FormBuilderInterface
      */
     public function configureForm(ConfigurableFormInterface $form)
     {
-        // TODO: Implement configureForm() method.
+        $translator = new ArrayTranslator();
+
+        $translator->setTranslation('error.translation.keyWildcardUnknown',"Unknown translation key wildcard: '{wildcard}'");
+
+        //$form->setTranslator($translator);
     }
 
     /**

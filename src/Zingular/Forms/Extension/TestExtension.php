@@ -92,4 +92,12 @@ class TestExtension implements FullExtensionInterface
     {
         return array();
     }
+
+    /**
+     * @return array
+     */
+    public function getTranslationWildcards()
+    {
+        return array();
+    }
 }

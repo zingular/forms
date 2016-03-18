@@ -7,10 +7,13 @@
  */
 
 namespace Zingular\Forms\Extension;
+use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Plugins\Builders\Container\FieldsetBuilder;
 use Zingular\Forms\Plugins\Builders\Container\BuilderTypeWrapper;
 use Zingular\Forms\Plugins\Evaluators\CallableValidatorType;
+use Zingular\Forms\Service\Bridge\Translation\CallableTranslationKeyWildcard;
 
 /**
  * Class DefaultExtension
@@ -69,6 +72,45 @@ class DefaultExtension implements FullExtensionInterface
         return array();
     }
 
+    /**
+     * @return array
+     */
+    public function getConverterTypes()
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormBuilders()
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslationWildcards()
+    {
+        return array
+        (
+            new CallableTranslationKeyWildcard('bla',array($this,'replaceBla'))
+        );
+    }
+
+
+    /**
+     * @param ComponentInterface $component
+     * @param FormState $state
+     * @return string
+     */
+    public function replaceBla(ComponentInterface $component,FormState $state)
+    {
+        return $state->getFormId();
+    }
+
+
 
     /**
      * @return bool
@@ -86,19 +128,4 @@ class DefaultExtension implements FullExtensionInterface
         return 'default';
     }
 
-    /**
-     * @return array
-     */
-    public function getConverterTypes()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
-    public function getFormBuilders()
-    {
-        return array();
-    }
 }

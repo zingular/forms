@@ -17,7 +17,7 @@ class BuilderConfig
     /**
      * @var string|SimpleBuilderInterface|BuilderInterface|callable
      */
-    protected $builderType;
+    protected $builder;
 
     /**
      * @var array
@@ -26,12 +26,12 @@ class BuilderConfig
 
     /**
      * BuilderConfig constructor.
-     * @param $builderType
+     * @param callable|string|BuilderInterface|SimpleBuilderInterface $builder
      * @param array $options
      */
-    public function __construct($builderType,array $options = array())
+    public function __construct($builder,array $options = array())
     {
-        $this->builderType = $builderType;
+        $this->builder = $builder;
         $this->options = $options;
     }
 
@@ -40,7 +40,7 @@ class BuilderConfig
      */
     public function getBuilderType()
     {
-        return $this->options;
+        return $this->builder;
     }
 
     /**

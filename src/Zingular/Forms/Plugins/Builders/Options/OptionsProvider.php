@@ -38,7 +38,7 @@ class OptionsProvider
     protected $mode;
 
     /**
-     * @param callable|array $options
+     * @param array|callable $options
      * @param string $mode
      * @throws FormException
      */

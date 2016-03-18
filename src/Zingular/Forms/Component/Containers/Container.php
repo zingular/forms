@@ -22,12 +22,13 @@ use Zingular\Forms\CssClass;
 use Zingular\Forms\Events\ComponentEvent;
 use Zingular\Forms\Events\ContainerEvent;
 use Zingular\Forms\Events\EventDispatcherTrait;
+use Zingular\Forms\OptionMode;
+use Zingular\Forms\Plugins\Builders\Options\OptionsProvider;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
-use Zingular\Forms\Plugins\Builders\Options\OptionsBuilder;
 use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
 
 /**
@@ -94,6 +95,11 @@ class Container extends AbstractContainer implements
     protected $adoptionHistory;
 
     /**
+     * @var OptionsProvider
+     */
+    protected $optionsProvider;
+
+    /**
      * @return array
      */
     public function getComponents()
@@ -151,14 +157,6 @@ class Container extends AbstractContainer implements
 
         // return component
         return $component;
-    }
-
-    /**
-     * @param int $position
-     */
-    public function setDefaultPosition($position = self::POSITION_END)
-    {
-        $this->defaultPosition = $position;
     }
 
     /**
@@ -232,7 +230,6 @@ class Container extends AbstractContainer implements
         return $this;
     }
 
-
     /**
      * @param SimpleBuilderInterface $builder
      * @param $params
@@ -246,11 +243,13 @@ class Container extends AbstractContainer implements
     }
 
     /**
+     * @param array|callable $options
+     * @param string $mode
      * @return $this
      */
-    public function setOptions($options)
+    public function setOptions($options,$mode = OptionMode::MODE_KEYS_VALUES)
     {
-        $this->builderTypes[] = new OptionsBuilder($options);
+        $this->optionsProvider = new OptionsProvider($options,$mode);
         return $this;
     }
 
@@ -267,11 +266,13 @@ class Container extends AbstractContainer implements
         {
             if(is_null($this->state))
             {
-                call_user_func($builder,$this);
+                array_unshift($args,$this);
+                call_user_func_array($builder,$args);
             }
             else
             {
-                call_user_func($builder,$this,$this->state);
+                array_unshift($args,$this,$this->state);
+                call_user_func_array($builder,$args);
             }
 
             return $this;
@@ -373,8 +374,7 @@ class Container extends AbstractContainer implements
         $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
 
         // dispatchEvent event
-        $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
-        $this->dispatchEvent($event);
+        $this->dispatchEvent(new ComponentEvent(ComponentEvent::COMPILED,$this));
     }
 
     /**
@@ -409,7 +409,7 @@ class Container extends AbstractContainer implements
                     }
                 }
                 // catch any errors during child compilation
-                catch(\Exception $e)
+                catch(FormException $e)
                 {
                     if($component instanceof CssComponentInterface)
                     {

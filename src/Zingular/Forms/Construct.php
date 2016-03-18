@@ -8,9 +8,10 @@
 
 namespace Zingular\Forms;
 
+use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Containers\FormInterface;
 use Zingular\Forms\Component\Containers\Prototypes;
-
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Extension\AggregationExtensionInterface;
 use Zingular\Forms\Extension\BuilderExtensionInterface;
@@ -21,10 +22,12 @@ use Zingular\Forms\Extension\ExtensionInterface;
 use Zingular\Forms\Extension\FilterExtensionInterface;
 use Zingular\Forms\Extension\FormBuilderExtensionInterface;
 use Zingular\Forms\Extension\PrototypeExtensionInterface;
+use Zingular\Forms\Extension\TranslationWildcardExtensionInterface;
 use Zingular\Forms\Extension\ValidationExtensionInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\BasePrototypeBuilder;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\PrototypeBuilderInterface;
+use Zingular\Forms\Service\Bridge\Translation\TranslationKeyWildcardInterface;
 use Zingular\Forms\Service\ServiceConsumerTrait;
 use Zingular\Forms\Service\ServiceDefinerTrait;
 use Zingular\Forms\Service\Services;
@@ -143,6 +146,18 @@ class Construct
             foreach($extension->getConverterTypes() as $converter)
             {
                 $this->addConverterType($converter);
+            }
+        }
+
+        if($extension instanceof TranslationWildcardExtensionInterface)
+        {
+            /** @var TranslationKeyWildcardInterface $wildcard */
+            foreach($extension->getTranslationWildcards() as $wildcard)
+            {
+                $this->addTranslationKeyWildcard($wildcard->getName(),function(ComponentInterface $component,FormState $state) use ($wildcard)
+                {
+                    return call_user_func(array($wildcard,'replace'),$component,$state);
+                });
             }
         }
 

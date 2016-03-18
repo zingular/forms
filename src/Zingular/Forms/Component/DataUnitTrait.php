@@ -75,7 +75,8 @@ trait DataUnitTrait
                 // required check
                 if($this->isRequired())
                 {
-                    throw new ComponentException($this,'','validator.required',array('control'=>$this->getTranslator()->translate($this->getTranslationKey())));
+                    $params = array('control'=>$this->getTranslator()->translateRaw($this->getTranslationKey(),$this,$this->state));
+                    throw new ComponentException($this,'','validator.required',$params);
                 }
             }
             // if there was a value from the input

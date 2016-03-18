@@ -18,4 +18,8 @@ class OptionMode
     const MODE_KEYS = 'keys';
     const MODE_KEYS_VALUES = 'keysAndValues';
     const MODE_VALUES = 'values';
+    const MODE_KEYS_TRANSLATED = 'keysTranslated';
+    const MODE_KEYS_VALUES_TRANSLATED = 'keysAndValuesTranslated';
+    const MODE_VALUES_TRANSLATED = 'valuesTranslated';
+
 }

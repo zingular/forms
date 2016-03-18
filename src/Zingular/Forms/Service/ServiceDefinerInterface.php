@@ -69,6 +69,12 @@ interface ServiceDefinerInterface
     public function addConverterType(ConverterTypeInterface $converter);
 
     /**
+     * @param string $name
+     * @param callable $callback
+     */
+    public function addTranslationKeyWildcard($name,$callback);
+
+    /**
      * @param TranslatorInterface $translator
      */
     public function setTranslator(TranslatorInterface $translator);

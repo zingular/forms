@@ -106,6 +106,16 @@ trait ServiceDefinerTrait
     }
 
     /**
+     * @param string $name
+     * @param callable $callback
+     * @throws FormException
+     */
+    public function addTranslationKeyWildcard($name,$callback)
+    {
+        $this->getServices()->addTranslationKeyWildcard($name,$callback);
+    }
+
+    /**
      * @param TranslatorInterface $translator
      */
     public function setTranslator(TranslatorInterface $translator)

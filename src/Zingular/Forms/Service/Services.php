@@ -16,6 +16,7 @@ use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
+use Zingular\Forms\Service\Bridge\Translation\WildcardReplacer;
 use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
 use Zingular\Forms\Plugins\Builders\Container\BuilderTypeInterface;
@@ -24,15 +25,12 @@ use Zingular\Forms\Service\Builder\Form\FormBuilderFactory;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
 use Zingular\Forms\Service\Condition\ConditionFactory;
 use Zingular\Forms\Service\Condition\ConditionFactoryInterface;
-
 use Zingular\Forms\Service\Conversion\ConverterFactory;
 use Zingular\Forms\Service\Conversion\ConverterFactoryInterface;
-
 use Zingular\Forms\Service\Conversion\ConverterPool;
 use Zingular\Forms\Service\Evaluation\EvaluationHandler;
 use Zingular\Forms\Service\Evaluation\FilterFactory;
 use Zingular\Forms\Service\Evaluation\FilterFactoryInterface;
-
 use Zingular\Forms\Service\Evaluation\FilterPool;
 use Zingular\Forms\Service\Evaluation\ValidatorFactory;
 use Zingular\Forms\Service\Evaluation\ValidatorFactoryInterface;
@@ -175,6 +173,11 @@ class Services implements ServicesInterface
      */
     protected $evaluationHandler;
 
+    /**
+     * @var WildcardReplacer
+     */
+    protected $translationWildcardReplacer;
+
     /**********************************************************************
      * COMPONENT ADDERS
      *********************************************************************/
@@ -233,6 +236,15 @@ class Services implements ServicesInterface
     public function addConverterType(ConverterTypeInterface $converter)
     {
         $this->getConverters()->add($converter);
+    }
+
+    /**
+     * @param string $name
+     * @param callable $callback
+     */
+    public function addTranslationKeyWildcard($name,$callback)
+    {
+        $this->getTranslationWildcardReplacer()->addWildcard($name,$callback);
     }
 
     /**********************************************************************
@@ -353,11 +365,24 @@ class Services implements ServicesInterface
     {
         if(is_null($this->translationHandler))
         {
-            $this->translationHandler = new TranslationHandler();
+            $this->translationHandler = new TranslationHandler($this->getTranslationWildcardReplacer());
             $this->translationHandler->setTranslator($this->getDefaultTranslator());
         }
 
         return $this->translationHandler;
+    }
+
+    /**
+     * @return WildcardReplacer
+     */
+    protected function getTranslationWildcardReplacer()
+    {
+        if(is_null($this->translationWildcardReplacer))
+        {
+            $this->translationWildcardReplacer = new WildcardReplacer();
+        }
+
+        return $this->translationWildcardReplacer;
     }
 
     /**

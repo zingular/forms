@@ -19,17 +19,5 @@ interface FullExtensionInterface extends
     ConverterExtensionInterface,
     AggregationExtensionInterface,
     ConditionExtensionInterface,
-    PrototypeExtensionInterface
-{
-
-
-
-
-
-
-
-
-
-
-
-}
+    PrototypeExtensionInterface,
+    TranslationWildcardExtensionInterface {}

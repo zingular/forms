@@ -151,7 +151,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $input
             ->setCssBaseTypeClass('ctrl')
-            ->setTranslationKey('control.{name}')
+            ->setTranslationKey('control.{name}.{bla}')
             ->setBaseType('control');//->addEventListener(ComponentEvent::COMPILED,function(ComponentEvent $e){$e->getComponent()->addCssClass('compiled');});
     }
 
