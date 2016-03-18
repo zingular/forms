@@ -114,7 +114,6 @@ trait DataUnitTrait
      */
     public function getValue()
     {
-        //var_dump($this->value);
         return $this->value;
     }
 
@@ -124,8 +123,6 @@ trait DataUnitTrait
      */
     public function setValue($value)
     {
-        //var_dump($value);
-
         $this->value = $value;
         return $this;
     }
@@ -241,36 +238,5 @@ trait DataUnitTrait
         }
 
         return $this->evaluatorCollection;
-    }
-
-
-    /***************************************************************
-     * NAME
-     **************************************************************/
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->context->getName();
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->context->getFullName();
-    }
-
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->context->setName($name);
-        return $this;
     }
 }

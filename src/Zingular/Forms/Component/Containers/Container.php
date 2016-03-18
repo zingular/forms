@@ -2,7 +2,6 @@
 
 namespace Zingular\Forms\Component\Containers;
 
-use Zingular\Forms\Builder;
 use Zingular\Forms\Component\CompilableComponentInterface;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
@@ -17,11 +16,11 @@ use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\TranslatableComponentInterface;
-use Zingular\Forms\Component\TranslatableComponentTrait;
 use Zingular\Forms\Component\TypedComponentInterface;
 use Zingular\Forms\Component\TypedComponentTrait;
 use Zingular\Forms\CssClass;
 use Zingular\Forms\Events\ComponentEvent;
+use Zingular\Forms\Events\ContainerEvent;
 use Zingular\Forms\Events\EventDispatcherTrait;
 use Zingular\Forms\Plugins\Conditions\ConditionGroup;
 use Zingular\Forms\Component\ViewableComponentInterface;
@@ -52,8 +51,12 @@ class Container extends AbstractContainer implements
     use BuildableTrait;
     use ConditionableTrait;
     use EventDispatcherTrait;
-    use TranslatableComponentTrait;
     use TypedComponentTrait;
+
+    /**
+     * @var string
+     */
+    protected $translationKey = '{parentId}.{id}';
 
     /**
      * @var BuilderInterface
@@ -73,7 +76,7 @@ class Container extends AbstractContainer implements
     /**
      * @var string
      */
-    protected $errorBuilder = Builder::ERROR;
+    protected $errorBuilder;
 
     /**
      * @var array
@@ -164,6 +167,28 @@ class Container extends AbstractContainer implements
     protected function getContext()
     {
         return $this->context;
+    }
+
+    /***************************************************************
+     * TRANSLATION
+     **************************************************************/
+
+    /**
+     * @param string $key
+     * @return $this
+     */
+    public function setTranslationKey($key)
+    {
+        $this->translationKey = $key;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslationKey()
+    {
+        return $this->getTranslator()->parseTranslationKey($this->translationKey,$this,$this->state);
     }
 
     /***************************************************************
@@ -314,6 +339,9 @@ class Container extends AbstractContainer implements
             $this->applyBuilderType($builder);
         }
 
+        // dispatch event
+        $this->dispatchEvent(new ContainerEvent(ContainerEvent::PRE_BUILD,$this));
+
         // compile children
         $this->compileChildren($this->components,$state,$defaultValues);
 
@@ -329,6 +357,9 @@ class Container extends AbstractContainer implements
         // perform hard-coded post-buildPrototypes actions
         $this->postBuild($state);
 
+        // dispatch event
+        $this->dispatchEvent(new ContainerEvent(ContainerEvent::POST_BUILD,$this));
+
         // compile any newly adopted children during post-build
         $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
 
@@ -341,9 +372,9 @@ class Container extends AbstractContainer implements
         // compile the errors
         $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
 
-        // dispatch event
+        // dispatchEvent event
         $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
-        $this->dispatch($event);
+        $this->dispatchEvent($event);
     }
 
     /**
@@ -405,8 +436,6 @@ class Container extends AbstractContainer implements
         }
     }
 
-
-
     /**
      * @param DataUnitComponentInterface $child
      */
@@ -451,7 +480,7 @@ class Container extends AbstractContainer implements
      */
     protected function buildErrors(array $errors)
     {
-        if(count($errors) === 0)
+        if(count($errors) === 0 || is_null($this->errorBuilder))
         {
             return;
         }

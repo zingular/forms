@@ -14,6 +14,10 @@ use Zingular\Forms\Component\Containers\ConfigurableFormInterface;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
 use Zingular\Forms\Component\Containers\SimpleBuilder;
 
+/**
+ * Class TestFormBuilder4
+ * @package Zingular\Forms\Plugins\Builders\Form
+ */
 class TestFormBuilder4 implements FormBuilderInterface
 {
 
@@ -32,13 +36,17 @@ class TestFormBuilder4 implements FormBuilderInterface
     {
         $wrapper = new SimpleBuilder($form);
 
+        $wrapper->nextFieldset('firstFieldset','myFirstField');
+
         $wrapper->addInput('yow');
+
         $wrapper->nextField('myField');
         $wrapper->addInput('yow2');
         $wrapper->addInput('yow3')->setRequired();
         $wrapper->nextFieldset('personalia','fldName');
         $wrapper->addInput('lala')
             ->setHtmlAttribute('placeholder','lala');
+
         $wrapper->addSubmit();
     }
 

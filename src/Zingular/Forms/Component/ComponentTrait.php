@@ -8,8 +8,9 @@
 
 namespace Zingular\Forms\Component;
 use Zingular\Forms\Component\Containers\Container;
+use Zingular\Forms\Events\ComponentEvent;
+use Zingular\Forms\Events\EventDispatcherInterface;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\ServiceProviderInterface;
 
 /**
  * Class ComponentTrait
@@ -33,6 +34,12 @@ trait ComponentTrait
     public function setContext(Context $context)
     {
         $this->context = $context;
+
+        if($this instanceof EventDispatcherInterface)
+        {
+            $e = new ComponentEvent(ComponentEvent::ADOPTED,$this);
+            $this->dispatchEvent($e);
+        }
     }
 
     /**

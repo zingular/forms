@@ -25,7 +25,7 @@ trait EventDispatcherTrait
     /**
      * @param Event $event
      */
-    protected function dispatch(Event $event)
+    protected function dispatchEvent(Event $event)
     {
         $type = $event->getType();
 
@@ -46,6 +46,7 @@ trait EventDispatcherTrait
     /**
      * @param string $type
      * @param callable $callable
+     * @return $this
      */
     public function addEventListener($type, $callable)
     {
@@ -55,6 +56,8 @@ trait EventDispatcherTrait
         }
 
         $this->eventListeners[$type][] = $callable;
+
+        return $this;
     }
 
     /**

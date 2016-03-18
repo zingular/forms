@@ -8,6 +8,7 @@
 
 namespace Zingular\Forms\Component\Containers;
 use Zingular\Forms\Component\Elements\Controls\Input;
+use Zingular\Forms\Exception\FormException;
 
 /**
  * Class SimpleBuilder
@@ -70,7 +71,9 @@ class SimpleBuilder
         return $this->currentFieldset;
     }
 
-
+    /**
+     * @return $this
+     */
     public function addSubmit()
     {
         return $this->buildable->addButton('submit')->ignoreValue();
@@ -78,12 +81,13 @@ class SimpleBuilder
 
     /**
      * @return Fieldset
+     * @throws FormException
      */
     protected function getCurrentFieldset()
     {
         if(is_null($this->currentFieldset))
         {
-            $this->currentFieldset = $this->buildable->addFieldset(uniqid());
+            throw new FormException("No current fieldset available! Create a new fieldset using nextFieldset method!");
         }
 
         return $this->currentFieldset;
@@ -91,12 +95,13 @@ class SimpleBuilder
 
     /**
      * @return Field
+     * @throws FormException
      */
     protected function getCurrentField()
     {
         if(is_null($this->currentField))
         {
-            $this->currentField = $this->getCurrentFieldset()->addField(uniqid());
+            throw new FormException("No current field available! Create a new field using nextField method!");
         }
 
         return $this->currentField;

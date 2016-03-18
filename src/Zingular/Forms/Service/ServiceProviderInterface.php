@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service;
 
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
+use Zingular\Forms\Service\Bridge\Csrf\CsrfHandlerInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
 use Zingular\Forms\Service\Bridge\Persistence\PersistenceHandlerInterface;
 use Zingular\Forms\Service\Bridge\Request\RequestHandlerInterface;

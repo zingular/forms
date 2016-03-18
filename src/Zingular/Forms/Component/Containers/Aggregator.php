@@ -16,7 +16,6 @@ use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 
-use Zingular\Forms\Exception\ComponentException;
 
 use Zingular\Forms\IncompletionMode;
 use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
@@ -263,5 +262,35 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
     public function getDataPath()
     {
         return trim($this->context->getDataPath().'/'.$this->getName(),'/');
+    }
+
+    /***************************************************************
+     * NAME
+     **************************************************************/
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->context->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->context->getFullName();
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->context->setName($name);
+        return $this;
     }
 }

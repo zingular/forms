@@ -121,8 +121,8 @@ class Content extends AbstractElement implements
         // store the state locally
         $this->state = $state;
 
-        // dispatch event
+        // dispatchEvent event
         $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
-        $this->dispatch($event);
+        $this->dispatchEvent($event);
     }
 }

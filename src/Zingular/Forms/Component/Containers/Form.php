@@ -264,9 +264,16 @@ class Form extends Container implements
                 // TODO
 
 
-                // dispatch event
+                // dispatchEvent event
                 $event = new FormEvent(FormEvent::VALID,$this);
-                $this->dispatch($event);
+                $this->dispatchEvent($event);
+            }
+            // if not valid
+            else
+            {
+                // dispatch event
+                $event = new FormEvent(FormEvent::INVALID,$this);
+                $this->dispatchEvent($event);
             }
         }
     }
@@ -300,6 +307,8 @@ class Form extends Container implements
         // add csrf field
         $this->addHidden($handler->generateTokenFieldname($handler->generateToken($this->getId()),$this->getId()))
             ->ignoreValue();
+
+
     }
 
     /**

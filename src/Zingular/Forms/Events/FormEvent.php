@@ -10,6 +10,7 @@ use Zingular\Forms\Component\Containers\FormInterface;
 class FormEvent extends Event
 {
     const VALID = 'form.valid';
+    const INVALID = 'form.invalid';
 
     /**
      * @var FormInterface

@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Evaluation;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+
 use Zingular\Forms\Plugins\Evaluators\ValidatorInterface;
 
 /**

@@ -8,13 +8,14 @@ use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\HtmlAttributesInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\TranslatableComponentInterface;
-use Zingular\Forms\Component\TranslatableComponentTrait;
 use Zingular\Forms\Component\TypedComponentInterface;
 use Zingular\Forms\Component\TypedComponentTrait;
 use Zingular\Forms\Component\ViewableComponentInterface;
 use Zingular\Forms\Component\ViewSetterTrait;
+
 use Zingular\Forms\Events\EventDispatcherInterface;
 use Zingular\Forms\Events\EventDispatcherTrait;
+use Zingular\Forms\Exception\FormException;
 
 /**
  * Class AbstractElement
@@ -35,6 +36,48 @@ abstract class AbstractElement implements
     use HtmlAttributesTrait;
     use ConditionableTrait;
     use EventDispatcherTrait;
-    use TranslatableComponentTrait;
     use TypedComponentTrait;
+
+    /**
+     * @var string
+     */
+    protected $translationKey = '{parentId}.{name}';
+
+    /***************************************************************
+     * TRANSLATION
+     **************************************************************/
+
+    /**
+     * @param string $key
+     * @return $this
+     */
+    public function setTranslationKey($key)
+    {
+        $this->translationKey = $key;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslationKey()
+    {
+        return $this->getTranslator()->parseTranslationKey($this->translationKey,$this,$this->state);
+    }
+
+    /***************************************************************
+     * C:ONING
+     **************************************************************/
+
+    /**
+     *
+     */
+    public function __clone()
+    {
+        // cannot clone a container when it is already used in a form runtime
+        if(!is_null($this->state))
+        {
+            throw new FormException(sprintf("Cannot clone component during form processing: '%s'",$this->getId()));
+        }
+    }
 }

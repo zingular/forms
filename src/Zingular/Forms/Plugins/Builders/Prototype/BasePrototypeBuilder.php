@@ -26,6 +26,7 @@ use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\Elements\Contents\View as ViewComponent;
+
 use Zingular\Forms\View;
 
 /**
@@ -74,7 +75,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $form
             ->setCssBaseTypeClass('zingularForm')
             ->setViewName(View::FORM)
-            ->setBaseType('form');
+            ->setBaseType('form')
+            ->setErrorBuilder(Builder::ERROR);
     }
 
     /**
@@ -85,7 +87,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $container
             ->setCssBaseTypeClass('container')
             ->setViewName(View::CONTAINER)
-            ->setBaseType('container');
+            ->setBaseType('container')
+            ->setErrorBuilder(Builder::ERROR);
     }
 
     /**
@@ -97,7 +100,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
             ->setCssBaseTypeClass('fieldset')
             ->setViewName(View::FIELDSET)
             ->setBaseType('fieldset')
-            ->setBuilder(Builder::FIELDSET);
+            ->setBuilder(Builder::FIELDSET)
+            ->setErrorBuilder(Builder::ERROR);
     }
 
     /**
@@ -109,7 +113,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
             ->setCssBaseTypeClass('field')
             ->setViewName(View::FIELD)
             ->setBaseType('field')
-            ->setBuilder(Builder::FIELD,$post = true);
+            ->setBuilder(Builder::FIELD,$post = true)
+            ->setErrorBuilder(Builder::ERROR);
     }
 
     /**
@@ -119,7 +124,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $row->setCssBaseTypeClass('row')
             ->setViewName(View::ROW)
-            ->setBaseType('row');
+            ->setBaseType('row')
+            ->setErrorBuilder(Builder::ERROR);
     }
 
     /**
@@ -130,7 +136,8 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $aggregator
             ->setCssBaseTypeClass('aggregator')
             ->setViewName(View::TRANSPARENT)
-            ->setBaseType('aggregator');
+            ->setBaseType('aggregator')
+            ->setErrorBuilder(Builder::ERROR);
     }
 
     /*****************************************************************

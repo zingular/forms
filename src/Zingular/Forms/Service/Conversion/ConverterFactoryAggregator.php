@@ -8,7 +8,7 @@
 
 namespace Zingular\Forms\Service\Conversion;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Plugins\Builders\Container\BuilderInterface;
+
 use Zingular\Forms\Plugins\Converters\ConverterInterface;
 
 /**

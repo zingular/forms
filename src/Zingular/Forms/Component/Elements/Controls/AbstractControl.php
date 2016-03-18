@@ -18,8 +18,6 @@ use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
 
 use Zingular\Forms\Events\ComponentEvent;
-use Zingular\Forms\Exception\ComponentException;
-use Zingular\Forms\Exception\FormException;
 
 
 /**
@@ -62,9 +60,9 @@ abstract class AbstractControl extends AbstractElement implements
         // make sure the value is collected
         $this->retrieveValue($defaultValue);
 
-        // dispatch event
+        // dispatchEvent event
         $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
-        $this->dispatch($event);
+        $this->dispatchEvent($event);
     }
 
     /**
@@ -187,5 +185,35 @@ abstract class AbstractControl extends AbstractElement implements
     public function getInputValue()
     {
         return $this->decodeValue($this->getValue());
+    }
+
+    /***************************************************************
+     * NAME
+     **************************************************************/
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->context->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->context->getFullName();
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->context->setName($name);
+        return $this;
     }
 }
