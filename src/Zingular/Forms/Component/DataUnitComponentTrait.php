@@ -15,10 +15,10 @@ use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
 
 /**
- * Class DataUnitTrait
+ * Class DataUnitComponentTrait
  * @package Zingular\Form\Component
  */
-trait DataUnitTrait
+trait DataUnitComponentTrait
 {
     /**
      * @var mixed
@@ -46,9 +46,9 @@ trait DataUnitTrait
     protected $persistent = false;
 
     /**
-     * @var EvaluatorConfigCollection
+     * @var array
      */
-    protected $evaluatorCollection;
+    protected $evaluators = array();
 
     /**
      * @param null $defaultValue
@@ -83,7 +83,7 @@ trait DataUnitTrait
             else
             {
                 // evaluate the value
-                $this->setValue($this->getEvaluationHandler()->evaluate($this,$this->getEvaluatorCollection()));
+                $this->setValue($this->getEvaluationHandler()->evaluate($this,$this->evaluators));
 
                 // encode the value (if converter set)
                 $this->setValue($this->encodeValue($this->value));
@@ -212,7 +212,7 @@ trait DataUnitTrait
      */
     public function addFilter($filter,...$args)
     {
-        $this->getEvaluatorCollection()->addEvaluator(new FilterConfig($filter,$args));
+        $this->evaluators[] = new FilterConfig($filter,$args);
         return $this;
     }
 
@@ -224,20 +224,7 @@ trait DataUnitTrait
      */
     public function addValidator($validator,...$args)
     {
-        $this->getEvaluatorCollection()->addEvaluator(new ValidatorConfig($validator,$args));
+        $this->evaluators[] = new ValidatorConfig($validator,$args);
         return $this;
-    }
-
-    /**
-     * @return EvaluatorConfigCollection
-     */
-    protected function getEvaluatorCollection()
-    {
-        if(is_null($this->evaluatorCollection))
-        {
-            $this->evaluatorCollection = new EvaluatorConfigCollection();
-        }
-
-        return $this->evaluatorCollection;
     }
 }

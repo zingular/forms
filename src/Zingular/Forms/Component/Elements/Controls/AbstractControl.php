@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Component\Elements\Controls;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitComponentInterface;
-use Zingular\Forms\Component\DataUnitTrait;
+use Zingular\Forms\Component\DataUnitComponentTrait;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
@@ -31,7 +31,7 @@ abstract class AbstractControl extends AbstractElement implements
     DescribableInterface
 {
     use RequiredTrait;
-    use DataUnitTrait;
+    use DataUnitComponentTrait;
     use ConvertableTrait;
 
     /**

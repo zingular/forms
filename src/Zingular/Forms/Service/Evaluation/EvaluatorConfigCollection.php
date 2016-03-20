@@ -14,24 +14,4 @@ namespace Zingular\Forms\Service\Evaluation;
  */
 class EvaluatorConfigCollection
 {
-    /**
-     * @var array
-     */
-    protected $evaluators = array();
-
-    /**
-     * @param EvaluatorConfig $config
-     */
-    public function addEvaluator(EvaluatorConfig $config)
-    {
-        $this->evaluators[] = $config;
-    }
-
-    /**
-     * @return array
-     */
-    public function getEvaluators()
-    {
-        return $this->evaluators;
-    }
 }

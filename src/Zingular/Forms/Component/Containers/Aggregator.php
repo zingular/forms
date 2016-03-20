@@ -11,7 +11,7 @@ use Zingular\Forms\Aggregation;
 use Zingular\Forms\AggregationMode;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitComponentInterface;
-use Zingular\Forms\Component\DataUnitTrait;
+use Zingular\Forms\Component\DataUnitComponentTrait;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
@@ -28,7 +28,7 @@ use Zingular\Forms\RequiredMode;
  */
 class Aggregator extends Container implements DataUnitComponentInterface,RequiredInterface
 {
-    use DataUnitTrait;
+    use DataUnitComponentTrait;
     use RequiredTrait;
     use ConvertableTrait;
 

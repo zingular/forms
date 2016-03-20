@@ -25,7 +25,6 @@ trait RequiredTrait
      */
     public function setRequired($required = true)
     {
-        // TODO: handle translation key
         $this->required = $required;
         return $this;
     }

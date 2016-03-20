@@ -45,16 +45,13 @@ class EvaluationHandler
 
     /**
      * @param DataUnitComponentInterface $subject
-     * @param EvaluatorConfigCollection $collection
+     * @param array $evaluators
      * @return mixed
      * @throws ComponentException
      */
-    public function evaluate(DataUnitComponentInterface $subject,EvaluatorConfigCollection $collection)
+    public function evaluate(DataUnitComponentInterface $subject,array $evaluators)
     {
         $value = $subject->getValue();
-
-        // extract the evaluators
-        $evaluators = $collection->getEvaluators();
 
         // process all registered evaluators
         foreach($evaluators as $config)
