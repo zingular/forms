@@ -150,7 +150,7 @@ class Container extends AbstractContainer implements
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = self::POSITION_DEFAULT)
+    protected function adopt($name,ComponentInterface $component,$position = self::POSITION_END)
     {
         // add using parent method
         $component = parent::adopt($name,$component,$position);
@@ -766,7 +766,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Content
      */
-    public function addContent($name,$position = -2)
+    public function addContent($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::CONTENT);
     }
@@ -776,7 +776,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Label
      */
-    public function addLabel($name,$position = -2)
+    public function addLabel($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::LABEL);
     }
@@ -786,7 +786,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Html
      */
-    public function addHtml($name,$position = -2)
+    public function addHtml($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::HTML);
     }
@@ -796,7 +796,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return HtmlTag
      */
-    public function addHtmlTag($name,$position = -2)
+    public function addHtmlTag($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::HTMLTAG);
     }
@@ -806,7 +806,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return View
      */
-    public function addView($name,$position = -2)
+    public function addView($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::VIEW);
     }
@@ -816,7 +816,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Input
      */
-    public function addInput($name,$position = -2)
+    public function addInput($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::INPUT);
     }
@@ -827,7 +827,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Checkbox
      */
-    public function addCheckbox($name,$position = -2)
+    public function addCheckbox($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::CHECKBOX);
     }
@@ -837,7 +837,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Hidden
      */
-    public function addHidden($name,$position = -2)
+    public function addHidden($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::HIDDEN);
     }
@@ -847,7 +847,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Select
      */
-    public function addSelect($name,$position = -2)
+    public function addSelect($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::SELECT);
     }
@@ -857,7 +857,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Textarea
      */
-    public function addTextarea($name,$position = -2)
+    public function addTextarea($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::TEXTAREA);
     }
@@ -867,7 +867,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return FileUpload
      */
-    public function addFileUpload($name,$position = -2)
+    public function addFileUpload($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::FILE_UPLOAD);
     }
@@ -877,7 +877,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Button
      */
-    public function addButton($name,$position = -2)
+    public function addButton($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::BUTTON);
     }
@@ -887,7 +887,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Container
      */
-    public function addContainer($name,$position = -2)
+    public function addContainer($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::CONTAINER);
     }
@@ -897,7 +897,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Aggregator
      */
-    public function addAggregator($name,$position = -2)
+    public function addAggregator($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::AGGREGATOR);
     }
@@ -907,7 +907,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Fieldset
      */
-    public function addFieldset($name,$position = -2)
+    public function addFieldset($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::FIELDSET);
     }
@@ -917,7 +917,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Container
      */
-    public function addField($name,$position = -2)
+    public function addField($name,$position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::FIELD);
     }
@@ -927,7 +927,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Row
      */
-    public function addRow($name, $position = -2)
+    public function addRow($name, $position = self::POSITION_END)
     {
         return $this->add($name,$position,BaseTypes::ROW);
     }
@@ -945,7 +945,7 @@ class Container extends AbstractContainer implements
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function useComponent($prototype,$as,$baseType,$baseClass,$position = -2)
+    protected function useComponent($prototype,$as,$baseType,$baseClass,$position = self::POSITION_END)
     {
         $as = is_null($as) ? $prototype : $as;
         return $this->adopt($as,$this->getContext()->getPrototypes()->export($baseType,$baseClass,$prototype),$position);
@@ -957,7 +957,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Label
      */
-    public function useContent($prototype,$as = null,$position = -2)
+    public function useContent($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::CONTENT,Content::class,$position);
     }
@@ -968,7 +968,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Label
      */
-    public function useLabel($prototype,$as = null,$position = -2)
+    public function useLabel($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::LABEL,Label::class,$position);
     }
@@ -979,7 +979,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Html
      */
-    public function useHtml($prototype,$as = null,$position = -2)
+    public function useHtml($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::HTML,Html::class,$position);
     }
@@ -990,7 +990,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return HtmlTag
      */
-    public function useHtmlTag($prototype,$as = null,$position = -2)
+    public function useHtmlTag($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::HTMLTAG,HtmlTag::class,$position);
 
@@ -1002,7 +1002,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return View
      */
-    public function useView($prototype,$as = null,$position = -2)
+    public function useView($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::VIEW,View::class,$position);
     }
@@ -1013,7 +1013,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Input
      */
-    public function useInput($prototype,$as = null,$position = -2)
+    public function useInput($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::INPUT,Input::class,$position);
     }
@@ -1024,7 +1024,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Checkbox
      */
-    public function useCheckbox($prototype,$as = null,$position = -2)
+    public function useCheckbox($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::CHECKBOX,Checkbox::class,$position);
     }
@@ -1035,7 +1035,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Select
      */
-    public function useSelect($prototype,$as = null,$position = -2)
+    public function useSelect($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::SELECT,Select::class,$position);
     }
@@ -1046,7 +1046,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Textarea
      */
-    public function useTextarea($prototype,$as = null,$position = -2)
+    public function useTextarea($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::TEXTAREA,Textarea::class,$position);
     }
@@ -1057,7 +1057,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return FileUpload
      */
-    public function useFileUpload($prototype,$as = null,$position = -2)
+    public function useFileUpload($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::FILE_UPLOAD,FileUpload::class,$position);
     }
@@ -1068,7 +1068,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Button
      */
-    public function useButton($prototype,$as = null,$position = -2)
+    public function useButton($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::BUTTON,Button::class,$position);
     }
@@ -1079,7 +1079,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Container
      */
-    public function useContainer($prototype,$as = null,$position = -2)
+    public function useContainer($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::CONTAINER,Container::class,$position);
     }
@@ -1090,7 +1090,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Aggregator
      */
-    public function useAggregator($prototype,$as = null,$position = -2)
+    public function useAggregator($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::AGGREGATOR,Aggregator::class,$position);
     }
@@ -1101,7 +1101,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Fieldset
      */
-    public function useFieldset($prototype,$as = null,$position = -2)
+    public function useFieldset($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::FIELDSET,Fieldset::class,$position);
     }
@@ -1112,7 +1112,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Field
      */
-    public function useField($prototype,$as = null,$position = -2)
+    public function useField($prototype,$as = null,$position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::FIELD,Field::class,$position);
     }
@@ -1123,7 +1123,7 @@ class Container extends AbstractContainer implements
      * @param int|string $position
      * @return Row
      */
-    public function useRow($prototype, $as = null, $position = -2)
+    public function useRow($prototype, $as = null, $position = self::POSITION_END)
     {
         return $this->useComponent($prototype,$as,BaseTypes::ROW,Row::class,$position);
     }

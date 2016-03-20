@@ -17,21 +17,6 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
      */
     protected $components = array();
 
-    /**
-     * @var int
-     */
-    protected $defaultPosition = self::POSITION_END;
-
-    /**
-     * @var int
-     */
-    protected $currentPosition = self::POSITION_END;
-
-    /**
-     * @var int
-     */
-    protected $lastPosition = self::POSITION_END;
-
     /***************************************************************
      * CLONING
      **************************************************************/
@@ -66,7 +51,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
      * @return ComponentInterface
      * @throws FormException
      */
-    protected function adopt($name,ComponentInterface $component,$position = self::POSITION_DEFAULT)
+    protected function adopt($name,ComponentInterface $component,$position = self::POSITION_END)
     {
         // store the position as default index
         $index = $position;
@@ -75,7 +60,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
         if(is_string($index))
         {
             // try to lookup component
-            $afterIndex = $this->getComponentIndex($index);
+            $index = $this->getComponentIndex($index);
 
             // if target component not found, throw exception
             if(is_null($index))
@@ -84,26 +69,13 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
             }
 
             // set the index to the after index plus one
-            $index = $afterIndex + 1;
+            $index++;
         }
 
         // if index is int at this point
-        if(is_int($index) == false)
+        if(is_int($index) === false)
         {
             throw new FormException(sprintf("Cannot insert component '%s': invalid position type: '%s'",is_scalar($index) ? $index : gettype($index)));
-        }
-
-        // load the default position
-        if($index === self::POSITION_DEFAULT)
-        {
-            $index = $this->defaultPosition;
-        }
-
-        // after the last inserted index
-        if($index === self::POSITION_AFTER_LAST)
-        {
-            //echo 'after last<br/>';
-            $index = max($this->lastPosition + 1,0);
         }
 
         // prepend
@@ -137,8 +109,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
         // set the context to the component
         $component->setContext($this->createContext($name));
 
-        $this->lastPosition = $index;
-
+        // return the component
         return $component;
     }
 
@@ -202,7 +173,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
     {
         $index = $this->getComponentIndex($name);
 
-        if($index === false)
+        if(is_null($index))
         {
             $index = -1;
         }
