@@ -10,7 +10,6 @@ namespace Zingular\Forms\Component;
 
 use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\FormException;
-use Zingular\Forms\Service\Evaluation\EvaluatorConfigCollection;
 use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
 
@@ -51,7 +50,7 @@ trait DataUnitComponentTrait
     protected $evaluators = array();
 
     /**
-     * @param null $defaultValue
+     * @param mixed $defaultValue
      * @throws ComponentException
      * @throws FormException
      */
@@ -73,7 +72,7 @@ trait DataUnitComponentTrait
             if($this->hasValue() === false)
             {
                 // required check
-                if($this->isRequired())
+                if($this instanceof RequiredInterface && $this->isRequired())
                 {
                     $params = array('control'=>$this->getTranslator()->translateRaw($this->getTranslationKey(),$this,$this->state));
                     throw new ComponentException($this,'','validator.required',$params);
