@@ -20,4 +20,4 @@ interface FullExtensionInterface extends
     AggregationExtensionInterface,
     ConditionExtensionInterface,
     PrototypeExtensionInterface,
-    TranslationWildcardExtensionInterface {}
+    TranslationExtensionInterface {}

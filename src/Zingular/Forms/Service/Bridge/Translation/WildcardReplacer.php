@@ -74,7 +74,10 @@ class WildcardReplacer
                     // try to load a custom wildcard replacement callback
                     if(isset($customCallbacks[$wildcard]))
                     {
-                        return call_user_func($customCallbacks[$wildcard],$component,$state);
+                        /** @var TranslationKeyWildcardInterface $wc */
+                        $wc = $customCallbacks[$wildcard];
+
+                        return $wc->replace($component,$state);
                     }
 
                     // if no custom callback, fail
@@ -94,12 +97,11 @@ class WildcardReplacer
     }
 
     /**
-     * @param string $name
-     * @param callable $callback
+     * @param TranslationKeyWildcardInterface $wildcard
      */
-    public function addWildcard($name,$callback)
+    public function addWildcard(TranslationKeyWildcardInterface $wildcard)
     {
-        $this->customCallbacks[$name] = $callback;
+        $this->customCallbacks[$wildcard->getName()] = $wildcard;
     }
 
     // TODO: add option to apply translation, with replacing wildcards, and optionally recursive replace (also replace references to other component names)

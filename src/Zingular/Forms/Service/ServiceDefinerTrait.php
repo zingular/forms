@@ -16,6 +16,7 @@ use Zingular\Forms\Plugins\Converters\ConverterTypeInterface;
 use Zingular\Forms\Plugins\Evaluators\FilterTypeInterface;
 use Zingular\Forms\Plugins\Evaluators\ValidatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
+use Zingular\Forms\Service\Bridge\Translation\TranslationKeyWildcardInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Plugins\Builders\Container\BuilderTypeInterface;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
@@ -105,13 +106,11 @@ trait ServiceDefinerTrait
     }
 
     /**
-     * @param string $name
-     * @param callable $callback
-     * @throws FormException
+     * @param TranslationKeyWildcardInterface $wildcard
      */
-    public function addTranslationKeyWildcard($name,$callback)
+    public function addTranslationKeyWildcard(TranslationKeyWildcardInterface $wildcard)
     {
-        $this->getServices()->addTranslationKeyWildcard($name,$callback);
+        $this->getServices()->addTranslationKeyWildcard($wildcard);
     }
 
     /**

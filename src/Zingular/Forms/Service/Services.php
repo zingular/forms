@@ -16,6 +16,7 @@ use Zingular\Forms\Service\Aggregation\AggregatorFactoryInterface;
 use Zingular\Forms\Service\Aggregation\AggregatorPool;
 use Zingular\Forms\Plugins\Aggregators\AggregatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslationHandler;
+use Zingular\Forms\Service\Bridge\Translation\TranslationKeyWildcardInterface;
 use Zingular\Forms\Service\Bridge\Translation\WildcardReplacer;
 use Zingular\Forms\Service\Builder\Container\BuilderFactoryInterface;
 use Zingular\Forms\Service\Builder\Container\BuilderPool;
@@ -239,12 +240,11 @@ class Services implements ServicesInterface
     }
 
     /**
-     * @param string $name
-     * @param callable $callback
+     * @param TranslationKeyWildcardInterface $wildcard
      */
-    public function addTranslationKeyWildcard($name,$callback)
+    public function addTranslationKeyWildcard(TranslationKeyWildcardInterface $wildcard)
     {
-        $this->getTranslationWildcardReplacer()->addWildcard($name,$callback);
+        $this->getTranslationWildcardReplacer()->addWildcard($wildcard);
     }
 
     /**********************************************************************

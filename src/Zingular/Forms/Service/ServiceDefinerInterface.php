@@ -20,6 +20,7 @@ use Zingular\Forms\Plugins\Evaluators\FilterTypeInterface;
 
 use Zingular\Forms\Plugins\Evaluators\ValidatorTypeInterface;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerInterface;
+use Zingular\Forms\Service\Bridge\Translation\TranslationKeyWildcardInterface;
 use Zingular\Forms\Service\Bridge\Translation\TranslatorInterface;
 use Zingular\Forms\Service\Bridge\View\ViewHandlerInterface;
 use Zingular\Forms\Service\Builder\Form\FormBuilderFactoryInterface;
@@ -69,10 +70,9 @@ interface ServiceDefinerInterface
     public function addConverterType(ConverterTypeInterface $converter);
 
     /**
-     * @param string $name
-     * @param callable $callback
+     * @param TranslationKeyWildcardInterface $wildcard
      */
-    public function addTranslationKeyWildcard($name,$callback);
+    public function addTranslationKeyWildcard(TranslationKeyWildcardInterface $wildcard);
 
     /**
      * @param TranslatorInterface $translator

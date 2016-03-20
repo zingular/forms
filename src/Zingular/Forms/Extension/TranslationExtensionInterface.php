@@ -9,10 +9,10 @@
 namespace Zingular\Forms\Extension;
 
 /**
- * Interface TranslationWildcardExtensionInterface
+ * Interface TranslationExtensionInterface
  * @package Zingular\Forms\Extension
  */
-interface TranslationWildcardExtensionInterface
+interface TranslationExtensionInterface
 {
     /**
      * @return array

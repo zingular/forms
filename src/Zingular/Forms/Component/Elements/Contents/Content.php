@@ -12,7 +12,7 @@ use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Events\ComponentEvent;
-use Zingular\Forms\Exception\FormException;
+
 use Zingular\Forms\Exception\InvalidStateException;
 
 /**

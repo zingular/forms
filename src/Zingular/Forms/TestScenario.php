@@ -16,6 +16,7 @@ use Zingular\Forms\Service\Bridge\Orm\GetterSetterOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
 use Zingular\Forms\Service\Bridge\Orm\PublicPropertyOrmHandler;
 use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
+use Zingular\Forms\Service\Bridge\Translation\CallableTranslationKeyWildcard;
 
 /**
  * Class FormTester
@@ -82,9 +83,6 @@ class TestScenario
 
         // set the default translator
         $construct->setTranslator($translator);
-
-
-
 
         // orm
         $ormHandler = new OrmHandlerAggregator();

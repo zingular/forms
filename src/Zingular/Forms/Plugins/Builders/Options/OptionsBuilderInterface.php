@@ -22,7 +22,6 @@ interface OptionsBuilderInterface
      * @param BuildableInterface $container
      * @param FormState $state
      * @param OptionsProvider $provider
-     * @return mixed
      */
     public function buildOptions(BuildableInterface $container,FormState $state,OptionsProvider $provider);
 }
