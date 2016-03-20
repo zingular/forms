@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component;
+use Zingular\Forms\Component\Context\Context;
 
 /**
  * Interface ComponentInterface

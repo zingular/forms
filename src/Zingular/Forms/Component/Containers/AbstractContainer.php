@@ -3,7 +3,7 @@
 namespace Zingular\Forms\Component\Containers;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\Context;
+use Zingular\Forms\Component\Context\Context;
 use Zingular\Forms\Exception\FormException;
 
 /**
@@ -118,7 +118,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
      * @param string $type
      * @return bool
      */
-    public function hasComponent($name,$type = null)
+    protected function hasComponent($name,$type = null)
     {
         $index = $this->getComponentIndex($name);
 
@@ -159,7 +159,7 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
 
     /**
      * @param $id
-     * @return Context
+     * @return \Zingular\Forms\Component\Context\Context
      */
     abstract protected function createContext($id);
 

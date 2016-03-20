@@ -6,10 +6,10 @@
  * Time: 14:48
  */
 
-namespace Zingular\Forms;
+namespace Zingular\Forms\Component\Context;
 
 use Zingular\Forms\Component\Containers\PrototypesInterface;
-use Zingular\Forms\Component\Context;
+
 
 /**
  * Class PrototypeContext

@@ -7,7 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Containers;
-use Zingular\Forms\Component\Context;
+use Zingular\Forms\Component\Context\Context;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Contents\Html;
 use Zingular\Forms\Component\Elements\Contents\HtmlTag;
@@ -23,7 +23,7 @@ use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Events\FormEvent;
 use Zingular\Forms\Exception\InvalidArgumentException;
-use Zingular\Forms\FormContext;
+use Zingular\Forms\Component\Context\FormContext;
 use Zingular\Forms\Service\ServiceDefinerInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Plugins\Builders\Prototype\PrototypeBuilderInterface;
@@ -77,7 +77,7 @@ class Form extends Container implements
     protected $model;
 
     /**
-     * @param Context $context
+     * @param \Zingular\Forms\Component\Context\Context $context
      * @throws FormException
      */
     public function setContext(Context $context)

@@ -8,7 +8,7 @@ use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
 use Zingular\Forms\Component\ConditionableTrait;
-use Zingular\Forms\Component\Context;
+use Zingular\Forms\Component\Context\Context;
 use Zingular\Forms\Component\CssComponentTrait;
 use Zingular\Forms\Component\DataComponentInterface;
 use Zingular\Forms\Component\DataUnitComponentInterface;
@@ -172,7 +172,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @return Context
+     * @return \Zingular\Forms\Component\Context\Context
      */
     protected function getContext()
     {

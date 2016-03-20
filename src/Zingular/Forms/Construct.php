@@ -12,6 +12,7 @@ namespace Zingular\Forms;
 use Zingular\Forms\Component\Containers\FormInterface;
 use Zingular\Forms\Component\Containers\Prototypes;
 
+use Zingular\Forms\Component\Context\FormContext;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Extension\AggregationExtensionInterface;
 use Zingular\Forms\Extension\BuilderExtensionInterface;

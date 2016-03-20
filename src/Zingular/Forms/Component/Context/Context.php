@@ -6,7 +6,7 @@
  * Time: 18:26
  */
 
-namespace Zingular\Forms\Component;
+namespace Zingular\Forms\Component\Context;
 use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Component\Containers\Prototypes;
 

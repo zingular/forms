@@ -9,7 +9,7 @@
 namespace Zingular\Forms\Component\Containers;
 use Zingular\Forms\BaseTypes;
 use Zingular\Forms\Component\ComponentInterface;
-use Zingular\Forms\Component\Context;
+use Zingular\Forms\Component\Context\Context;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Contents\Html;
 use Zingular\Forms\Component\Elements\Contents\HtmlTag;
@@ -25,8 +25,7 @@ use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\TypedComponentInterface;
 use Zingular\Forms\Exception\FormException;
-
-use Zingular\Forms\PrototypeContext;
+use Zingular\Forms\Component\Context\PrototypeContext;
 use Zingular\Forms\Service\Component\ComponentFactoryInterface;
 
 /**
@@ -87,6 +86,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     protected function getPrototype($baseType)
     {
+        // lazily create prototype
         if(!isset($this->prototypes[$baseType]))
         {
             $this->prototypes[$baseType] = $this->createPrototype($baseType);
@@ -136,20 +136,13 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     public function export($baseType,$baseClass,$prototype = null)
     {
-        // if there is no specific prototype specified, return the prototype for the base type
+        // if there is no specific clone specified, return the prototype for the base type
         if(is_null($prototype))
         {
             return $this->exportPrototype($baseType);
         }
 
-        // if there is a protoype specified, it should exist
-        if(!$this->hasComponent($prototype,$baseClass))
-        {
-            throw new FormException(sprintf("Cannot export prototype '%s': no such prototype or base class is not '%s'!",$prototype,$baseClass));
-        }
-
-        // if it exists, return a clone
-        return $this->cloneComponent($prototype);
+        return clone $this->getComponent($prototype,$baseClass);
     }
 
     /**
