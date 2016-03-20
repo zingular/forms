@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Elements\Controls;
+use Zingular\Forms\ButtonType;
 
 /**
  * Class Button
@@ -20,6 +21,11 @@ class Button extends AbstractControl
     protected $callbacks = array();
 
     /**
+     * @var string
+     */
+    protected $type = ButtonType::SUBMIT;
+
+    /**
      * @param callable $callable
      * @return $this
      */
@@ -27,5 +33,23 @@ class Button extends AbstractControl
     {
         $this->callbacks[] = $callable;
         return $this;
+    }
+
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

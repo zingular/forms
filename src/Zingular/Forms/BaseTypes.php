@@ -33,4 +33,5 @@ class BaseTypes
     const TEXTAREA = 'textarea';
     const HIDDEN = 'hidden';
     const FORM = 'form';
+    const FILE_UPLOAD = 'fileUpload';
 }

@@ -75,7 +75,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $form
             ->setCssBaseTypeClass('zingularForm')
             ->setViewName(View::FORM)
-            ->setBaseType('form')
+            ->setComponentBaseType('form')
             ->setErrorBuilder(Builder::ERROR);
     }
 
@@ -87,7 +87,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $container
             ->setCssBaseTypeClass('container')
             ->setViewName(View::CONTAINER)
-            ->setBaseType('container')
+            ->setComponentBaseType('container')
             ->setErrorBuilder(Builder::ERROR);
     }
 
@@ -99,7 +99,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $fieldset
             ->setCssBaseTypeClass('fieldset')
             ->setViewName(View::FIELDSET)
-            ->setBaseType('fieldset')
+            ->setComponentBaseType('fieldset')
             ->setBuilder(Builder::FIELDSET)
             ->setErrorBuilder(Builder::ERROR);
     }
@@ -112,7 +112,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $field
             ->setCssBaseTypeClass('field')
             ->setViewName(View::FIELD)
-            ->setBaseType('field')
+            ->setComponentBaseType('field')
             ->setBuilder(Builder::FIELD,$post = true)
             ->setErrorBuilder(Builder::ERROR);
     }
@@ -124,7 +124,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $row->setCssBaseTypeClass('row')
             ->setViewName(View::ROW)
-            ->setBaseType('row')
+            ->setComponentBaseType('row')
             ->setErrorBuilder(Builder::ERROR);
     }
 
@@ -136,7 +136,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $aggregator
             ->setCssBaseTypeClass('aggregator')
             ->setViewName(View::TRANSPARENT)
-            ->setBaseType('aggregator')
+            ->setComponentBaseType('aggregator')
             ->setErrorBuilder(Builder::ERROR);
     }
 
@@ -152,7 +152,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $input
             ->setCssBaseTypeClass('ctrl')
             ->setTranslationKey('control.{name}')
-            ->setBaseType('control');
+            ->setComponentBaseType('control');
     }
 
     /**
@@ -163,7 +163,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $checkbox
             ->setCssBaseTypeClass('ctrl')
             ->setTranslationKey('control.{name}')
-            ->setBaseType('control');
+            ->setComponentBaseType('control');
     }
 
     /**
@@ -174,7 +174,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $select
             ->setCssBaseTypeClass('ctrl')
             ->setTranslationKey('control.{name}')
-            ->setBaseType('control');
+            ->setComponentBaseType('control');
     }
 
     /**
@@ -185,7 +185,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $textarea
             ->setCssBaseTypeClass('ctrl')
             ->setTranslationKey('control.{name}')
-            ->setBaseType('control');
+            ->setComponentBaseType('control');
     }
 
     /**
@@ -196,7 +196,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $button
             ->setCssBaseTypeClass('btn')
             ->setTranslationKey('button.{name}')
-            ->setBaseType('control');
+            ->setComponentBaseType('control');
     }
 
     /*****************************************************************
@@ -210,7 +210,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $content
             ->setCssBaseTypeClass('cont')
-            ->setBaseType('cont');
+            ->setComponentBaseType('cont');
     }
 
     /**
@@ -220,7 +220,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $label
             ->setCssBaseTypeClass('lbl')
-            ->setBaseType('lbl')
+            ->setComponentBaseType('lbl')
             ->setTranslationKey('{parentId}.{id}');
     }
 
@@ -231,7 +231,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $html
             ->setCssBaseTypeClass('html')
-            ->setBaseType('html');
+            ->setComponentBaseType('html');
     }
 
     /**
@@ -241,7 +241,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $tag
             ->setCssBaseTypeClass('tag')
-            ->setBaseType('tag');
+            ->setComponentBaseType('tag');
     }
 
     /**
@@ -251,6 +251,6 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     {
         $view
             ->setCssBaseTypeClass('view')
-            ->setBaseType('view');
+            ->setComponentBaseType('view');
     }
 }

@@ -14,6 +14,7 @@ use Zingular\Forms\Component\Elements\Contents\Label;
 use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\FileUpload;
 use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -86,6 +87,11 @@ interface PrototypesInterface
     public function getTextareaPrototype();
 
     /**
+     * @return FileUpload
+     */
+    public function getFileUploadPrototype();
+
+    /**
      * @return Container
      */
     public function getContainerPrototype();
@@ -120,97 +126,103 @@ interface PrototypesInterface
      **************************************************************/
 
     /**
-     * @param $name
+     * @param string $name
      * @return Content
      */
     public function defineContent($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Label
      */
     public function defineLabel($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Html
      */
     public function defineHtml($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return HtmlTag
      */
     public function defineHtmlTag($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return View
      */
     public function defineView($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Input
      */
     public function defineInput($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Checkbox
      */
     public function defineCheckbox($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Hidden
      */
     public function defineHidden($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Select
      */
     public function defineSelect($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Textarea
      */
     public function defineTextarea($name);
 
     /**
-     * @param $name
+     * @param string $name
+     * @return FileUpload
+     */
+    public function defineFileUpload($name);
+
+    /**
+     * @param string $name
      * @return Button
      */
     public function defineButton($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      */
     public function defineContainer($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Field
      */
     public function defineField($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Fieldset
      */
     public function defineFieldset($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Row
      */
     public function defineRow($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Aggregator
      */
     public function defineAggregator($name);
@@ -220,76 +232,83 @@ interface PrototypesInterface
      **************************************************************/
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Input
      */
     public function extendInput($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Checkbox
      */
     public function extendCheckbox($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Select
      */
     public function extendSelect($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Textarea
      */
     public function extendTextarea($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
+     * @return FileUpload
+     */
+    public function extendFileUpload($parentName,$name);
+
+    /**
+     * @param string $parentName
+     * @param string $name
      * @return Button
      * @throws FormException
      */
     public function extendButton($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function extendContainer($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Aggregator
      * @throws FormException
      */
     public function extendAggregator($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function extendFieldset($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function extendField($parentName,$name);
 
     /**
-     * @param $parentName
-     * @param $name
+     * @param string $parentName
+     * @param string $name
      * @return Row
      * @throws FormException
      */
@@ -300,70 +319,77 @@ interface PrototypesInterface
      **************************************************************/
 
     /**
-     * @param $name
+     * @param string $name
      * @return Input
      * @throws FormException
      */
     public function getDefinedInput($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Checkbox
      * @throws FormException
      */
     public function getDefinedCheckbox($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Select
      * @throws FormException
      */
     public function getDefinedSelect($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Textarea
      * @throws FormException
      */
     public function getDefinedTextarea($name);
 
     /**
-     * @param $name
+     * @param string $name
+     * @return FileUpload
+     * @throws FormException
+     */
+    public function getDefinedFileUpload($name);
+
+    /**
+     * @param string $name
      * @return Button
      * @throws FormException
      */
     public function getDefinedButton($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function getDefinedContainer($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Aggregator
      * @throws FormException
      */
     public function getDefinedAggregator($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function getDefinedFieldset($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function getDefinedField($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Row
      * @throws FormException
      */

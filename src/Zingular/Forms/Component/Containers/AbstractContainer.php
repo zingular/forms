@@ -106,8 +106,6 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
             $index = max($this->lastPosition + 1,0);
         }
 
-
-
         // prepend
         if($index === self::POSITION_START)
         {
@@ -141,38 +139,6 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
 
         $this->lastPosition = $index;
 
-        /*
-        if($name === 'yow')
-        {
-            echo 'yow<br/>';
-            var_dump($index);
-            echo '<hr/>';
-        }
-        if($name === 'yow2')
-        {
-            echo 'yow2<br/>';
-            var_dump($index);
-            echo '<hr/>';
-        }
-        if($name === 'yow3')
-        {
-            print_rf($this->describe());
-            echo '<br/>';
-            echo 'yow3<br/>';
-            var_dump($index);
-            echo '<hr/>';
-        }
-        if($name === 'yow4')
-        {
-
-            echo 'yow4<br/>';
-            var_dump($index);
-            echo '<hr/>';
-
-
-        }
-
-        */
         return $component;
     }
 
@@ -234,8 +200,6 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
      */
     protected function getComponent($name,$type = null)
     {
-        //var_dump($name);
-
         $index = $this->getComponentIndex($name);
 
         if($index === false)
@@ -265,16 +229,6 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
     protected function cloneComponent($name)
     {
         return clone $this->getComponent($name);
-    }
-
-    /**
-     * @param $name
-     * @return string
-     * @throws FormException
-     */
-    public function getComponentType($name)
-    {
-        return get_class($this->getComponent($name));
     }
 
     /**
@@ -314,8 +268,6 @@ abstract class AbstractContainer implements DescribableInterface,PositionableInt
                 }
             }
         }
-
-        //ksort($data);
 
         return $data;
     }

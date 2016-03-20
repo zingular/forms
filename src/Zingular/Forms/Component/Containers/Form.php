@@ -15,6 +15,7 @@ use Zingular\Forms\Component\Elements\Contents\Label;
 use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\FileUpload;
 use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -469,6 +470,15 @@ class Form extends Container implements
 
     /**
      * @param $name
+     * @return FileUpload
+     */
+    public function defineFileUpload($name)
+    {
+        return $this->context->getPrototypes()->defineFileUpload($name);
+    }
+
+    /**
+     * @param $name
      * @return Button
      */
     public function defineButton($name)
@@ -560,6 +570,16 @@ class Form extends Container implements
     public function extendTextarea($parentName, $name)
     {
         return $this->context->getPrototypes()->extendTextarea($parentName,$name);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return FileUpload
+     */
+    public function extendFileUpload($parentName, $name)
+    {
+        return $this->context->getPrototypes()->extendFileUpload($parentName,$name);
     }
 
     /**
@@ -717,6 +737,14 @@ class Form extends Container implements
     }
 
     /**
+     * @return FileUpload
+     */
+    public function getFileUploadPrototype()
+    {
+        return $this->context->getPrototypes()->getFileUploadPrototype();
+    }
+
+    /**
      * @return Container
      */
     public function getContainerPrototype()
@@ -806,6 +834,16 @@ class Form extends Container implements
     public function getDefinedTextarea($name)
     {
         return $this->context->getPrototypes()->getDefinedTextarea($name);
+    }
+
+    /**
+     * @param $name
+     * @return FileUpload
+     * @throws FormException
+     */
+    public function getDefinedFileUpload($name)
+    {
+        return $this->context->getPrototypes()->getDefinedFileUpload($name);
     }
 
     /**

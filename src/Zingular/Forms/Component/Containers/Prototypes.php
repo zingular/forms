@@ -17,6 +17,7 @@ use Zingular\Forms\Component\Elements\Contents\Label;
 use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\FileUpload;
 use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -25,6 +26,7 @@ use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\TypedComponentInterface;
 use Zingular\Forms\Exception\FormException;
 
+use Zingular\Forms\PrototypeContext;
 use Zingular\Forms\Service\Component\ComponentFactoryInterface;
 
 /**
@@ -72,7 +74,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
         // set the name as type
         if($component instanceof TypedComponentInterface)
         {
-            $component->setType($name);
+            $component->setComponentType($name);
         }
 
         // also set the css type class
@@ -118,6 +120,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
             case BaseTypes::HIDDEN: return $this->componentFactory->createHidden();
             case BaseTypes::SELECT: return $this->componentFactory->createSelect();
             case BaseTypes::TEXTAREA: return $this->componentFactory->createTextarea();
+            case BaseTypes::FILE_UPLOAD: return $this->componentFactory->createFileUpload();
             case BaseTypes::FORM: return $this->componentFactory->createForm();
         }
 
@@ -172,7 +175,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     protected function createContext($id)
     {
-        return new Context($id,null,$this);
+        return new PrototypeContext($id,$this);
     }
 
     /***************************************************************
@@ -265,6 +268,14 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     public function getTextareaPrototype()
     {
         return $this->getPrototype(BaseTypes::TEXTAREA);
+    }
+
+    /**
+     * @return FileUpload
+     */
+    public function getFileUploadPrototype()
+    {
+        return $this->getPrototype(BaseTypes::FILE_UPLOAD);
     }
 
     /**
@@ -411,6 +422,15 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
 
     /**
      * @param $name
+     * @return FileUpload
+     */
+    public function defineFileUpload($name)
+    {
+        return $this->adopt($name,clone $this->getFileUploadPrototype());
+    }
+
+    /**
+     * @param $name
      * @return Button
      */
     public function defineButton($name)
@@ -505,6 +525,16 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     public function extendTextarea($parentName,$name)
     {
         return $this->extendComponent($parentName,$name,Textarea::class);
+    }
+
+    /**
+     * @param $parentName
+     * @param $name
+     * @return FileUpload
+     */
+    public function extendFileUpload($parentName,$name)
+    {
+        return $this->extendComponent($parentName,$name,FileUpload::class);
     }
 
     /**
@@ -648,6 +678,16 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     public function getDefinedTextarea($name)
     {
         return $this->getComponent($name,Textarea::class);
+    }
+
+    /**
+     * @param $name
+     * @return Textarea
+     * @throws FormException
+     */
+    public function getDefinedFileUpload($name)
+    {
+        return $this->getComponent($name,FileUpload::class);
     }
 
     /**

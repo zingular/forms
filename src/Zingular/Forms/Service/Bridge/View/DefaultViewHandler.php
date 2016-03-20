@@ -41,7 +41,7 @@ class DefaultViewHandler extends AbstractViewHandler
     const FORMAT_OPTION = '<option value="%s" %s>%s</option>';
     const FORMAT_OPTGROUP = '<optgroup label="%s" %s>%s</optgroup>';
     const FORMAT_TEXTAREA = '<textarea id="%s" class="%s" name="%s" %s>%s</textarea>';
-    const FORMAT_BUTTON = '<button id="%s" class="%s" name="%s" value="%s" %s>%s</button>';
+    const FORMAT_BUTTON = '<button id="%s" type="%s" class="%s" name="%s" value="%s" %s>%s</button>';
     const FORMAT_LABEL = '<label id="%s" class="%s" for="%s" %s>%s</label>';
     const FORMAT_HTML = '<div id="%s" class="%s" %s>%s</div>';
     const FORMAT_TAG = '<%s id="%s" class="%s" %s>%s</%s>';
@@ -206,6 +206,7 @@ class DefaultViewHandler extends AbstractViewHandler
         (
             self::FORMAT_BUTTON,
             $button->getFullId(),
+            $button->getType(),
             $button->getCssClass(),
             $button->getFullName(),
             $button->getInputValue(),

@@ -126,7 +126,7 @@ class WildcardReplacer
     {
         if($component instanceof TypedComponentInterface)
         {
-            return $component->getType();
+            return $component->getComponentType();
         }
 
         return '';
@@ -140,7 +140,7 @@ class WildcardReplacer
     {
         if($component instanceof TypedComponentInterface)
         {
-            return $component->getBaseType();
+            return $component->getComponentBaseType();
         }
 
         return '';

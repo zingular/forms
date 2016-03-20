@@ -17,20 +17,20 @@ trait TypedComponentTrait
     /**
      * @var string
      */
-    protected $baseType = '';
+    protected $componentBaseType = '';
 
     /**
      * @var string
      */
-    protected $type = '';
+    protected $componentType = '';
 
     /**
      * @param $baseType
      * @return $this
      */
-    public function setBaseType($baseType)
+    public function setComponentBaseType($baseType)
     {
-        $this->baseType = $baseType;
+        $this->componentBaseType = $baseType;
         return $this;
     }
 
@@ -38,25 +38,25 @@ trait TypedComponentTrait
      * @param $type
      * @return $this
      */
-    public function setType($type)
+    public function setComponentType($type)
     {
-        $this->type = $type;
+        $this->componentType = $type;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getBaseType()
+    public function getComponentBaseType()
     {
-        return $this->baseType;
+        return $this->componentBaseType;
     }
 
     /**
      * @return string
      */
-    public function getType()
+    public function getComponentType()
     {
-        return $this->type;
+        return $this->componentType;
     }
 }

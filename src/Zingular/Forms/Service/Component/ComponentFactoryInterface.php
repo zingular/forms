@@ -21,6 +21,7 @@ use Zingular\Forms\Component\Elements\Contents\Label;
 use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\FileUpload;
 use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -87,6 +88,11 @@ interface ComponentFactoryInterface
      * @return Textarea
      */
     public function createTextarea();
+
+    /**
+     * @return FileUpload
+     */
+    public function createFileUpload();
 
     /**
      * @return Container

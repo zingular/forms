@@ -18,21 +18,21 @@ interface TypedComponentInterface
      * @param $baseType
      * @return $this
      */
-    public function setBaseType($baseType);
+    public function setComponentBaseType($baseType);
 
     /**
      * @param $type
      * @return $this
      */
-    public function setType($type);
+    public function setComponentType($type);
 
     /**
      * @return string
      */
-    public function getBaseType();
+    public function getComponentBaseType();
 
     /**
      * @return string
      */
-    public function getType();
+    public function getComponentType();
 }

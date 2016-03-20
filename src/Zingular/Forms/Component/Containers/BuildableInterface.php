@@ -14,6 +14,7 @@ use Zingular\Forms\Component\Elements\Contents\Label;
 use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\FileUpload;
 use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -72,7 +73,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      **************************************************************/
 
     /**
-     * @param $name
+     * @param string $name
      * @return $this
      */
     public function removeComponent($name);
@@ -94,70 +95,77 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      **************************************************************/
 
     /**
-     * @param $name
+     * @param string $name
      * @return Input
      * @throws FormException
      */
     public function getInput($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Checkbox
      * @throws FormException
      */
     public function getCheckbox($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Select
      * @throws FormException
      */
     public function getSelect($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Textarea
      * @throws FormException
      */
     public function getTextarea($name);
 
     /**
-     * @param $name
+     * @param string $name
+     * @return FileUpload
+     * @throws FormException
+     */
+    public function getFileUpload($name);
+
+    /**
+     * @param string $name
      * @return Button
      * @throws FormException
      */
     public function getButton($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function getContainer($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Aggregator
      * @throws FormException
      */
     public function getAggregator($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function getFieldset($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Container
      * @throws FormException
      */
     public function getField($name);
 
     /**
-     * @param $name
+     * @param string $name
      * @return Row
      * @throws FormException
      */
@@ -168,111 +176,118 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      **************************************************************/
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Label
      */
     public function addContent($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Label
      */
     public function addLabel($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Html
      */
     public function addHtml($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return HtmlTag
      */
     public function addHtmlTag($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return View
      */
     public function addView($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Input
      */
     public function addInput($name,$position = self::POSITION_DEFAULT);
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Checkbox
      */
     public function addCheckbox($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Hidden
      */
     public function addHidden($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Select
      */
     public function addSelect($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Textarea
      */
     public function addTextarea($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
+     * @param int|string $position
+     * @return FileUpload
+     */
+    public function addFileUpload($name,$position = self::POSITION_DEFAULT);
+
+    /**
+     * @param string $name
      * @param int|string $position
      * @return Button
      */
     public function addButton($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Container
      */
     public function addContainer($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Aggregator
      */
     public function addAggregator($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Fieldset
      */
     public function addFieldset($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Container
      */
     public function addField($name,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $name
+     * @param string $name
      * @param int|string $position
      * @return Row
      */
@@ -283,120 +298,128 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      **************************************************************/
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Label
      */
     public function useContent($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Label
      */
     public function useLabel($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Html
      */
     public function useHtml($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return HtmlTag
      */
     public function useHtmlTag($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return View
      */
     public function useView($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Input
      */
     public function useInput($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Checkbox
      */
     public function useCheckbox($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Select
      */
     public function useSelect($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Textarea
      */
     public function useTextarea($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
+     * @param int|string $position
+     * @return FileUpload
+     */
+    public function useFileUpload($prototype,$as = null,$position = self::POSITION_DEFAULT);
+
+    /**
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Button
      */
     public function useButton($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Container
      */
     public function useContainer($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Aggregator
      */
     public function useAggregator($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Fieldset
      */
     public function useFieldset($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Field
      */
     public function useField($prototype,$as = null,$position = self::POSITION_DEFAULT);
 
     /**
-     * @param $prototype
-     * @param null $as
+     * @param string $prototype
+     * @param string $as
      * @param int|string $position
      * @return Row
      */

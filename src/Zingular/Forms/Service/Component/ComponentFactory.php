@@ -21,6 +21,7 @@ use Zingular\Forms\Component\Elements\Contents\HtmlTag;
 use Zingular\Forms\Component\Elements\Contents\Label;
 use Zingular\Forms\Component\Elements\Contents\View;
 use Zingular\Forms\Component\Elements\Controls\Checkbox;
+use Zingular\Forms\Component\Elements\Controls\FileUpload;
 use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
@@ -119,6 +120,14 @@ class ComponentFactory implements ComponentFactoryInterface
     public function createTextarea()
     {
         return new Textarea();
+    }
+
+    /**
+     * @return FileUpload
+     */
+    public function createFileUpload()
+    {
+        return new FileUpload();
     }
 
     /**
