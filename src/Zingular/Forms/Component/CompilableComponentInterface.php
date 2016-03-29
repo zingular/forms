@@ -14,6 +14,8 @@ namespace Zingular\Forms\Component;
  */
 interface CompilableComponentInterface extends ComponentInterface
 {
+    // TODO: remove compile method completely from the component (model) interface
+
     /**
      * @param FormState $state
      */

@@ -243,6 +243,13 @@ class Form extends Container implements
      */
     public function compile(FormState $state,array $defaultValues = array())
     {
+        // TODO: make protected, and remove from all other components
+
+        // TODO: loopt through all children and use fixed set of compilers to compile each child (recursively)
+
+        // TODO: components are only models for data, no logic
+
+
         // prevent multiple compiles
         if($this->compiled === false)
         {
