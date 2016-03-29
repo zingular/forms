@@ -21,6 +21,7 @@ use Zingular\Forms\IncompletionMode;
 use Zingular\Forms\Plugins\Aggregators\AggregatorInterface;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\RequiredMode;
+use Zingular\Forms\Service\ServiceConsumerTrait;
 
 /**
  * Class Aggregator
@@ -31,6 +32,7 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
     use DataUnitComponentTrait;
     use RequiredTrait;
     use ConvertableTrait;
+    use ServiceConsumerTrait;
 
     /**
      * @var array

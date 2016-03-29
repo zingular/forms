@@ -280,7 +280,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     }
 
     /**
-     * @return Field
+     * @return Container
      */
     public function getFieldPrototype()
     {
@@ -288,7 +288,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     }
 
     /**
-     * @return Fieldset
+     * @return Container
      */
     public function getFieldsetPrototype()
     {
@@ -296,7 +296,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
     }
 
     /**
-     * @return Row
+     * @return Container
      */
     public function getRowPrototype()
     {
@@ -442,7 +442,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
 
     /**
      * @param $name
-     * @return Field
+     * @return Container
      */
     public function defineField($name)
     {
@@ -451,7 +451,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
 
     /**
      * @param $name
-     * @return Fieldset
+     * @return Container
      */
     public function defineFieldset($name)
     {
@@ -460,7 +460,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
 
     /**
      * @param $name
-     * @return Row
+     * @return Container
      */
     public function defineRow($name)
     {
@@ -571,29 +571,29 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     public function extendFieldset($parentName,$name)
     {
-        return $this->extendComponent($parentName,$name,Fieldset::class);
+        return $this->extendComponent($parentName,$name,Container::class);
     }
 
     /**
      * @param $parentName
      * @param $name
-     * @return Field
+     * @return Container
      * @throws FormException
      */
     public function extendField($parentName,$name)
     {
-        return $this->extendComponent($parentName,$name,Field::class);
+        return $this->extendComponent($parentName,$name,Container::class);
     }
 
     /**
      * @param $parentName
      * @param $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function extendRow($parentName,$name)
     {
-        return $this->extendComponent($parentName,$name,Row::class);
+        return $this->extendComponent($parentName,$name,Container::class);
     }
 
     /**
@@ -720,7 +720,7 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     public function getDefinedFieldset($name)
     {
-        return $this->getComponent($name,Fieldset::class);
+        return $this->getComponent($name,Container::class);
     }
 
     /**
@@ -730,16 +730,16 @@ class Prototypes extends AbstractContainer implements PrototypesInterface
      */
     public function getDefinedField($name)
     {
-        return $this->getComponent($name,Field::class);
+        return $this->getComponent($name,Container::class);
     }
 
     /**
      * @param $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function getDefinedRow($name)
     {
-        return $this->getComponent($name,Row::class);
+        return $this->getComponent($name,Container::class);
     }
 }

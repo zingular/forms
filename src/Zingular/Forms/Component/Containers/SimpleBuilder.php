@@ -7,6 +7,7 @@
  */
 
 namespace Zingular\Forms\Component\Containers;
+use Zingular\Forms\ButtonType;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Exception\FormException;
 use Zingular\Forms\Exception\InvalidStateException;
@@ -23,12 +24,12 @@ class SimpleBuilder
     protected $buildable;
 
     /**
-     * @var Fieldset
+     * @var Container
      */
     protected $currentFieldset;
 
     /**
-     * @var Field
+     * @var Container
      */
     protected $currentField;
 
@@ -52,9 +53,9 @@ class SimpleBuilder
 
     /**
      * @param string $name
-     * @return Field
+     * @return Container
      */
-    public function nextField($name)
+    public function startField($name)
     {
         $this->currentField = $this->getCurrentFieldset()->addField($name);
         return $this->currentField;
@@ -62,13 +63,11 @@ class SimpleBuilder
 
     /**
      * @param string $name
-     * @param $firstFieldName
-     * @return Fieldset
+     * @return Container
      */
-    public function nextFieldset($name,$firstFieldName)
+    public function startFieldset($name)
     {
         $this->currentFieldset = $this->buildable->addFieldset($name);
-        $this->nextField($firstFieldName);
         return $this->currentFieldset;
     }
 
@@ -77,32 +76,35 @@ class SimpleBuilder
      */
     public function addSubmit()
     {
-        return $this->buildable->addButton('submit')->ignoreValue();
+        return $this->buildable
+            ->addButton('submit')
+            ->ignoreValue()
+            ->setType(ButtonType::SUBMIT);
     }
 
     /**
-     * @return Fieldset
+     * @return Container
      * @throws FormException
      */
     protected function getCurrentFieldset()
     {
         if(is_null($this->currentFieldset))
         {
-            throw new InvalidStateException("No current fieldset available! Create a new fieldset using nextFieldset method!");
+            throw new InvalidStateException("No current fieldset available! Create a new fieldset using startFieldset method!");
         }
 
         return $this->currentFieldset;
     }
 
     /**
-     * @return Field
+     * @return Container
      * @throws FormException
      */
     protected function getCurrentField()
     {
         if(is_null($this->currentField))
         {
-            throw new InvalidStateException("No current field available! Create a new field using nextField method!");
+            throw new InvalidStateException("No current field available! Create a new field using startField method!");
         }
 
         return $this->currentField;

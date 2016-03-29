@@ -12,7 +12,7 @@ namespace Zingular\Forms\Component;
  * Interface RequiredInterface
  * @package Zingular\Forms\Component
  */
-interface RequiredInterface
+interface RequiredInterface extends DataUnitComponentInterface
 {
     /**
      * @param bool $required

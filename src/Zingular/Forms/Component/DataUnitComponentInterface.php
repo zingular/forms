@@ -12,12 +12,18 @@ namespace Zingular\Forms\Component;
  * Interface DataUnitComponentInterface
  * @package Zingular\Form\Component
  */
-interface DataUnitComponentInterface extends DataComponentInterface
+interface DataUnitComponentInterface extends DataComponentInterface,ConvertableInterface
 {
     /**
      * @return mixed
      */
     public function getValue();
+
+    /**
+     * @param mixed $value
+     * @return $this
+     */
+    public function setValue($value);
 
     /**
      * @return bool

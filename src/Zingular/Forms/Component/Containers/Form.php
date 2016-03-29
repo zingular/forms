@@ -497,7 +497,7 @@ class Form extends Container implements
 
     /**
      * @param $name
-     * @return Field
+     * @return Container
      */
     public function defineField($name)
     {
@@ -506,7 +506,7 @@ class Form extends Container implements
 
     /**
      * @param $name
-     * @return Fieldset
+     * @return Container
      */
     public function defineFieldset($name)
     {
@@ -525,7 +525,7 @@ class Form extends Container implements
 
     /**
      * @param $name
-     * @return Row
+     * @return Container
      */
     public function defineRow($name)
     {
@@ -640,7 +640,7 @@ class Form extends Container implements
     /**
      * @param $parentName
      * @param $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function extendRow($parentName, $name)
@@ -753,7 +753,7 @@ class Form extends Container implements
     }
 
     /**
-     * @return Field
+     * @return Container
      */
     public function getFieldPrototype()
     {
@@ -761,7 +761,7 @@ class Form extends Container implements
     }
 
     /**
-     * @return Fieldset
+     * @return Container
      */
     public function getFieldsetPrototype()
     {
@@ -777,7 +777,7 @@ class Form extends Container implements
     }
 
     /**
-     * @return Row
+     * @return Container
      */
     public function getRowPrototype()
     {
@@ -898,7 +898,7 @@ class Form extends Container implements
 
     /**
      * @param $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function getDefinedRow($name)

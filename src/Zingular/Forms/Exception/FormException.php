@@ -8,7 +8,6 @@
 
 namespace Zingular\Forms\Exception;
 
-
 /**
  * Class FormException
  * @package Zingular\Form\Exception

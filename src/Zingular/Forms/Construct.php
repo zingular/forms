@@ -30,6 +30,7 @@ use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Plugins\Builders\Prototype\PrototypeBuilderInterface;
 
 use Zingular\Forms\Service\ServiceConsumerTrait;
+use Zingular\Forms\Service\ServiceDefinerInterface;
 use Zingular\Forms\Service\ServiceDefinerTrait;
 use Zingular\Forms\Service\Services;
 use Zingular\Forms\Service\ServicesInterface;
@@ -38,7 +39,7 @@ use Zingular\Forms\Service\ServicesInterface;
  * Class Construct
  * @package Zingular\Form
  */
-class Construct
+class Construct implements ServiceDefinerInterface
 {
     use ServiceDefinerTrait;
     use ServiceConsumerTrait;

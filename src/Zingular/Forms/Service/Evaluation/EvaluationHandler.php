@@ -9,6 +9,7 @@
 namespace Zingular\Forms\Service\Evaluation;
 
 use Zingular\Forms\Component\DataUnitComponentInterface;
+use Zingular\Forms\Component\EvaluatableInterface;
 use Zingular\Forms\Exception\ComponentException;
 use Zingular\Forms\Exception\AbstractEvaluationException;
 use Zingular\Forms\Exception\FormException;
@@ -44,17 +45,16 @@ class EvaluationHandler
     }
 
     /**
-     * @param DataUnitComponentInterface $subject
-     * @param array $evaluators
+     * @param EvaluatableInterface $subject
      * @return mixed
      * @throws ComponentException
      */
-    public function evaluate(DataUnitComponentInterface $subject,array $evaluators)
+    public function evaluate(EvaluatableInterface $subject)
     {
         $value = $subject->getValue();
 
         // process all registered evaluators
-        foreach($evaluators as $config)
+        foreach($subject->getEvaluators() as $config)
         {
             try
             {
@@ -81,9 +81,7 @@ class EvaluationHandler
 
             catch(\Exception $e)
             {
-                var_dump($e->getMessage());
                 throw new ComponentException($subject,$e->getMessage());
-
             }
 
         }

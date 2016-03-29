@@ -7,13 +7,13 @@
  */
 
 namespace Zingular\Forms\Component\Elements\Contents;
+use Zingular\Forms\Compilers\ContentCompiler;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Events\ComponentEvent;
-
-use Zingular\Forms\Exception\InvalidStateException;
+use Zingular\Forms\Exception\ComponentException;
 
 /**
  * Class Content
@@ -45,6 +45,11 @@ class Content extends AbstractElement implements
     protected $callback;
 
     /**
+     * @var ContentCompiler
+     */
+    protected $compiler;
+
+    /**
      * @param $key
      * @param array $params
      * @return $this
@@ -54,6 +59,38 @@ class Content extends AbstractElement implements
         $this->translationKey = $key;
         $this->translationParams = $params;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslationKey()
+    {
+        return $this->translationKey;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslationParams()
+    {
+        return $this->translationParams;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFixedContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return callable
+     */
+    public function getContentCallback()
+    {
+        return $this->callback;
     }
 
     /**
@@ -80,28 +117,12 @@ class Content extends AbstractElement implements
      */
     public function getContent()
     {
-        if(!is_null($this->content))
+        if(is_null($this->compiler))
         {
-            return $this->content;
-        }
-        elseif(!is_null($this->callback))
-        {
-            return call_user_func($this->callback,$this->state,$this);
-        }
-        elseif(!is_null($this->translationKey))
-        {
-            if(is_null($this->state))
-            {
-                throw new InvalidStateException
-                (
-                    sprintf(
-                        "Cannot get content from translation key for content component '%' before it is compiled!",$this->getFullId()),'notCompiled');
-            }
-
-            return $this->getTranslator()->translateRaw($this->translationKey,$this,$this->state,$this->translationParams);
+            throw new ComponentException($this,sprintf("Cannot retrieve content for component '%s': not compiled yet!",$this->getFullId()));
         }
 
-        return '';
+        return $this->compiler->getContent();
     }
 
     /**
@@ -123,6 +144,11 @@ class Content extends AbstractElement implements
      */
     public function compile(FormState $state)
     {
+        $this->compiler = new ContentCompiler($this,$state);
+
+
+        //$this->compiler->compile();
+
         // store the state locally
         $this->state = $state;
 

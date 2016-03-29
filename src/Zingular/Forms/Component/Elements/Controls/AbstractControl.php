@@ -1,23 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Giel
- * Date: 30-1-2016
- * Time: 16:39
- */
 
 namespace Zingular\Forms\Component\Elements\Controls;
+
+use Zingular\Forms\Compilers\InputCompiler;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitComponentInterface;
-use Zingular\Forms\Component\DataUnitComponentTrait;
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
+use Zingular\Forms\Component\EvaluatableInterface;
+use Zingular\Forms\Component\EvaluatableTrait;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\RequiredInterface;
 use Zingular\Forms\Component\RequiredTrait;
-
 use Zingular\Forms\Events\ComponentEvent;
+use Zingular\Forms\Exception\ComponentException;
+use Zingular\Forms\Exception\FormException;
+use Zingular\Forms\Service\Conversion\ConverterConfig;
+use Zingular\Forms\Service\Evaluation\FilterConfig;
+use Zingular\Forms\Service\Evaluation\ValidatorConfig;
+use Zingular\Forms\Service\ServiceConsumerTrait;
 
 
 /**
@@ -25,14 +27,45 @@ use Zingular\Forms\Events\ComponentEvent;
  * @package Zingular\Form
  */
 abstract class AbstractControl extends AbstractElement implements
-    DataUnitComponentInterface,
+    EvaluatableInterface,
     RequiredInterface,
     CssComponentInterface,
     DescribableInterface
 {
     use RequiredTrait;
-    use DataUnitComponentTrait;
+    use ServiceConsumerTrait;
     use ConvertableTrait;
+    use EvaluatableTrait;
+
+    /**
+     * @var mixed
+     */
+    protected $value;
+
+    /**
+     * @var mixed
+     */
+    protected $inputValue;
+
+    /**
+     * @var bool
+     */
+    protected $hasFixedValue = false;
+
+    /**
+     * @var bool
+     */
+    protected $ignoreValue = false;
+
+    /**
+     * @var bool
+     */
+    protected $ignoreWhenEmpty = false;
+
+    /**
+     * @var bool
+     */
+    protected $persistent = false;
 
     /**
      * @var bool
@@ -45,74 +78,127 @@ abstract class AbstractControl extends AbstractElement implements
     protected $emptyStringIsValue = false;
 
     /**
+     * @var InputCompiler
+     */
+    protected $compiler;
+
+    /**
      * @param FormState $state
      * @param array $defaultValues
      * @return string
      */
     public function compile(FormState $state,array $defaultValues = array())
     {
-        // set the form context locally
-        $this->state = $state;
+        $this->compiler = new InputCompiler();
 
-        // manipulate default values
-        $defaultValue = array_key_exists($this->getName(),$defaultValues) ? $defaultValues[$this->getName()] : null;
-
-        // make sure the value is collected
-        $this->retrieveValue($defaultValue);
+        $this->compiler->compile($this,$state,$defaultValues);
 
         // dispatchEvent event
         $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
         $this->dispatchEvent($event);
     }
 
-    /**
-     * @param FormState $state
-     * @return bool
-     */
-    protected function shouldReadInput(FormState $state)
-    {
-        return $state->hasSubmit() && !$this->hasFixedValue() && $state->hasInput($this->getFullName());
-    }
+
+    /***************************************************************
+     * COMPILING
+     **************************************************************/
 
     /**
-     * @param FormState $state
-     * @return null|string
+     * @return mixed
      */
-    protected function readInput(FormState $state)
+    public function getValue()
     {
-        // only load input value if it actually was set
-        if($state->hasInput($this->getFullName()))
-        {
-            return $this->preprocessInputValue($state->getInput($this->getFullName()));
-        }
-        return null;
+        return $this->value;
     }
 
     /**
      * @param $value
+     * @return $this
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
-    protected function preprocessInputValue($value)
+    public function hasValue()
     {
-        if(is_string($value))
-        {
-            // trim the raw value
-            if($this->shouldTrimValue())
-            {
-                $value = trim($value);
-            }
-
-            // if the value is an empty string, and that is considered empty, return null
-            if($this->emptyStringIsValue() === false && strlen($value) === 0)
-            {
-                return null;
-            }
-
-            return $value;
-        }
-
-        return null;
+        return !is_null($this->value);
     }
+
+    /**
+     * @return bool
+     */
+    public function hasFixedValue()
+    {
+        return $this->hasFixedValue;
+    }
+
+    /**
+     * @param bool $set
+     * @return $this
+     */
+    public function fixedValue($set = true)
+    {
+        $this->hasFixedValue = $set;
+        return $this;
+    }
+
+    /**
+     * @param bool $set
+     * @return $this
+     */
+    public function ignoreValue($set = true)
+    {
+        $this->ignoreValue = $set;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldIgnoreValue()
+    {
+        return $this->ignoreValue || (!$this->hasValue() && $this->ignoreWhenEmpty);
+    }
+
+    /**
+     * @param bool $set
+     * @return $this
+     */
+    public function ignoreWhenEmpty($set = true)
+    {
+        $this->ignoreWhenEmpty = $set;
+        return $this;
+    }
+
+
+    /**
+     * @param bool $set
+     * @return $this
+     */
+    public function persistent($set = true)
+    {
+        $this->persistent = $set;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPersistent()
+    {
+        return $this->persistent;
+    }
+
+    /***************************************************************
+     * EVALUATION
+     **************************************************************/
+
+
 
     /**
      * @return array
@@ -181,10 +267,23 @@ abstract class AbstractControl extends AbstractElement implements
 
     /**
      * @return mixed
+     * @throws ComponentException
      */
     public function getInputValue()
     {
-        return $this->decodeValue($this->getValue());
+        if(is_null($this->compiler))
+        {
+            throw new ComponentException($this,sprintf("Cannot retrieve input value for component '%s': not compiled yet!",$this->getFullId()));
+        }
+
+        if(!is_null($this->converterConfig))
+        {
+            $converter = $this->state->getServices()->getConverters()->get($this->converterConfig->getType());
+
+            return $converter->decode($this->getValue());
+        }
+
+        return $this->getValue();
     }
 
     /***************************************************************

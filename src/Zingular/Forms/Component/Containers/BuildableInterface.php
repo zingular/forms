@@ -166,7 +166,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
 
     /**
      * @param string $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function getRow($name);
@@ -275,7 +275,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
     /**
      * @param string $name
      * @param int|string $position
-     * @return Fieldset
+     * @return Container
      */
     public function addFieldset($name,$position = self::POSITION_END);
 
@@ -289,7 +289,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
     /**
      * @param string $name
      * @param int|string $position
-     * @return Row
+     * @return Container
      */
     public function addRow($name,$position = self::POSITION_END);
 
@@ -405,7 +405,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      * @param string $prototype
      * @param string $as
      * @param int|string $position
-     * @return Fieldset
+     * @return Container
      */
     public function useFieldset($prototype,$as = null,$position = self::POSITION_END);
 
@@ -413,7 +413,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      * @param string $prototype
      * @param string $as
      * @param int|string $position
-     * @return Field
+     * @return Container
      */
     public function useField($prototype,$as = null,$position = self::POSITION_END);
 
@@ -421,7 +421,7 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      * @param string $prototype
      * @param string $as
      * @param int|string $position
-     * @return Row
+     * @return Container
      */
     public function useRow($prototype,$as = null,$position = self::POSITION_END);
 

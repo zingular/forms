@@ -21,7 +21,6 @@ use Zingular\Forms\Service\Bridge\Translation\ArrayTranslator;
  */
 class TestFormBuilder4 implements FormBuilderInterface
 {
-
     /**
      * @param PrototypesInterface $form
      */
@@ -37,14 +36,16 @@ class TestFormBuilder4 implements FormBuilderInterface
     {
         $wrapper = new SimpleBuilder($form);
 
-        $wrapper->nextFieldset('firstFieldset','myFirstField');
+        $wrapper->startFieldset('firstFieldset');
+        $wrapper->startField('myFirstField');
 
         $wrapper->addInput('yow');
 
-        $wrapper->nextField('myField');
+        $wrapper->startField('myField');
         $wrapper->addInput('yow2');
         $wrapper->addInput('yow3')->setRequired();
-        $wrapper->nextFieldset('personalia','fldName');
+        $wrapper->startFieldset('personalia');
+        $wrapper->startField('fldName');
         $wrapper->addInput('lala')
             ->setHtmlAttribute('placeholder','lala');
 

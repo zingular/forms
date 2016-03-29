@@ -9,11 +9,8 @@
 namespace Zingular\Forms\Service\Component;
 use Zingular\Forms\Component\Containers\Aggregator;
 use Zingular\Forms\Component\Containers\Container;
-use Zingular\Forms\Component\Containers\Field;
-use Zingular\Forms\Component\Containers\Fieldset;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\Prototypes;
-use Zingular\Forms\Component\Containers\Row;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Contents\Html;
 use Zingular\Forms\Component\Elements\Contents\HtmlTag;
@@ -100,16 +97,16 @@ interface ComponentFactoryInterface
     public function createContainer();
 
     /**
-     * @return Field
+     * @return Container
      */
     public function createField();
 
     /**
-     * @return Fieldset
+     * @return Container
      */
     public function createFieldset();
     /**
-     * @return Row
+     * @return Container
      */
     public function createRow();
 

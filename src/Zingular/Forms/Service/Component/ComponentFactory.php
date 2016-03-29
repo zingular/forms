@@ -8,11 +8,8 @@
 
 namespace Zingular\Forms\Service\Component;
 use Zingular\Forms\Component\Containers\Aggregator;
-use Zingular\Forms\Component\Containers\Field;
-use Zingular\Forms\Component\Containers\Fieldset;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\Prototypes;
-use Zingular\Forms\Component\Containers\Row;
 use Zingular\Forms\Component\Elements\Controls\Button;
 use Zingular\Forms\Component\Containers\Container;
 use Zingular\Forms\Component\Elements\Contents\Content;
@@ -139,27 +136,27 @@ class ComponentFactory implements ComponentFactoryInterface
     }
 
     /**
-     * @return Field
+     * @return Container
      */
     public function createField()
     {
-        return new Field();
+        return new Container();
     }
 
     /**
-     * @return Fieldset
+     * @return Container
      */
     public function createFieldset()
     {
-        return new Fieldset();
+        return new Container();
     }
 
     /**
-     * @return Row
+     * @return Container
      */
     public function createRow()
     {
-       return new Row();
+       return new Container();
     }
 
     /**

@@ -97,17 +97,17 @@ interface PrototypesInterface
     public function getContainerPrototype();
 
     /**
-     * @return Field
+     * @return Container
      */
     public function getFieldPrototype();
 
     /**
-     * @return Fieldset
+     * @return Container
      */
     public function getFieldsetPrototype();
 
     /**
-     * @return Row
+     * @return Container
      */
     public function getRowPrototype();
 
@@ -205,19 +205,19 @@ interface PrototypesInterface
 
     /**
      * @param string $name
-     * @return Field
+     * @return Container
      */
     public function defineField($name);
 
     /**
      * @param string $name
-     * @return Fieldset
+     * @return Container
      */
     public function defineFieldset($name);
 
     /**
      * @param string $name
-     * @return Row
+     * @return Container
      */
     public function defineRow($name);
 
@@ -309,7 +309,7 @@ interface PrototypesInterface
     /**
      * @param string $parentName
      * @param string $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function extendRow($parentName,$name);
@@ -390,7 +390,7 @@ interface PrototypesInterface
 
     /**
      * @param string $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function getDefinedRow($name);

@@ -172,7 +172,7 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @return \Zingular\Forms\Component\Context\Context
+     * @return Context
      */
     protected function getContext()
     {
@@ -723,7 +723,7 @@ class Container extends AbstractContainer implements
      */
     public function getFieldset($name)
     {
-        return $this->getComponent($name,Fieldset::class);
+        return $this->getComponent($name,Container::class);
     }
 
     /**
@@ -733,17 +733,17 @@ class Container extends AbstractContainer implements
      */
     public function getField($name)
     {
-        return $this->getComponent($name,Field::class);
+        return $this->getComponent($name,Container::class);
     }
 
     /**
      * @param string $name
-     * @return Row
+     * @return Container
      * @throws FormException
      */
     public function getRow($name)
     {
-        return $this->getComponent($name,Row::class);
+        return $this->getComponent($name,Container::class);
     }
 
     /***************************************************************
@@ -905,7 +905,7 @@ class Container extends AbstractContainer implements
     /**
      * @param string $name
      * @param int|string $position
-     * @return Fieldset
+     * @return Container
      */
     public function addFieldset($name,$position = self::POSITION_END)
     {
@@ -925,7 +925,7 @@ class Container extends AbstractContainer implements
     /**
      * @param string $name
      * @param int|string $position
-     * @return Row
+     * @return Container
      */
     public function addRow($name, $position = self::POSITION_END)
     {
@@ -1099,33 +1099,33 @@ class Container extends AbstractContainer implements
      * @param $prototype
      * @param null $as
      * @param int|string $position
-     * @return Fieldset
+     * @return Container
      */
     public function useFieldset($prototype,$as = null,$position = self::POSITION_END)
     {
-        return $this->useComponent($prototype,$as,BaseTypes::FIELDSET,Fieldset::class,$position);
+        return $this->useComponent($prototype,$as,BaseTypes::FIELDSET,Container::class,$position);
     }
 
     /**
      * @param string $prototype
      * @param string $as
      * @param int|string $position
-     * @return Field
+     * @return Container
      */
     public function useField($prototype,$as = null,$position = self::POSITION_END)
     {
-        return $this->useComponent($prototype,$as,BaseTypes::FIELD,Field::class,$position);
+        return $this->useComponent($prototype,$as,BaseTypes::FIELD,Container::class,$position);
     }
 
     /**
      * @param string $prototype
      * @param string $as
      * @param int|string $position
-     * @return Row
+     * @return Container
      */
     public function useRow($prototype, $as = null, $position = self::POSITION_END)
     {
-        return $this->useComponent($prototype,$as,BaseTypes::ROW,Row::class,$position);
+        return $this->useComponent($prototype,$as,BaseTypes::ROW,Container::class,$position);
     }
 
     /***************************************************************
@@ -1141,5 +1141,4 @@ class Container extends AbstractContainer implements
     {
         return $this->adopt($name,$component);
     }
-
 }

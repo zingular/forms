@@ -11,11 +11,8 @@ namespace Zingular\Forms\Plugins\Builders\Prototype;
 use Zingular\Forms\Builder;
 use Zingular\Forms\Component\Containers\Aggregator;
 use Zingular\Forms\Component\Containers\Container;
-use Zingular\Forms\Component\Containers\Field;
-use Zingular\Forms\Component\Containers\Fieldset;
 use Zingular\Forms\Component\Containers\Form;
 use Zingular\Forms\Component\Containers\PrototypesInterface;
-use Zingular\Forms\Component\Containers\Row;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Contents\Html;
 use Zingular\Forms\Component\Elements\Contents\HtmlTag;
@@ -48,7 +45,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
         $this->buildRowPrototype($prototypes->getRowPrototype());
         $this->buildAggregatorPrototype($prototypes->getAggregatorPrototype());
 
-        // manipulate control base prototypess
+        // manipulate control base prototypes
         $this->buildInputPrototype($prototypes->getInputPrototype());
         $this->buildCheckboxPrototype($prototypes->getCheckboxPrototype());
         $this->buildSelectPrototype($prototypes->getSelectPrototype());
@@ -92,9 +89,9 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     }
 
     /**
-     * @param Fieldset $fieldset
+     * @param Container $fieldset
      */
-    protected function buildFieldsetPrototype(Fieldset $fieldset)
+    protected function buildFieldsetPrototype(Container $fieldset)
     {
         $fieldset
             ->setCssBaseTypeClass('fieldset')
@@ -105,9 +102,9 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     }
 
     /**
-     * @param Field $field
+     * @param Container $field
      */
-    protected function buildFieldPrototype(Field $field)
+    protected function buildFieldPrototype(Container $field)
     {
         $field
             ->setCssBaseTypeClass('field')
@@ -118,9 +115,9 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
     }
 
     /**
-     * @param Row $row
+     * @param Container $row
      */
-    protected function buildRowPrototype(Row $row)
+    protected function buildRowPrototype(Container $row)
     {
         $row->setCssBaseTypeClass('row')
             ->setViewName(View::ROW)

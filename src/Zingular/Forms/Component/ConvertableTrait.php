@@ -7,9 +7,7 @@
  */
 
 namespace Zingular\Forms\Component;
-use Zingular\Forms\Plugins\Converters\ConverterInterface;
 use Zingular\Forms\Service\Conversion\ConverterConfig;
-use Zingular\Forms\Service\ServiceConsumerTrait;
 
 /**
  * Class ConvertableTrait
@@ -17,17 +15,10 @@ use Zingular\Forms\Service\ServiceConsumerTrait;
  */
 trait ConvertableTrait
 {
-    use ServiceConsumerTrait;
-
     /**
      * @var ConverterConfig
      */
     protected $converterConfig;
-
-    /**
-     * @var ConverterInterface
-     */
-    protected $converter;
 
     /**
      * @param $converter
@@ -36,49 +27,15 @@ trait ConvertableTrait
      */
     public function setConverter($converter,...$params)
     {
-        $this->converter = null;
         $this->converterConfig = new ConverterConfig($converter,$params);
         return $this;
     }
 
     /**
-     * @return ConverterInterface
+     * @return ConverterConfig
      */
-    protected function getConverter()
+    public function getConverter()
     {
-        if(is_null($this->converter) && !is_null($this->converterConfig))
-        {
-            $this->converter = $this->getConverters()->get($this->converterConfig->getType());
-        }
-
-        return $this->converter;
-    }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    protected function decodeValue($value)
-    {
-        if(!is_null($this->getConverter()))
-        {
-            return $this->getConverter()->decode($value,$this->converterConfig->getArgs());
-        }
-
-        return $value;
-    }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    protected function encodeValue($value)
-    {
-        if(!is_null($this->getConverter()))
-        {
-            return $this->getConverter()->encode($value,$this->converterConfig->getArgs());
-        }
-
-        return $value;
+        return $this->converterConfig;
     }
 }
