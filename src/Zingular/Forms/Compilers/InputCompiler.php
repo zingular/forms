@@ -4,8 +4,10 @@ namespace Zingular\Forms\Compilers;
 use Zingular\Forms\Component\ConvertableInterface;
 use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\Elements\Controls\AbstractControl;
+use Zingular\Forms\Component\EvaluatableInterface;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\RequiredInterface;
+use Zingular\Forms\Component\TranslatableComponentInterface;
 use Zingular\Forms\Exception\ComponentException;
 
 /**
@@ -16,34 +18,24 @@ class InputCompiler
 {
     // TODO: integrate with evaluation handler
 
+
+
     /**
-     * @param AbstractControl $input
+     * @param DataUnitComponentInterface $input
      * @param FormState $state
      * @param array $defaultValues
      * @throws ComponentException
      */
-    public function compile(AbstractControl $input,FormState $state,array $defaultValues)
+    public function compile(DataUnitComponentInterface $input,FormState $state,array $defaultValues)
     {
-        // manipulate default values
-        $defaultValue = array_key_exists($input->getName(),$defaultValues) ? $defaultValues[$input->getName()] : null;
+        // extract the input name
+        $name = $input->getName();
+        $fullName = $input->getFullName();
 
-        // make sure the value is collected
-        $this->retrieveValue($input,$state,$defaultValue);
-    }
-
-    /**
-     * @param AbstractControl $input
-     * @param FormState $state
-     * @param mixed $defaultValue
-     * @param array $evaluators
-     * @throws ComponentException
-     */
-    public function retrieveValue(AbstractControl $input,FormState $state,$defaultValue = null)
-    {
         // if there was a form scope default value provided, set that
-        if(!is_null($defaultValue))
+        if(array_key_exists($name,$defaultValues) && !is_null($defaultValues[$name]))
         {
-            $input->setValue($defaultValue);
+            $input->setValue($defaultValues[$name]);
         }
 
         // if there was a submit
@@ -55,12 +47,17 @@ class InputCompiler
             // if there was no value from the input
             if($input->hasValue() === false)
             {
-                $key = $input->getTranslationKey();
-
                 // required check
                 if($input instanceof RequiredInterface && $input->isRequired())
                 {
-                    $params = array('control'=>$state->getServices()->getTranslator()->translateRaw($key,$input,$state));
+                    $params = array();
+
+                    if($input instanceof TranslatableComponentInterface)
+                    {
+                        $key = $input->getTranslationKey();
+                        $params = array('control'=>$state->getServices()->getTranslator()->translateRaw($key,$input,$state));
+                    }
+
                     throw new ComponentException($input,'','validator.required',$params);
                 }
             }
@@ -68,11 +65,15 @@ class InputCompiler
             else
             {
                 // evaluate the value
-                $input->setValue($state->getServices()->getEvaluationHandler()->evaluate($input));
+                if($input instanceof EvaluatableInterface)
+                {
+                    $input->setValue($state->getServices()->getEvaluationHandler()->evaluate($input));
+                }
 
                 // encode the value (if converter set)
                 if($input instanceof ConvertableInterface)
                 {
+                    // extract the converter config from the input
                     $config = $input->getConverter();
 
                     if(!is_null($config))
@@ -87,7 +88,7 @@ class InputCompiler
                 // store the read input if it should be persisted
                 if($input->isPersistent() || $state->isPersistent())
                 {
-                    $state->getServices()->getPersistenceHandler()->setValue($input->getFullName(),$input->getValue(),$state->getFormId());
+                    $state->getServices()->getPersistenceHandler()->setValue($fullName,$input->getValue(),$state->getFormId());
                 }
             }
         }
@@ -95,29 +96,29 @@ class InputCompiler
         else
         {
             // if persistent and the persistence handler has a value for this data unit, load it
-            if(($input->isPersistent() || $state->isPersistent()) && $state->getServices()->getPersistenceHandler()->hasValue($input->getFullName(),$state->getFormId()))
+            if(($input->isPersistent() || $state->isPersistent()) && $state->getServices()->getPersistenceHandler()->hasValue($fullName,$state->getFormId()))
             {
-                $input->setValue($state->getServices()->getPersistenceHandler()->getValue($input->getFullName(),$state->getFormId()));
+                $input->setValue($state->getServices()->getPersistenceHandler()->getValue($fullName,$state->getFormId()));
             }
         }
     }
 
     /**
-     * @param AbstractControl $input
+     * @param DataUnitComponentInterface $input
      * @param FormState $state
      * @return bool
      */
-    protected function shouldReadInput(AbstractControl $input,FormState $state)
+    protected function shouldReadInput(DataUnitComponentInterface $input,FormState $state)
     {
         return $state->hasSubmit() && !$input->hasFixedValue() && $state->hasInput($input->getFullName());
     }
 
     /**
-     * @param AbstractControl $input
+     * @param DataUnitComponentInterface $input
      * @param FormState $state
      * @return null|string
      */
-    protected function readInput(AbstractControl $input,FormState $state)
+    protected function readInput(DataUnitComponentInterface $input,FormState $state)
     {
         // only load input value if it actually was set
         if($state->hasInput($input->getFullName()))
@@ -129,27 +130,31 @@ class InputCompiler
     }
 
     /**
-     * @param AbstractControl $input
+     * @param DataUnitComponentInterface $input
      * @param $value
      * @return bool
      */
-    protected function preprocessInputValue(AbstractControl $input,$value)
+    protected function preprocessInputValue(DataUnitComponentInterface $input,$value)
     {
-        if(is_string($value))
+        // TODO: decide what interface to put this in
+        if($input instanceof AbstractControl)
         {
-            // trim the raw value
-            if($input->shouldTrimValue())
+            if(is_string($value))
             {
-                $value = trim($value);
-            }
+                // trim the raw value
+                if($input->shouldTrimValue())
+                {
+                    $value = trim($value);
+                }
 
-            // if the value is an empty string, and that is considered empty, return null
-            if($input->emptyStringIsValue() === false && strlen($value) === 0)
-            {
-                return null;
-            }
+                // if the value is an empty string, and that is considered empty, return null
+                if($input->emptyStringIsValue() === false && strlen($value) === 0)
+                {
+                    return null;
+                }
 
-            return $value;
+                return $value;
+            }
         }
 
         return null;
