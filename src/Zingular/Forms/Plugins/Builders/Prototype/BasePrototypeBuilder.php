@@ -97,7 +97,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
             ->setCssBaseTypeClass('fieldset')
             ->setViewName(View::FIELDSET)
             ->setComponentBaseType('fieldset')
-            ->setBuilder(Builder::FIELDSET)
+            ->setPrebuilder(Builder::FIELDSET)
             ->setErrorBuilder(Builder::ERROR);
     }
 
@@ -110,7 +110,7 @@ class BasePrototypeBuilder implements PrototypeBuilderInterface
             ->setCssBaseTypeClass('field')
             ->setViewName(View::FIELD)
             ->setComponentBaseType('field')
-            ->setBuilder(Builder::FIELD,$post = true)
+            ->setPostbuilder(Builder::FIELD)
             ->setErrorBuilder(Builder::ERROR);
     }
 

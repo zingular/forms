@@ -10,6 +10,7 @@ namespace Zingular\Forms\Compilers;
 use Zingular\Forms\Component\Containers\Aggregator;
 use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\FormState;
+use Zingular\Forms\Exception\ComponentException;
 
 /**
  * Class AggregatorCompiler
@@ -38,11 +39,13 @@ class AggregatorCompiler
     }
 
     /**
+     * @param Compiler $compiler
      * @param Aggregator $input
      * @param FormState $state
      * @param array $defaultValues
+     * @throws ComponentException
      */
-    public function compile(Aggregator $input,FormState $state,array $defaultValues)
+    public function compile(Compiler $compiler,Aggregator $input,FormState $state,array $defaultValues)
     {
         $aggregatorType = $input->getAggregationStrategy();
 
@@ -76,7 +79,7 @@ class AggregatorCompiler
         }
 
         // compile as container
-        $this->containerCompiler->compile($input,$state,$defaultValues);
+        $this->containerCompiler->compile($compiler,$input,$state,$defaultValues);
 
         // compile as control
         $this->controlCompiler->compile($input,$state,$defaultValue);

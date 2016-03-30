@@ -5,6 +5,8 @@ use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
 use Zingular\Forms\Component\ConditionableTrait;
 use Zingular\Forms\Component\CssComponentTrait;
+use Zingular\Forms\Component\ErrorComponentInterface;
+use Zingular\Forms\Component\ErrorComponentTrait;
 use Zingular\Forms\Component\HtmlAttributesInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\TranslatableComponentInterface;
@@ -28,7 +30,8 @@ abstract class AbstractElement implements
     ConditionableInterface,
     EventDispatcherInterface,
     TranslatableComponentInterface,
-    TypedComponentInterface
+    TypedComponentInterface,
+    ErrorComponentInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
@@ -37,6 +40,7 @@ abstract class AbstractElement implements
     use ConditionableTrait;
     use EventDispatcherTrait;
     use TypedComponentTrait;
+    use ErrorComponentTrait;
 
     /**
      * @var string

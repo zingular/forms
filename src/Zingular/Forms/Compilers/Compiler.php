@@ -11,10 +11,13 @@ namespace Zingular\Forms\Compilers;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\Containers\Aggregator;
 use Zingular\Forms\Component\Containers\ContainerInterface;
+use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Controls\AbstractControl;
+use Zingular\Forms\Component\ErrorComponentInterface;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Exception\ComponentException;
+use Zingular\Forms\Exception\FormException;
 
 /**
  * Class Compiler
@@ -42,25 +45,40 @@ class Compiler
      */
     public function compile(ComponentInterface $component,FormState $state,array $defaultValues)
     {
-        if($component instanceof Aggregator) // TODO: convert to interface
+        try
         {
-            $this->compileAggregator($component,$state,$defaultValues);
+            if($component instanceof Aggregator) // TODO: convert to interface
+            {
+                $this->compileAggregator($component,$state,$defaultValues);
+            }
+            elseif($component instanceof ContainerInterface)
+            {
+                $this->compileContainer($component,$state,$defaultValues);
+            }
+            elseif($component instanceof AbstractControl) // TODO: convert to interface
+            {
+                $this->compileControl($component,$state,$defaultValues);
+            }
+            elseif($component instanceof Content) // TODO: convert to interface
+            {
+                $this->compileContent($component,$state);
+            }
+            else
+            {
+                // TODO: what to do?
+            }
         }
-        elseif($component instanceof ContainerInterface)
+        catch(FormException $e)
         {
-            $this->compileContainer($component,$state,$defaultValues);
-        }
-        elseif($component instanceof AbstractControl) // TODO: convert to interface
-        {
-            $this->compileControl($component,$state,$defaultValues);
-        }
-        elseif($component instanceof Content) // TODO: convert to interface
-        {
-            $this->compileContent($component,$state);
-        }
-        else
-        {
-            // TODO: what to do?
+            if($component instanceof ErrorComponentInterface)
+            {
+                $component->addError($e);
+            }
+
+            if($component instanceof CssComponentInterface)
+            {
+                $component->addCssClass('error');
+            }
         }
     }
 
@@ -71,7 +89,7 @@ class Compiler
      */
     protected function compileAggregator(Aggregator $component,FormState $state,array $defaultValues)
     {
-        $this->pool->getAggregatorCompiler()->compile($component,$state,$defaultValues);
+        $this->pool->getAggregatorCompiler()->compile($this,$component,$state,$defaultValues);
     }
 
     /**
@@ -81,7 +99,7 @@ class Compiler
      */
     protected function compileContainer(ContainerInterface $component,FormState $state,array $defaultValues)
     {
-        $this->pool->getContainerCompiler()->compile($component,$state,$defaultValues);
+        $this->pool->getContainerCompiler()->compile($this,$component,$state,$defaultValues);
     }
 
     /**
@@ -92,7 +110,8 @@ class Compiler
      */
     protected function compileControl(AbstractControl $component,FormState $state,array $defaultValues)
     {
-        $this->pool->getControlCompiler()->compile($component,$state,$defaultValues);
+        $defaultValue = array_key_exists($component->getName(),$defaultValues) ? $defaultValues[$component->getName()] : null;
+        $this->pool->getControlCompiler()->compile($component,$state,$defaultValue);
     }
 
     /**

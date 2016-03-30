@@ -8,8 +8,7 @@
 
 namespace Zingular\Forms\Component;
 
-use Zingular\Forms\Exception\ComponentException;
-use Zingular\Forms\Exception\FormException;
+
 use Zingular\Forms\Service\Evaluation\FilterConfig;
 use Zingular\Forms\Service\Evaluation\ValidatorConfig;
 

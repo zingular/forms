@@ -85,7 +85,7 @@ class CompilerPool
 
 
     /**
-     * @return ControlCompiler
+     * @return AggregatorCompiler
      */
     public function getAggregatorCompiler()
     {

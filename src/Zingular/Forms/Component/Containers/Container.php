@@ -23,6 +23,9 @@ use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
 use Zingular\Forms\Component\CssComponentInterface;
+use Zingular\Forms\Component\ErrorComponentInterface;
+use Zingular\Forms\Component\ErrorComponentTrait;
+use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\TranslatableComponentInterface;
 use Zingular\Forms\Component\TypedComponentInterface;
@@ -46,9 +49,11 @@ class Container extends AbstractContainer implements
     CssComponentInterface,
     ViewableComponentInterface,
     ConditionableInterface,
-    ErrorContainerInterface,
     TranslatableComponentInterface,
-    TypedComponentInterface
+    TypedComponentInterface,
+    ErrorComponentInterface,
+    PrebuildableInterface,
+    PostbuildableInterface
 {
     use ComponentTrait;
     use ViewSetterTrait;
@@ -57,6 +62,7 @@ class Container extends AbstractContainer implements
     use ConditionableTrait;
     use EventDispatcherTrait;
     use TypedComponentTrait;
+    use ErrorComponentTrait;
 
     /**
      * @var string
@@ -64,12 +70,12 @@ class Container extends AbstractContainer implements
     protected $translationKey = '{parentId}.{id}';
 
     /**
-     * @var BuilderInterface
+     * @var string
      */
     protected $preBuilder;
 
     /**
-     * @var BuilderInterface
+     * @var string
      */
     protected $postBuilder;
 
@@ -82,11 +88,6 @@ class Container extends AbstractContainer implements
      * @var string
      */
     protected $errorBuilder;
-
-    /**
-     * @var array
-     */
-    protected $errors = array();
 
     /**
      * @var bool
@@ -163,6 +164,20 @@ class Container extends AbstractContainer implements
         return $component;
     }
 
+
+    public function resetAdoptionHistory()
+    {
+        $this->adoptionHistory = array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdoptionHistory()
+    {
+        return $this->adoptionHistory;
+    }
+
     /**
      * @return Context
      */
@@ -199,20 +214,21 @@ class Container extends AbstractContainer implements
 
     /**
      * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
-     * @param bool $post
      * @return $this
      */
-    public function setBuilder($builder = null,$post = false)
+    public function setPrebuilder($builder = null)
     {
-        if($post)
-        {
-            $this->postBuilder = $builder;
-        }
-        else
-        {
-            $this->preBuilder = $builder;
-        }
+        $this->preBuilder = $builder;
+        return $this;
+    }
 
+    /**
+     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
+     * @return $this
+     */
+    public function setPostbuilder($builder = null)
+    {
+        $this->postBuilder = $builder;
         return $this;
     }
 
@@ -235,6 +251,38 @@ class Container extends AbstractContainer implements
     }
 
     /**
+     * @return BuilderInterface
+     */
+    public function getPrebuilder()
+    {
+        return $this->preBuilder;
+    }
+
+    /**
+     * @return BuilderInterface
+     */
+    public function getPostbuilder()
+    {
+        return $this->postBuilder;
+    }
+
+    /**
+     * @param FormState $state
+     */
+    public function preBuild(FormState $state)
+    {
+
+    }
+
+    /**
+     * @param FormState $state
+     */
+    public function postBuild(FormState $state)
+    {
+
+    }
+
+    /**
      * @param array|callable $options
      * @param string $mode
      * @return $this
@@ -243,30 +291,6 @@ class Container extends AbstractContainer implements
     {
         $this->optionsProvider = new OptionsProvider($options,$mode);
         return $this;
-    }
-
-    /**
-     * @param bool $recursive
-     * @return array
-     */
-    public function getErrors($recursive = false)
-    {
-        // TODO: merge with errors of child containers i.c.w. showErrors
-        return $this->errors;
-    }
-
-    /**
-     * @param bool $recursive
-     * @return bool
-     */
-    public function hasErrors($recursive = false)
-    {
-        if($recursive)
-        {
-
-        }
-
-        return count($this->errors) > 0;
     }
 
     /**

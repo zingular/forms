@@ -122,6 +122,8 @@ class Form extends Container implements
      */
     public function hasSubmit()
     {
+        // temp
+        //return count($_POST) > 0;
         return $this->getFormState()->getInput('FORM_SUBMITTED') === $this->getId();
     }
 
@@ -322,7 +324,7 @@ class Form extends Container implements
     /**
      * @param FormState $state
      */
-    protected function preBuild(FormState $state)
+    public function preBuild(FormState $state)
     {
         // add form submitted hidden field
         $this->addHidden('FORM_SUBMITTED')
@@ -335,8 +337,6 @@ class Form extends Container implements
         // add csrf field
         $this->addHidden($handler->generateTokenFieldname($handler->generateToken($this->getId()),$this->getId()))
             ->ignoreValue();
-
-
     }
 
     /**

@@ -40,13 +40,6 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
 
     /**
      * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
-     * @param bool $post
-     * @return $this
-     */
-    public function setBuilder($builder = null,$post = false);
-
-    /**
-     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
      */
     public function setErrorBuilder($builder);
 
@@ -70,12 +63,6 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
      * @return $this
      */
     public function removeComponent($name);
-
-    /**
-     * @param bool $recursive
-     * @return array
-     */
-    public function getErrors($recursive = false);
 
     /**
      * @param $show

@@ -23,19 +23,18 @@ class ControlCompiler
     /**
      * @param DataUnitComponentInterface $input
      * @param FormState $state
-     * @param array $defaultValues
+     * @param mixed $defaultValue
      * @throws ComponentException
      */
-    public function compile(DataUnitComponentInterface $input,FormState $state,array $defaultValues)
+    public function compile(DataUnitComponentInterface $input,FormState $state,$defaultValue = null)
     {
         // extract the input name
-        $name = $input->getName();
         $fullName = $input->getFullName();
 
         // if there was a form scope default value provided, set that
-        if(array_key_exists($name,$defaultValues) && !is_null($defaultValues[$name]))
+        if(!is_null($defaultValue))
         {
-            $input->setValue($defaultValues[$name]);
+            $input->setValue($defaultValue);
         }
 
         // if there was a submit

@@ -98,7 +98,7 @@ class TestFormBuilder2 implements FormBuilderInterface
         $form->addFieldset('fsDates')
             ->addRow('dates')
                 ->addAggregator('birthday')
-                    ->setBuilder(Builder::DATE_TIME_SELECT)
+                    ->setPrebuilder(Builder::DATE_TIME_SELECT)
                     ->setAggregationType(Aggregation::DATE_TIME_SELECT)
                     ->setConverter(Converter::TIMESTAMP_TO_STRING)
                 ->nextParent()

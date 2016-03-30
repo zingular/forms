@@ -7,13 +7,12 @@
  */
 
 namespace Zingular\Forms\Component\Elements\Contents;
-use Zingular\Forms\Compilers\ContentCompiler;
+
 use Zingular\Forms\Component\DescribableInterface;
 use Zingular\Forms\Component\Elements\AbstractElement;
-use Zingular\Forms\Component\FormState;
+
 use Zingular\Forms\Component\CssComponentInterface;
-use Zingular\Forms\Events\ComponentEvent;
-use Zingular\Forms\Exception\ComponentException;
+
 
 /**
  * Class Content
