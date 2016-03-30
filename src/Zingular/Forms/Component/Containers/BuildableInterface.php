@@ -57,13 +57,6 @@ interface BuildableInterface extends ContainerInterface,PositionableInterface,Ev
     public function addBuilder($builder);
 
     /**
-     * @param SimpleBuilderInterface $builder
-     * @param $params
-     * @return $this
-     */
-    public function applyBuilder(SimpleBuilderInterface $builder,...$params);
-
-    /**
      * @return $this
      */
     public function setOptions($options);

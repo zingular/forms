@@ -243,6 +243,8 @@ class Form extends Container implements
      */
     public function compile(FormState $state,array $defaultValues = array())
     {
+
+
         // TODO: make protected, and remove from all other components
 
         // TODO: loopt through all children and use fixed set of compilers to compile each child (recursively)
@@ -257,7 +259,13 @@ class Form extends Container implements
 
             // TODO: do CSRF check
 
-            parent::compile($state,$defaultValues);
+
+            // run the compiler
+            $compiler = $state->getServices()->getCompiler();
+            $compiler->compile($this,$state,$defaultValues);
+
+
+            //parent::compile($state,$defaultValues);
 
             // if form was submitted
             if($this->hasSubmit())

@@ -3,15 +3,12 @@
 namespace Zingular\Forms\Component\Containers;
 
 use Zingular\Forms\BaseTypes;
-use Zingular\Forms\Component\CompilableComponentInterface;
 use Zingular\Forms\Component\ComponentInterface;
 use Zingular\Forms\Component\ComponentTrait;
 use Zingular\Forms\Component\ConditionableInterface;
 use Zingular\Forms\Component\ConditionableTrait;
 use Zingular\Forms\Component\Context\Context;
 use Zingular\Forms\Component\CssComponentTrait;
-use Zingular\Forms\Component\DataComponentInterface;
-use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\Elements\Contents\Content;
 use Zingular\Forms\Component\Elements\Contents\Html;
 use Zingular\Forms\Component\Elements\Contents\HtmlTag;
@@ -25,15 +22,11 @@ use Zingular\Forms\Component\Elements\Controls\Hidden;
 use Zingular\Forms\Component\Elements\Controls\Input;
 use Zingular\Forms\Component\Elements\Controls\Select;
 use Zingular\Forms\Component\Elements\Controls\Textarea;
-use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Component\CssComponentInterface;
 use Zingular\Forms\Component\HtmlAttributesTrait;
 use Zingular\Forms\Component\TranslatableComponentInterface;
 use Zingular\Forms\Component\TypedComponentInterface;
 use Zingular\Forms\Component\TypedComponentTrait;
-use Zingular\Forms\CssClass;
-use Zingular\Forms\Events\ComponentEvent;
-use Zingular\Forms\Events\ContainerEvent;
 use Zingular\Forms\Events\EventDispatcherTrait;
 use Zingular\Forms\OptionMode;
 use Zingular\Forms\Plugins\Builders\Options\OptionsProvider;
@@ -49,7 +42,6 @@ use Zingular\Forms\Plugins\Builders\Container\SimpleBuilderInterface;
  * @package Zingular\Form
  */
 class Container extends AbstractContainer implements
-    DataComponentInterface,
     BuildableInterface,
     CssComponentInterface,
     ViewableComponentInterface,
@@ -243,18 +235,6 @@ class Container extends AbstractContainer implements
     }
 
     /**
-     * @param SimpleBuilderInterface $builder
-     * @param $params
-     * @return $this
-     * @throws FormException
-     */
-    public function applyBuilder(SimpleBuilderInterface $builder,...$params)
-    {
-        $this->applyBuilderType($builder);
-        return $this;
-    }
-
-    /**
      * @param array|callable $options
      * @param string $mode
      * @return $this
@@ -264,250 +244,6 @@ class Container extends AbstractContainer implements
         $this->optionsProvider = new OptionsProvider($options,$mode);
         return $this;
     }
-
-    /**
-     * @param string|SimpleBuilderInterface|BuilderInterface|callable $builder
-     * @param array $args
-     * @return $this
-     * @throws FormException
-     */
-    protected function applyBuilderType($builder,array $args = array())
-    {
-        // callable
-        if(is_callable($builder))
-        {
-            if(is_null($this->state))
-            {
-                array_unshift($args,$this);
-                call_user_func_array($builder,$args);
-            }
-            else
-            {
-                array_unshift($args,$this,$this->state);
-                call_user_func_array($builder,$args);
-            }
-
-            return $this;
-        }
-
-        // builder is a type string, create a builder from it using the factory
-        if(is_string($builder))
-        {
-            $builder = $this->getBuilders()->get($builder);
-        }
-
-        // if it is a simple builder
-        if($builder instanceof SimpleBuilderInterface)
-        {
-            $builder->build($this,$args);
-        }
-        // if it is a runtime builder, also provide the state
-        elseif($builder instanceof BuilderInterface)
-        {
-            // check if there actually is a form state
-            if(is_null($this->state))
-            {
-                throw new FormException(sprintf("Cannot apply builder of type BuilderInterface: runtime builders can only be applied run-time, not definition-time (%s). Use instance of SimpleBuilderInterface instead!",get_class($builder)));
-            }
-
-            // apply the runtime builder
-            $builder->build($this,$this->state,$args);
-        }
-        // if anyting else: throw exception
-        else
-        {
-            throw new FormException(sprintf("Incorrect builder argument type (should be one of: string, (Runtime)SimpleBuilderInterface, callable, got '%s')",is_object($builder) ? get_class($builder) : gettype($builder)));
-        }
-
-        return $this;
-    }
-
-
-    /***************************************************************
-     * COMPILATION
-     **************************************************************/
-
-    /**
-     * @param FormState $state
-     * @param array $defaultValues
-     * @throws FormException
-     */
-    public function compile(FormState $state,array $defaultValues = array())
-    {
-        // set the form context locally
-        $this->state = $state;
-
-        // perform hard-coded pre-buildPrototypes actions
-        $this->preBuild($state);
-
-        // apply prebuilder
-        if(!is_null($this->preBuilder))
-        {
-            $this->applyBuilderType($this->preBuilder);
-        }
-
-        // preBuild using the set builder
-        foreach($this->builderTypes as $builder)
-        {
-            $this->applyBuilderType($builder);
-        }
-
-        // dispatch event
-        $this->dispatchEvent(new ContainerEvent(ContainerEvent::PRE_BUILD,$this));
-
-        // compile children
-        $this->compileChildren($this->components,$state,$defaultValues);
-
-        // init the adoption history
-        $this->adoptionHistory = array();
-
-        // apply postbuilder (after all nested, recursive children are built, and values are collected, cannot add data components anymore!)
-        if(!is_null($this->postBuilder))
-        {
-            $this->applyBuilderType($this->postBuilder);
-        }
-
-        // perform hard-coded post-buildPrototypes actions
-        $this->postBuild($state);
-
-        // dispatch event
-        $this->dispatchEvent(new ContainerEvent(ContainerEvent::POST_BUILD,$this));
-
-        // compile any newly adopted children during post-build
-        $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
-
-        // reset the adoption history
-        $this->adoptionHistory = array();
-
-        // process any errors found during compilation
-        $this->processErrors();
-
-        // compile the errors
-        $this->compileChildren($this->adoptionHistory,$state,$defaultValues);
-
-        // dispatchEvent event
-        $this->dispatchEvent(new ComponentEvent(ComponentEvent::COMPILED,$this));
-    }
-
-    /**
-     * @param array $children
-     * @param FormState $state
-     * @param array $defaultValues
-     */
-    protected function compileChildren(array $children,FormState $state,array $defaultValues = array())
-    {
-        foreach($children as $component)
-        {
-            if($component instanceof ComponentInterface)
-            {
-                // compile the child component
-                try
-                {
-                    // if it is a data component, compile with default values
-                    if($component instanceof DataComponentInterface)
-                    {
-                        $component->compile($state,$defaultValues);
-                    }
-                    // if it is a regular compilable component, compile with state only
-                    elseif($component instanceof CompilableComponentInterface)
-                    {
-                        $component->compile($state);
-                    }
-
-                    // TODO: move to containing class? now, form cannot have conditions itself (or manually re-implement that in its compile method?)
-                    if($component instanceof ConditionableInterface)
-                    {
-                        $component->applyConditions($state);
-                    }
-                }
-                // catch any errors during child compilation
-                catch(FormException $e)
-                {
-                    if($component instanceof CssComponentInterface)
-                    {
-                        $component->addCssClass(CssClass::ERROR);
-                    }
-
-                    $this->errors[] = $e;
-                }
-
-                // collect the values of the child component
-                if($component instanceof DataUnitComponentInterface)
-                {
-                    // if its value should be ignored, return
-                    if(!$component->shouldIgnoreValue())
-                    {
-                        // store the value
-                        $this->storeValue($component);
-                    }
-                }
-
-                // add the child to the form state
-                $this->state->registerComponent($component);
-            }
-        }
-    }
-
-    /**
-     * @param DataUnitComponentInterface $child
-     */
-    protected function storeValue(DataUnitComponentInterface $child)
-    {
-        // DO NOTHING
-    }
-
-    /**
-     * Optionally perform mandatory, container type-specific preBuild operations
-     * @param FormState $context
-     */
-    protected function preBuild(FormState $context) {}
-
-    /**
-     * @param FormState $context
-     */
-    protected function postBuild(FormState $context) {}
-
-    /***************************************************************
-     * ERRORS
-     **************************************************************/
-
-    /**
-     * @throws FormException
-     */
-    protected function processErrors()
-    {
-        if($this->showErrors === self::ERRORS_CHILDREN)
-        {
-            $this->buildErrors($this->getErrors(false));
-        }
-        elseif($this->showErrors === self::ERRORS_DESCENDANTS)
-        {
-            $this->buildErrors($this->getErrors(true));
-        }
-    }
-
-    /**
-     * @param array $errors
-     * @throws FormException
-     */
-    protected function buildErrors(array $errors)
-    {
-        if(count($errors) === 0 || is_null($this->errorBuilder))
-        {
-            return;
-        }
-
-        // apply the error builder
-        $this->applyBuilderType($this->errorBuilder,array($errors));
-
-        // add error css class
-        if($this instanceof CssComponentInterface)
-        {
-            // mark this container to have errors
-            $this->addCssClass(CssClass::ERROR_CONTAINER);
-        }
-    }
-
 
     /**
      * @param bool $recursive

@@ -45,11 +45,6 @@ class Content extends AbstractElement implements
     protected $callback;
 
     /**
-     * @var ContentCompiler
-     */
-    protected $compiler;
-
-    /**
      * @param $key
      * @param array $params
      * @return $this
@@ -117,12 +112,7 @@ class Content extends AbstractElement implements
      */
     public function getContent()
     {
-        if(is_null($this->compiler))
-        {
-            throw new ComponentException($this,sprintf("Cannot retrieve content for component '%s': not compiled yet!",$this->getFullId()));
-        }
-
-        return $this->compiler->getContent();
+        return $this->content;
     }
 
     /**
@@ -136,24 +126,5 @@ class Content extends AbstractElement implements
             'fullName'=>$this->getFullId(),
             'type'=>get_class($this)
         );
-    }
-
-    /**
-     * @param FormState $state
-     * @return string
-     */
-    public function compile(FormState $state)
-    {
-        $this->compiler = new ContentCompiler($this,$state);
-
-
-        //$this->compiler->compile();
-
-        // store the state locally
-        $this->state = $state;
-
-        // dispatchEvent event
-        $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
-        $this->dispatchEvent($event);
     }
 }

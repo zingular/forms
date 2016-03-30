@@ -7,6 +7,8 @@
  */
 
 namespace Zingular\Forms\Compilers;
+use Zingular\Forms\Component\Containers\ContainerInterface;
+use Zingular\Forms\Component\FormState;
 
 /**
  * Class ContainerCompiler
@@ -14,5 +16,13 @@ namespace Zingular\Forms\Compilers;
  */
 class ContainerCompiler
 {
-    // TODO
+    /**
+     * @param ContainerInterface $container
+     * @param FormState $state
+     * @param array $defaultValues
+     */
+    public function compile(ContainerInterface $container,FormState $state,array $defaultValues)
+    {
+        
+    }
 }

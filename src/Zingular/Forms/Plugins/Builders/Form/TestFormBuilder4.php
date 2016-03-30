@@ -49,6 +49,7 @@ class TestFormBuilder4 implements FormBuilderInterface
         $wrapper->addInput('lala')
             ->setHtmlAttribute('placeholder','lala');
 
+
         $wrapper->addSubmit();
     }
 

@@ -2,7 +2,7 @@
 
 namespace Zingular\Forms\Component\Elements\Controls;
 
-use Zingular\Forms\Compilers\InputCompiler;
+use Zingular\Forms\Compilers\ControlCompiler;
 use Zingular\Forms\Component\ConvertableTrait;
 use Zingular\Forms\Component\DataUnitComponentInterface;
 use Zingular\Forms\Component\DescribableInterface;
@@ -76,28 +76,6 @@ abstract class AbstractControl extends AbstractElement implements
      * @var bool
      */
     protected $emptyStringIsValue = false;
-
-    /**
-     * @var InputCompiler
-     */
-    protected $compiler;
-
-    /**
-     * @param FormState $state
-     * @param array $defaultValues
-     * @return string
-     */
-    public function compile(FormState $state,array $defaultValues = array())
-    {
-        $this->compiler = new InputCompiler();
-
-        $this->compiler->compile($this,$state,$defaultValues);
-
-        // dispatchEvent event
-        $event = new ComponentEvent(ComponentEvent::COMPILED,$this);
-        $this->dispatchEvent($event);
-    }
-
 
     /***************************************************************
      * COMPILING
@@ -271,11 +249,6 @@ abstract class AbstractControl extends AbstractElement implements
      */
     public function getInputValue()
     {
-        if(is_null($this->compiler))
-        {
-            throw new ComponentException($this,sprintf("Cannot retrieve input value for component '%s': not compiled yet!",$this->getFullId()));
-        }
-
         if(!is_null($this->converterConfig))
         {
             $converter = $this->state->getServices()->getConverters()->get($this->converterConfig->getType());

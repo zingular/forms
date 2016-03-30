@@ -10,6 +10,7 @@ namespace Zingular\Forms\Compilers;
 
 
 use Zingular\Forms\Component\Elements\Contents\Content;
+use Zingular\Forms\Component\Elements\Contents\ContentInterface;
 use Zingular\Forms\Component\FormState;
 use Zingular\Forms\Exception\InvalidStateException;
 
@@ -20,44 +21,19 @@ use Zingular\Forms\Exception\InvalidStateException;
 class ContentCompiler
 {
     /**
-     * @var Content
-     */
-    protected $component;
-
-    /**
-     * @var FormState
-     */
-    protected $state;
-
-    /**
      * @param Content $component
      * @param FormState $state
-     */
-    public function __construct(Content $component,FormState $state)
-    {
-        $this->component = $component;
-        $this->state = $state;
-    }
-
-    /**
      * @return mixed|string
-     * @throws InvalidStateException
      */
-    public function getContent()
+    public function compile(Content $component,FormState $state) // TODO: typehint to interface
     {
-        if(!is_null($this->component->getFixedContent()))
+        if(!is_null($component->getContentCallback()))
         {
-            return $this->component->getFixedContent();
+            $component->setContent(call_user_func($component->getContentCallback(),$state,$this));
         }
-        elseif(!is_null($this->component->getContentCallback()))
+        elseif(!is_null($component->getTranslationKey()))
         {
-            return call_user_func($this->component->getContentCallback(),$this->state,$this);
+            $component->setContent($state->getServices()->getTranslator()->translateRaw($component->getTranslationKey(),$component,$state,$component->getTranslationParams()));
         }
-        elseif(!is_null($this->component->getTranslationKey()))
-        {
-            return $this->state->getServices()->getTranslator()->translateRaw($this->component->getTranslationKey(),$this->component,$this->state,$this->component->getTranslationParams());
-        }
-
-        return '';
     }
 }

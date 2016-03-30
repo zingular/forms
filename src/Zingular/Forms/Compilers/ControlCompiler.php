@@ -11,10 +11,10 @@ use Zingular\Forms\Component\TranslatableComponentInterface;
 use Zingular\Forms\Exception\ComponentException;
 
 /**
- * Class InputCompiler
+ * Class ControlCompiler
  * @package Zingular\Forms\Compilers
  */
-class InputCompiler
+class ControlCompiler
 {
     // TODO: integrate with evaluation handler
 

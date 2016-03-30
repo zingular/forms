@@ -7,13 +7,12 @@
  */
 
 namespace Zingular\Forms\Component\Elements\Contents;
-use Zingular\Forms\Component\CompilableComponentInterface;
 
 /**
  * Interface ContentInterface
  * @package Zingular\Forms\Component\Element\Content
  */
-interface ContentInterface extends CompilableComponentInterface
+interface ContentInterface
 {
     /**
      * @return string

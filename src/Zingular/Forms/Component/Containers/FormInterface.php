@@ -8,8 +8,6 @@
 
 namespace Zingular\Forms\Component\Containers;
 
-use Zingular\Forms\Component\DataComponentInterface;
-
 /**
  * Interface FormInterface
  * @package Zingular\Forms\Component\Containers
@@ -17,8 +15,7 @@ use Zingular\Forms\Component\DataComponentInterface;
 interface FormInterface extends
     ConfigurableFormInterface,
     PrototypesInterface,
-    BuildableInterface,
-    DataComponentInterface
+    BuildableInterface
 {
     /**
      * @return bool

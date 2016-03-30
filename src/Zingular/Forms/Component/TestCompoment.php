@@ -14,7 +14,6 @@ namespace Zingular\Forms\Component;
  */
 class TestCompoment implements
     CssComponentInterface,
-    CompilableComponentInterface,
     ViewableComponentInterface
 {
     use ComponentTrait;
@@ -22,11 +21,4 @@ class TestCompoment implements
     use CssComponentTrait;
     // TODO: find a way to render view of custom components that only implement the base interfaces
 
-    /**
-     * @param FormState $state
-     */
-    public function compile(FormState $state)
-    {
-        // TODO: Implement compile() method.
-    }
 }

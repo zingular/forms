@@ -69,54 +69,9 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
      */
     protected $incompletionMode = IncompletionMode::IGNORE;
 
-    /**
-     * @param FormState $state
-     * @param array $defaultValues
-     * @return string
-     */
-    public function compile(FormState $state,array $defaultValues = array())
-    {
-        // store the form context locally
-        $this->state = $state;
-
-        // default value
-        $defaultValue = null;
-
-        // extract the default value for this aggregator from the default values
-        if(array_key_exists($this->getName(),$defaultValues))
-        {
-            // set the default value from the set value
-            $defaultValue = $defaultValues[$this->getName()];
-
-            // overwrite the default values by de-aggregating the default value
-            $defaultValues = $this->deaggregate($this->decodeValue($defaultValue));//$this->getAggregationStrategy()->deaggegate($this->decodeValue($defaultValue),$this);
-
-
-            // TODO: apply native deaggregation here
-
-            if(!is_array($defaultValues))
-            {
-                $defaultValues = array();
-            }
-        }
-        // if there was no default value provided for this aggregator, there are no default values to be set for childs
-        else
-        {
-            $defaultValues = array();
-        }
-
-        // compile the parent using the de-aggregated value as default values for child components
-        parent::compile($state,$defaultValues);
-
-        // make sure the value is collected, with the collected default value
-        $this->retrieveValue($defaultValue);
-    }
-
     /***********************************************************************
      * VALUE RETRIEVING
      **********************************************************************/
-
-
 
     /**
      * @param FormState $state
@@ -178,24 +133,6 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
      **********************************************************************/
 
     /**
-     * @param $value
-     * @return mixed
-     */
-    protected function aggregate($value)
-    {
-        return $this->getAggregationStrategy()->aggregate($value,$this);
-    }
-
-    /**
-     * @param $value
-     * @return array
-     */
-    protected function deaggregate($value)
-    {
-        return $this->getAggregationStrategy()->deaggegate($value,$this);
-    }
-
-    /**
      * @param string $strategy
      * @return $this
      */
@@ -237,13 +174,9 @@ class Aggregator extends Container implements DataUnitComponentInterface,Require
      * @return AggregatorInterface
      * @throws FormException
      */
-    protected function getAggregationStrategy()
+    public function getAggregationStrategy()
     {
-        if(is_null($this->aggregator))
-        {
-            $this->aggregator = $this->getAggregators()->get($this->aggregatorType);
-        }
-        return $this->aggregator;
+        return $this->aggregatorType;
     }
 
     /***********************************************************************

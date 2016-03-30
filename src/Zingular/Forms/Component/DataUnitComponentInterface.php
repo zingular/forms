@@ -12,7 +12,7 @@ namespace Zingular\Forms\Component;
  * Interface DataUnitComponentInterface
  * @package Zingular\Form\Component
  */
-interface DataUnitComponentInterface extends DataComponentInterface,ConvertableInterface
+interface DataUnitComponentInterface extends ConvertableInterface
 {
     /**
      * @return mixed

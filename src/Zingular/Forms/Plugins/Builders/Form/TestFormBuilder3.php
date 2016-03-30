@@ -45,8 +45,7 @@ class TestFormBuilder3 implements FormBuilderInterface
             ->ifCondition(Condition::FIELD_VALUE,'firstname',Validator::STARTS_WITH,'m')
                 ->addSelect('gender')->next()
             ->endCondition()
-            ->addInput('jaja')->setValue('jaja');
-
+            ->addInput('jaja')->setValue('jaja')->next();
     }
 
     /**
@@ -76,6 +75,9 @@ class TestFormBuilder3 implements FormBuilderInterface
                             throw new FilterException('myType',array('test'=>$value));
                         })
                     ->nextParent()
+                        ->addAggregator('testAggregator')
+                            ->addInput('test1')->next()
+                            ->addInput('test2')->nextParent()
             ->addButton('submit');
 
 

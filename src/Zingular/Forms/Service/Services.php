@@ -7,6 +7,9 @@
  */
 
 namespace Zingular\Forms\Service;
+use Zingular\Forms\Compilers\Compiler;
+use Zingular\Forms\Compilers\CompilerFactory;
+use Zingular\Forms\Compilers\CompilerPool;
 use Zingular\Forms\Plugins\Builders\Form\FormBuilderInterface;
 use Zingular\Forms\Plugins\Conditions\ConditionTypeInterface;
 use Zingular\Forms\Plugins\Converters\ConverterTypeInterface;
@@ -140,6 +143,11 @@ class Services implements ServicesInterface
     protected $converterFactory;
 
     /**
+     * @var CompilerFactory
+     */
+    protected $compilerFactory;
+
+    /**
      * @var FilterPool
      */
     protected $filters;
@@ -170,6 +178,11 @@ class Services implements ServicesInterface
     protected $aggregators;
 
     /**
+     * @var CompilerPool
+     */
+    protected $compilers;
+
+    /**
      * @var EvaluationHandler
      */
     protected $evaluationHandler;
@@ -178,6 +191,11 @@ class Services implements ServicesInterface
      * @var WildcardReplacer
      */
     protected $translationWildcardReplacer;
+
+    /**
+     * @var Compiler
+     */
+    protected $compiler;
 
     /**********************************************************************
      * COMPONENT ADDERS
@@ -450,6 +468,19 @@ class Services implements ServicesInterface
         return $this->evaluationHandler;
     }
 
+    /**
+     * @return Compiler
+     */
+    public function getCompiler()
+    {
+        if(is_null($this->compiler))
+        {
+            $this->compiler = new Compiler($this->getCompilers());
+        }
+
+        return $this->compiler;
+    }
+
     /**********************************************************************
      * POOL GETTERS
      *********************************************************************/
@@ -545,6 +576,19 @@ class Services implements ServicesInterface
         return $this->converters;
     }
 
+    /**
+     *
+     */
+    protected function getCompilers()
+    {
+        if(is_null($this->compilers))
+        {
+            $this->compilers = new CompilerPool($this->getCompilerFactory());
+        }
+
+        return $this->compilers;
+    }
+
     /**********************************************************************
      * FACTORY GETTERS
      *********************************************************************/
@@ -560,6 +604,19 @@ class Services implements ServicesInterface
         }
 
         return $this->componentFactory;
+    }
+
+    /**
+     *
+     */
+    protected function getCompilerFactory()
+    {
+        if(is_null($this->compilerFactory))
+        {
+            $this->compilerFactory = new CompilerFactory();
+        }
+
+        return $this->compilerFactory;
     }
 
     /**

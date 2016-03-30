@@ -11,6 +11,7 @@ namespace Zingular\Forms;
 use Zingular\Forms\Extension\TestExtension;
 
 
+use Zingular\Forms\Plugins\Builders\Form\TestFormBuilder3;
 use Zingular\Forms\Plugins\Builders\Form\TestFormBuilder4;
 use Zingular\Forms\Service\Bridge\Orm\GetterSetterOrmHandler;
 use Zingular\Forms\Service\Bridge\Orm\OrmHandlerAggregator;
@@ -98,7 +99,7 @@ class TestScenario
         $model = new TestModel();
 
         // create a form
-        $form = $construct->buildForm(new TestFormBuilder4(),'testForm',$model);
+        $form = $construct->buildForm(new TestFormBuilder3(),'testForm',$model);
 
 
 
